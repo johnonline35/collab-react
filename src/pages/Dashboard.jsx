@@ -7,6 +7,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Avatar,
   Divider,
   Flex,
   Heading,
@@ -16,42 +17,33 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase/clientapp";
-import { useRecoilState } from "recoil";
-import { companyInfoState } from "../atoms/authAtom";
 import { FetchWrapper } from "../util/helper";
 import { DashboardLoader } from "./LazyLoadDashboard";
 
 export default function Dashboard() {
-  // const tasks = useLoaderData();
-  // const params = useParams();
-  const [companyInfo, setCompanyInfo] = useRecoilState(companyInfoState);
-  const [loadingCards, setLoadingCards] = useState();
-
-  // console.log(companyInfo);
+  const [companyInfo, setCompanyInfo] = useState(null);
+  const [loadingCards, setLoadingCards] = useState(false);
 
   const getCompanyTileInfo = async () => {
     FetchWrapper(
-      supabase.from("customer_table").select(),
-      supabase.from("rep_table").select()
+      supabase.from("attendee_companies").select(),
+      supabase.from("collab_users").select(),
+      supabase.from("collab_user_workspaces").select()
     ).then((results) => {
       // console.log("Check this one:", results);
       const [value1, value2] = results;
       const companyObject = value1.data;
-      const reps = value2.data;
+      const collabUser = value2.data;
       for (let i = 0; i < companyObject.length; i++) {
-        companyObject[i].rep = reps[0];
+        companyObject[i].collabUser = collabUser[0];
       }
-      // console.log(data);
+      console.log(results);
       setCompanyInfo(companyObject);
       setLoadingCards(false);
     });
   };
-  // const { data, error } = await supabase.from("customer_table").select();
-  // const { data: reps } = await supabase.from("rep_table").select();
 
   // TODO: Find rep based on ID
-
-  // .eq("customer_id", params.customer_id);
 
   useEffect(() => {
     setLoadingCards(true);
@@ -67,7 +59,7 @@ export default function Dashboard() {
       {companyInfo &&
         companyInfo.map((info) => (
           <Card
-            key={info.customer_id}
+            key={info.attendee_company_id}
             borderTop='8px'
             borderColor='blue.400'
             bg='white'
@@ -75,14 +67,14 @@ export default function Dashboard() {
           >
             <CardHeader>
               <Flex gap={5}>
-                {/* <Avatar src={info.img} /> */}
+                <Avatar src={info.attendee_company_avatar_url} />
                 <Box>
-                  <Link href={`/collabs/${info.customer_id}`}>
+                  <Link href={`/collabs/${info.attendee_company_id}`}>
                     <Heading as='h3' size='sm'>
-                      {info.customer_name}
+                      {info.attendee_company_name}
                     </Heading>
                   </Link>
-                  <Text>Led by {info.rep.rep_name}</Text>
+                  <Text>Led by {info.collabUser.collab_user_name}</Text>
                 </Box>
               </Flex>
             </CardHeader>
@@ -92,7 +84,7 @@ export default function Dashboard() {
 
             <Divider borderColor='gray.200' />
 
-            <CardFooter>
+            {/* <CardFooter>
               <HStack>
                 <Button
                   onClick={() => {}}
@@ -102,7 +94,7 @@ export default function Dashboard() {
                   View
                 </Button>
               </HStack>
-            </CardFooter>
+            </CardFooter> */}
           </Card>
         ))}
     </SimpleGrid>

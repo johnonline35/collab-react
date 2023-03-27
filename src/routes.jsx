@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/LazyLoadDashboard";
 
@@ -23,78 +23,139 @@ import CollabPagePricing from "./pages/collabs/CollabPagePricing";
 import CollabPageTimeline from "./pages/collabs/CollabPageTimeline";
 import CollabPageQuestions from "./pages/collabs/CollabPageQuestions";
 import CollabPageAllAttachments from "./pages/collabs/CollabPageAllAttachments";
-
-function getCookie(c_name) {
-  if (document.cookie.length > 0) {
-    let c_start = document.cookie.indexOf(c_name + "=");
-    if (c_start !== -1) {
-      c_start = c_start + c_name.length + 1;
-      let c_end = document.cookie.indexOf(";", c_start);
-      if (c_end === -1) {
-        c_end = document.cookie.length;
-      }
-      return unescape(document.cookie.substring(c_start, c_end));
-    }
-  }
-  return "";
-}
-
-// TODO: check on Supabase on how to get a token
+import CollabPageShowcase from "./pages/collabs/CollabPageShowcase";
+import { createCookie, PrivateRoute } from "./privateRoute";
+import { supabase } from "./supabase/clientapp";
 
 function Router() {
-  const isAuthenticated = getCookie("token");
+  async function supabaseCall() {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+    if (session) {
+      createCookie("token", session.access_token, session.expires_in);
+    }
+  }
+
+  useEffect(() => {
+    supabaseCall();
+  }, []);
+
   return (
     <Routes>
       <Route path='/' element={<Login />} />
       <Route
         path='/privacy'
-        element={isAuthenticated ? <Privacy /> : <Navigate to='/' replace />}
+        element={
+          <PrivateRoute>
+            <Privacy />
+          </PrivateRoute>
+        }
       />
-
+      {/* <Route exact path='/privacy' element={<PrivateRoute />}>
+        <Route path='' element={<Privacy />} />
+      </Route> */}
       <Route path='/termsofservice' element={<TermsOfService />} />
-      <Route path='/collabs/:customer_id' element={<CollabPageLayout />}>
-        <Route path='/collabs/:customer_id' element={<CollabPageHome />} />
-        <Route path='/collabs/:customer_id/team' element={<CollabPageTeam />} />
-        <Route path='/collabs/:customer_id/notes' element={<CollabPage />} />
+      <Route
+        path='/collabs/:attendee_company_id'
+        element={<CollabPageLayout />}
+      >
         <Route
-          path='/collabs/:customer_id/nextsteps'
+          path='/collabs/:attendee_company_id'
+          element={
+            <PrivateRoute>
+              <CollabPageHome />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/collabs/:attendee_company_id/team'
+          element={
+            <PrivateRoute>
+              <CollabPageTeam />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/collabs/:attendee_company_id/showcase'
+          element={<CollabPageShowcase />}
+        />
+        <Route
+          path='/collabs/:attendee_company_id/notes'
+          element={<CollabPage />}
+        />
+        <Route
+          path='/collabs/:attendee_company_id/nextsteps'
           element={<CollabPageNextSteps />}
         />
         <Route
-          path='/collabs/:customer_id/challenges'
+          path='/collabs/:attendee_company_id/challenges'
           element={<CollabPageChallenges />}
         />
         <Route
-          path='/collabs/:customer_id/proposals'
+          path='/collabs/:attendee_company_id/proposals'
           element={<CollabPageProposals />}
         />
         <Route
-          path='/collabs/:customer_id/currentstate'
+          path='/collabs/:attendee_company_id/currentstate'
           element={<CollabPageCurrentState />}
         />
         <Route
-          path='/collabs/:customer_id/legaldocuments'
+          path='/collabs/:attendee_company_id/legaldocuments'
           element={<CollabPageLegalDocuments />}
         />
         <Route
-          path='/collabs/:customer_id/pricing'
+          path='/collabs/:attendee_company_id/pricing'
           element={<CollabPagePricing />}
         />
         <Route
-          path='/collabs/:customer_id/timeline'
+          path='/collabs/:attendee_company_id/timeline'
           element={<CollabPageTimeline />}
         />
         <Route
-          path='/collabs/:customer_id/questions'
+          path='/collabs/:attendee_company_id/questions'
           element={<CollabPageQuestions />}
         />
         <Route
-          path='/collabs/:customer_id/allattachments'
+          path='/collabs/:attendee_company_id/allattachments'
           element={<CollabPageAllAttachments />}
         />
       </Route>
-      <Route path='/dashboard' element={<RootLayout />}>
-        <Route index element={<Dashboard />} />
+
+      {/* <Route index element={<Dashboard />} /> */}
+      <Route path='/newapp' element={<RootLayout />}>
+        <Route
+          index
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route
+          path='/dashboard/mastertodolist'
+          element={<MasterTodoList />}
+          action={createAction}
+        />
+        <Route path='/dashboard/account' element={<Account />} /> */}
+      </Route>
+
+      <Route
+        path='/dashboard'
+        element={
+          <PrivateRoute>
+            <RootLayout />
+          </PrivateRoute>
+        }
+      >
+        <Route
+          index
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
         <Route
           path='/dashboard/mastertodolist'
           element={<MasterTodoList />}

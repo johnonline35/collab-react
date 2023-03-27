@@ -1,9 +1,10 @@
 import React, { Suspense } from "react";
 import { Box, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+
 const LazyLoadDashboard = React.lazy(() => import("./Dashboard"));
 
 export function DashboardLoader() {
-  const noOfCards = Array(8).fill(0);
+  const noOfCards = Array(20).fill(0);
 
   return (
     <Box display='flex' flexWrap='wrap' justifyContent='space-between'>

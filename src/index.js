@@ -1,7 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  extendTheme,
+  theme as baseTheme,
+} from "@chakra-ui/react";
+import { theme as proTheme } from "@chakra-ui/pro-theme";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 
@@ -21,7 +26,12 @@ const fonts = {
   heading: "Courier New",
 };
 
-const theme = extendTheme(colors, fonts);
+const theme = extendTheme(
+  {
+    colors: { ...baseTheme.colors, brand: baseTheme.colors.blue },
+  },
+  proTheme
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

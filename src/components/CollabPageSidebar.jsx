@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/icons";
 import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import { NavLink, useParams } from "react-router-dom";
-import { FiDollarSign, FiUsers } from "react-icons/fi";
+import { FiDollarSign, FiUsers, FiShare } from "react-icons/fi";
 
 export default function Sidebar() {
   const params = useParams();
@@ -23,69 +23,75 @@ export default function Sidebar() {
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/team`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/team`}>
           <ListIcon as={FiUsers} color='white' />
           Team
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/notes`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/notes`}>
           <ListIcon as={EditIcon} color='white' />
           Notes
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/nextsteps`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/nextsteps`}>
           <ListIcon as={ArrowRightIcon} color='white' />
           Next Steps
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/challenges`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/challenges`}>
           <ListIcon as={QuestionOutlineIcon} color='white' />
           Challenges
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/proposals`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/proposals`}>
           <ListIcon as={SunIcon} color='white' />
           Proposals
         </NavLink>
       </ListItem>
       {/* <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/currentstate`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/currentstate`}>
           <ListIcon as={InfoOutlineIcon} color='white' />
           Current State
         </NavLink>
       </ListItem> */}
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/legaldocuments`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/legaldocuments`}>
           <ListIcon as={AtSignIcon} color='white' />
           Legal Documents
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/pricing`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/pricing`}>
           <ListIcon as={FiDollarSign} color='white' />
           Pricing
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/timeline`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/timeline`}>
           <ListIcon as={CalendarIcon} color='white' />
           Timeline(s)
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/questions`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/questions`}>
           <ListIcon as={ChatIcon} color='white' />
           Realtime Q&A
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to={`/collabs/${params.customer_id}/allattachments`}>
+        <NavLink to={`/collabs/${params.attendee_company_id}/allattachments`}>
           <ListIcon as={AttachmentIcon} color='white' />
           All Attachments
+        </NavLink>
+      </ListItem>
+      <ListItem>
+        <NavLink to={`/collabs/${params.attendee_company_id}/showcase`}>
+          <ListIcon as={FiShare} color='white' />
+          Collab Show Page
         </NavLink>
       </ListItem>
     </List>

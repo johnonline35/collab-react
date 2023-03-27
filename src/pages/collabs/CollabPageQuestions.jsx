@@ -6,8 +6,17 @@ export default function CollabPageQuestions() {
 
   return (
     <>
-      <Flex>
-        <Text>CollabPageQuestions for: {params.customer_id}</Text>
+      <Flex mb='20px'>
+        <Text>
+          All questions and answers of the Collab with{" "}
+          {params.attendee_company_id}
+        </Text>
+      </Flex>
+      <Flex mb='20px'>
+        <Text>
+          This page will list every question and answer email thread using #q to
+          nest the emails on this page
+        </Text>
       </Flex>
     </>
   );

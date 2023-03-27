@@ -12,11 +12,13 @@ import {
   ListIcon,
   ListItem,
   Tab,
+  Text,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
+import EditProfile from "../components/EditProfile";
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true);
@@ -83,7 +85,7 @@ export default function Account({ session }) {
   };
 
   return (
-    <Tabs mt='40px' p='20px' colorScheme='blue' variant='enclosed'>
+    <Tabs mt='10px' p='20px' colorScheme='blue' variant='enclosed'>
       <TabList>
         <Tab _selected={{ color: "white", bg: "blue.400" }}>
           Account Settings
@@ -93,44 +95,12 @@ export default function Account({ session }) {
 
       <TabPanels>
         <TabPanel>
-          <List spacing={4}>
-            <ListItem>
-              <ListIcon as={EmailIcon} />
-              Email: john@instantcollab.co
-            </ListItem>
-            <ListItem>
-              <ListIcon as={ChatIcon} />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-            <ListItem>
-              <ListIcon as={StarIcon} />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-          </List>
+          <Text>Edit Profile</Text>
+          <EditProfile />
         </TabPanel>
         <TabPanel>
-          <List spacing={4}>
-            <ListItem>
-              <ListIcon as={CheckCircleIcon} color='teal.400' />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckCircleIcon} color='teal.400' />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-            <ListItem>
-              <ListIcon as={WarningIcon} color='red.400' />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckCircleIcon} color='teal.400' />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-            <ListItem>
-              <ListIcon as={WarningIcon} color='red.400' />
-              Lorem ipsum dolor dit amet consectuor
-            </ListItem>
-          </List>
+          <Text>Add Profile</Text>
+          <EditProfile />
         </TabPanel>
       </TabPanels>
     </Tabs>
