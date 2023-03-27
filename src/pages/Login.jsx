@@ -17,7 +17,9 @@ export default function Login() {
     <>
       <Flex height='100vh' alignItems='center' justifyContent='center'>
         <Flex direction='column' bg='gray.100' p={12} rounded={6}>
-          <Heading mb={6}>Google Login</Heading>
+          <Text decoration='bold' fontSize='4xl' mb={6}>
+            Login to your account
+          </Text>
           <Flex direction='column' width='100%' mb={4}>
             <Button
               height='34px'
@@ -35,7 +37,7 @@ export default function Login() {
             </Button>
           </Flex>
           <Input
-            placeholder='name@email.com'
+            placeholder='email address'
             variant='filled'
             mb={3}
             type='email'
@@ -46,8 +48,8 @@ export default function Login() {
             mb={6}
             type='password'
           />
-          <Button colorScheme='blue'>Log in</Button>
-          <Flex textAlign='center' direction='row' p={5}>
+          <Button colorScheme='blue'>Continue with email</Button>
+          <Flex algin='center' justify='center' direction='row' p={5}>
             <NavLink style={{ marginRight: "2em" }} to='/privacy'>
               Privacy
             </NavLink>

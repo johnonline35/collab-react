@@ -1,16 +1,25 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, Outlet } from "react-router-dom";
 
-export const PrivateRoute = ({ element: Element, ...rest }) => {
-  //   let token = getCookie("token");
-  return (
-    <>
-      <Route
-        {...rest}
-        element={false ? <Element /> : <Navigate to='/' replace />}
-      />
-    </>
-  );
+export const PrivateRoute = ({ children }) => {
+  let token = getCookie("token");
+  return token ? <>{children}</> : <Navigate to='/' />;
+};
+
+export const createCookie = function (name, value, days) {
+  var expires;
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toGMTString();
+  } else {
+    expires = "";
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+};
+
+export const delete_cookie = (name) => {
+  document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 };
 
 function getCookie(c_name) {

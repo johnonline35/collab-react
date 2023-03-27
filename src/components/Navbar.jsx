@@ -10,43 +10,39 @@ import {
   useToast,
   Avatar,
   AvatarBadge,
+  Image,
+  Icon,
+  InputGroup,
+  InputLeftElement,
+  Input,
 } from "@chakra-ui/react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const showToast = () => {
-    toast({
-      title: "Logged out",
-      description: "Successfully logged out",
-      duration: 5000,
-      isClosable: true,
-      status: "success",
-      position: "top",
-      icon: <UnlockIcon />,
-    });
-  };
-
   return (
-    <Flex as='nav' p='10px' mb='40px' alignItems='center'>
-      <Heading as='h1'>Collab</Heading>
+    <Flex as='nav' p='0px' mb='20px' alignItems='center'>
+      <Image src='/img/collablogo-removebg.png' height='40px' />
       <Spacer />
 
       <HStack spacing='20px'>
+        <InputGroup maxW='xs'>
+          <InputLeftElement pointerEvents='none' mr='30px'>
+            <Icon as={FiSearch} color='muted' boxSize='5' />
+          </InputLeftElement>
+          <Input placeholder='Search' />
+        </InputGroup>
+        <Spacer />
         <Box bg='gray.200' p='10px'>
           <Text>Help?</Text>
         </Box>
-        {/* <Avatar name='John' src='/img/mario.png'>
-          <AvatarBadge width='1.3em' bg='red.500'>
-            <Text fontSize='xs' color='white'>
-              3
-            </Text>
-          </AvatarBadge>
-        </Avatar> */}
-        <Text>John Childs-Eddy: Account</Text>
+        {/* <Box>
+          <Text>John Childs-Eddy: Account</Text>
+        </Box> */}
         <Button
           colorScheme='blue'
           onClick={() =>
