@@ -7,19 +7,31 @@ import {
   HStack,
   Icon,
   Link,
+  List,
+  ListIcon,
+  ListItem,
   SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { members } from "./data";
+import { AttachmentIcon } from "@chakra-ui/icons";
+
+const Card = (props) => (
+  <Box minH='36' bg='bg-surface' boxShadow='sm' borderRadius='lg' {...props} />
+);
 
 export default function DisplayTeamCollabShowPage() {
   return (
     <Container
       py={{
-        base: "16",
-        md: "24",
+        base: "0",
+        md: "0",
+      }}
+      mb={{
+        base: "10",
+        md: "35",
       }}
     >
       <Stack
@@ -57,7 +69,7 @@ export default function DisplayTeamCollabShowPage() {
                   md: "md",
                 }}
               >
-                Meet your team
+                Meet your support team
               </Heading>
               <Text
                 fontSize={{
@@ -71,7 +83,7 @@ export default function DisplayTeamCollabShowPage() {
               </Text>
             </Stack>
           </Stack>
-          <Stack
+          {/* <Stack
             direction={{
               base: "column-reverse",
               md: "row",
@@ -85,7 +97,7 @@ export default function DisplayTeamCollabShowPage() {
             <Button variant='primary' size='lg'>
               Book a meeting
             </Button>
-          </Stack>
+          </Stack> */}
         </Stack>
         <SimpleGrid
           columns={{
@@ -132,6 +144,8 @@ export default function DisplayTeamCollabShowPage() {
                     </Box>
                   </Stack>
                   <Text color='muted'>{member.description}</Text>
+
+                  <Text color='muted'>{member.phone}</Text>
                 </Stack>
                 <HStack spacing='4' color='subtle'>
                   {[FaGithub, FaLinkedin, FaTwitter].map((item, id) => (
@@ -144,6 +158,14 @@ export default function DisplayTeamCollabShowPage() {
             </Box>
           ))}
         </SimpleGrid>
+        <Card p='12px' minH='xs'>
+          <List>
+            <ListItem>
+              <ListIcon as={AttachmentIcon} color='black' />
+              All Attachments
+            </ListItem>
+          </List>
+        </Card>
       </Stack>
     </Container>
   );

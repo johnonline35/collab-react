@@ -7,7 +7,7 @@ export default function CollabPageChallenges() {
   return (
     <>
       <Flex mb='20px'>
-        <Text>Challenges Page for: {params.customer_id}</Text>
+        <Text>Challenges Page for: {params.attendee_company_id}</Text>
       </Flex>
       <Flex mb='20px'>
         <Text>

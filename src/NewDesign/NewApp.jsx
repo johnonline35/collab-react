@@ -24,6 +24,7 @@ import { NavGroup } from "./NavGroup";
 import { NavItem } from "./NavItem";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { FiCheckCircle } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
 
 export function NewApp() {
   return (
@@ -34,7 +35,9 @@ export function NewApp() {
             <AccountSwitcher />
             <Stack spacing='8' flex='1' overflow='auto' pt='8'>
               <Stack spacing='1'>
-                <NavItem active icon={<HamburgerIcon />} label='Dashboard' />
+                <NavLink to='/dashboard'>
+                  <NavItem active icon={<HamburgerIcon />} label='Dashboard' />
+                </NavLink>
                 <NavItem icon={<FiCheckCircle />} label='Master ToDo List' />
               </Stack>
               {/* <NavGroup label='Your Accounts'>
@@ -45,7 +48,9 @@ export function NewApp() {
               </NavGroup> */}
 
               <NavGroup label='Team & Settings'>
-                <NavItem icon={<BiNews />} label='Your Account' />
+                <NavLink to='/dashboard/account'>
+                  <NavItem icon={<BiNews />} label='Your Account' />
+                </NavLink>
                 <NavItem icon={<BiEnvelope />} label='Your Team Members' />
                 <NavItem
                   icon={<BiPurchaseTagAlt />}

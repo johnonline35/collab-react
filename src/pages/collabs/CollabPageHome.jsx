@@ -1,25 +1,39 @@
 import {
-  Flex,
-  FormControl,
-  FormLabel,
-  Switch,
-  EditablePreview,
-  Editable,
-  EditableInput,
-  Spinner,
-  Heading,
-  Text,
-  Card,
+  Box,
   SimpleGrid,
   Stack,
-  Container,
+  ListIcon,
+  ListItem,
+  List,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  IconButton,
+  AlertDescription,
+  CloseButton,
   Button,
-  HStack,
+  Flex,
+  Spacer,
+  Editable,
+  EditablePreview,
+  EditableInput,
+  Text,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase/clientapp";
-import { FiDownloadCloud } from "react-icons/fi";
+import {
+  FiCheck,
+  FiCheckCircle,
+  FiDribbble,
+  FiSettings,
+  FiUsers,
+} from "react-icons/fi";
+import { TeamMemberStack } from "../../components/TeamMemberStack";
+import { NextStepsList } from "../../components/NextStepsList";
+import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
+import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
+import { TodoList } from "../../components/TodoList";
 
 export default function CollabPageHome() {
   const params = useParams();
@@ -27,14 +41,58 @@ export default function CollabPageHome() {
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
 
+  const getSupabaseData = async () => {
+    const { data, error } = await supabase
+      .from("collab_users")
+      .select("*, workspaces(*)");
+
+    //   .from("collab_users").select(
+    //     `
+    //   *,
+    //   workspaces:collab_users_id(*)
+    // `
+    //   );
+
+    //     .from("collab_users")
+    //     .select(
+    //       `
+    //   *,
+    //   workspaces(*)
+    // `
+    //     )
+    //     .eq("collab_users_id", collab_users_id)
+    //     .single();
+
+    if (error) {
+      console.log(error);
+    }
+
+    // .from("collab_users")
+    // .select(
+    //   `
+    //     workspaces!inner (
+    //       workspace_name,
+    //       workspace_momentum_score
+    //     ),
+    //     attendees!inner (
+    //       attendee_name,
+    //     )
+    //   `
+    // )
+    // .eq("workspaces.workspace_name", "Telstra")
+    // .execute();
+
+    console.log("Different log:", data);
+  };
+
   const getEmailLinkStateAndName = async () => {
     const { data, error } = await supabase
-      .from("attendee_companies")
+      .from("workspaces")
       .select()
-      .eq("attendee_company_id", params.attendee_company_id);
+      .eq("workspace_id", params.workspace_id);
 
-    setEmailLink(data[0].attendee_company_enable_calendar_link);
-    setCustomerName(data[0].attendee_company_name);
+    setEmailLink(data[0].workspace_attendee_enable_calendar_link);
+    setCustomerName(data[0].workspace_name);
 
     setLoadingToggle(false);
   };
@@ -42,125 +100,172 @@ export default function CollabPageHome() {
   useEffect(() => {
     setLoadingToggle(true);
     getEmailLinkStateAndName();
+    getSupabaseData();
   }, []);
 
-  useEffect(() => {
-    console.log(customerName);
-  }, [customerName]);
+  // useEffect(() => {
+  //   console.log(customerName);
+  // }, [customerName]);
+
+  const handleCustomerNameChange = useCallback((value) => {
+    setCustomerName(value);
+  }, []);
 
   const updateEmailToggle = async () => {
     // console.log("toggle");
     const { data, error } = await supabase
-      .from("attendee_companies")
-      .update({ attendee_company_enable_calendar_link: !emailLink })
-      .eq("attendee_company_id", params.attendee_company_id)
+      .from("workspaces")
+      .update({ workspace_attendee_enable_calendar_link: !emailLink })
+      .eq("workspace_id", params.workspace_id)
       .select();
 
-    setEmailLink(data[0].attendee_company_enable_calendar_link);
+    setEmailLink(data[0].workspace_attendee_enable_calendar_link);
   };
 
+  const Card = (props) => (
+    <Box
+      minH='36'
+      bg='bg-surface'
+      boxShadow='sm'
+      borderRadius='lg'
+      {...props}
+    />
+  );
+
   return (
-    <>
-      <Flex
-        as='section'
+    <Stack
+      spacing={{
+        base: "8",
+        lg: "6",
+      }}
+    >
+      <Stack
+        spacing='4'
         direction={{
           base: "column",
           lg: "row",
         }}
-        height='400vh'
-        bg='bg-canvas'
-        overflowY='auto'
+        justify='space-between'
+      ></Stack>
+      <Stack
+        spacing={{
+          base: "5",
+          lg: "6",
+        }}
       >
-        <Container py='8' flex='1'>
-          <Stack
-            spacing={{
-              base: "8",
-              lg: "6",
-            }}
-          >
-            <Stack
-              spacing='4'
-              direction={{
-                base: "column",
-                lg: "row",
-              }}
-              justify='space-between'
-              align={{
-                base: "start",
-                lg: "center",
-              }}
-            >
-              <Stack spacing='1'>
-                <Heading
-                  size={{
-                    base: "xs",
-                    lg: "sm",
-                  }}
-                  fontWeight='medium'
+        <SimpleGrid
+          columns={{
+            base: 1,
+            md: 3,
+          }}
+          gap='6'
+        >
+          <Card p='20px'>
+            <List>
+              <ListItem>
+                <ListIcon as={FiSettings} color='black' />
+                Settings for <Text as='b'>{customerName}</Text>
+              </ListItem>
+              <CollabWorkspaceSettings
+                customerName={customerName}
+                handleCustomerNameChange={handleCustomerNameChange}
+                emailLink={emailLink}
+                setEmailLink={setEmailLink}
+                updateEmailToggle={updateEmailToggle}
+                loadingToggle={loadingToggle}
+                workspace_id={params.workspace_id}
+              />
+              <ListItem>
+                <Flex direction='row' justify='space-between'>
+                  <Flex>
+                    <ListIcon as={FiDribbble} color='black' mt='5px' />
+                    Momentum
+                  </Flex>
+                  <CloseButton />
+                </Flex>
+              </ListItem>
+
+              <ListItem mt='20px'>
+                <Alert
+                  status='success'
+                  variant='subtle'
+                  flexDirection='column'
+                  alignItems='center'
+                  justifyContent='center'
+                  textAlign='center'
+                  height='200px'
                 >
-                  Dashboard
-                </Heading>
-                <Text color='muted'>All important metrics at a glance</Text>
-              </Stack>
-              <HStack spacing='3'></HStack>
-            </Stack>
-            <Stack
-              spacing={{
-                base: "5",
-                lg: "6",
-              }}
-            >
-              <SimpleGrid
-                columns={{
-                  base: 1,
-                  md: 3,
-                }}
-                gap='6'
-              >
-                <Card />
-                <Card />
-                <Card />
-              </SimpleGrid>
-            </Stack>
-            <Card minH='lg' />
-          </Stack>
-        </Container>
-      </Flex>
-    </>
+                  <AlertIcon boxSize='40px' mr={0} />
+                  <AlertTitle mt={4} mb={1} fontSize='lg'>
+                    Momentum is rolling!
+                  </AlertTitle>
+                  <AlertDescription maxWidth='sm'>
+                    Momentum has been building with this customer recently. Keep
+                    up the good work!
+                  </AlertDescription>
+                </Alert>
+              </ListItem>
+            </List>
+          </Card>
+          <Card p='12px'>
+            <List>
+              <Flex direction='row' justify='space-between'>
+                <ListItem mb='0px'>
+                  <ListIcon as={FiUsers} color='black' />
+                  Customer Team
+                </ListItem>
+                <Flex pr='10px' gap='2'>
+                  <Button variant='secondary' size='sm'>
+                    Book Meeting
+                  </Button>
+                  <Spacer />
+                  <IconButton
+                    size='sm'
+                    variant='secondary'
+                    icon={<DeleteIcon />}
+                  />
+                </Flex>
+              </Flex>
+              <TeamMemberStack mt='0px' />
+            </List>
+          </Card>
+          <Card p='12px'>
+            <List>
+              <Flex direction='row' justify='space-between'>
+                <ListItem>
+                  <ListIcon as={ArrowRightIcon} color='black' />
+                  Next Steps
+                </ListItem>
+                <Flex pr='10px' gap='2'>
+                  <Button variant='secondary' size='sm'>
+                    Create Briefing Doc
+                  </Button>
+                  <Spacer />
+                  <IconButton
+                    size='sm'
+                    variant='secondary'
+                    icon={<FiCheck />}
+                  />
+                </Flex>
+              </Flex>
+              <NextStepsList />
+              <ListItem>
+                <ListIcon as={FiCheckCircle} color='black' />
+                Todo List
+              </ListItem>
+              <TodoList />
+            </List>
+          </Card>
+        </SimpleGrid>
+      </Stack>
+      <Card p='12px' minH='xs'>
+        <List>
+          <ListItem>
+            <ListIcon as={AttachmentIcon} color='black' />
+            All Attachments
+          </ListItem>
+        </List>
+      </Card>
+    </Stack>
   );
-}
-
-{
-  /* <Flex direction='column' mb={5}> */
-}
-{
-  /* <Text>{customerName}</Text> */
-}
-{
-  /* <Text fontSize='2xl'>
-          <Editable maxWidth='400px' value={customerName}>
-            <EditablePreview />
-            <EditableInput
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-            />
-          </Editable>
-        </Text>
-      </Flex>
-
-      <FormControl display='flex' alignItems='center'>
-        <FormLabel htmlFor='email-alerts' mb='0'>
-          Enable calendar links?
-        </FormLabel>
-        {loadingToggle ? (
-          <Spinner />
-        ) : (
-          <Switch
-            id='email-alerts'
-            isChecked={emailLink}
-            onChange={() => updateEmailToggle()}
-            loading={loadingToggle}
-          />
-        )}
-      </FormControl> */
 }

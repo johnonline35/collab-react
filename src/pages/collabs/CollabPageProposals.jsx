@@ -7,7 +7,7 @@ export default function CollabPageProposals() {
   return (
     <>
       <Flex mb='20px'>
-        <Text>Proposals sent for: {params.customer_id}</Text>
+        <Text>Proposals sent for: {params.attendee_company_id}</Text>
       </Flex>
       <Flex direction='column' mb='20px'>
         <Text mb='10px'>

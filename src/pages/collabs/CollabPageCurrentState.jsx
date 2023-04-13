@@ -7,7 +7,9 @@ export default function CollabPageCurrentState() {
   return (
     <>
       <Flex mb='20px'>
-        <Text>Current State of the Collab with {params.customer_id}</Text>
+        <Text>
+          Current State of the Collab with {params.attendee_company_id}
+        </Text>
       </Flex>
       <Flex mb='20px'>
         <Text>

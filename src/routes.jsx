@@ -4,26 +4,22 @@ import Dashboard from "./pages/LazyLoadDashboard";
 
 // layouts and pages
 import RootLayout from "./layouts/RootLayout";
+
 // import { tasksLoader } from "./pages/Dashboard";
 import MasterTodoList, { createAction } from "./pages/MasterTodoList";
 import Account from "./pages/Account";
 import Login from "./pages/Login";
 import Privacy from "./pages/compliance/Privacy";
 import TermsOfService from "./pages/compliance/TermsOfService";
-import CollabPage from "./pages/collabs/CollabPageNotes";
 import CollabPageLayout from "./layouts/CollabPageLayout";
 import CollabPageTeam from "./pages/collabs/CollabPageTeam";
 import CollabPageHome from "./pages/collabs/CollabPageHome";
-import CollabPageChallenges from "./pages/collabs/CollabPageChallenges";
-import CollabPageNextSteps from "./pages/collabs/CollabPageNextSteps";
-import CollabPageProposals from "./pages/collabs/CollabPageProposals";
-import CollabPageCurrentState from "./pages/collabs/CollabPageCurrentState";
-import CollabPageLegalDocuments from "./pages/collabs/CollabPageLegalDocuments";
-import CollabPagePricing from "./pages/collabs/CollabPagePricing";
-import CollabPageTimeline from "./pages/collabs/CollabPageTimeline";
-import CollabPageQuestions from "./pages/collabs/CollabPageQuestions";
+import CollabPageJourney from "./pages/collabs/CollabPageJourney";
 import CollabPageAllAttachments from "./pages/collabs/CollabPageAllAttachments";
 import CollabPageShowcase from "./pages/collabs/CollabPageShowcase";
+import CollabPageNotes from "./pages/collabs/CollabPageNotes";
+
+// import { supabase } from "./supabase/clientapp";
 import { createCookie, PrivateRoute } from "./privateRoute";
 import { supabase } from "./supabase/clientapp";
 
@@ -57,11 +53,11 @@ function Router() {
       </Route> */}
       <Route path='/termsofservice' element={<TermsOfService />} />
       <Route
-        path='/collabs/:attendee_company_id'
+        path='/collabs/:workspace_id/:workspace_name'
         element={<CollabPageLayout />}
       >
         <Route
-          path='/collabs/:attendee_company_id'
+          path='/collabs/:workspace_id/:workspace_name'
           element={
             <PrivateRoute>
               <CollabPageHome />
@@ -69,7 +65,7 @@ function Router() {
           }
         />
         <Route
-          path='/collabs/:attendee_company_id/team'
+          path='/collabs/:workspace_id/:workspace_name/team'
           element={
             <PrivateRoute>
               <CollabPageTeam />
@@ -77,47 +73,48 @@ function Router() {
           }
         />
         <Route
-          path='/collabs/:attendee_company_id/showcase'
+          path='/collabs/:workspace_id/:workspace_name/showcase'
           element={<CollabPageShowcase />}
         />
         <Route
-          path='/collabs/:attendee_company_id/notes'
-          element={<CollabPage />}
+          path='/collabs/:workspace_id/:workspace_name/notes'
+          element={<CollabPageNotes />}
         />
         <Route
-          path='/collabs/:attendee_company_id/nextsteps'
-          element={<CollabPageNextSteps />}
+          path='/collabs/:workspace_id/:workspace_name/journey'
+          element={<CollabPageJourney />}
         />
-        <Route
-          path='/collabs/:attendee_company_id/challenges'
+
+        {/* <Route
+          path='/collabs/:workspace_id/challenges'
           element={<CollabPageChallenges />}
         />
         <Route
-          path='/collabs/:attendee_company_id/proposals'
+          path='/collabs/:workspace_id/proposals'
           element={<CollabPageProposals />}
         />
         <Route
-          path='/collabs/:attendee_company_id/currentstate'
+          path='/collabs/:workspace_id/currentstate'
           element={<CollabPageCurrentState />}
         />
         <Route
-          path='/collabs/:attendee_company_id/legaldocuments'
+          path='/collabs/:workspace_id/legaldocuments'
           element={<CollabPageLegalDocuments />}
         />
         <Route
-          path='/collabs/:attendee_company_id/pricing'
+          path='/collabs/:workspace_id/pricing'
           element={<CollabPagePricing />}
         />
         <Route
-          path='/collabs/:attendee_company_id/timeline'
+          path='/collabs/:workspace_id/timeline'
           element={<CollabPageTimeline />}
         />
         <Route
-          path='/collabs/:attendee_company_id/questions'
+          path='/collabs/:workspace_id/questions'
           element={<CollabPageQuestions />}
-        />
+        /> */}
         <Route
-          path='/collabs/:attendee_company_id/allattachments'
+          path='/collabs/:workspace_id/:workspace_name/allattachments'
           element={<CollabPageAllAttachments />}
         />
       </Route>
@@ -161,7 +158,14 @@ function Router() {
           element={<MasterTodoList />}
           action={createAction}
         />
-        <Route path='/dashboard/account' element={<Account />} />
+        <Route
+          path='/dashboard/account'
+          element={
+            <PrivateRoute>
+              <Account />
+            </PrivateRoute>
+          }
+        />
       </Route>
     </Routes>
   );
