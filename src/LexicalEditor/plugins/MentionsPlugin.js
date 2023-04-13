@@ -80,6 +80,16 @@ const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 const mentionsCache = new Map();
 
+function currentDate() {
+  const today = new Date();
+  const date = new Intl.DateTimeFormat("en-us", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+
+  return date.format(today);
+}
+
 const dummyMentionsData = [
   "John Childs-Eddy",
   "Aleisha McKenzie, CSM",
