@@ -7,9 +7,9 @@ export default function CollabPageTeam() {
 
   return (
     <>
-      <Flex ml='10px' mb='60px'>
+      {/* <Flex ml='10px' mb='0px'>
         <Text>Team Page for: {params.customer_id}</Text>
-      </Flex>
+      </Flex> */}
       {/* <Flex mb='10px' borderStyle='1px solid gray.200' width='550px' ml='10px'>
         <Avatar src='https://lh3.googleusercontent.com/a/AGNmyxb7QUWBr69-91RRmDn276lrbHDfnbZoMwpwNlavYw=s96' />
         <Box ml='3'>

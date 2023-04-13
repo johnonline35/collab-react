@@ -15,6 +15,7 @@ import {
   InputGroup,
   InputLeftElement,
   Input,
+  Link,
 } from "@chakra-ui/react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +27,9 @@ export default function Navbar() {
 
   return (
     <Flex as='nav' p='0px' mb='20px' alignItems='center'>
-      <Image src='/img/collablogo-removebg.png' height='40px' />
+      <Link href={`/dashboard`}>
+        <Image src='/img/collablogo-removebg.png' height='40px' />
+      </Link>
       <Spacer />
 
       <HStack spacing='20px'>

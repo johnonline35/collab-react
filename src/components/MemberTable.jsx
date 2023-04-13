@@ -25,7 +25,7 @@ export const MemberTable = (props) => (
       <Tr>
         <Th>
           <HStack spacing='3'>
-            <Checkbox />
+            {/* <Checkbox /> */}
             <HStack spacing='1'>
               <Text>Name</Text>
               <Icon as={IoArrowDown} color='muted' boxSize='4' />
@@ -35,7 +35,7 @@ export const MemberTable = (props) => (
         <Th>Status</Th>
         <Th>Email</Th>
         <Th>Role</Th>
-        <Th>Rating</Th>
+        {/* <Th>Rating</Th> */}
         <Th></Th>
       </Tr>
     </Thead>
@@ -44,7 +44,7 @@ export const MemberTable = (props) => (
         <Tr key={member.id}>
           <Td>
             <HStack spacing='3'>
-              <Checkbox />
+              {/* <Checkbox /> */}
               <Avatar name={member.name} src={member.avatarUrl} boxSize='10' />
               <Box>
                 <Text fontWeight='medium'>{member.name}</Text>
@@ -55,7 +55,7 @@ export const MemberTable = (props) => (
           <Td>
             <Badge
               size='sm'
-              colorScheme={member.status === "active" ? "green" : "red"}
+              colorScheme={member.status === "lead" ? "green" : "yellow"}
             >
               {member.status}
             </Badge>
@@ -66,11 +66,11 @@ export const MemberTable = (props) => (
           <Td>
             <Text color='muted'>{member.role}</Text>
           </Td>
-          <Td>
+          {/* <Td>
             <Text color='muted'>
               <Rating defaultValue={member.rating} size='xl' />
             </Text>
-          </Td>
+          </Td> */}
           <Td>
             <HStack spacing='1'>
               <IconButton

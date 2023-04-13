@@ -1,0 +1,62 @@
+const { createClient } = require("@supabase/supabase-js");
+
+const supabaseUrl = "YOUR_SUPABASE_URL";
+const supabaseKey = "YOUR_SUPABASE_KEY";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const jsonString = `{"root":{"children":[{"children":[{"detail":1,"format":0,"mode":"segmented","style":"","text":"Next Step:","type":"mention","version":1,"mentionName":"Next Step:"},{"detail":0,"format":0,"mode":"normal","style":"","text":" this is the next step","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"#hash","type":"hashtag","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}`;
+
+const parsedData = JSON.parse(jsonString);
+
+// Breadth First Search traversal
+const queue = [parsedData.root];
+let nextStepNode = null;
+
+while (queue.length > 0) {
+  const currentNode = queue.shift();
+  if (currentNode.children) {
+    for (const child of currentNode.children) {
+      queue.push(child);
+      if (child.type === "mention" && child.mentionName === "Next Step:") {
+        nextStepNode = currentNode;
+        break;
+      }
+    }
+  }
+  if (nextStepNode) {
+    break;
+  }
+}
+
+let nextStepContent = "";
+
+if (nextStepNode) {
+  const contentNode = nextStepNode.children.find(
+    (sibling) => sibling.type === "text"
+  );
+  if (contentNode) {
+    const content = contentNode.text.trim();
+    const endIndex =
+      content.indexOf(".") > -1 ? content.indexOf(".") : content.length;
+    nextStepContent = content.substring(0, endIndex);
+  }
+}
+
+console.log("Next step content:", nextStepContent);
+
+// Save the content to the database
+const saveNextStepContent = async (collabUserNextStepsId, content) => {
+  const { data, error } = await supabase
+    .from("collab_users_next_steps")
+    .update({ nextstep_content: content })
+    .eq("collab_user_next_steps_id", collabUserNextStepsId);
+
+  if (error) {
+    console.error("Error updating next_step_content:", error);
+  } else {
+    console.log("Successfully updated next_step_content:", data);
+  }
+};
+
+// Replace 'YOUR_COLLAB_USER_NEXT_STEPS_ID' with the actual ID
+saveNextStepContent("YOUR_COLLAB_USER_NEXT_STEPS_ID", nextStepContent);

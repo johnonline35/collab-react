@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Checkbox,
   Container,
   HStack,
   Icon,
@@ -58,14 +59,15 @@ export const TeamMemberTable = () => {
               justify='space-between'
             >
               <Text fontSize='lg' fontWeight='medium'>
-                Members
+                Team Members
               </Text>
-              <InputGroup maxW='xs'>
+
+              {/* <InputGroup maxW='xs'>
                 <InputLeftElement pointerEvents='none'>
                   <Icon as={FiSearch} color='muted' boxSize='5' />
                 </InputLeftElement>
                 <Input placeholder='Search' />
-              </InputGroup>
+              </InputGroup> */}
             </Stack>
           </Box>
           <Box overflowX='auto'>
@@ -78,7 +80,7 @@ export const TeamMemberTable = () => {
             }}
             pb='5'
           >
-            <HStack spacing='3' justify='space-between'>
+            {/* <HStack spacing='3' justify='space-between'>
               {!isMobile && (
                 <Text color='muted' fontSize='sm'>
                   Showing 1 to 5 of 42 results
@@ -96,7 +98,7 @@ export const TeamMemberTable = () => {
                 <Button>Previous</Button>
                 <Button>Next</Button>
               </ButtonGroup>
-            </HStack>
+            </HStack> */}
           </Box>
         </Stack>
       </Box>
