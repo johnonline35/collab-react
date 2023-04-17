@@ -1,6 +1,6 @@
 import { Provider } from "@lexical/yjs";
 import { Doc } from "yjs";
-import { WebsocketProvider } from "y-websocket";
+// import { WebsocketProvider } from 'y-websocket';
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);

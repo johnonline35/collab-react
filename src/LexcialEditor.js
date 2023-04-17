@@ -23,10 +23,11 @@ import { createEditor } from "lexical";
 import { useEffect, useState } from "react";
 
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
-// import { ExcalidrawPlugin } from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 // import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+
+import { useNextStepParse } from "./hooks/useNextStepParse";
 
 import ListMaxIndentLevelPlugin from "./LexicalEditor/plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./LexicalEditor/plugins/CodeHighlightPlugin";
@@ -115,6 +116,7 @@ export default function LexicalEditor() {
   const [initialNoteJson, setInitialNoteJson] = useState();
   const [loadingState, setLoadingState] = useState("loading");
   const [collabUserNoteId, setCollabUserNoteId] = useState(null);
+  useNextStepParse();
 
   const handleEditorChange = async (EditorState, params) => {
     const jsonString = JSON.stringify(EditorState);
@@ -250,6 +252,7 @@ export default function LexicalEditor() {
             ErrorBoundary={LexicalErrorBoundary}
           />
           <HistoryPlugin />
+
           {/* <ClickableLinkPlugin /> */}
           {/* <TreeViewPlugin /> */}
           <AutoFocusPlugin />

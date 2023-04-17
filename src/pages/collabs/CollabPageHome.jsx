@@ -14,11 +14,13 @@ import {
   Button,
   Flex,
   Spacer,
+  Select,
   Editable,
   EditablePreview,
   EditableInput,
   Text,
 } from "@chakra-ui/react";
+
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase/clientapp";
@@ -29,13 +31,14 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
-import { TeamMemberStack } from "../../components/TeamMemberStack";
+import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
 import { TodoList } from "../../components/TodoList";
 
 export default function CollabPageHome() {
+  console.log("Parent component rendering"); // Add this line
   const params = useParams();
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
@@ -46,41 +49,9 @@ export default function CollabPageHome() {
       .from("collab_users")
       .select("*, workspaces(*)");
 
-    //   .from("collab_users").select(
-    //     `
-    //   *,
-    //   workspaces:collab_users_id(*)
-    // `
-    //   );
-
-    //     .from("collab_users")
-    //     .select(
-    //       `
-    //   *,
-    //   workspaces(*)
-    // `
-    //     )
-    //     .eq("collab_users_id", collab_users_id)
-    //     .single();
-
     if (error) {
       console.log(error);
     }
-
-    // .from("collab_users")
-    // .select(
-    //   `
-    //     workspaces!inner (
-    //       workspace_name,
-    //       workspace_momentum_score
-    //     ),
-    //     attendees!inner (
-    //       attendee_name,
-    //     )
-    //   `
-    // )
-    // .eq("workspaces.workspace_name", "Telstra")
-    // .execute();
 
     console.log("Different log:", data);
   };
@@ -216,8 +187,9 @@ export default function CollabPageHome() {
                 </ListItem>
                 <Flex pr='10px' gap='2'>
                   <Button variant='secondary' size='sm'>
-                    Book Meeting
+                    Set Workspace Lead
                   </Button>
+
                   <Spacer />
                   <IconButton
                     size='sm'

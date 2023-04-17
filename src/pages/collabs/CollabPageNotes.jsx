@@ -1,20 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import {
-  $getRoot,
-  $getSelection,
-  EditorState,
-  setEditorState,
-  $createTextNode,
-  $createParagraphNode,
-  createEditor,
-} from "lexical";
 
 // Lexical
 import "../../../src/styles.css";
 import LexicalEditor from "../../LexcialEditor";
-import { useEffect } from "react";
-import { supabase } from "../../supabase/clientapp";
 
 export default function CollabPageNotes() {
   const params = useParams();

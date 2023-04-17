@@ -7,7 +7,7 @@ import {
   theme as baseTheme,
 } from "@chakra-ui/react";
 import { theme as proTheme } from "@chakra-ui/pro-theme";
-import { RecoilRoot } from "recoil";
+
 import { BrowserRouter } from "react-router-dom";
 
 // extend the theme
@@ -35,13 +35,11 @@ const theme = extendTheme(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <RecoilRoot>
-    <ChakraProvider theme={theme}>
-      <React.StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </React.StrictMode>
-    </ChakraProvider>
-  </RecoilRoot>
+  <ChakraProvider theme={theme}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </React.StrictMode>
+  </ChakraProvider>
 );
