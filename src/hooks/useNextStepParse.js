@@ -166,7 +166,7 @@ export const useNextStepParse = () => {
       }
     },
     [params.workspace_id]
-  ); // Corrected placement of the closing parenthesis
+  );
 
   useEffect(() => {
     if (fetchedNotes) {
