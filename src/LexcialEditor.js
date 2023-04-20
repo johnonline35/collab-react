@@ -18,16 +18,16 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { TRANSFORMERS } from "@lexical/markdown";
+import { RootNode, createEditor, ParagraphNode, ElementNode } from "lexical";
+import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 
-import { createEditor } from "lexical";
 import { useEffect, useState } from "react";
 
-import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
-
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 // import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { useNextStepParse } from "./hooks/useNextStepParse";
+import { CustomParagraphNode } from "./LexicalEditor/nodes/CustomParagraphNode";
 
 import ListMaxIndentLevelPlugin from "./LexicalEditor/plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./LexicalEditor/plugins/CodeHighlightPlugin";
@@ -37,6 +37,8 @@ import NewMentionsPlugin from "./LexicalEditor/plugins/MentionsPlugin";
 import { useParams } from "react-router-dom";
 import { supabase } from "./supabase/clientapp";
 import { Skeleton, Stack } from "@chakra-ui/react";
+
+import { v4 as uuidv4 } from "uuid";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -106,10 +108,15 @@ const editorConfig = {
     TableRowNode,
     AutoLinkNode,
     LinkNode,
+    CustomParagraphNode,
+    {
+      replace: ParagraphNode,
+      with: (node) => {
+        return new CustomParagraphNode();
+      },
+    },
   ],
 };
-
-const editor = createEditor(editorConfig);
 
 export default function LexicalEditor() {
   const params = useParams();
@@ -213,6 +220,48 @@ export default function LexicalEditor() {
     return <div>Error!</div>;
   }
 
+  // class CustomParagraphNode extends ParagraphNode {
+  //   constructor(content, parent) {
+  //     super(content, parent);
+  //     this.uuid = uuidv4();
+  //   }
+
+  //   static getType() {
+  //     return "custom-paragraph";
+  //   }
+
+  //   static clone(node) {
+  //     return new CustomParagraphNode(node.content, node.parent);
+  //   }
+
+  //   static importJSON(serializedNode) {
+  //     const node = new CustomParagraphNode(
+  //       serializedNode.content,
+  //       serializedNode.parent
+  //     );
+  //     node.uuid = serializedNode.uuid;
+  //     return node;
+  //   }
+
+  //   createDOM() {
+  //     const dom = document.createElement("p");
+  //     dom.setAttribute("data-uuid", this.uuid);
+  //     return dom;
+  //   }
+
+  //   updateDOM(prevNode, dom) {
+  //     return true;
+  //   }
+
+  //   exportJSON() {
+  //     const serializedNode = super.exportJSON();
+  //     serializedNode.type = CustomParagraphNode.getType();
+  //     serializedNode.uuid = this.uuid;
+  //     console.log(serializedNode);
+  //     return serializedNode;
+  //   }
+  // }
+
   const editorConfig = {
     editorState: initialNoteJson,
     namespace: "collabEditor",
@@ -238,6 +287,13 @@ export default function LexicalEditor() {
       TableRowNode,
       AutoLinkNode,
       LinkNode,
+      CustomParagraphNode,
+      {
+        replace: ParagraphNode,
+        with: (node) => {
+          return new CustomParagraphNode();
+        },
+      },
     ],
   };
 
@@ -271,3 +327,76 @@ export default function LexicalEditor() {
     </LexicalComposer>
   );
 }
+
+// class CustomParagraphNode extends LexicalParagraphNode {
+//   constructor(node) {
+//     if (!node.attributes) {
+//       node.attributes = {};
+//     }
+
+//   // Add the UUID
+//     node.attributes.uuid = uuidv4();
+//     super(node);
+//   }
+
+//   // Override the getType method with a unique type
+//   static getType() {
+//     return "custom-paragraph";
+//   }
+
+//   // Implement the clone method
+//   static clone(node) {
+//     return new CustomParagraphNode(LexicalParagraphNode.clone(node));
+//   }
+
+//   // Implement the importJSON method
+//   static importJSON(json, _type) {
+//     const node = LexicalParagraphNode.importJSON(json, _type);
+//     return new CustomParagraphNode(node);
+//   }
+
+//   // Implement the exportJSON method
+//   exportJSON() {
+//     const json = LexicalParagraphNode.prototype.exportJSON.call(this);
+//     if (!json.attributes) {
+//       json.attributes = {};
+//     }
+//     json.attributes.uuid = this.attributes.uuid;
+//     return json;
+//   }
+// }
+
+// const editorConfig = {
+//   editorState: initialNoteJson,
+//   namespace: "collabEditor",
+//   // The editor theme
+//   theme: LexicalEditorTheme,
+//   // Handling of errors during update
+//   onError(error) {
+//     throw error;
+//   },
+//   // Any custom nodes go here
+//   nodes: [
+//     HeadingNode,
+//     ListNode,
+//     ListItemNode,
+//     QuoteNode,
+//     HashtagNode,
+//     // [ExcalidrawNode],
+//     CodeNode,
+//     CodeHighlightNode,
+//     TableNode,
+//     MentionNode,
+//     TableCellNode,
+//     TableRowNode,
+//     AutoLinkNode,
+//     LinkNode,
+//     LexicalParagraphNode,
+//     {
+//       replace: LexicalParagraphNode,
+//       with: (node) => {
+//         return new CustomParagraphNode();
+//       },
+//     },
+//   ],
+// };

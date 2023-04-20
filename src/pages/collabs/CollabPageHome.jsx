@@ -43,6 +43,7 @@ export default function CollabPageHome() {
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
+  const { workspace_id } = useParams();
 
   const getSupabaseData = async () => {
     const { data, error } = await supabase
@@ -220,7 +221,7 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              <NextStepsList />
+              <NextStepsList workspace_id={workspace_id} />
               <ListItem>
                 <ListIcon as={FiCheckCircle} color='black' />
                 Todo List
