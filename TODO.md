@@ -13,5 +13,3 @@
    - Handle errors and edge cases during the editing process.
 
 3. Update the CSS for the notepad so that it auto creates new pages breaks + infinite scroll.
-
-4. Create custom paragraph node for Lexical that attaches a UUID to each node
