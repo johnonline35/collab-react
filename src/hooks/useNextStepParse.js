@@ -5,6 +5,7 @@ import debounce from "lodash/debounce";
 import { v4 as uuidv4 } from "uuid";
 
 // Parse the Collab_Users_Notes table and run BFS algo to find all the Next Step: nodes, store those in state
+
 export const useNextStepParse = () => {
   const params = useParams();
   const [nextSingleStepContent, setNextSingleStepContent] = useState({});
@@ -15,9 +16,10 @@ export const useNextStepParse = () => {
     try {
       const { data, error } = await supabase
         .from("collab_users_notes")
-        .select("note_content")
+        .select("*")
         .eq("workspace_id", params.workspace_id);
 
+      // console.log("data", data);
       if (error) {
         throw error;
       }
@@ -46,14 +48,22 @@ export const useNextStepParse = () => {
           }
         }
 
+        // console.log("nextStepNodes", nextStepNodes);
+
         let nextStepContentsForNote = [];
 
         for (const nextStepNode of nextStepNodes) {
           let nextStepContent = "";
+          let uuid = "";
 
           if (nextStepNode) {
             const contentNode = nextStepNode.children.find(
               (sibling) => sibling.type === "text"
+            );
+            const uuidNode = nextStepNode.children.find(
+              (sibling) =>
+                sibling.type === "mention" &&
+                sibling.mentionName === "Next Step:"
             );
             if (contentNode) {
               const content = contentNode.text.trim();
@@ -63,16 +73,29 @@ export const useNextStepParse = () => {
                   : content.length;
               nextStepContent = content.substring(0, endIndex);
             }
+            if (uuidNode) {
+              uuid = uuidNode.uuid;
+            }
           }
 
-          console.log("Next step content:", nextStepContent);
-          nextStepContentsForNote.push(nextStepContent);
+          // console.log("uuid:", uuid);
+          nextStepContentsForNote.push({ content: nextStepContent, uuid });
         }
-
-        nextStepContents[note.id] = nextStepContentsForNote;
+        // console.log("nextStepContentsForNote", nextStepContentsForNote);
+        nextStepContents[note.collab_user_note_id] = nextStepContentsForNote;
       }
 
       setNextSingleStepContent(nextStepContents);
+      Object.entries(nextStepContents).forEach(
+        ([collabUserNoteId, contentsArray]) => {
+          contentsArray.forEach((contentObj) => {
+            const { content, uuid } = contentObj;
+            console.log(
+              `collabUserNoteId: ${collabUserNoteId}, content: ${content}, uuid: ${uuid}`
+            );
+          });
+        }
+      );
     } catch (err) {
       console.error("Error fetching notes:", err);
     }
@@ -121,15 +144,18 @@ export const useNextStepParse = () => {
     };
   }, [fetchNotes]);
 
+  // console.log("nextSingleStepContent", nextSingleStepContent);
+
   const saveNextStepContent = useCallback(
-    async (nextSingleStepContent) => {
-      console.log("Check for existing content in db initiated");
-      // Check if the content already exists for the given workspace_id
+    async (nextStepContentWithUUID) => {
+      console.log("nextStepContentWithUUID", nextStepContentWithUUID.uuid);
+
+      // Check if the UUID already exists for the given workspace_id
       const { data: existingData, error: existingError } = await supabase
         .from("collab_users_next_steps")
         .select("*")
         .eq("workspace_id", params.workspace_id)
-        .eq("nextstep_content", nextSingleStepContent);
+        .eq("nextstep_uuid", nextStepContentWithUUID.uuid);
 
       if (existingError) {
         console.error(
@@ -137,10 +163,10 @@ export const useNextStepParse = () => {
           existingError
         );
       } else if (existingData.length === 0) {
-        // If the content does not exist, create a new UUID and insert the content
+        // If the UUID does not exist, create a new UUID for collab_user_next_steps_id
         const newId = uuidv4();
 
-        // Upsert the content using workspace_id and nextstep_content as constraints
+        // Upsert the content using nextstep_uuid as a constraint
         const { data, error } = await supabase
           .from("collab_users_next_steps")
           .upsert(
@@ -148,11 +174,12 @@ export const useNextStepParse = () => {
               {
                 collab_user_next_steps_id: newId,
                 workspace_id: params.workspace_id,
-                nextstep_content: nextSingleStepContent,
+                nextstep_content: nextStepContentWithUUID.content,
+                nextstep_uuid: nextStepContentWithUUID.uuid,
               },
             ],
             {
-              onConflict: "workspace_id, nextstep_content",
+              onConflict: "nextstep_uuid",
               returning: "minimal",
             }
           );
@@ -163,6 +190,8 @@ export const useNextStepParse = () => {
           console.log("Successfully upserted next_step_content:", data);
           setNextSingleStepNoteId(newId);
         }
+      } else {
+        console.log("UUID already exists in the nextstep_uuid column");
       }
     },
     [params.workspace_id]
