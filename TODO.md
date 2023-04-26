@@ -6,7 +6,7 @@
    - Implement delete functionality.
    - Prevent the page from re-rendering upon updates.
 
-2. Get the next step component fully working with edit functions.
+2. Get the next ToDo, Goal and Challenge components fully working with edit functions.
 
    - Implement editable fields for updating the next step data.
    - Connect the component to the backend for saving updates.

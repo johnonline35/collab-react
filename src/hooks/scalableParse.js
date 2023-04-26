@@ -1,16 +1,52 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../supabase/clientapp";
 import debounce from "lodash/debounce";
 import { v4 as uuidv4 } from "uuid";
 
-// Parse the Collab_Users_Notes table and run BFS algo to find all the Next Step: nodes, store those in state
-
-export const useNextStepParse = () => {
+export const useLexicalNodeParse = () => {
   const params = useParams();
-  const [nextSingleStepContent, setNextSingleStepContent] = useState({});
-  const [nextSingleStepNoteId, setNextSingleStepNoteId] = useState(null);
+
   const [fetchedNotes, setFetchedNotes] = useState(false);
+
+  const nodeTypes = useMemo(
+    () => [
+      {
+        mentionName: "Next Step:",
+        stateName: "nextSingleStepContent",
+        noteIdStateName: "nextSingleStepNoteId",
+      },
+      {
+        mentionName: "Goal",
+        stateName: "goalContent",
+        noteIdStateName: "goalNoteId",
+      },
+      {
+        mentionName: "Challenge",
+        stateName: "challengeContent",
+        noteIdStateName: "challengeNoteId",
+      },
+      {
+        mentionName: "Todo",
+        stateName: "toDoContent",
+        noteIdStateName: "toDoNoteId",
+      },
+      // Add more node types here if needed
+    ],
+    []
+  );
+
+  const initialState = useMemo(
+    () =>
+      nodeTypes.reduce((acc, type) => {
+        acc[type.stateName] = {};
+        acc[type.noteIdStateName] = null;
+        return acc;
+      }, {}),
+    [nodeTypes]
+  );
+
+  const [state, setState] = useState(initialState);
 
   const fetchNotes = useCallback(async () => {
     try {
@@ -19,83 +55,73 @@ export const useNextStepParse = () => {
         .select("*")
         .eq("workspace_id", params.workspace_id);
 
-      // console.log("data", data);
       if (error) {
         throw error;
       }
 
-      const nextStepContents = {};
+      const newContentState = { ...initialState };
 
       for (const note of data) {
         const parsedData = JSON.parse(note.note_content);
 
         // Breadth First Search traversal
         const queue = [parsedData.root];
-        let nextStepNodes = [];
+        const nodesByType = nodeTypes.reduce((acc, type) => {
+          acc[type.mentionName] = [];
+          return acc;
+        }, {});
 
         while (queue.length > 0) {
           const currentNode = queue.shift();
           if (currentNode.children) {
             for (const child of currentNode.children) {
               queue.push(child);
-              if (
-                child.type === "mention" &&
-                child.mentionName === "Next Step:"
-              ) {
-                nextStepNodes.push(currentNode);
+              const nodeType = nodeTypes.find(
+                (type) =>
+                  child.type === "mention" &&
+                  child.mentionName === type.mentionName
+              );
+              if (nodeType) {
+                nodesByType[nodeType.mentionName].push(currentNode);
               }
             }
           }
         }
 
-        // console.log("nextStepNodes", nextStepNodes);
-
-        let nextStepContentsForNote = [];
-
-        for (const nextStepNode of nextStepNodes) {
-          let nextStepContent = "";
+        const processNode = (node, nodeType, contentsArray) => {
+          let content = "";
           let uuid = "";
 
-          if (nextStepNode) {
-            const contentNode = nextStepNode.children.find(
+          if (node) {
+            const contentNode = node.children.find(
               (sibling) => sibling.type === "text"
             );
-            const uuidNode = nextStepNode.children.find(
+            const uuidNode = node.children.find(
               (sibling) =>
-                sibling.type === "mention" &&
-                sibling.mentionName === "Next Step:"
+                sibling.type === "mention" && sibling.mentionName === nodeType
             );
             if (contentNode) {
-              const content = contentNode.text.trim();
-              const endIndex =
-                contentNode.type === "paragraph"
-                  ? content.length
-                  : content.length;
-              nextStepContent = content.substring(0, endIndex);
+              content = contentNode.text.trim();
             }
             if (uuidNode) {
               uuid = uuidNode.uuid;
             }
           }
 
-          // console.log("uuid:", uuid);
-          nextStepContentsForNote.push({ content: nextStepContent, uuid });
-        }
-        // console.log("nextStepContentsForNote", nextStepContentsForNote);
-        nextStepContents[note.collab_user_note_id] = nextStepContentsForNote;
+          contentsArray.push({ content, uuid });
+        };
+
+        nodeTypes.forEach((type) => {
+          const contentsForNote = [];
+          nodesByType[type.mentionName].forEach((node) => {
+            processNode(node, type.mentionName, contentsForNote);
+          });
+          newContentState[type.stateName][note.collab_user_note_id] =
+            contentsForNote;
+        });
       }
 
-      setNextSingleStepContent(nextStepContents);
-      Object.entries(nextStepContents).forEach(
-        ([collabUserNoteId, contentsArray]) => {
-          contentsArray.forEach((contentObj) => {
-            const { content, uuid } = contentObj;
-            console.log(
-              `collabUserNoteId: ${collabUserNoteId}, content: ${content}, uuid: ${uuid}`
-            );
-          });
-        }
-      );
+      setState(newContentState);
     } catch (err) {
       console.error("Error fetching notes:", err);
     }
@@ -106,20 +132,12 @@ export const useNextStepParse = () => {
   useEffect(() => {
     let timeoutId;
     let inactivityTimeoutId;
-    const debouncedFetchNotes = debounce(fetchNotes, 5000);
 
     const handleUserActivity = () => {
       clearTimeout(inactivityTimeoutId);
       inactivityTimeoutId = setTimeout(() => {
         clearTimeout(timeoutId);
-        debouncedFetchNotes.cancel();
       }, 60000);
-
-      debouncedFetchNotes();
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        debouncedFetchNotes();
-      }, 5000);
     };
 
     const events = [
@@ -129,10 +147,16 @@ export const useNextStepParse = () => {
       "scroll",
       "touchstart",
     ];
-
     events.forEach((event) =>
       window.addEventListener(event, handleUserActivity)
     );
+
+    const runFetchNotes = () => {
+      fetchNotes();
+      timeoutId = setTimeout(runFetchNotes, 5000);
+    };
+
+    runFetchNotes();
 
     return () => {
       events.forEach((event) =>
@@ -140,7 +164,6 @@ export const useNextStepParse = () => {
       );
       clearTimeout(timeoutId);
       clearTimeout(inactivityTimeoutId);
-      debouncedFetchNotes.cancel();
     };
   }, [fetchNotes]);
 
@@ -148,7 +171,7 @@ export const useNextStepParse = () => {
 
   const saveNextStepContent = useCallback(
     async (nextStepContentWithUUID) => {
-      console.log("nextStepContentWithUUID", nextStepContentWithUUID.uuid);
+      console.log("nextStepContentWithUUID", nextStepContentWithUUID);
 
       // Check if the UUID already exists for the given workspace_id
       const { data: existingData, error: existingError } = await supabase
@@ -188,7 +211,6 @@ export const useNextStepParse = () => {
           console.error("Error upserting next_step_content:", error);
         } else {
           console.log("Successfully upserted next_step_content:", data);
-          setNextSingleStepNoteId(newId);
         }
       } else {
         console.log("UUID already exists in the nextstep_uuid column");
@@ -199,17 +221,17 @@ export const useNextStepParse = () => {
 
   useEffect(() => {
     if (fetchedNotes) {
-      for (const noteId in nextSingleStepContent) {
-        for (const content of nextSingleStepContent[noteId]) {
+      for (const noteId in state.nextSingleStepContent) {
+        for (const content of state.nextSingleStepContent[noteId]) {
           saveNextStepContent(content);
         }
       }
     }
-  }, [fetchedNotes, nextSingleStepContent, saveNextStepContent]);
+  }, [fetchedNotes, state.nextSingleStepContent, saveNextStepContent]);
 
   return {
-    nextSingleStepContent,
-    nextSingleStepNoteId,
+    ...state,
     fetchedNotes,
+    fetchNotes,
   };
 };

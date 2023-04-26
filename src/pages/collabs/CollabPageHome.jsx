@@ -35,7 +35,7 @@ import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/Tea
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
-import { TodoList } from "../../components/TodoList";
+import { ToDoList } from "../../components/TodoList";
 
 export default function CollabPageHome() {
   console.log("Parent component rendering"); // Add this line
@@ -226,7 +226,7 @@ export default function CollabPageHome() {
                 <ListIcon as={FiCheckCircle} color='black' />
                 Todo List
               </ListItem>
-              <TodoList />
+              <ToDoList workspace_id={workspace_id} />
             </List>
           </Card>
         </SimpleGrid>
