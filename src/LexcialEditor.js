@@ -32,7 +32,7 @@ import { useEffect, useState } from "react";
 
 // import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
-import { useNextStepParse } from "./hooks/useNextStepParse";
+import { useLexicalNodeParse } from "./hooks/useLexicalNodeParse";
 import { CustomParagraphNode } from "./LexicalEditor/nodes/CustomParagraphNode";
 
 import ListMaxIndentLevelPlugin from "./LexicalEditor/plugins/ListMaxIndentLevelPlugin";
@@ -130,7 +130,7 @@ export default function LexicalEditor() {
   const [initialNoteJson, setInitialNoteJson] = useState();
   const [loadingState, setLoadingState] = useState("loading");
   const [collabUserNoteId, setCollabUserNoteId] = useState(null);
-  useNextStepParse();
+  useLexicalNodeParse();
 
   const handleEditorChange = async (EditorState, params) => {
     const jsonString = JSON.stringify(EditorState);

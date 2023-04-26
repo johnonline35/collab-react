@@ -94,6 +94,8 @@ const dummyMentionsData = [
   "John Childs-Eddy",
   "Aleisha McKenzie, CSM",
   "Challenge",
+  "ChatGPT",
+  "Customer",
   "Goal",
   "Keira Kleine, Solutions Architect",
   "Peter Rogers, Sales Engineer",

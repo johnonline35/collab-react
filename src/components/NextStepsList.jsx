@@ -3,10 +3,8 @@ import {
   Box,
   Center,
   Editable,
-  EditableInput,
   EditablePreview,
   EditableTextarea,
-  Flex,
   Stack,
   StackDivider,
   Text,
@@ -84,7 +82,7 @@ export const NextStepsList = () => {
         md: "8",
       }}
     >
-      <Box bg='bg-surface' py='4'>
+      <Box bg='bg-surface' py='4' w='100%'>
         <Stack divider={<StackDivider />} spacing='4'>
           {nextSteps.map((step) => (
             <Stack
@@ -92,12 +90,14 @@ export const NextStepsList = () => {
               fontSize='sm'
               px='4'
               spacing='0.5'
+              w='100%'
             >
               <Box>
                 <Editable
                   fontSize='sm'
                   fontWeight='medium'
                   color='emphasized'
+                  w='100%'
                   onChange={(value) =>
                     dispatch({
                       type: "updateInfo",

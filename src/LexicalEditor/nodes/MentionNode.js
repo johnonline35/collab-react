@@ -13,9 +13,10 @@ export function $isMentionNode(node) {
 
 function convertMentionElement(domNode) {
   const textContent = domNode.textContent;
+  const uuid = domNode.getAttribute("data-uuid");
 
   if (textContent !== null) {
-    const node = $createMentionNode(textContent);
+    const node = $createMentionNode(textContent, uuid);
     return {
       node,
     };
@@ -37,15 +38,21 @@ export class MentionNode extends TextNode {
   }
 
   static clone(node) {
-    return new MentionNode(node.__mention, node.__text, node.__key);
+    return new MentionNode(
+      node.__mention,
+      node.__text,
+      node.__key,
+      node.__uuid
+    );
   }
 
   static importJSON(serializedNode) {
-    const node = $createMentionNode(
+    const node = new MentionNode(
       serializedNode.mentionName,
+      serializedNode.text,
+      undefined,
       serializedNode.uuid
-    ); // Pass the existing UUID
-    node.setTextContent(serializedNode.text);
+    );
     node.setFormat(serializedNode.format);
     node.setDetail(serializedNode.detail);
     node.setMode(serializedNode.mode);
