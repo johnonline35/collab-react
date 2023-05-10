@@ -126,18 +126,26 @@ export const useLexicalNodeParse = () => {
       console.error("Error fetching notes:", err);
     }
     setFetchedNotes(true);
-  }, [params.workspace_id]);
+  }, [params.workspace_id, initialState, nodeTypes]);
 
   // Run this algo every five seconds while the user is active. If the user becomes inactive for 60 secs, pause until active
   useEffect(() => {
     let timeoutId;
     let inactivityTimeoutId;
+    const debouncedFetchNotes = debounce(fetchNotes, 5000);
 
     const handleUserActivity = () => {
       clearTimeout(inactivityTimeoutId);
       inactivityTimeoutId = setTimeout(() => {
         clearTimeout(timeoutId);
+        debouncedFetchNotes.cancel();
       }, 60000);
+
+      debouncedFetchNotes();
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        debouncedFetchNotes();
+      }, 5000);
     };
 
     const events = [
@@ -147,16 +155,10 @@ export const useLexicalNodeParse = () => {
       "scroll",
       "touchstart",
     ];
+
     events.forEach((event) =>
       window.addEventListener(event, handleUserActivity)
     );
-
-    const runFetchNotes = () => {
-      fetchNotes();
-      timeoutId = setTimeout(runFetchNotes, 5000);
-    };
-
-    runFetchNotes();
 
     return () => {
       events.forEach((event) =>
@@ -164,25 +166,26 @@ export const useLexicalNodeParse = () => {
       );
       clearTimeout(timeoutId);
       clearTimeout(inactivityTimeoutId);
+      debouncedFetchNotes.cancel();
     };
   }, [fetchNotes]);
 
   // console.log("nextSingleStepContent", nextSingleStepContent);
 
-  const saveNextStepContent = useCallback(
-    async (nextStepContentWithUUID) => {
-      console.log("nextStepContentWithUUID", nextStepContentWithUUID);
+  const saveMentionContent = useCallback(
+    async (mentionName, contentWithUUID) => {
+      console.log(`${mentionName}ContentWithUUID`, contentWithUUID);
 
       // Check if the UUID already exists for the given workspace_id
       const { data: existingData, error: existingError } = await supabase
-        .from("collab_users_next_steps")
+        .from(`collab_users_${mentionName.toLowerCase()}s`)
         .select("*")
         .eq("workspace_id", params.workspace_id)
-        .eq("nextstep_uuid", nextStepContentWithUUID.uuid);
+        .eq(`${mentionName.toLowerCase()}_uuid`, contentWithUUID.uuid);
 
       if (existingError) {
         console.error(
-          "Error checking existing next_step_content:",
+          `Error checking existing ${mentionName}_content:`,
           existingError
         );
       } else if (existingData.length === 0) {
@@ -191,29 +194,32 @@ export const useLexicalNodeParse = () => {
 
         // Upsert the content using nextstep_uuid as a constraint
         const { data, error } = await supabase
-          .from("collab_users_next_steps")
+          .from(`collab_users_${mentionName.toLowerCase()}s`)
           .upsert(
             [
               {
-                collab_user_next_steps_id: newId,
+                [`collab_user_${mentionName.toLowerCase()}_id`]: newId,
                 workspace_id: params.workspace_id,
-                nextstep_content: nextStepContentWithUUID.content,
-                nextstep_uuid: nextStepContentWithUUID.uuid,
+                [`${mentionName.toLowerCase()}_content`]:
+                  contentWithUUID.content,
+                [`${mentionName.toLowerCase()}_uuid`]: contentWithUUID.uuid,
               },
             ],
             {
-              onConflict: "nextstep_uuid",
+              onConflict: `${mentionName.toLowerCase()}_uuid`,
               returning: "minimal",
             }
           );
 
         if (error) {
-          console.error("Error upserting next_step_content:", error);
+          console.error(`Error upserting ${mentionName}_content:`, error);
         } else {
-          console.log("Successfully upserted next_step_content:", data);
+          console.log(`Successfully upserted ${mentionName}_content:`, data);
         }
       } else {
-        console.log("UUID already exists in the nextstep_uuid column");
+        console.log(
+          `UUID already exists in the ${mentionName.toLowerCase()}_uuid column`
+        );
       }
     },
     [params.workspace_id]
@@ -221,13 +227,15 @@ export const useLexicalNodeParse = () => {
 
   useEffect(() => {
     if (fetchedNotes) {
-      for (const noteId in state.nextSingleStepContent) {
-        for (const content of state.nextSingleStepContent[noteId]) {
-          saveNextStepContent(content);
+      nodeTypes.forEach((type) => {
+        for (const noteId in state[type.stateName]) {
+          for (const content of state[type.stateName][noteId]) {
+            saveMentionContent(type.mentionName, content);
+          }
         }
-      }
+      });
     }
-  }, [fetchedNotes, state.nextSingleStepContent, saveNextStepContent]);
+  }, [fetchedNotes, state, nodeTypes, saveMentionContent]);
 
   return {
     ...state,

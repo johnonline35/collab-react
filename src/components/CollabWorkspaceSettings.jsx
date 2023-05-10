@@ -70,7 +70,7 @@ export const CollabWorkspaceSettings = ({
           <Stack spacing='5' divider={<StackDivider />}>
             <Stack spacing='1'>
               <Text fontSize='md' fontWeight='medium'>
-                Workspace Name:
+                Edit Workspace Name:
               </Text>
               {/* {children} */}
               <Editable

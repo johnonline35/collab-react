@@ -188,7 +188,7 @@ export default function CollabPageHome() {
                 </ListItem>
                 <Flex pr='10px' gap='2'>
                   <Button variant='secondary' size='sm'>
-                    Set Workspace Lead
+                    Display on Dashboard
                   </Button>
 
                   <Spacer />
