@@ -1,6 +1,6 @@
 // export const getGoogleCal = () => {
 //   // 1. Authenticate the user and obtain an access token to make requests to the Google Calendar API.
-//   // (Assuming you have already obtained the access token and stored it in the variable accessToken.)
+//   // Work on this to get the user authed - there is a google package oauth2
 
 //   // 2. Calculate the start and end times for the 6-month period that you want to retrieve events for.
 //   const now = new Date();

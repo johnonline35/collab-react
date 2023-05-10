@@ -1,4 +1,4 @@
-import { EditIcon } from "@chakra-ui/icons";
+import { EditIcon, ViewIcon } from "@chakra-ui/icons";
 import {
   Box,
   Link,
@@ -18,12 +18,25 @@ import {
   Stack,
   Spinner,
   AvatarBadge,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  CardFooter,
+  Image,
+  Icon,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase/clientapp";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
+import { FiLink } from "react-icons/fi";
+import { FaLinkedin } from "react-icons/fa";
+import { RiTwitterFill, RiTwitterLine } from "react-icons/ri";
+import { MdOutlineAttachMoney, MdAttachMoney } from "react-icons/md";
+import { IoMdPeople } from "react-icons/io";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -85,52 +98,160 @@ export default function Dashboard() {
   console.log("cookie", document.cookie);
 
   return (
-    <SimpleGrid spacing={10} minChildWidth='300px'>
-      {companyInfo &&
-        companyInfo.map((info) => {
-          const isLoading = !imageLoaded[info.workspace_avatar.logo];
-          return (
-            <Card
-              key={info.workspace_id}
-              borderTop='8px'
-              borderColor='blue.400'
-              bg='white'
-              loading={loadingCards}
-            >
-              <CardHeader minHeight='140px'>
-                <Flex gap={5}>
-                  <Box position='relative'>
-                    {isLoading ? (
-                      <Spinner mt='5px' ml='5px' size='md' />
-                    ) : (
-                      <Avatar src={info.workspace_avatar.logo} />
-                    )}
-                  </Box>
+    <>
+      {" "}
+      <Tabs>
+        <TabList>
+          <Tab>Upcoming Meetings</Tab>
+          <Tab>Recently Viewed</Tab>
+          <Tab>Custom Search</Tab>
+          <Tab>Alerts</Tab>
+        </TabList>
+
+        <TabPanels>
+          <TabPanel>
+            <p>one!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>two!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>three!</p>
+          </TabPanel>
+          <TabPanel>
+            <p>four!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+      <SimpleGrid spacing={10} minChildWidth='300px'>
+        {companyInfo &&
+          companyInfo.map((info) => {
+            const isLoading = !imageLoaded[info.workspace_avatar.logo];
+            return (
+              <Card
+                key={info.workspace_id}
+                borderTop='2px'
+                borderColor='blue.400'
+                bg='white'
+                loading={loadingCards}
+              >
+                <CardHeader p='0'>
+                  <Flex
+                    justifyContent='center'
+                    alignItems='center'
+                    maxHeight='70px'
+                    overflow='hidden'
+                  >
+                    <Image
+                      src='https://asset.brandfetch.io/idtTJnlm_T/idI_ebYyhw.jpeg'
+                      maxHeight='100%'
+                      width='auto'
+                      height='auto'
+                    />
+                  </Flex>
+                  <Flex gap={5}>
+                    <Box position='relative'>
+                      {isLoading ? (
+                        <Spinner mt='5px' ml='5px' size='md' />
+                      ) : (
+                        <Avatar
+                          position='absolute'
+                          z-index='10px'
+                          left='20px'
+                          top='-50px'
+                          bg='white'
+                          transform='translateY(50%)'
+                          src={info.workspace_avatar.logo}
+                        />
+                      )}
+                    </Box>
+                  </Flex>
+                </CardHeader>
+                <CardBody>
                   <Box>
                     <Link
                       href={`/collabs/${info.workspace_id}/${info.workspace_name}`}
                     >
                       <Heading as='h3' size='sm'>
                         {info.workspace_name}
-                        <Badge mt='-20px' size='sm' colorScheme='gray'>
+                        {/* <Badge marginTop='-15px' size='sm' colorScheme='green'>
                           2 Next Steps
-                        </Badge>
+                        </Badge> */}
                       </Heading>
                     </Link>
-                    <Text>Led by {info.collab_user_name}</Text>
-                  </Box>
-                </Flex>
-              </CardHeader>
-              <CardBody color='gray.500'>
-                <Box bg='bg-surface' py='4'>
-                  <Stack direction='row' justify='space-between' spacing='4'>
-                    <HStack spacing='3'>
-                      {/* <Checkbox /> */}
-                      <Avatar
-                        src={info.attendee_avatar.headshot}
-                        boxSize='10'
+                    <Flex>
+                      <Link href='https://facebook.com' isExternal>
+                        <Icon
+                          mr='3px'
+                          style={{
+                            transform: "translateY(2px)",
+                          }}
+                          as={FiLink}
+                        />
+                        secoda.co
+                      </Link>
+                      <Link>
+                        <Icon
+                          ml='3px'
+                          mr='3px'
+                          style={{
+                            transform: "translateY(2px)",
+                          }}
+                          as={FaLinkedin}
+                        ></Icon>
+                      </Link>
+                      <Link>
+                        <Icon
+                          ml='3px'
+                          mr='3px'
+                          style={{
+                            transform: "translateY(2px)",
+                          }}
+                          as={RiTwitterFill}
+                        ></Icon>
+                      </Link>
+                    </Flex>
+                    {/* <Text>Led by {info.collab_user_name}</Text> */}
+                    <Flex mt='10px' gap='1'>
+                      <Icon
+                        // ml='3px'
+
+                        style={{
+                          transform: "translateY(4px)",
+                        }}
+                        as={MdAttachMoney}
                       />
-                      {/* <AvatarBadge
+                      <Text>2.7m</Text>
+
+                      <Icon
+                        ml='3px'
+                        mr='1px'
+                        style={{
+                          transform: "translateY(4px)",
+                        }}
+                        as={IoMdPeople}
+                      />
+                      <Text>11-20</Text>
+                    </Flex>
+                    <Box py='4'>
+                      <Flex>
+                        <Text fontWeight='medium' size='xs'>
+                          Secoda is the fastest way to discover data. Get the
+                          data catalog and lineage portal built for analytics
+                          engineers and modern data teams.
+                        </Text>
+                      </Flex>
+                    </Box>
+                  </Box>
+                  <Box bg='bg-surface' py='4'>
+                    <Stack direction='row' justify='space-between' spacing='4'>
+                      <HStack spacing='3'>
+                        {/* <Checkbox /> */}
+                        <Avatar
+                          src={info.attendee_avatar.headshot}
+                          boxSize='10'
+                        />
+                        {/* <AvatarBadge
                         boxSize='4'
                         bg={
                           member.workingHours === "yes"
@@ -139,74 +260,78 @@ export default function Dashboard() {
                         }
                       />
                     </Avatar> */}
-                      <Box>
-                        <Flex direction='row' justify='space-between'>
-                          <Text fontWeight='medium' color='emphasized'>
-                            {info.attendee_name}
-                          </Text>
-                          {/* <Badge
+                        <Box>
+                          <Flex direction='row' justify='space-between'>
+                            <Text fontWeight='medium' color='emphasized'>
+                              {info.attendee_name}
+                            </Text>
+                            {/* <Badge
                           size='sm'
                           colorScheme={info.status === "lead" ? "green" : null}
                         >
                           {info.status}
                         </Badge> */}
-                        </Flex>
+                          </Flex>
 
-                        <Text color='muted'>{info.attendee_job_title}</Text>
-                      </Box>
-                    </HStack>
-                  </Stack>
-                  <Text
-                    color='muted'
-                    sx={{
-                      "-webkit-box-orient": "vertical",
-                      "-webkit-line-clamp": "2",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                    }}
-                  >
-                    Current Time: {formatTime(info.attendee_timezone)}
-                    <br />
-                    Email: {info.attendee_email}
-                  </Text>
-                </Box>
-
-                <Flex
-                  direction='column'
-                  justify='center'
-                  align='center'
-                  gap={10}
-                >
-                  <Spacer />
-                  <Link
-                    href={`/collabs/${info.workspace_id}/${info.workspace_name}/notes`}
-                  >
-                    <Button
-                      leftIcon={<EditIcon />}
-                      variant='secondary'
-                      width='250px'
+                          <Text color='muted'>{info.attendee_job_title}</Text>
+                        </Box>
+                      </HStack>
+                    </Stack>
+                    <Text
+                      color='muted'
+                      sx={{
+                        "-webkit-box-orient": "vertical",
+                        "-webkit-line-clamp": "2",
+                        overflow: "hidden",
+                        display: "-webkit-box",
+                      }}
                     >
-                      Notes
-                    </Button>
-                  </Link>
-                </Flex>
-              </CardBody>
-              <Divider borderColor='gray.200' />
+                      Current Time: {formatTime(info.attendee_timezone)}
+                      <br />
+                      Email: {info.attendee_email}
+                    </Text>
+                  </Box>
 
-              {/* <CardFooter>
-              <HStack>
-                <Button
-                  onClick={() => {}}
-                  variant='ghost'
-                  leftIcon={<ViewIcon />}
-                >
-                  View
-                </Button>
-              </HStack>
-            </CardFooter> */}
-            </Card>
-          );
-        })}
-    </SimpleGrid>
+                  <Flex
+                    direction='column'
+                    justify='center'
+                    align='center'
+                    gap={10}
+                  >
+                    <Spacer />
+                    <Link
+                      href={`/collabs/${info.workspace_id}/${info.workspace_name}/notes`}
+                    >
+                      <Button
+                        leftIcon={<EditIcon />}
+                        variant='secondary'
+                        width='250px'
+                      >
+                        Workspace AI
+                      </Button>
+                    </Link>
+                  </Flex>
+                </CardBody>
+                <Divider borderColor='gray.200' />
+
+                <CardFooter>
+                  <HStack>
+                    <Text size='xs' color='gray.400'>
+                      Meeting Scheduled: {formatTime(info.attendee_timezone)}
+                    </Text>
+                    {/* <Button
+                      // onClick={() => {}}
+                      variant='ghost'
+                      leftIcon={<ViewIcon />}
+                    >
+                      View
+                    </Button> */}
+                  </HStack>
+                </CardFooter>
+              </Card>
+            );
+          })}
+      </SimpleGrid>
+    </>
   );
 }
