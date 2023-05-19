@@ -36,7 +36,7 @@ export default function Login() {
               Continue with Google
             </Button>
           </Flex>
-          <Input
+          {/* <Input
             placeholder='email address'
             variant='filled'
             mb={3}
@@ -48,7 +48,7 @@ export default function Login() {
             mb={6}
             type='password'
           />
-          <Button colorScheme='blue'>Continue with email</Button>
+          <Button colorScheme='blue'>Continue with email</Button> */}
           <Flex algin='center' justify='center' direction='row' p={5}>
             <NavLink style={{ marginRight: "2em" }} to='/privacy'>
               Privacy
