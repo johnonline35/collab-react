@@ -48,6 +48,11 @@ export default function Dashboard() {
     setLoadedImages
   );
 
+  const getSession = async () => {
+    const { data, error } = await supabase.auth.getSession();
+    console.log("session data:", data);
+  };
+
   const getCompanyTileInfo = async () => {
     try {
       const { data, error } = await supabase.rpc("get_dashboard");
@@ -68,6 +73,7 @@ export default function Dashboard() {
   useEffect(() => {
     setLoadingCards(true);
     getCompanyTileInfo();
+    getSession();
   }, []);
 
   if (loadingCards) {
