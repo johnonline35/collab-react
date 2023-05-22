@@ -51,6 +51,23 @@ export default function Dashboard() {
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
     console.log("session data:", data);
+
+    // Check if the user just completed the OAuth flow
+    if (data) {
+      // Send the access token to your server to get the refresh token
+      fetch("https://your-node-app.vercel.app/get-refresh-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${data.access_token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   const getCompanyTileInfo = async () => {
@@ -72,8 +89,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     setLoadingCards(true);
+    // getSession();
     getCompanyTileInfo();
-    getSession();
   }, []);
 
   if (loadingCards) {
