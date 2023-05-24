@@ -51,6 +51,7 @@ export default function Dashboard() {
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
     console.log("session data:", data);
+    console.log(data.session.provider_refresh_token);
   };
 
   const getCompanyTileInfo = async () => {
