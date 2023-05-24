@@ -9,7 +9,7 @@ const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export async function signInWithGoogle() {
-  const { user, session, error } = await supabase.auth.signInWithOAuth({
+  const { session, user, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
       redirectTo: "https://www.instantcollab.co/dashboard",
@@ -22,23 +22,19 @@ export async function signInWithGoogle() {
   });
 
   if (error) {
-    console.log("Login error: ", error);
-    return; // Stop execution if there's a login error
+    console.log("Error: ", error);
   } else {
     const refreshToken = session.provider_refresh_token;
     console.log("refresh token:", refreshToken);
-    return;
+    // Then, store the refresh token into your database.
+    const { data, error } = await supabase
+      .from("collab_users")
+      .upsert([{ id: user.id, refresh_token: refreshToken }]);
   }
-  // const { data, error: upsertError } = await supabase
-  //   .from("collab_users")
-  //   .upsert([{ id: user.id, refresh_token: refreshToken }]);
 
-  // if (upsertError) {
-  //   console.log("Upsert error: ", upsertError);
-  //   return; // Stop execution if there's an upsert error
-  // }
-
-  // console.log("Upsert data: ", data);
+  if (error) {
+    console.log("Upsert error: ", error);
+  }
 }
 
 // export async function signInWithGoogle() {
