@@ -60,7 +60,7 @@ export default function Dashboard() {
     const refreshToken = data.session.provider_refresh_token;
     console.log(refreshToken);
 
-    const userId = data.user.id;
+    const userId = data.session.user.id;
 
     const { error: upsertError } = await supabase
       .from("collab_users")
