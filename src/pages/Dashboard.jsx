@@ -49,39 +49,8 @@ export default function Dashboard() {
   );
 
   const getSession = async () => {
-    const session = supabase.auth.session;
-
-    if (!session) {
-      console.log("No active session found.");
-      return;
-    }
-
-    console.log("session data:", session);
-
-    const refreshToken = session.provider_token;
-
-    if (!refreshToken) {
-      console.log("No refresh token found in session.");
-      return;
-    }
-
-    const user = supabase.auth.user;
-
-    if (!user) {
-      console.log("No user found.");
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from("collab_users")
-      .update({ refresh_token: refreshToken })
-      .match({ id: user.id });
-
-    if (error) {
-      console.error("Error updating refresh token:", error);
-    } else {
-      console.log("Successfully updated refresh token for user", user.id);
-    }
+    const { data, error } = await supabase.auth.getSession();
+    console.log("session data:", data);
   };
 
   const getCompanyTileInfo = async () => {
@@ -105,24 +74,6 @@ export default function Dashboard() {
     setLoadingCards(true);
     getSession();
     getCompanyTileInfo();
-
-    // Set up an event listener for auth state changes
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        console.log(`Supabase auth event: ${event}`);
-
-        // If the event is USER_UPDATED, it means the user's session has been refreshed,
-        // so we can try to get the session again
-        if (event === "USER_UPDATED") {
-          getSession();
-        }
-      }
-    );
-
-    // Clean up the event listener when the component is unmounted
-    return () => {
-      authListener.unsubscribe();
-    };
   }, []);
 
   if (loadingCards) {
