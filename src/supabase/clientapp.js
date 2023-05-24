@@ -26,23 +26,6 @@ export async function signInWithGoogle() {
   }
 }
 
-// export async function signInWithGoogle() {
-//   const { data, error } = await supabase.auth.signInWithOAuth({
-//     provider: "google",
-//     options: {
-//       redirectTo: "https://www.instantcollab.co/dashboard",
-//       queryParams: {
-//         access_type: "offline",
-//         prompt: "consent",
-//         scopes: ["https://www.googleapis.com/auth/calendar.events"],
-//       },
-//     },
-//   });
-
-//   // const session = await supabase.auth.session();
-//   // console.log(session);
-// }
-
 export async function signout() {
   const { error } = await supabase.auth.signOut();
   delete_cookie("token");
