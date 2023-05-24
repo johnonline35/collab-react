@@ -72,9 +72,12 @@ export default function Dashboard() {
       return;
     }
 
+    const userId = userData.id;
+    console.log("User ID:", userId); // To confirm that you're getting a valid userId
+
     const { error: upsertError } = await supabase
       .from("collab_users")
-      .upsert([{ refresh_token: refreshToken }], {
+      .upsert([{ id: userId, refresh_token: refreshToken }], {
         onConflict: "id",
       });
 
