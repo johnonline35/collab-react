@@ -48,6 +48,10 @@ export default function Dashboard() {
     setLoadedImages
   );
 
+  const session = supabase.auth.session();
+  const refreshToken = session;
+  console.log("refresh token:", refreshToken);
+
   const getCompanyTileInfo = async () => {
     try {
       const { data, error } = await supabase.rpc("get_dashboard");
