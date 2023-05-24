@@ -56,9 +56,9 @@ export default function Dashboard() {
       return;
     }
 
-    console.log("session data:", data);
+    // console.log("session data:", data);
     const refreshToken = data.session.provider_refresh_token;
-    console.log(refreshToken);
+    // console.log(refreshToken);
 
     // Fetch user id from the collab_users table
     let { data: userData, error: userError } = await supabase
@@ -73,7 +73,7 @@ export default function Dashboard() {
     }
 
     const userId = userData.id;
-    console.log("User ID:", userId); // To confirm that you're getting a valid userId
+    // console.log("User ID:", userId); // To confirm that you're getting a valid userId
 
     const { error: upsertError } = await supabase
       .from("collab_users")
