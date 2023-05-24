@@ -93,7 +93,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     setLoadingCards(true);
-    storeRefreshToken();
+    const user = supabase.auth.user();
+
+    if (user) {
+      storeRefreshToken(user, supabase);
+    } else {
+      console.error("No user is currently logged in");
+    }
+
     getCompanyTileInfo();
   }, []);
 
