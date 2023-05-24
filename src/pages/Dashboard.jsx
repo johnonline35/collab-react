@@ -105,6 +105,24 @@ export default function Dashboard() {
     setLoadingCards(true);
     getSession();
     getCompanyTileInfo();
+
+    // Set up an event listener for auth state changes
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log(`Supabase auth event: ${event}`);
+
+        // If the event is USER_UPDATED, it means the user's session has been refreshed,
+        // so we can try to get the session again
+        if (event === "USER_UPDATED") {
+          getSession();
+        }
+      }
+    );
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      authListener.unsubscribe();
+    };
   }, []);
 
   if (loadingCards) {
