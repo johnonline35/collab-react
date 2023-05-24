@@ -24,12 +24,11 @@ export async function signInWithGoogle() {
   if (error) {
     console.log("Login error: ", error);
     return; // Stop execution if there's a login error
+  } else {
+    const refreshToken = session.provider_refresh_token;
+    console.log("refresh token:", refreshToken);
+    return;
   }
-
-  const refreshToken = session.provider_refresh_token;
-  console.log("refresh token:", refreshToken);
-  return;
-
   // const { data, error: upsertError } = await supabase
   //   .from("collab_users")
   //   .upsert([{ id: user.id, refresh_token: refreshToken }]);
