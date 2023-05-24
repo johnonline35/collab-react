@@ -60,11 +60,21 @@ export default function Dashboard() {
     const refreshToken = data.session.provider_refresh_token;
     console.log(refreshToken);
 
-    const userId = data.session.user.id;
+    // Fetch user id from the collab_users table
+    let { data: userData, error: userError } = await supabase
+      .from("collab_users")
+      .select("id")
+      .eq("email", data.session.user.email) // Assuming that the email is a unique identifier
+      .single();
+
+    if (userError) {
+      console.error("Error getting user data:", userError);
+      return;
+    }
 
     const { error: upsertError } = await supabase
       .from("collab_users")
-      .upsert([{ id: userId, refresh_token: refreshToken }], {
+      .upsert([{ refresh_token: refreshToken }], {
         onConflict: "id",
       });
 
