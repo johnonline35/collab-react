@@ -49,25 +49,39 @@ export default function Dashboard() {
   );
 
   const getSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
-    console.log("session data:", data);
+    const session = supabase.auth.session();
 
-    // Check if the user just completed the OAuth flow
-    // if (data) {
-    //   // Send the access token to your server to get the refresh token
-    //   fetch("https://your-node-app.vercel.app/get-refresh-token", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: `Bearer ${data.access_token}`,
-    //     },
-    //   })
-    //     .then((response) => response.json())
-    //     .then((data) => console.log(data))
-    //     .catch((error) => {
-    //       console.error("Error:", error);
-    //     });
-    // }
+    if (!session) {
+      console.log("No active session found.");
+      return;
+    }
+
+    console.log("session data:", session);
+
+    const refreshToken = session.provider_refresh_token;
+
+    if (!refreshToken) {
+      console.log("No refresh token found in session.");
+      return;
+    }
+
+    const user = supabase.auth.user();
+
+    if (!user) {
+      console.log("No user found.");
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("collab_users")
+      .update({ refresh_token: refreshToken })
+      .match({ id: user.id });
+
+    if (error) {
+      console.error("Error updating refresh token:", error);
+    } else {
+      console.log("Successfully updated refresh token for user", user.id);
+    }
   };
 
   const getCompanyTileInfo = async () => {
