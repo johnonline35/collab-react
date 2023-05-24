@@ -23,18 +23,6 @@ export async function signInWithGoogle() {
 
   if (error) {
     console.log("Error: ", error);
-  } else {
-    const refreshToken = session.provider_refresh_token;
-    console.log("session:", session);
-    console.log("refresh token:", refreshToken);
-    // Then, store the refresh token into your database.
-    const { data, error } = await supabase
-      .from("collab_users")
-      .upsert([{ id: user.id, refresh_token: refreshToken }]);
-  }
-
-  if (error) {
-    console.log("Upsert error: ", error);
   }
 }
 
