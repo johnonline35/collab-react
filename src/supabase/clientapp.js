@@ -24,7 +24,7 @@ export async function signInWithGoogle() {
   if (error) {
     console.log("Error: ", error);
   } else {
-    const refreshToken = session.provider_token.refresh_token;
+    const refreshToken = session.provider_refresh_token;
     console.log("refresh token:", refreshToken);
     // Then, store the refresh token into your database.
     const { data, error } = await supabase
