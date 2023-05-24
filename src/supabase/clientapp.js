@@ -28,17 +28,18 @@ export async function signInWithGoogle() {
 
   const refreshToken = session.provider_refresh_token;
   console.log("refresh token:", refreshToken);
+  return;
 
-  const { data, error: upsertError } = await supabase
-    .from("collab_users")
-    .upsert([{ id: user.id, refresh_token: refreshToken }]);
+  // const { data, error: upsertError } = await supabase
+  //   .from("collab_users")
+  //   .upsert([{ id: user.id, refresh_token: refreshToken }]);
 
-  if (upsertError) {
-    console.log("Upsert error: ", upsertError);
-    return; // Stop execution if there's an upsert error
-  }
+  // if (upsertError) {
+  //   console.log("Upsert error: ", upsertError);
+  //   return; // Stop execution if there's an upsert error
+  // }
 
-  console.log("Upsert data: ", data);
+  // console.log("Upsert data: ", data);
 }
 
 // export async function signInWithGoogle() {
