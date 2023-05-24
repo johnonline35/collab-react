@@ -49,9 +49,28 @@ export default function Dashboard() {
   );
 
   const getSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await supabase.auth.session();
+
+    if (error) {
+      console.error("Error getting session:", error);
+      return;
+    }
+
     console.log("session data:", data);
-    console.log(data.session.provider_refresh_token);
+    const refreshToken = data.session.provider_refresh_token;
+    console.log(refreshToken);
+
+    const userId = data.user.id;
+
+    const { error: upsertError } = await supabase
+      .from("collab_users")
+      .upsert([{ id: userId, refresh_token: refreshToken }], {
+        onConflict: "id",
+      });
+
+    if (upsertError) {
+      console.error("Error upserting refresh token:", upsertError);
+    }
   };
 
   const getCompanyTileInfo = async () => {
