@@ -49,7 +49,7 @@ export default function Dashboard() {
   );
 
   const getSession = async () => {
-    const session = supabase.auth.session();
+    const session = supabase.auth.session;
 
     if (!session) {
       console.log("No active session found.");
@@ -58,14 +58,14 @@ export default function Dashboard() {
 
     console.log("session data:", session);
 
-    const refreshToken = session.provider_refresh_token;
+    const refreshToken = session.provider_token;
 
     if (!refreshToken) {
       console.log("No refresh token found in session.");
       return;
     }
 
-    const user = supabase.auth.user();
+    const user = supabase.auth.user;
 
     if (!user) {
       console.log("No user found.");
