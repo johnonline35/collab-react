@@ -48,6 +48,32 @@ export default function Dashboard() {
     setLoadedImages
   );
 
+  async function storeRefreshToken(user, supabase) {
+    // Get the session from Supabase
+    const { data: session, error: sessionError } =
+      await supabase.auth.session();
+
+    if (sessionError) {
+      console.error("Error getting session: ", sessionError);
+      return;
+    }
+
+    const refreshToken = session.provider_refresh_token;
+    console.log("session:", session);
+    console.log("refresh token:", refreshToken);
+
+    // Then, store the refresh token into your database.
+    const { data, error: upsertError } = await supabase
+      .from("collab_users")
+      .upsert([{ id: user.id, refresh_token: refreshToken }]);
+
+    if (upsertError) {
+      console.error("Error storing refresh token: ", upsertError);
+    } else {
+      console.log("Successfully stored refresh token");
+    }
+  }
+
   const getCompanyTileInfo = async () => {
     try {
       const { data, error } = await supabase.rpc("get_dashboard");
@@ -67,6 +93,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     setLoadingCards(true);
+    storeRefreshToken();
     getCompanyTileInfo();
   }, []);
 
