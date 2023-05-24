@@ -92,9 +92,10 @@ export default function Dashboard() {
 
       if (error) {
         console.error("Error fetching data:", error);
-      } else {
-        console.log("Fetched data:", data);
       }
+      // else {
+      //   console.log("Fetched data:", data);
+      // }
 
       setCompanyInfo(data);
       setLoadingCards(false);
@@ -133,8 +134,8 @@ export default function Dashboard() {
 
     return formatter.format(date);
   }
-
-  console.log("cookie", document.cookie);
+  // COOKIE
+  // console.log("cookie", document.cookie);
 
   return (
     <>
