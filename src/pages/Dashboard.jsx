@@ -64,7 +64,7 @@ export default function Dashboard() {
     let { data: userData, error: userError } = await supabase
       .from("collab_users")
       .select("id")
-      .eq("email", data.session.user.email) // Assuming that the email is a unique identifier
+      .eq("collab_users_email", data.session.user.email) // Assuming that the email is a unique identifier
       .single();
 
     if (userError) {
@@ -84,6 +84,19 @@ export default function Dashboard() {
     if (upsertError) {
       console.error("Error upserting refresh token:", upsertError);
     }
+  };
+
+  // Fetch Google Calendar via Server and process the response
+  const getMeetings = async () => {
+    const userId = supabase.auth.user().id;
+    const response = await fetch("http://localhost:3000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
+    });
+    // handle response here
   };
 
   const getCompanyTileInfo = async () => {
@@ -108,6 +121,7 @@ export default function Dashboard() {
     setLoadingCards(true);
     getSession();
     getCompanyTileInfo();
+    getMeetings();
   }, []);
 
   if (loadingCards) {
