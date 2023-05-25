@@ -47,6 +47,7 @@ export default function Dashboard() {
     loadedImages,
     setLoadedImages
   );
+  const [userId, setUserId] = useState(null); // New state variable for storing user ID
 
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
@@ -55,10 +56,6 @@ export default function Dashboard() {
       console.error("Error getting session:", error);
       return;
     }
-
-    // console.log("session data:", data);
-    const refreshToken = data.session.provider_refresh_token;
-    // console.log(refreshToken);
 
     // Fetch user id from the collab_users table
     let { data: userData, error: userError } = await supabase
@@ -73,7 +70,9 @@ export default function Dashboard() {
     }
 
     const userId = userData.id;
-    // console.log("User ID:", userId); // To confirm that you're getting a valid userId
+    setUserId(userId); // Set the user ID in state
+
+    const refreshToken = data.session.provider_refresh_token;
 
     const { error: upsertError } = await supabase
       .from("collab_users")
@@ -88,7 +87,8 @@ export default function Dashboard() {
 
   // Fetch Google Calendar via Server and process the response
   const getMeetings = async () => {
-    const userId = supabase.auth.user().id;
+    if (!userId) return; // Do not proceed if there's no user ID
+
     const response = await fetch("http://localhost:3000", {
       method: "POST",
       headers: {
