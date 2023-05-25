@@ -87,7 +87,9 @@ export default function Dashboard() {
 
   // Fetch Google Calendar via Server and process the response
   const getMeetings = async () => {
+    console.log("Starting getMeetings");
     if (!userId) return; // Do not proceed if there's no user ID
+    console.log("Passed userId check");
 
     const response = await fetch("http://localhost:3000", {
       method: "POST",
@@ -96,6 +98,7 @@ export default function Dashboard() {
       },
       body: JSON.stringify({ userId }),
     });
+    console.log("Sent fetch request");
 
     if (response.ok) {
       console.log("Got Meetings");
