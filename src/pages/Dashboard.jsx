@@ -96,8 +96,13 @@ export default function Dashboard() {
       },
       body: JSON.stringify({ userId }),
     });
-    console.log("Got Meetings");
-    // handle response here
+
+    if (response.ok) {
+      console.log("Got Meetings");
+      // handle response here
+    } else {
+      console.error("Error getting meetings:", response.status);
+    }
   };
 
   const getCompanyTileInfo = async () => {
