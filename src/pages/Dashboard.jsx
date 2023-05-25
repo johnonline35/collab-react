@@ -96,6 +96,7 @@ export default function Dashboard() {
       },
       body: JSON.stringify({ userId }),
     });
+    console.log("Got Meetings");
     // handle response here
   };
 
