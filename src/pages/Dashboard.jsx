@@ -47,7 +47,7 @@ export default function Dashboard() {
     loadedImages,
     setLoadedImages
   );
-  const [userId, setUserId] = useState(null); // New state variable for storing user ID
+  const [userId, setUserId] = useState(null);
 
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
@@ -61,7 +61,7 @@ export default function Dashboard() {
     let { data: userData, error: userError } = await supabase
       .from("collab_users")
       .select("id")
-      .eq("collab_users_email", data.session.user.email) // Assuming that the email is a unique identifier
+      .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
       .single();
 
     if (userError) {
