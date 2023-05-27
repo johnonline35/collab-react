@@ -90,7 +90,7 @@ export default function Dashboard() {
 
   // Fetch Google Calendar via Server and process the response
   const getMeetings = async () => {
-    console.log(userId);
+    console.log("userId:", userId);
     console.log("Starting getMeetings");
     if (!userId) return; // Do not proceed if there's no user ID
     console.log("Passed userId check");
