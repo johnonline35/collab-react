@@ -83,6 +83,9 @@ export default function Dashboard() {
     if (upsertError) {
       console.error("Error upserting refresh token:", upsertError);
     }
+
+    // Call getMeetings after the userId state has been set
+    getMeetings();
   };
 
   // Fetch Google Calendar via Server and process the response
@@ -130,7 +133,6 @@ export default function Dashboard() {
     setLoadingCards(true);
     getSession();
     getCompanyTileInfo();
-    getMeetings();
   }, []);
 
   if (loadingCards) {
