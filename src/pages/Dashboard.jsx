@@ -86,7 +86,7 @@ export default function Dashboard() {
     }
 
     // Call getMeetings after the userId state has been set
-    getMeetings();
+    getMeetings(userId);
   };
 
   // Fetch Google Calendar via Server and process the response
