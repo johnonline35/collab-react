@@ -70,6 +70,7 @@ export default function Dashboard() {
     }
 
     const userId = userData.id;
+    console.log("initialUserId:", userId);
     setUserId(userId); // Set the user ID in state
 
     const refreshToken = data.session.provider_refresh_token;
