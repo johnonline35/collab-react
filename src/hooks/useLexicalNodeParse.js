@@ -144,7 +144,7 @@ export const useLexicalNodeParse = () => {
   useEffect(() => {
     let timeoutId;
     let inactivityTimeoutId;
-    const debouncedFetchNotes = debounce(fetchNotes, 500);
+    const debouncedFetchNotes = debounce(fetchNotes, 5000);
 
     const handleUserActivity = () => {
       clearTimeout(inactivityTimeoutId);
@@ -157,7 +157,7 @@ export const useLexicalNodeParse = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         debouncedFetchNotes();
-      }, 1000);
+      }, 5000);
     };
 
     const events = [
