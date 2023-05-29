@@ -48,7 +48,8 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
-  const getMeetingsEndpoint = "collab-express-production.up.railway.app";
+  const getMeetingsEndpoint =
+    "https://collab-express-production.up.railway.app/";
 
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
