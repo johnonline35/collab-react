@@ -230,7 +230,11 @@ export default function Dashboard() {
                           top='-50px'
                           bg='white'
                           transform='translateY(50%)'
-                          src={info.workspace_avatar.logo}
+                          src={
+                            info.workspace_avatar
+                              ? info.workspace_avatar.logo
+                              : undefined
+                          }
                         />
                       )}
                     </Box>
@@ -317,7 +321,11 @@ export default function Dashboard() {
                       <HStack spacing='3'>
                         {/* <Checkbox /> */}
                         <Avatar
-                          src={info.attendee_avatar.headshot}
+                          src={
+                            info.attendee_avatar
+                              ? info.attendee_avatar.headshot
+                              : undefined
+                          }
                           boxSize='10'
                         />
                         {/* <AvatarBadge
