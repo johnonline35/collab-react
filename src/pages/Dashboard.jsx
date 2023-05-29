@@ -235,6 +235,7 @@ export default function Dashboard() {
                               ? info.workspace_avatar.logo
                               : undefined
                           }
+                          name={info.workspace_name}
                         />
                       )}
                     </Box>
@@ -327,6 +328,7 @@ export default function Dashboard() {
                               : undefined
                           }
                           boxSize='10'
+                          name={info.attendee_name}
                         />
                         {/* <AvatarBadge
                         boxSize='4'
