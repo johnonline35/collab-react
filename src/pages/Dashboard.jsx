@@ -48,6 +48,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+  const getMeetingsEndpoint = "collab-express-production.up.railway.app";
 
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
@@ -91,12 +92,12 @@ export default function Dashboard() {
 
   // Fetch Google Calendar via Server and process the response
   const getMeetings = async (userId) => {
-    console.log("userId:", userId);
+    console.log("NEWuserId:", userId);
     console.log("Starting getMeetings");
     if (!userId) return; // Do not proceed if there's no user ID
     console.log("Passed userId check");
 
-    const response = await fetch("http://localhost:3000", {
+    const response = await fetch(getMeetingsEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
