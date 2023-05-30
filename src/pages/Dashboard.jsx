@@ -118,7 +118,7 @@ export default function Dashboard() {
 
   const getCompanyTileInfo = async (userId) => {
     try {
-      const { data, error } = await supabase.rpc("get_dashboard", {
+      const { data, error } = await supabase.rpc("new_dashboard", {
         _userid: userId,
       });
 
