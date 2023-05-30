@@ -116,16 +116,15 @@ export default function Dashboard() {
     }
   };
 
-  const getCompanyTileInfo = async () => {
+  const getCompanyTileInfo = async (userId) => {
     try {
-      const { data, error } = await supabase.rpc("get_dashboard");
+      const { data, error } = await supabase.rpc("get_dashboard", {
+        _userId: userId,
+      });
 
       if (error) {
         console.error("Error fetching data:", error);
       }
-      // else {
-      //   console.log("Fetched data:", data);
-      // }
 
       setCompanyInfo(data);
       setLoadingCards(false);
@@ -134,11 +133,18 @@ export default function Dashboard() {
     }
   };
 
+  // Fetch user session and set the userId
   useEffect(() => {
     setLoadingCards(true);
     getSession();
-    getCompanyTileInfo();
   }, []);
+
+  // When userId state changes, fetch company tile info
+  useEffect(() => {
+    if (userId) {
+      getCompanyTileInfo(userId);
+    }
+  }, [userId]);
 
   if (loadingCards) {
     return <DashboardLoader />;
