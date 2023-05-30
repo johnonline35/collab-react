@@ -229,7 +229,7 @@ export default function Dashboard() {
                   </Flex>
                   <Flex gap={5}>
                     <Box position='relative'>
-                      {isLoading && info.workspace_avatar.logo ? (
+                      {isLoading ? (
                         <Spinner mt='5px' ml='5px' size='md' />
                       ) : (
                         <Avatar
@@ -239,7 +239,7 @@ export default function Dashboard() {
                           top='-50px'
                           bg='white'
                           transform='translateY(50%)'
-                          src={info?.workspace_avatar?.logo}
+                          src={info?.workspace_avatar?.logo || undefined}
                           name={info?.workspace_name}
                         />
                       )}
