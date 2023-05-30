@@ -4,16 +4,20 @@ export const useImageLoaded = (companyInfo, loadedImages, setLoadedImages) => {
   useEffect(() => {
     if (companyInfo) {
       companyInfo.forEach((info) => {
-        const image = new Image();
-        const src = info.workspace_avatar.logo;
+        if (info.workspace_avatar) {
+          const image = new Image();
+          const src = info.workspace_avatar.logo;
 
-        image.src = src;
-        image.onload = () => {
-          setLoadedImages((prevLoadedImages) => ({
-            ...prevLoadedImages,
-            [src]: true,
-          }));
-        };
+          if (src) {
+            image.src = src;
+            image.onload = () => {
+              setLoadedImages((prevLoadedImages) => ({
+                ...prevLoadedImages,
+                [src]: true,
+              }));
+            };
+          }
+        }
       });
     }
   }, [companyInfo, setLoadedImages]);
