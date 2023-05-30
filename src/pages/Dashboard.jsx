@@ -229,7 +229,7 @@ export default function Dashboard() {
                   </Flex>
                   <Flex gap={5}>
                     <Box position='relative'>
-                      {isLoading ? (
+                      {isLoading && info.workspace_avatar.logo ? (
                         <Spinner mt='5px' ml='5px' size='md' />
                       ) : (
                         <Avatar
