@@ -48,6 +48,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
 
@@ -231,7 +232,9 @@ export default function Dashboard() {
                           bg='white'
                           transform='translateY(50%)'
                           src={
-                            info && info.workspace_avatar
+                            info &&
+                            info.workspace_avatar &&
+                            info.workspace_avatar.logo
                               ? info.workspace_avatar.logo
                               : undefined
                           }
