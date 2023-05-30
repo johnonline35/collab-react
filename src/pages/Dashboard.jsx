@@ -119,7 +119,7 @@ export default function Dashboard() {
   const getCompanyTileInfo = async (userId) => {
     try {
       const { data, error } = await supabase.rpc("get_dashboard", {
-        _userId: userId,
+        _userid: userId,
       });
 
       if (error) {
