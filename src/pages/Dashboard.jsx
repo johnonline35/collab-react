@@ -196,11 +196,10 @@ export default function Dashboard() {
       <SimpleGrid spacing={10} minChildWidth='300px'>
         {companyInfo &&
           companyInfo.map((info) => {
-            const isLoading = !(
+            const isLoading =
               info.workspace_avatar &&
               info.workspace_avatar.logo &&
-              imageLoaded[info.workspace_avatar.logo]
-            );
+              !imageLoaded[info.workspace_avatar.logo];
 
             {
               /* const isLoading = !imageLoaded[info.workspace_avatar.logo]; */
