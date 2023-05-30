@@ -231,14 +231,8 @@ export default function Dashboard() {
                           top='-50px'
                           bg='white'
                           transform='translateY(50%)'
-                          src={
-                            info &&
-                            info.workspace_avatar &&
-                            info.workspace_avatar.logo
-                              ? info.workspace_avatar.logo
-                              : undefined
-                          }
-                          name={info ? info.workspace_name : undefined}
+                          src={info?.workspace_avatar?.logo}
+                          name={info?.workspace_name}
                         />
                       )}
                     </Box>
