@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
       `https://api.brandfetch.io/v2/brands/${domainName}`,
       {
         headers: {
-          "X-API-KEY": brandfetch_api_key,
+          Authorization: `Bearer ${brandfetch_api_key}`,
         },
       }
     );
@@ -71,7 +71,7 @@ module.exports = async (req, res) => {
     res.status(200).send(response.data);
   } catch (error) {
     // Log the error message if the request failed
-    console.error("Error fetching brand:", error.message);
+    console.log("Error fetching brand:", error.message);
     res.status(500).send(`Error fetching brand: ${error.message}`);
   }
 };
