@@ -8,8 +8,6 @@ const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const brandfetch_api_key = process.env.REACT_APP_BRANDFETCH;
 
-console.log("Brandfetch API Key: ", brandfetch_api_key);
-
 module.exports = async (req, res) => {
   // Extract newRow from the parsed body
   const newRow = req.body;
@@ -66,6 +64,19 @@ module.exports = async (req, res) => {
     );
 
     console.log("Brandfetch Response:", response.data);
+
+    // Upsert the response data into the brandfetch_data table
+    const { error: upsertError } = await supabase
+      .from("brandfetch_data")
+      .upsert(response.data, { returning: "minimal" }); // don't return the inserted row
+
+    if (upsertError) {
+      console.log("Error upserting data:", upsertError.message);
+      res
+        .status(500)
+        .send(`Error upserting brand data: ${upsertError.message}`);
+      return;
+    }
 
     // Send the response from the Brandfetch API
     res.status(200).send(response.data);
