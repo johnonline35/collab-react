@@ -8,12 +8,9 @@ const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const brandfetch_api_key = process.env.REACT_APP_BRANDFETCH;
 
-console.log(
-  "Environment Variables:",
-  supabaseUrl,
-  supabaseAnonKey,
-  brandfetch_api_key
-);
+console.log("Supabase URL: ", supabaseUrl);
+console.log("Supabase Anon Key: ", supabaseAnonKey);
+console.log("Brandfetch API Key: ", brandfetch_api_key);
 
 module.exports = async (req, res) => {
   // Extract newRow from the parsed body
@@ -39,7 +36,7 @@ module.exports = async (req, res) => {
     .eq("domain", domainName);
 
   if (error) {
-    console.log(
+    console.error(
       "Error fetching data from brandfetch_data table: ",
       error.message
     );
@@ -76,7 +73,7 @@ module.exports = async (req, res) => {
     res.status(200).send(response.data);
   } catch (error) {
     // Log the error message if the request failed
-    console.log("Error fetching brand:", error.message);
+    console.error("Error fetching brand:", error.message);
     res.status(500).send(`Error fetching brand: ${error.message}`);
   }
 };
