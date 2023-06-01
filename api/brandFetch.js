@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   const { new: newRow } = req.body;
 
   // Extract the domainName from the newRow object
-  const domainName = newRow?.domain;
+  const domainName = newRow?.record?.domain;
   console.log("Domain name: ", domainName);
 
   // Check if the domainName parameter is an empty string
