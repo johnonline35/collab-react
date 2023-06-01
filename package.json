@@ -32,6 +32,7 @@
     "@types/node": "^18.15.10",
     "@types/react": "^18.0.30",
     "@types/react-dom": "^18.0.11",
+    "axios": "^1.4.0",
     "framer-motion": "^9.0.4",
     "lexical": "^0.9.1",
     "lodash": "^4.17.21",
