@@ -2,17 +2,15 @@
 const axios = require("axios");
 
 module.exports = async (req, res) => {
-  // Parse the request body as JSON
-  const body = JSON.parse(req.body);
-
   // Extract newRow from the parsed body
-  const newRow = body;
+  const newRow = req.body;
 
   // Extract domainName from newRow
   const domainName = newRow?.record?.domain;
 
   // Log the domainName
   console.log("Domain name: ", domainName);
+  console.log("Request body: ", req.body);
 
   // Check if the domainName parameter is an empty string
   if (!domainName) {
