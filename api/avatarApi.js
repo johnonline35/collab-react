@@ -43,10 +43,15 @@ module.exports = async (req, res) => {
 
     console.log("Received response from Avatar API", response.data);
 
+    const avatarData = Object.keys(response.data).reduce((result, key) => {
+      result[key.toLowerCase()] = response.data[key];
+      return result;
+    }, {});
+
     // Insert the Avatar API response into the Supabase table
     const { data, error } = await supabase
       .from("avatarapi_data")
-      .upsert(response.data, { returning: "minimal" }); // don't return the inserted row
+      .upsert(avatarData, { returning: "minimal" }); // don't return the inserted row
 
     if (error) {
       console.error("Error inserting data into Supabase:", error);
