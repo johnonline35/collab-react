@@ -25,6 +25,25 @@ module.exports = async (req, res) => {
     return;
   }
 
+  // Check if email exists in the avatarapi_data table
+  const { data: existingData, error: fetchError } = await supabase
+    .from("avatarapi_data")
+    .select("email")
+    .eq("email", email);
+
+  if (fetchError) {
+    console.error("Error fetching data from Supabase:", fetchError);
+    res.status(500).json({ error: fetchError.message });
+    return;
+  }
+
+  // If the email already exists, exit the function
+  if (existingData.length > 0) {
+    console.log("Email already exists, exiting function.");
+    res.status(200).json({ message: "Email already exists." });
+    return;
+  }
+
   try {
     console.log("Making request to Avatar API...");
     const response = await axios.post(
@@ -43,10 +62,14 @@ module.exports = async (req, res) => {
 
     console.log("Received response from Avatar API", response.data);
 
+    // Convert keys to lowercase
     const avatarData = Object.keys(response.data).reduce((result, key) => {
       result[key.toLowerCase()] = response.data[key];
       return result;
     }, {});
+
+    // Add email to the data object
+    avatarData.email = email;
 
     // Insert the Avatar API response into the Supabase table
     const { data, error } = await supabase
