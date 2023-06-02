@@ -41,9 +41,30 @@ module.exports = async (req, res) => {
       }
     );
 
-    console.log("Received response from Avatar API", response);
-    // If successful, send back the response from the Avatar API
-    res.status(200).send(response.data);
+    console.log("Received response from Avatar API", response.data);
+
+    // Insert the Avatar API response into the Supabase table
+    const { data, error } = await supabase.from("avatarapi_data").upsert([
+      {
+        Name: response.data.Name,
+        Image: response.data.Image,
+        Valid: response.data.Valid,
+        City: response.data.City,
+        Country: response.data.Country,
+        IsDefault: response.data.IsDefault,
+      },
+    ]);
+
+    if (error) {
+      console.error("Error inserting data into Supabase:", error);
+      res
+        .status(500)
+        .send(`Error inserting data into Supabase: ${error.message}`);
+    } else {
+      console.log("Data successfully inserted into Supabase.");
+      // If successful, send back the response from the Avatar API
+      res.status(200).send(response.data);
+    }
   } catch (error) {
     // Log the error message if the request failed
     console.log("Error fetching avatar:", error.message);
