@@ -40,8 +40,6 @@ module.exports = async (req, res) => {
     return;
   }
 
-  console.log("Supabase Data:", data);
-
   // If the domain exists in the table, return without doing anything
   if (data.length > 0) {
     console.log(`Domain name ${domainName} already exists in the table.`);
