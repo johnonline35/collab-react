@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   console.log("Received Request:", req.method, req.url);
 
   // Extract the email from the request
-  const email = req.body.email;
+  const email = req.body.meeting_attendee_email;
   console.log("Received email:", email);
 
   if (!email) {
@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
       }
     );
 
-    console.log("Received response from Avatar API");
+    console.log("Received response from Avatar API", response);
     // If successful, send back the response from the Avatar API
     res.status(200).send(response.data);
   } catch (error) {
