@@ -13,9 +13,10 @@ console.log("Avatar_api_username:", avatar_api_username);
 
 module.exports = async (req, res) => {
   console.log("Received Request:", req.method, req.url);
+  const newRow = req.body;
 
   // Extract the email from the request
-  const email = req.body.meeting_attendee_email;
+  const email = newRow?.record?.meeting_attendee_email;
   console.log("Received email:", email);
 
   if (!email) {
