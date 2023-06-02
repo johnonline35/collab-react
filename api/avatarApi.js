@@ -44,16 +44,9 @@ module.exports = async (req, res) => {
     console.log("Received response from Avatar API", response.data);
 
     // Insert the Avatar API response into the Supabase table
-    const { data, error } = await supabase.from("avatarapi_data").upsert([
-      {
-        Name: response.data.Name,
-        Image: response.data.Image,
-        Valid: response.data.Valid,
-        City: response.data.City,
-        Country: response.data.Country,
-        IsDefault: response.data.IsDefault,
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("avatarapi_data")
+      .upsert(response.data);
 
     if (error) {
       console.error("Error inserting data into Supabase:", error);
