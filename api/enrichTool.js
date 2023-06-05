@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     method: "GET",
     url: "https://enrich.p.rapidapi.com/contact/email",
     params: {
-      email: "johnchildseddy@gmail.com",
+      email: "viviana@felicis.com",
     },
     headers: {
       "X-RapidAPI-Key": "c39273e00emshe0917644628e8c9p1c4eabjsnbb871b32a325",
