@@ -6,12 +6,12 @@ const peopledatalabs_api_key = process.env.REACT_APP_PEOPLEDATALABS;
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { createClient } = require("@supabase/supabase-js");
-const supabaseUrl = "your-supabase-url"; // replace with your Supabase URL
-const supabaseKey = "your-supabase-key"; // replace with your Supabase service key
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
 // Create a client, specifying your API key
 const PDLClient = new PDLJS({ apiKey: peopledatalabs_api_key });
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 module.exports = async (req, res) => {
   const params = {
