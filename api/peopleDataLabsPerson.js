@@ -11,6 +11,15 @@ const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 const PDLClient = new PDLJS({ apiKey: peopledatalabs_api_key });
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+// Utility function to check and correct the date format
+function correctDateFormat(dateStr) {
+  if (isNaN(Date.parse(dateStr))) {
+    return `${dateStr}-01`;
+  } else {
+    return dateStr;
+  }
+}
+
 module.exports = async (req, res) => {
   const params = {
     email: "viviana@felicis.com",
@@ -127,8 +136,8 @@ module.exports = async (req, res) => {
         company_facebook_url: experience.company.facebook_url,
         company_twitter_url: experience.company.twitter_url,
         company_website: experience.company.website,
-        start_date: experience.start_date,
-        end_date: experience.end_date,
+        start_date: correctDateFormat(experience.start_date),
+        end_date: correctDateFormat(experience.end_date),
         title_name: experience.title.name,
         title_role: experience.title.role,
         title_sub_role: experience.title.sub_role,
