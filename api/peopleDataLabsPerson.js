@@ -99,7 +99,12 @@ module.exports = async (req, res) => {
     );
 
     // Upsert data into Supabase pdl_api_experience table
+    console.log("Upserting data into pdl_api_experience...");
+
+    // Upsert data into Supabase pdl_api_experience table
     for (let experience of record.experience) {
+      console.log(`Upserting experience for ${record.id}`);
+
       await supabase.from("pdl_api_experience").upsert(
         [
           {
@@ -125,10 +130,15 @@ module.exports = async (req, res) => {
         ],
         { onConflict: "user_id" }
       );
+      console.log(`Upserted experience for ${record.id}`);
     }
+    console.log("Upserted data into pdl_api_experience");
 
     // Upsert data into Supabase pdl_api_education table
+    console.log("Upserting data into pdl_api_education...");
+
     for (let education of record.education) {
+      console.log(`Upserting education for ${record.id}`);
       await supabase.from("pdl_api_education").upsert(
         [
           {
@@ -153,8 +163,9 @@ module.exports = async (req, res) => {
         ],
         { onConflict: "user_id" }
       );
+      console.log(`Upserted education for ${record.id}`);
     }
-
+    console.log("Upserted data into pdl_api_education");
     res.json(record);
   } catch (error) {
     console.error("Enrichment unsuccessful. See error and try again.");
