@@ -109,22 +109,24 @@ module.exports = async (req, res) => {
         [
           {
             user_id: record.id,
-            company_name: experience.company_name,
-            company_size: experience.company_size,
-            company_id: experience.company_id,
-            company_founded: experience.company_founded,
-            company_industry: experience.company_industry,
-            company_location_name: experience.company_location_name,
-            company_linkedin_url: experience.company_linkedin_url,
-            company_linkedin_id: experience.company_linkedin_id,
-            company_facebook_url: experience.company_facebook_url,
-            company_twitter_url: experience.company_twitter_url,
-            company_website: experience.company_website,
+            company_name: experience.company.name,
+            company_size: experience.company.size,
+            company_id: experience.company.id,
+            company_founded: experience.company.founded,
+            company_industry: experience.company.industry,
+            company_location_name: experience.company.location
+              ? experience.company.location.name
+              : null,
+            company_linkedin_url: experience.company.linkedin_url,
+            company_linkedin_id: experience.company.linkedin_id,
+            company_facebook_url: experience.company.facebook_url,
+            company_twitter_url: experience.company.twitter_url,
+            company_website: experience.company.website,
             start_date: experience.start_date,
             end_date: experience.end_date,
-            title_name: experience.title_name,
-            title_role: experience.title_role,
-            title_sub_role: experience.title_sub_role,
+            title_name: experience.title.name,
+            title_role: experience.title.role,
+            title_sub_role: experience.title.sub_role,
             is_primary: experience.is_primary,
           },
         ],
@@ -132,6 +134,7 @@ module.exports = async (req, res) => {
       );
       console.log(`Upserted experience for ${record.id}`);
     }
+
     console.log("Upserted data into pdl_api_experience");
 
     // Upsert data into Supabase pdl_api_education table
