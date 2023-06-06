@@ -9,7 +9,7 @@ const PDLClient = new PDLJS({ apiKey: peopledatalabs_api_key });
 
 module.exports = async (req, res) => {
   const params = {
-    email: "johnchildseddy@gmail.com",
+    email: "viviana@felicis.com",
     min_likelihood: 4,
   };
 
