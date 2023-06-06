@@ -135,37 +135,37 @@ module.exports = async (req, res) => {
     console.log("Upserted data into pdl_api_experience");
 
     // Upsert data into Supabase pdl_api_education table
-    console.log("Upserting data into pdl_api_education...");
+    // console.log("Upserting data into pdl_api_education...");
 
-    for (let education of record.education) {
-      console.log(`Upserting education for ${record.id}`);
-      await supabase.from("pdl_api_education").upsert(
-        [
-          {
-            user_id: record.id,
-            school_name: education.school_name,
-            school_type: education.school_type,
-            school_id: education.school_id,
-            school_location_name: education.school_location_name,
-            school_linkedin_url: education.school_linkedin_url,
-            school_facebook_url: education.school_facebook_url,
-            school_twitter_url: education.school_twitter_url,
-            school_linkedin_id: education.school_linkedin_id,
-            school_website: education.school_website,
-            school_domain: education.school_domain,
-            degree: education.degree,
-            start_date: education.start_date,
-            end_date: education.end_date,
-            major: education.major,
-            minor: education.minor,
-            gpa: education.gpa,
-          },
-        ],
-        { onConflict: "user_id" }
-      );
-      console.log(`Upserted education for ${record.id}`);
-    }
-    console.log("Upserted data into pdl_api_education");
+    // for (let education of record.education) {
+    //   console.log(`Upserting education for ${record.id}`);
+    //   await supabase.from("pdl_api_education").upsert(
+    //     [
+    //       {
+    //         user_id: record.id,
+    //         school_name: education.school_name,
+    //         school_type: education.school_type,
+    //         school_id: education.school_id,
+    //         school_location_name: education.school_location_name,
+    //         school_linkedin_url: education.school_linkedin_url,
+    //         school_facebook_url: education.school_facebook_url,
+    //         school_twitter_url: education.school_twitter_url,
+    //         school_linkedin_id: education.school_linkedin_id,
+    //         school_website: education.school_website,
+    //         school_domain: education.school_domain,
+    //         degree: education.degree,
+    //         start_date: education.start_date,
+    //         end_date: education.end_date,
+    //         major: education.major,
+    //         minor: education.minor,
+    //         gpa: education.gpa,
+    //       },
+    //     ],
+    //     { onConflict: "user_id" }
+    //   );
+    //   console.log(`Upserted education for ${record.id}`);
+    // }
+    // console.log("Upserted data into pdl_api_education");
     res.json(record);
   } catch (error) {
     console.error("Enrichment unsuccessful. See error and try again.");
