@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const axios = require("axios");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { PDLJS } = require("peopledatalabs");
+const PDLJS = require("peopledatalabs").PDLJS;
+
 const peopledatalabs_api_key = process.env.REACT_APP_PEOPLEDATALABS;
 
 const PDLJSClient = new PDLJS({
