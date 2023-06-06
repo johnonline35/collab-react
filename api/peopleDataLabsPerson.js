@@ -1,6 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const axios = require("axios");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const PDLJS = require("peopledatalabs");
 const peopledatalabs_api_key = process.env.REACT_APP_PEOPLEDATALABS;
 
@@ -99,6 +97,63 @@ module.exports = async (req, res) => {
       ],
       { onConflict: "id" }
     );
+
+    // Upsert data into Supabase pdl_api_experience table
+    for (let experience of record.experience) {
+      await supabase.from("pdl_api_experience").upsert(
+        [
+          {
+            user_id: record.id,
+            company_name: experience.company_name,
+            company_size: experience.company_size,
+            company_id: experience.company_id,
+            company_founded: experience.company_founded,
+            company_industry: experience.company_industry,
+            company_location_name: experience.company_location_name,
+            company_linkedin_url: experience.company_linkedin_url,
+            company_linkedin_id: experience.company_linkedin_id,
+            company_facebook_url: experience.company_facebook_url,
+            company_twitter_url: experience.company_twitter_url,
+            company_website: experience.company_website,
+            start_date: experience.start_date,
+            end_date: experience.end_date,
+            title_name: experience.title_name,
+            title_role: experience.title_role,
+            title_sub_role: experience.title_sub_role,
+            is_primary: experience.is_primary,
+          },
+        ],
+        { onConflict: "user_id" }
+      );
+    }
+
+    // Upsert data into Supabase pdl_api_education table
+    for (let education of record.education) {
+      await supabase.from("pdl_api_education").upsert(
+        [
+          {
+            user_id: record.id,
+            school_name: education.school_name,
+            school_type: education.school_type,
+            school_id: education.school_id,
+            school_location_name: education.school_location_name,
+            school_linkedin_url: education.school_linkedin_url,
+            school_facebook_url: education.school_facebook_url,
+            school_twitter_url: education.school_twitter_url,
+            school_linkedin_id: education.school_linkedin_id,
+            school_website: education.school_website,
+            school_domain: education.school_domain,
+            degree: education.degree,
+            start_date: education.start_date,
+            end_date: education.end_date,
+            major: education.major,
+            minor: education.minor,
+            gpa: education.gpa,
+          },
+        ],
+        { onConflict: "user_id" }
+      );
+    }
 
     res.json(record);
   } catch (error) {
