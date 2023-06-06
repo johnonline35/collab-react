@@ -17,19 +17,15 @@ function correctDateFormat(dateStr) {
   if (dateStr === null) {
     return "0000-00-00"; // Or any other default value you prefer
   }
-
   var dateParts = dateStr.split("-");
-
   // If the date string has one part, it's a year. Append "-01-01".
   if (dateParts.length === 1) {
     return dateStr + "-01-01";
   }
-
   // If the date string has two parts, it's a year and month. Append "-01".
   if (dateParts.length === 2) {
     return dateStr + "-01";
   }
-
   // If the date string has three parts, it's already in the correct format.
   return dateStr;
 }
@@ -160,19 +156,26 @@ module.exports = async (req, res) => {
 
       console.log("Experience data to be upserted: ", experienceData);
 
-      const { error: upsertExperienceError } = await supabase
-        .from("pdl_api_experience")
-        .upsert([experienceData], {
-          onConflict: ["user_id", "company_id", "start_date", "end_date"],
-        });
+      try {
+        const { error: upsertExperienceError } = await supabase
+          .from("pdl_api_experience")
+          .upsert([experienceData], {
+            onConflict: ["user_id", "company_id", "start_date", "end_date"],
+          });
 
-      if (upsertExperienceError) {
+        if (upsertExperienceError) {
+          console.error(
+            "Upserting experience data failed: ",
+            upsertExperienceError
+          );
+        } else {
+          console.log(`Successfully upserted experience for ${record.id}`);
+        }
+      } catch (error) {
         console.error(
-          "Upserting experience data failed: ",
-          upsertExperienceError
+          "Error occurred during upserting experience data: ",
+          error
         );
-      } else {
-        console.log(`Successfully upserted experience for ${record.id}`);
       }
     }
 
