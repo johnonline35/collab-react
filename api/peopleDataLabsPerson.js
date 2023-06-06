@@ -13,11 +13,20 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Utility function to check and correct the date format
 function correctDateFormat(dateStr) {
-  if (isNaN(Date.parse(dateStr))) {
-    return `${dateStr}-01`;
-  } else {
-    return dateStr;
+  var dateParts = dateStr.split("-");
+
+  // If the date string has one part, it's a year. Append "-01-01".
+  if (dateParts.length === 1) {
+    return dateStr + "-01-01";
   }
+
+  // If the date string has two parts, it's a year and month. Append "-01".
+  if (dateParts.length === 2) {
+    return dateStr + "-01";
+  }
+
+  // If the date string has three parts, it's already in the correct format.
+  return dateStr;
 }
 
 module.exports = async (req, res) => {
