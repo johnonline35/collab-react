@@ -1,13 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const axios = require("axios");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const PDLJS = require("peopledatalabs").PDLJS;
-
+const PDLJS = require("peopledatalabs");
 const peopledatalabs_api_key = process.env.REACT_APP_PEOPLEDATALABS;
 
-const PDLJSClient = new PDLJS({
-  apiKey: peopledatalabs_api_key,
-});
+// Create a client, specifying your API key
+const PDLClient = new PDLJS({ apiKey: peopledatalabs_api_key });
 
 module.exports = async (req, res) => {
   const params = {
@@ -16,7 +14,7 @@ module.exports = async (req, res) => {
   };
 
   try {
-    const data = await PDLJSClient.person.enrichment(params);
+    const data = await PDLClient.person.enrichment(params);
     const record = data.data;
 
     console.log(record);
