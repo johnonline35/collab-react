@@ -13,6 +13,11 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 // Utility function to check and correct the date format
 function correctDateFormat(dateStr) {
+  // Return a default value if dateStr is null
+  if (dateStr === null) {
+    return "0000-00-00"; // Or any other default value you prefer
+  }
+
   var dateParts = dateStr.split("-");
 
   // If the date string has one part, it's a year. Append "-01-01".
