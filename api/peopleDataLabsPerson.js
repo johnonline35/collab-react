@@ -206,7 +206,7 @@ module.exports = async (req, res) => {
         const { error: upsertEducationError } = await supabase
           .from("pdl_api_education")
           .upsert([educationData], {
-            onConflict: ["user_id", "school_id", "start_date", "degree"],
+            onConflict: ["user_id", "school_id", "degree"],
           });
 
         if (upsertEducationError) {
