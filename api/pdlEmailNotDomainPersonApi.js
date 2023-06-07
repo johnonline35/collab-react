@@ -46,8 +46,8 @@ module.exports = async (req, res) => {
   // Check if email exists in the pdl_api_users table
   const { data: existingData, error: fetchError } = await supabase
     .from("pdl_api_users")
-    .select("workspace_email")
-    .eq("workspace_email", email);
+    .select("email_address_collab_key")
+    .eq("email_address_collab_key", email);
 
   if (fetchError) {
     console.error("Error fetching data from Supabase:", fetchError);
@@ -144,7 +144,7 @@ module.exports = async (req, res) => {
             location_postal_code: record.location_postal_code,
             location_geo: record.location_geo,
             location_last_updated: record.location_last_updated,
-            workspace_email: email,
+            email_address_collab_key: email,
           },
         ],
         { onConflict: "id" }
