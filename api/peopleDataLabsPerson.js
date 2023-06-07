@@ -15,7 +15,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 function correctDateFormat(dateStr) {
   // Return a default value if dateStr is null
   if (dateStr === null) {
-    return null; // Or any other default value you prefer
+    return null;
   }
   var dateParts = dateStr.split("-");
   // If the date string has one part, it's a year. Append "-01-01".
@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
     return;
   }
 
-  // Check if email exists in the avatarapi_data table
+  // Check if email exists in the pdl_api_users table
   const { data: existingData, error: fetchError } = await supabase
     .from("pdl_api_users")
     .select("workspace_email")
@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
   }
 
   const params = {
-    email: "viviana@felicis.com",
+    email: email,
     min_likelihood: 4,
   };
 
