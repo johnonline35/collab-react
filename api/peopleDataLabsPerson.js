@@ -160,13 +160,7 @@ module.exports = async (req, res) => {
         const { error: upsertExperienceError } = await supabase
           .from("pdl_api_experience")
           .upsert([experienceData], {
-            onConflict: [
-              "user_id",
-              "company_id",
-              "start_date",
-              "end_date",
-              "title_name",
-            ],
+            onConflict: ["user_id", "company_id", "start_date", "title_name"],
           });
 
         if (upsertExperienceError) {
