@@ -40,9 +40,7 @@ module.exports = async (req, res) => {
     const data = await PDLClient.person.enrichment(params);
     const record = data.data;
 
-    console.log(record);
-
-    console.log("successfully enriched profile with pdl data");
+    console.log(record.full_name);
 
     // Upsert data into Supabase
     const { error: upsertUserError } = await supabase
@@ -129,8 +127,6 @@ module.exports = async (req, res) => {
     console.log("Upserting data into pdl_api_experience...");
 
     for (let experience of record.experience) {
-      console.log(`Upserting experience for ${record.id}`);
-
       const experienceData = {
         user_id: record.id,
         company_name: experience.company.name,
@@ -153,11 +149,6 @@ module.exports = async (req, res) => {
         title_sub_role: experience.title.sub_role,
         is_primary: experience.is_primary,
       };
-
-      console.log(
-        "Experience data to be upserted: ",
-        experienceData.company_name
-      );
 
       try {
         const { error: upsertExperienceError } = await supabase
@@ -190,37 +181,55 @@ module.exports = async (req, res) => {
     console.log("Upserted data into pdl_api_experience");
 
     // Upsert data into Supabase pdl_api_education table
-    // console.log("Upserting data into pdl_api_education...");
+    for (let education of record.education) {
+      const educationData = {
+        user_id: record.id,
+        school_name: education.school_name,
+        school_type: education.school_type,
+        school_id: education.school_id,
+        school_location_name: education.school_location_name,
+        school_linkedin_url: education.school_linkedin_url,
+        school_facebook_url: education.school_facebook_url,
+        school_twitter_url: education.school_twitter_url,
+        school_linkedin_id: education.school_linkedin_id,
+        school_website: education.school_website,
+        school_domain: education.school_domain,
+        degree: education.degree,
+        start_date: correctDateFormat(education.start_date),
+        end_date: correctDateFormat(education.end_date),
+        major: education.major,
+        minor: education.minor,
+        gpa: education.gpa,
+      };
 
-    // for (let education of record.education) {
-    //   console.log(`Upserting education for ${record.id}`);
-    //   await supabase.from("pdl_api_education").upsert(
-    //     [
-    //       {
-    //         user_id: record.id,
-    //         school_name: education.school_name,
-    //         school_type: education.school_type,
-    //         school_id: education.school_id,
-    //         school_location_name: education.school_location_name,
-    //         school_linkedin_url: education.school_linkedin_url,
-    //         school_facebook_url: education.school_facebook_url,
-    //         school_twitter_url: education.school_twitter_url,
-    //         school_linkedin_id: education.school_linkedin_id,
-    //         school_website: education.school_website,
-    //         school_domain: education.school_domain,
-    //         degree: education.degree,
-    //         start_date: education.start_date,
-    //         end_date: education.end_date,
-    //         major: education.major,
-    //         minor: education.minor,
-    //         gpa: education.gpa,
-    //       },
-    //     ],
-    //     { onConflict: "user_id" }
-    //   );
-    //   console.log(`Upserted education for ${record.id}`);
-    // }
-    // console.log("Upserted data into pdl_api_education");
+      try {
+        const { error: upsertEducationError } = await supabase
+          .from("pdl_api_education")
+          .upsert([educationData], {
+            onConflict: ["user_id", "school_id", "start_date", "degree"],
+          });
+
+        if (upsertEducationError) {
+          console.error(
+            "Upserting education data failed: ",
+            upsertEducationError
+          );
+        } else {
+          console.log(
+            `Successfully upserted education for ${educationData.school_name}`
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Error occurred during upserting education data: ",
+          error.message
+        );
+        if (error.details) {
+          console.error("Error details: ", error.details);
+        }
+      }
+    }
+    console.log("Upserted data into pdl_api_education");
     res.json(record);
   } catch (error) {
     console.error("Enrichment unsuccessful. See error and try again.");
