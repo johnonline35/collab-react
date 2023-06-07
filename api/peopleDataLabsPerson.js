@@ -7,7 +7,7 @@ const { createClient } = require("@supabase/supabase-js");
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 
-// Create a client, specifying your API key
+// Create clients
 const PDLClient = new PDLJS({ apiKey: peopledatalabs_api_key });
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
@@ -184,16 +184,16 @@ module.exports = async (req, res) => {
     for (let education of record.education) {
       const educationData = {
         user_id: record.id,
-        school_name: education.school_name,
-        school_type: education.school_type,
+        school_name: education.school.name,
+        school_type: education.school.type,
         school_id: education.school_id,
-        school_location_name: education.school_location_name,
-        school_linkedin_url: education.school_linkedin_url,
-        school_facebook_url: education.school_facebook_url,
-        school_twitter_url: education.school_twitter_url,
-        school_linkedin_id: education.school_linkedin_id,
-        school_website: education.school_website,
-        school_domain: education.school_domain,
+        school_location_name: education.school.location.name,
+        school_linkedin_url: education.school.linkedin_url,
+        school_facebook_url: education.school.facebook_url,
+        school_twitter_url: education.school.twitter_url,
+        school_linkedin_id: education.school.linkedin_id,
+        school_website: education.school.website,
+        school_domain: education.school.domain,
         degree: education.degree,
         start_date: correctDateFormat(education.start_date),
         end_date: correctDateFormat(education.end_date),
