@@ -31,6 +31,37 @@ function correctDateFormat(dateStr) {
 }
 
 module.exports = async (req, res) => {
+  // Extract newRow from the parsed body
+  const newRow = req.body;
+
+  // Extract email from newRow
+  const email = newRow?.record?.meeting_attendee_email;
+
+  if (!email) {
+    console.log("Missing email in request body");
+    res.status(400).json({ error: "Missing email in request body" });
+    return;
+  }
+
+  // Check if email exists in the avatarapi_data table
+  const { data: existingData, error: fetchError } = await supabase
+    .from("pdl_api_users")
+    .select("workspace_email")
+    .eq("workspace_email", email);
+
+  if (fetchError) {
+    console.error("Error fetching data from Supabase:", fetchError);
+    res.status(500).json({ error: fetchError.message });
+    return;
+  }
+
+  // If the email already exists, exit the function
+  if (existingData.length > 0) {
+    console.log("Email already exists, exiting function.");
+    res.status(200).json({ message: "Email already exists." });
+    return;
+  }
+
   const params = {
     email: "viviana@felicis.com",
     min_likelihood: 4,
@@ -113,6 +144,7 @@ module.exports = async (req, res) => {
             location_postal_code: record.location_postal_code,
             location_geo: record.location_geo,
             location_last_updated: record.location_last_updated,
+            workspace_email: email,
           },
         ],
         { onConflict: "id" }
