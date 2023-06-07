@@ -186,7 +186,7 @@ module.exports = async (req, res) => {
         user_id: record.id,
         school_name: education.school.name,
         school_type: education.school.type,
-        school_id: education.school_id,
+        school_id: education.school.id,
         school_location_name: education.school.location.name,
         school_linkedin_url: education.school.linkedin_url,
         school_facebook_url: education.school.facebook_url,
