@@ -194,11 +194,11 @@ module.exports = async (req, res) => {
         school_linkedin_id: education.school.linkedin_id,
         school_website: education.school.website,
         school_domain: education.school.domain,
-        degree: education.degree,
+        degree: education.degrees,
         start_date: correctDateFormat(education.start_date),
         end_date: correctDateFormat(education.end_date),
-        major: education.major,
-        minor: education.minor,
+        major: education.majors,
+        minor: education.minors,
         gpa: education.gpa,
       };
 
