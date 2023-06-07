@@ -154,7 +154,10 @@ module.exports = async (req, res) => {
         is_primary: experience.is_primary,
       };
 
-      console.log("Experience data to be upserted: ", experienceData);
+      console.log(
+        "Experience data to be upserted: ",
+        experienceData.company_name
+      );
 
       try {
         const { error: upsertExperienceError } = await supabase
@@ -169,13 +172,18 @@ module.exports = async (req, res) => {
             upsertExperienceError
           );
         } else {
-          console.log(`Successfully upserted experience for ${record.id}`);
+          console.log(
+            `Successfully upserted experience for ${experienceData.company_name}`
+          );
         }
       } catch (error) {
         console.error(
-          "Error occurred during upserting experience data: ",
-          error
+          "Error occurred during upserting user data: ",
+          error.message
         );
+        if (error.details) {
+          console.error("Error details: ", error.details);
+        }
       }
     }
 
