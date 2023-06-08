@@ -9,14 +9,11 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const avatar_api_username = process.env.REACT_APP_AVATARAPI_USERNAME;
 const avatar_api_password = process.env.REACT_APP_AVATARAPI_PASSWORD;
 
-console.log("Avatar_api_username:", avatar_api_username);
-
 module.exports = async (req, res) => {
-  console.log("Received Request:", req.method, req.url);
   const newRow = req.body;
 
   // Extract the email from the request
-  const email = newRow?.record?.meeting_attendee_email;
+  const email = newRow?.record?.attendee_email;
   console.log("Received email:", email);
 
   if (!email) {
