@@ -76,8 +76,10 @@ export default function Dashboard() {
     console.log("initialUserId:", userId);
     setUserId(userId); // Set the user ID in state
 
+    // Get the refresh token from the session object
     const refreshToken = data.session.provider_refresh_token;
 
+    // Upsert the userId and the refresh token
     const { error: upsertError } = await supabase
       .from("collab_users")
       .upsert([{ id: userId, refresh_token: refreshToken }], {

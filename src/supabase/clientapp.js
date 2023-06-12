@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 import { Auth } from "@supabase/auth-ui-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { delete_cookie } from "../privateRoute";
+import { deleteCookie } from "../privateRoute";
 
 const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
 const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
@@ -28,5 +28,5 @@ export async function signInWithGoogle() {
 
 export async function signout() {
   const { error } = await supabase.auth.signOut();
-  delete_cookie("token");
+  deleteCookie("token");
 }
