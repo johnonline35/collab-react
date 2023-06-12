@@ -29,7 +29,7 @@ export default function Account() {
   const [avatar_url, setAvatarUrl] = useState(null);
 
   useEffect(() => {
-    setSession(supabase.auth.session);
+    setSession(supabase.auth.getSession());
   }, []);
 
   useEffect(() => {
