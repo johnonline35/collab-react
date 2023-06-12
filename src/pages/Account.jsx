@@ -29,6 +29,10 @@ export default function Account() {
   const [avatar_url, setAvatarUrl] = useState(null);
 
   useEffect(() => {
+    setSession(supabase.auth.session());
+  }, []);
+
+  useEffect(() => {
     getProfile();
   }, [session]);
 
@@ -42,10 +46,6 @@ export default function Account() {
     return () => {
       authListener.unsubscribe();
     };
-  }, []);
-
-  useEffect(() => {
-    setSession(supabase.auth.session());
   }, []);
 
   const getProfile = async () => {
