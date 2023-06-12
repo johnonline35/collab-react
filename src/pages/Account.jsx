@@ -22,7 +22,7 @@ import EditProfile from "../components/EditProfile";
 import { SessionContext } from "../privateRoute";
 
 export default function Account() {
-  const session = useContext(SessionContext);
+  const [session, setSession] = useState(supabase.auth.session());
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [job_title, setJobTitle] = useState(null);
@@ -32,9 +32,24 @@ export default function Account() {
     getProfile();
   }, [session]);
 
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setSession(session);
+      }
+    );
+
+    return () => {
+      authListener.unsubscribe();
+    };
+  }, []);
+
   const getProfile = async () => {
     try {
       setLoading(true);
+      if (!session || !session.user) {
+        throw new Error("Not logged in");
+      }
       const { user } = session;
 
       let { data, error, status } = await supabase
@@ -94,10 +109,11 @@ export default function Account() {
         <Tab _selected={{ color: "white", bg: "blue.400" }}>
           Account Settings
         </Tab>
-        <Tab _selected={{ color: "white", bg: "blue.400" }}>Team Settings</Tab>
+        {/* <Tab _selected={{ color: "white", bg: "blue.400" }}>Team Settings</Tab> */}
       </TabList>
+      <EditProfile />
 
-      <TabPanels>
+      {/* <TabPanels>
         <TabPanel>
           <Text>Edit Profile</Text>
           <EditProfile />
@@ -106,7 +122,7 @@ export default function Account() {
           <Text>Add Profile</Text>
           <EditProfile />
         </TabPanel>
-      </TabPanels>
+      </TabPanels> */}
     </Tabs>
   );
 }
