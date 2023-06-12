@@ -40,7 +40,7 @@ export default function Account() {
       return;
     }
 
-    console.log(data); // Set the session with the received data
+    console.log(data.session); // Set the session with the received data
   };
 
   useEffect(() => {
