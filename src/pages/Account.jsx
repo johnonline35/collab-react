@@ -32,10 +32,8 @@ export default function Account() {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [bio, setBio] = useState(null);
 
-  useEffect(() => {
-    const session = supabase.auth.session();
-    setSession(session);
-  }, []);
+  console.log(supabase);
+  console.log(supabase.auth);
 
   useEffect(() => {
     getProfile();
