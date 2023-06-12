@@ -21,6 +21,7 @@ import {
 import EditProfile from "../components/EditProfile";
 
 export default function Account() {
+  const [loadingSession, setLoadingSession] = useState(true);
   const [session, setSession] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -32,15 +33,23 @@ export default function Account() {
   const [bio, setBio] = useState(null);
 
   const getSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
+    try {
+      const { data, error } = await supabase.auth.getSession();
 
-    if (error) {
-      console.error("Error getting session:", error);
-      return;
+      if (error) {
+        console.error("Error getting session:", error);
+        return;
+      }
+
+      setSession(data); // Set the session with the received data
+    } finally {
+      setLoadingSession(false);
     }
-
-    setSession(data); // Set the session with the received data
   };
+
+  useEffect(() => {
+    getSession();
+  }, []);
 
   const getProfile = useCallback(async () => {
     try {
@@ -78,14 +87,10 @@ export default function Account() {
   }, [session]);
 
   useEffect(() => {
-    getSession();
-  }, []);
-
-  useEffect(() => {
-    if (session) {
+    if (!loadingSession && session) {
       getProfile();
     }
-  }, [session, getProfile]);
+  }, [session, getProfile, loadingSession]);
 
   const updateProfile = async (e) => {
     e.preventDefault();
