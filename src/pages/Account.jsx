@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { supabase } from "../supabase/clientapp";
 import {
   ChatIcon,
@@ -19,8 +19,10 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import EditProfile from "../components/EditProfile";
+import { SessionContext } from "../privateRoute";
 
-export default function Account({ session }) {
+export default function Account() {
+  const session = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [job_title, setJobTitle] = useState(null);
