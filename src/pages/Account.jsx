@@ -38,6 +38,7 @@ export default function Account() {
 
   const getSession = async () => {
     const supaSession = supabase.auth.session();
+    console.log("supaSession:", supaSession);
     setSession(supaSession);
   };
 
