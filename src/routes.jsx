@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/LazyLoadDashboard";
 
@@ -20,16 +20,19 @@ import CollabPageShowcase from "./pages/collabs/CollabPageShowcase";
 import CollabPageNotes from "./pages/collabs/CollabPageNotes";
 
 // import { supabase } from "./supabase/clientapp";
-import { createCookie, PrivateRoute } from "./privateRoute";
+import { createCookie, PrivateRoute, SessionContext } from "./privateRoute";
 import { supabase } from "./supabase/clientapp";
 
 function Router() {
+  const [session, setSession] = useState(null);
+
   async function supabaseCall() {
     const {
       data: { session },
     } = await supabase.auth.getSession();
     if (session) {
       createCookie("token", session.access_token, session.expires_in);
+      setSession(session);
     }
   }
 
@@ -38,47 +41,48 @@ function Router() {
   }, []);
 
   return (
-    <Routes>
-      <Route path='/' element={<Login />} />
-      <Route path='/privacy' element=<Privacy /> />
-      {/* <Route exact path='/privacy' element={<PrivateRoute />}>
+    <SessionContext.Provider value={session}>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/privacy' element=<Privacy /> />
+        {/* <Route exact path='/privacy' element={<PrivateRoute />}>
         <Route path='' element={<Privacy />} />
       </Route> */}
-      <Route path='/termsofservice' element={<TermsOfService />} />
-      <Route
-        path='/collabs/:workspace_id/:workspace_name'
-        element={<CollabPageLayout />}
-      >
+        <Route path='/termsofservice' element={<TermsOfService />} />
         <Route
           path='/collabs/:workspace_id/:workspace_name'
-          element={
-            <PrivateRoute>
-              <CollabPageHome />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path='/collabs/:workspace_id/:workspace_name/team'
-          element={
-            <PrivateRoute>
-              <CollabPageTeam />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path='/collabs/:workspace_id/:workspace_name/showcase'
-          element={<CollabPageShowcase />}
-        />
-        <Route
-          path='/collabs/:workspace_id/:workspace_name/notes'
-          element={<CollabPageNotes />}
-        />
-        <Route
-          path='/collabs/:workspace_id/:workspace_name/journey'
-          element={<CollabPageJourney />}
-        />
+          element={<CollabPageLayout />}
+        >
+          <Route
+            path='/collabs/:workspace_id/:workspace_name'
+            element={
+              <PrivateRoute>
+                <CollabPageHome />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/collabs/:workspace_id/:workspace_name/team'
+            element={
+              <PrivateRoute>
+                <CollabPageTeam />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/collabs/:workspace_id/:workspace_name/showcase'
+            element={<CollabPageShowcase />}
+          />
+          <Route
+            path='/collabs/:workspace_id/:workspace_name/notes'
+            element={<CollabPageNotes />}
+          />
+          <Route
+            path='/collabs/:workspace_id/:workspace_name/journey'
+            element={<CollabPageJourney />}
+          />
 
-        {/* <Route
+          {/* <Route
           path='/collabs/:workspace_id/challenges'
           element={<CollabPageChallenges />}
         />
@@ -106,61 +110,62 @@ function Router() {
           path='/collabs/:workspace_id/questions'
           element={<CollabPageQuestions />}
         /> */}
-        <Route
-          path='/collabs/:workspace_id/:workspace_name/allattachments'
-          element={<CollabPageAllAttachments />}
-        />
-      </Route>
+          <Route
+            path='/collabs/:workspace_id/:workspace_name/allattachments'
+            element={<CollabPageAllAttachments />}
+          />
+        </Route>
 
-      {/* <Route index element={<Dashboard />} /> */}
-      <Route path='/newapp' element={<RootLayout />}>
-        <Route
-          index
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
-        {/* <Route
+        {/* <Route index element={<Dashboard />} /> */}
+        <Route path='/newapp' element={<RootLayout />}>
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          {/* <Route
           path='/dashboard/mastertodolist'
           element={<MasterTodoList />}
           action={createAction}
         />
         <Route path='/dashboard/account' element={<Account />} /> */}
-      </Route>
+        </Route>
 
-      <Route
-        path='/dashboard'
-        element={
-          <PrivateRoute>
-            <RootLayout />
-          </PrivateRoute>
-        }
-      >
         <Route
-          index
+          path='/dashboard'
           element={
             <PrivateRoute>
-              <Dashboard />
+              <RootLayout />
             </PrivateRoute>
           }
-        />
-        <Route
-          path='/dashboard/mastertodolist'
-          element={<MasterTodoList />}
-          action={createAction}
-        />
-        <Route
-          path='/dashboard/account'
-          element={
-            <PrivateRoute>
-              <Account />
-            </PrivateRoute>
-          }
-        />
-      </Route>
-    </Routes>
+        >
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/dashboard/mastertodolist'
+            element={<MasterTodoList />}
+            action={createAction}
+          />
+          <Route
+            path='/dashboard/account'
+            element={
+              <PrivateRoute>
+                <Account />
+              </PrivateRoute>
+            }
+          />
+        </Route>
+      </Routes>
+    </SessionContext.Provider>
   );
 }
 

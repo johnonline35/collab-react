@@ -1,6 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
+export const SessionContext = React.createContext();
+
 export const PrivateRoute = ({ children }) => {
   let token = getCookie("token");
   return token ? <>{children}</> : <Navigate to='/' />;
