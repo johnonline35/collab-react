@@ -40,14 +40,7 @@ function Router() {
   return (
     <Routes>
       <Route path='/' element={<Login />} />
-      <Route
-        path='/privacy'
-        element={
-          <PrivateRoute>
-            <Privacy />
-          </PrivateRoute>
-        }
-      />
+      <Route path='/privacy' element=<Privacy /> />
       {/* <Route exact path='/privacy' element={<PrivateRoute />}>
         <Route path='' element={<Privacy />} />
       </Route> */}

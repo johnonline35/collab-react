@@ -36,8 +36,10 @@ export default function Account({ session }) {
       const { user } = session;
 
       let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`username, job_title, avatar_url`)
+        .from("collab_users")
+        .select(
+          `collab_user_name, collab_user_job_title, collab_user_avatar_url`
+        )
         .eq("id", user.id)
         .single();
 
@@ -72,7 +74,7 @@ export default function Account({ session }) {
         updated_at: new Date(),
       };
 
-      let { error } = await supabase.from("profiles").upsert(updates);
+      let { error } = await supabase.from("collab_users").upsert(updates);
 
       if (error) {
         throw error;
