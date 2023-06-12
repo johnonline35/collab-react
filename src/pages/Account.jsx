@@ -32,8 +32,20 @@ export default function Account() {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [bio, setBio] = useState(null);
 
-  console.log(supabase);
-  console.log(supabase.auth);
+  const getSession = async () => {
+    const { data, error } = await supabase.auth.getSession();
+
+    if (error) {
+      console.error("Error getting session:", error);
+      return;
+    }
+
+    console.log(data); // Set the session with the received data
+  };
+
+  useEffect(() => {
+    getSession(); // Fetch the session when the component is mounted
+  }, []);
 
   useEffect(() => {
     getProfile();
