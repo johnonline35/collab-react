@@ -61,7 +61,7 @@ export default function Account() {
         throw new Error("Not logged in");
       }
       const { user } = session;
-      console.log(user);
+      console.log("user:", user);
 
       let { data, error, status } = await supabase
         .from("collab_users")
