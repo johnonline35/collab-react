@@ -54,7 +54,8 @@ export default function Account() {
   }, [session]);
 
   const getProfile = async () => {
-    console.log("Session:", session);
+    console.log("Session user:", session?.user);
+
     try {
       setLoading(true);
       if (!session || !session.user) {
