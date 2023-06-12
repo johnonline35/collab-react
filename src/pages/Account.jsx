@@ -23,17 +23,23 @@ import { SessionContext } from "../privateRoute";
 
 export default function Account() {
   const [session, setSession] = useState(null);
-  const sessionContext = useContext(SessionContext); // get session from context
 
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
-  const [job_title, setJobTitle] = useState(null);
-
-  const [avatar_url, setAvatarUrl] = useState(null);
+  const [jobTitle, setJobTitle] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  const [socialUrl, setSocialUrl] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [bio, setBio] = useState(null);
 
   useEffect(() => {
-    setSession(sessionContext);
-  }, [sessionContext]);
+    getSession();
+  }, []);
+
+  const getSession = async () => {
+    const supaSession = supabase.auth.session();
+    setSession(supaSession);
+  };
 
   useEffect(() => {
     getProfile();
@@ -50,7 +56,7 @@ export default function Account() {
       let { data, error, status } = await supabase
         .from("collab_users")
         .select(
-          `collab_user_name, collab_user_job_title, collab_user_avatar_url`
+          `collab_user_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
         )
         .eq("id", user.id)
         .single();
@@ -60,9 +66,12 @@ export default function Account() {
       }
 
       if (data) {
-        setUsername(data.username);
-        setJobTitle(data.job_title);
-        setAvatarUrl(data.avatar_url);
+        setUsername(data.collab_user_name);
+        setJobTitle(data.collab_user_job_title);
+        setAvatarUrl(data.collab_user_avatar_url);
+        setSocialUrl(data.collab_user_socials.linkedin);
+        setPhoneNumber(data.phone_number);
+        setBio(data.bio);
       }
     } catch (error) {
       alert(error.message);
@@ -80,9 +89,12 @@ export default function Account() {
 
       const updates = {
         id: user.id,
-        username,
-        job_title,
-        avatar_url,
+        collab_user_name: username,
+        collab_user_job_title: jobTitle,
+        collab_user_avatar_url: avatarUrl,
+        collab_user_socials: { linkedin: socialUrl },
+        phone_number: phoneNumber,
+        bio: bio,
         updated_at: new Date(),
       };
 
