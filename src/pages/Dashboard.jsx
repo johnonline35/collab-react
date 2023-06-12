@@ -179,14 +179,14 @@ export default function Dashboard() {
     <>
       {" "}
       <Tabs>
-        <TabList>
+        <TabList pb={3}>
           <Tab>Upcoming Meetings</Tab>
-          <Tab>Recently Viewed</Tab>
+          {/* <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
-          <Tab>Alerts</Tab>
+          <Tab>Alerts</Tab> */}
         </TabList>
 
-        <TabPanels>
+        {/* <TabPanels>
           <TabPanel>
             <p>one!</p>
           </TabPanel>
@@ -199,7 +199,7 @@ export default function Dashboard() {
           <TabPanel>
             <p>four!</p>
           </TabPanel>
-        </TabPanels>
+        </TabPanels> */}
       </Tabs>
       <SimpleGrid spacing={10} minChildWidth='300px'>
         {companyInfo &&
