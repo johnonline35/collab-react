@@ -22,7 +22,7 @@ import EditProfile from "../components/EditProfile";
 import { SessionContext } from "../privateRoute";
 
 export default function Account() {
-  const [session, setSession] = useState(supabase.auth.session());
+  const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [job_title, setJobTitle] = useState(null);
@@ -42,6 +42,10 @@ export default function Account() {
     return () => {
       authListener.unsubscribe();
     };
+  }, []);
+
+  useEffect(() => {
+    setSession(supabase.auth.session());
   }, []);
 
   const getProfile = async () => {
