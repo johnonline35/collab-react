@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 import { supabase } from "../supabase/clientapp";
 import {
   ChatIcon,
@@ -19,9 +19,9 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import EditProfile from "../components/EditProfile";
+import { SessionContext } from "../privateRoute";
 
 export default function Account() {
-  const [loadingSession, setLoadingSession] = useState(true);
   const [session, setSession] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -33,25 +33,28 @@ export default function Account() {
   const [bio, setBio] = useState(null);
 
   const getSession = async () => {
-    try {
-      const { data, error } = await supabase.auth.getSession();
+    const { data, error } = await supabase.auth.getSession();
 
-      if (error) {
-        console.error("Error getting session:", error);
-        return;
-      }
-
-      setSession(data); // Set the session with the received data
-    } finally {
-      setLoadingSession(false);
+    if (error) {
+      console.error("Error getting session:", error);
+      return;
     }
+
+    setSession(data); // Set the session with the received data
   };
 
   useEffect(() => {
-    getSession();
+    getSession(); // Fetch the session when the component is mounted
   }, []);
 
-  const getProfile = useCallback(async () => {
+  useEffect(() => {
+    if (session) {
+      getProfile(); // Only call getProfile if session is not null
+    }
+  }, [session]);
+
+  const getProfile = async () => {
+    console.log("Session:", session);
     try {
       setLoading(true);
       if (!session || !session.user) {
@@ -84,13 +87,7 @@ export default function Account() {
     } finally {
       setLoading(false);
     }
-  }, [session]);
-
-  useEffect(() => {
-    if (!loadingSession && session) {
-      getProfile();
-    }
-  }, [session, getProfile, loadingSession]);
+  };
 
   const updateProfile = async (e) => {
     e.preventDefault();
