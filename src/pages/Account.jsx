@@ -22,12 +22,18 @@ import EditProfile from "../components/EditProfile";
 import { SessionContext } from "../privateRoute";
 
 export default function Account() {
-  const [session, setSession] = useState(SessionContext);
+  const [session, setSession] = useState(null);
+  const sessionContext = useContext(SessionContext); // get session from context
+
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [job_title, setJobTitle] = useState(null);
 
   const [avatar_url, setAvatarUrl] = useState(null);
+
+  useEffect(() => {
+    setSession(sessionContext);
+  }, [sessionContext]);
 
   useEffect(() => {
     getProfile();
