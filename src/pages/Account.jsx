@@ -33,14 +33,9 @@ export default function Account() {
   const [bio, setBio] = useState(null);
 
   useEffect(() => {
-    getSession();
+    const session = supabase.auth.session();
+    setSession(session);
   }, []);
-
-  const getSession = async () => {
-    const supaSession = supabase.auth.session();
-    console.log("supaSession:", supaSession);
-    setSession(supaSession);
-  };
 
   useEffect(() => {
     getProfile();
