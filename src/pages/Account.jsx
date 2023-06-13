@@ -19,7 +19,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import EditProfile from "../components/EditProfile";
-import { useSession } from "./useSession";
+import { useSession } from "../hooks/useSession";
 
 export default function Account() {
   const session = useSession();
