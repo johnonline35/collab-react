@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
     }
     // Set the jobId
     jobId = upsertData[0].job_id;
+    console.log("Set jobId:", jobId);
     // Log the domainName
     console.log("Domain name: ", domainName);
 
