@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
       .from("job_queue")
       .upsert([{ collab_user_id: collabUserId, status: "job_started" }], {
         onConflict: "job_id",
+        returning: "representation", // this should return the inserted row
       });
 
     if (upsertJobError) {
