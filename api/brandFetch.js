@@ -21,6 +21,7 @@ module.exports = async (req, res) => {
   let jobId;
 
   try {
+    console.log("Attempting to upsert new job into job_queue...");
     // Upsert a new row into the job_queue table
     const { data: upsertData, error: upsertJobError } = await supabase
       .from("job_queue")
