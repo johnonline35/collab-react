@@ -34,9 +34,8 @@ module.exports = async (req, res) => {
       res.status(500).send({ error: upsertJobError.message });
       return;
     }
-    // Set the jobId
-    jobId = upsertData;
-    console.log("upsertData:", jobId);
+
+    console.log("upsertData:", upsertData);
     // Log the domainName
     console.log("Domain name: ", domainName);
 
