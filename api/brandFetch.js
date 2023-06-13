@@ -18,6 +18,8 @@ module.exports = async (req, res) => {
   // extract collab_user_id from the request body
   const collabUserId = newRow?.record?.collab_user_id;
 
+  let jobId;
+
   try {
     // Upsert a new row into the job_queue table
     const { data: upsertData, error: upsertJobError } = await supabase
@@ -31,6 +33,8 @@ module.exports = async (req, res) => {
       res.status(500).send({ error: upsertJobError.message });
       return;
     }
+    // Set the jobId
+    jobId = upsertData[0].job_id;
     // Log the domainName
     console.log("Domain name: ", domainName);
 
@@ -101,11 +105,12 @@ module.exports = async (req, res) => {
     res.status(500).send(`Error fetching brand: ${error.message}`);
   } finally {
     // Update the job_queue table to 'job_complete' once the function execution is finished
-    await supabase
-      .from("job_queue")
-      .upsert([{ collab_user_id: collabUserId, status: "job_complete" }], {
-        onConflict: "job_id",
-      });
+    if (jobId) {
+      await supabase
+        .from("job_queue")
+        .update([{ status: "job_complete" }])
+        .eq("job_id", jobId);
+    }
   }
 };
 
