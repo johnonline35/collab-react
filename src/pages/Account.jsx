@@ -19,10 +19,10 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import EditProfile from "../components/EditProfile";
-import { SessionContext } from "../privateRoute";
+import { useSession } from "./useSession";
 
 export default function Account() {
-  const [session, setSession] = useState(null);
+  const session = useSession();
 
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
@@ -31,21 +31,6 @@ export default function Account() {
   const [socialUrl, setSocialUrl] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [bio, setBio] = useState(null);
-
-  const getSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
-
-    if (error) {
-      console.error("Error getting session:", error);
-      return;
-    }
-
-    setSession(data.session); // Set the session with the received data
-  };
-
-  useEffect(() => {
-    getSession(); // Fetch the session when the component is mounted
-  }, []);
 
   useEffect(() => {
     if (session) {
