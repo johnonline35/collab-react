@@ -9,14 +9,23 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const brandfetch_api_key = process.env.REACT_APP_BRANDFETCH;
 
 module.exports = async (req, res) => {
+  console.log("Function started execution");
+
   // Extract newRow from the parsed body
   const newRow = req.body;
+
+  console.log("Received request body: ", newRow);
 
   // Extract domainName from newRow
   const domainName = newRow?.record?.domain;
 
   // extract collab_user_id from the request body
   const collabUserId = newRow?.record?.collab_user_id;
+
+  console.log(
+    "Attempting to upsert job queue with collabUserId: ",
+    collabUserId
+  );
 
   // Upsert a new row into the job_queue table
   const { data: upsertData, error: upsertError } = await supabase
@@ -31,15 +40,19 @@ module.exports = async (req, res) => {
     return;
   }
 
+  console.log("Upsert job queue successful: ", upsertData);
+
   // Log the domainName
   console.log("Domain name: ", domainName);
 
   // Check if the domainName parameter is an empty string
   if (!domainName) {
-    res.status(400).json({ error: "Missing domainName parameter" });
     console.log("No domain name was passed into the function");
+    res.status(400).json({ error: "Missing domainName parameter" });
     return;
   }
+
+  console.log("Checking if domain exists in the brandfetch_data table");
 
   // Check if the domain name exists in the brandfetch_data table
   const { data, error } = await supabase
@@ -56,6 +69,8 @@ module.exports = async (req, res) => {
     return;
   }
 
+  console.log("Fetched data from brandfetch_data table: ", data);
+
   // If the domain exists in the table, return without doing anything
   if (data.length > 0) {
     console.log(`Domain name ${domainName} already exists in the table.`);
@@ -65,9 +80,12 @@ module.exports = async (req, res) => {
     return;
   }
 
+  console.log("Domain does not exist in the table, fetching brand data");
+
   // If there is a domain and it doesn't exist in the brandfetch table, then retrieve it
   try {
     // Make a request to the Brandfetch API
+    console.log("Making request to Brandfetch API");
     const response = await axios.get(
       `https://api.brandfetch.io/v2/brands/${domainName}`,
       {
@@ -78,6 +96,8 @@ module.exports = async (req, res) => {
     );
 
     console.log("Brandfetch Response:", response.data);
+
+    console.log("Attempting to upsert data into brandfetch_data table");
 
     // Upsert the response data into the brandfetch_data table
     const { error: upsertError } = await supabase
@@ -91,6 +111,8 @@ module.exports = async (req, res) => {
         .send(`Error upserting brand data: ${upsertError.message}`);
       return;
     }
+
+    console.log("Upsert into brandfetch_data successful");
 
     // Send the response from the Brandfetch API
     res.status(200).send(response.data);
