@@ -38,7 +38,8 @@ module.exports = async (req, res) => {
           onConflict: "job_id",
           returning: "representation", // this should return the inserted row
         }
-      );
+      )
+      .select();
 
     if (upsertJobError) {
       console.log("Error upserting job:", upsertJobError);
