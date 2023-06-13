@@ -135,6 +135,9 @@ export default function Dashboard() {
     // Set up a Realtime subscription
     const subscription = supabase
       .from(`job_queue:collab_user_id=eq.${userId}`)
+      .on("INSERT", (payload) => {
+        console.log("Received INSERT event:", payload);
+      })
       .on("UPDATE", (payload) => {
         console.log("Received UPDATE event:", payload);
 
@@ -152,6 +155,9 @@ export default function Dashboard() {
           // Call getCompanyTileInfo() here
           // getCompanyTileInfo(userId);
         }
+      })
+      .on("DELETE", (payload) => {
+        console.log("Received DELETE event:", payload);
       })
       .subscribe();
 
