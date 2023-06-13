@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
         ],
         {
           onConflict: "job_id",
-          returning: "representation", // this should return the inserted row
+          returning: "representation",
         }
       )
       .select();
@@ -48,7 +48,7 @@ module.exports = async (req, res) => {
     }
 
     jobId = upsertData[0].job_id;
-    console.log("jobId:", jobId);
+
     // Log the domainName
     console.log("Domain name: ", domainName);
 
