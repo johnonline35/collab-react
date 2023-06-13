@@ -54,6 +54,7 @@ export default function Dashboard() {
 
   const getSession = async () => {
     const { data, error } = await supabase.auth.getSession();
+    console.log("session:", data.session);
 
     if (error) {
       console.error("Error getting session:", error);
@@ -173,7 +174,7 @@ export default function Dashboard() {
     return formatter.format(date);
   }
   // COOKIE
-  console.log("cookie", document.cookie);
+  // console.log("cookie", document.cookie);
 
   return (
     <>
