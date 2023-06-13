@@ -119,6 +119,38 @@ export default function Dashboard() {
     }
   };
 
+  // Real time function that waits for the background jobs then calls the frontend loading function
+  useEffect(() => {
+    if (!userId) return; // Don't set up subscription if userId is not set yet
+
+    // State variables for total jobs and completed jobs
+    let totalJobs = 5; // This should be set to the actual number of jobs created
+    let completedJobs = 0;
+
+    // Set up a Realtime subscription
+    const subscription = supabase
+      .from(`job_queue:collab_user_id=eq.${userId}`)
+      .on("UPDATE", (payload) => {
+        // Check if the job status is "job_complete"
+        if (payload.new.status === "job_complete") {
+          completedJobs++;
+        }
+
+        // Check if all jobs are complete
+        if (completedJobs === totalJobs) {
+          console.log("All jobs have completed!");
+          // You can now load your frontend application data
+
+          // Call getCompanyTileInfo() here
+          getCompanyTileInfo(userId);
+        }
+      })
+      .subscribe();
+
+    // Return a cleanup function to remove the subscription when it's no longer needed
+    return () => supabase.removeSubscription(subscription);
+  }, [userId]); // Rerun this hook whenever userId changes
+
   const getCompanyTileInfo = async (userId) => {
     try {
       const { data, error } = await supabase.rpc("new_dashboard", {
