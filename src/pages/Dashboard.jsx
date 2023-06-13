@@ -124,7 +124,7 @@ export default function Dashboard() {
     if (!userId) return; // Don't set up subscription if userId is not set yet
 
     // State variables for total jobs and completed jobs
-    let totalJobs = 5; // This should be set to the actual number of jobs created
+    let totalJobs = 1; // This should be set to the actual number of jobs created
     let completedJobs = 0;
 
     // Set up a Realtime subscription
@@ -142,7 +142,7 @@ export default function Dashboard() {
           // You can now load your frontend application data
 
           // Call getCompanyTileInfo() here
-          getCompanyTileInfo(userId);
+          // getCompanyTileInfo(userId);
         }
       })
       .subscribe();
