@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
   const { data: upsertData, error: upsertError } = await supabase
     .from("job_queue")
     .upsert([{ collab_user_id: collabUserId, status: "job_started" }], {
-      onConflict: "collab_user_id",
+      onConflict: "job_id",
     });
 
   if (upsertError) {
