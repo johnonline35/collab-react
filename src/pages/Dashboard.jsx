@@ -173,7 +173,7 @@ export default function Dashboard() {
     return formatter.format(date);
   }
   // COOKIE
-  // console.log("cookie", document.cookie);
+  console.log("cookie", document.cookie);
 
   return (
     <>
