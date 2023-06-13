@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
       );
 
     if (upsertJobError) {
-      console.error("Error upserting job:", upsertJobError);
+      console.log("Error upserting job:", upsertJobError);
       res.status(500).send({ error: upsertJobError.message });
       return;
     }
