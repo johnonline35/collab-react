@@ -25,10 +25,20 @@ module.exports = async (req, res) => {
     // Upsert a new row into the job_queue table
     const { data: upsertData, error: upsertJobError } = await supabase
       .from("job_queue")
-      .upsert([{ collab_user_id: collabUserId, status: "job_started" }], {
-        onConflict: "job_id",
-        returning: "representation", // this should return the inserted row
-      });
+      .upsert(
+        [
+          {
+            collab_user_id: collabUserId,
+            status: "job_started",
+            job_name: "load_dashboard",
+            api_name: "brandFetch",
+          },
+        ],
+        {
+          onConflict: "job_id",
+          returning: "representation", // this should return the inserted row
+        }
+      );
 
     if (upsertJobError) {
       console.error("Error upserting job:", upsertJobError);
