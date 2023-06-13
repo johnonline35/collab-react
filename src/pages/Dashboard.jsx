@@ -121,7 +121,12 @@ export default function Dashboard() {
 
   // Real time function that waits for the background jobs then calls the frontend loading function
   useEffect(() => {
-    if (!userId) return; // Don't set up subscription if userId is not set yet
+    if (!userId) {
+      console.log("userId is not set, returning early");
+      return; // Don't set up subscription if userId is not set yet
+    }
+
+    console.log("Setting up subscription for userId:", userId);
 
     // State variables for total jobs and completed jobs
     let totalJobs = 1; // This should be set to the actual number of jobs created
@@ -131,9 +136,12 @@ export default function Dashboard() {
     const subscription = supabase
       .from(`job_queue:collab_user_id=eq.${userId}`)
       .on("UPDATE", (payload) => {
+        console.log("Received UPDATE event:", payload);
+
         // Check if the job status is "job_complete"
         if (payload.new.status === "job_complete") {
           completedJobs++;
+          console.log("Job completed, total completed jobs:", completedJobs);
         }
 
         // Check if all jobs are complete
@@ -147,8 +155,13 @@ export default function Dashboard() {
       })
       .subscribe();
 
+    console.log("Subscription created:", subscription);
+
     // Return a cleanup function to remove the subscription when it's no longer needed
-    return () => supabase.removeSubscription(subscription);
+    return () => {
+      console.log("Cleaning up subscription for userId:", userId);
+      supabase.removeSubscription(subscription);
+    };
   }, [userId]); // Rerun this hook whenever userId changes
 
   const getCompanyTileInfo = async (userId) => {
