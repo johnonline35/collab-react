@@ -133,32 +133,40 @@ export default function Dashboard() {
 
     // Set up a Realtime subscription
     const subscription = supabase
-      .from("job_queue:collab_user_id=eq." + userId)
-      .on("INSERT", (payload) => {
-        console.log("Received INSERT event:", payload);
+      .channel("job_queue:collab_user_id=eq." + userId)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public" },
+        (payload) => {
+          console.log("Received INSERT event:", payload);
 
-        // Increment the job counter when a new job is added
-        jobCounter++;
-        console.log("Job counter:", jobCounter);
-      })
-      .on("UPDATE", (payload) => {
-        console.log("Received UPDATE event:", payload);
-
-        // Check if the job status is "job_complete"
-        if (payload.new.status === "job_complete") {
-          console.log("Job completed, jobId:", payload.new.job_id);
-
-          // Decrement the job counter when a job is completed
-          jobCounter--;
+          // Increment the job counter when a new job is added
+          jobCounter++;
           console.log("Job counter:", jobCounter);
         }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public" },
+        (payload) => {
+          console.log("Received UPDATE event:", payload);
 
-        // Check if all jobs are complete
-        if (jobCounter === 0) {
-          console.log("All jobs have completed!");
-          // Call the next step in your process here
+          // Check if the job status is "job_complete"
+          if (payload.new.status === "job_complete") {
+            console.log("Job completed, jobId:", payload.new.job_id);
+
+            // Decrement the job counter when a job is completed
+            jobCounter--;
+            console.log("Job counter:", jobCounter);
+          }
+
+          // Check if all jobs are complete
+          if (jobCounter === 0) {
+            console.log("All jobs have completed!");
+            // Call the next step in your process here
+          }
         }
-      })
+      )
       .subscribe();
 
     console.log("Subscription created:", subscription);
