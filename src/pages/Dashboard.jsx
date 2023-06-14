@@ -134,31 +134,43 @@ export default function Dashboard() {
 
     // Set up a Realtime subscription
     const subscription = supabase
-      .from(`job_queue:collab_user_id=eq.${userId}`)
-      .on("INSERT", (payload) => {
-        console.log("Received INSERT event:", payload);
-      })
-      .on("UPDATE", (payload) => {
-        console.log("Received UPDATE event:", payload);
-
-        // Check if the job status is "job_complete"
-        if (payload.new.status === "job_complete") {
-          completedJobs++;
-          console.log("Job completed, total completed jobs:", completedJobs);
+      .channel("job_queue:collab_user_id=eq." + userId)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public" },
+        (payload) => {
+          console.log("Received INSERT event:", payload);
         }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public" },
+        (payload) => {
+          console.log("Received UPDATE event:", payload);
 
-        // Check if all jobs are complete
-        if (completedJobs === totalJobs) {
-          console.log("All jobs have completed!");
-          // You can now load your frontend application data
+          // Check if the job status is "job_complete"
+          if (payload.new.status === "job_complete") {
+            completedJobs++;
+            console.log("Job completed, total completed jobs:", completedJobs);
+          }
 
-          // Call getCompanyTileInfo() here
-          // getCompanyTileInfo(userId);
+          // Check if all jobs are complete
+          if (completedJobs === totalJobs) {
+            console.log("All jobs have completed!");
+            // You can now load your frontend application data
+
+            // Call getCompanyTileInfo() here
+            // getCompanyTileInfo(userId);
+          }
         }
-      })
-      .on("DELETE", (payload) => {
-        console.log("Received DELETE event:", payload);
-      })
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public" },
+        (payload) => {
+          console.log("Received DELETE event:", payload);
+        }
+      )
       .subscribe();
 
     console.log("Subscription created:", subscription);
