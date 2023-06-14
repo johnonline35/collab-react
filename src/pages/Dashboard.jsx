@@ -128,59 +128,37 @@ export default function Dashboard() {
 
     console.log("Setting up subscription for userId:", userId);
 
-    // Initialize completedJobs to 0
-    let completedJobs = 0;
-
-    // Get the current time
-    let currentTime = new Date();
-
-    // Subtract 5 seconds from the current time
-    let fiveSecondsAgo = new Date(currentTime.getTime() - 5000);
-
-    // Fetch the total number of jobs for the userId that were created in the last 5 seconds
-    let totalJobs;
-    supabase
-      .from("job_queue")
-      .select("job_id")
-      .eq("collab_user_id", userId)
-      .gte("created_at", fiveSecondsAgo.toISOString()) // Only select jobs that were created at or after 'fiveSecondsAgo'
-      .then(({ data, error }) => {
-        if (error) {
-          console.error("Error fetching total jobs:", error);
-        } else {
-          totalJobs = data.length;
-          console.log("Total jobs for userId:", totalJobs);
-        }
-      });
+    // Initialize the job counter to 0
+    let jobCounter = 0;
 
     // Set up a Realtime subscription
     const subscription = supabase
-      .channel("job_queue:collab_user_id=eq." + userId)
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public" },
-        (payload) => {
-          console.log("Received INSERT event:", payload);
-        }
-      )
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public" },
-        (payload) => {
-          console.log("Received UPDATE event:", payload);
+      .from("job_queue:collab_user_id=eq." + userId)
+      .on("INSERT", (payload) => {
+        console.log("Received INSERT event:", payload);
 
-          // Check if the job status is "job_complete"
-          if (payload.new.status === "job_complete") {
-            completedJobs++;
-            console.log("Job completed, total completed jobs:", completedJobs);
-          }
+        // Increment the job counter when a new job is added
+        jobCounter++;
+        console.log("Job counter:", jobCounter);
+      })
+      .on("UPDATE", (payload) => {
+        console.log("Received UPDATE event:", payload);
 
-          // Check if all jobs are complete
-          if (completedJobs === totalJobs) {
-            console.log("All jobs have completed!");
-          }
+        // Check if the job status is "job_complete"
+        if (payload.new.status === "job_complete") {
+          console.log("Job completed, jobId:", payload.new.job_id);
+
+          // Decrement the job counter when a job is completed
+          jobCounter--;
+          console.log("Job counter:", jobCounter);
         }
-      )
+
+        // Check if all jobs are complete
+        if (jobCounter === 0) {
+          console.log("All jobs have completed!");
+          // Call the next step in your process here
+        }
+      })
       .subscribe();
 
     console.log("Subscription created:", subscription);
