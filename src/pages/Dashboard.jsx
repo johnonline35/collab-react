@@ -128,9 +128,23 @@ export default function Dashboard() {
 
     console.log("Setting up subscription for userId:", userId);
 
-    // State variables for total jobs and completed jobs
-    let totalJobs = 1; // This should be set to the actual number of jobs created
+    // Initialize completedJobs to 0
     let completedJobs = 0;
+
+    // Fetch the total number of jobs for the userId
+    let totalJobs;
+    supabase
+      .from("job_queue")
+      .select("id")
+      .eq("collab_user_id", userId)
+      .then(({ data, error }) => {
+        if (error) {
+          console.error("Error fetching total jobs:", error);
+        } else {
+          totalJobs = data.length;
+          console.log("Total jobs for userId:", totalJobs);
+        }
+      });
 
     // Set up a Realtime subscription
     const subscription = supabase
@@ -157,18 +171,7 @@ export default function Dashboard() {
           // Check if all jobs are complete
           if (completedJobs === totalJobs) {
             console.log("All jobs have completed!");
-            // You can now load your frontend application data
-
-            // Call getCompanyTileInfo() here
-            // getCompanyTileInfo(userId);
           }
-        }
-      )
-      .on(
-        "postgres_changes",
-        { event: "DELETE", schema: "public" },
-        (payload) => {
-          console.log("Received DELETE event:", payload);
         }
       )
       .subscribe();
