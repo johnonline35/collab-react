@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
         [
           {
             collab_user_id: collabUserId,
-            status: "job_started",
+            job_started: true,
             job_name: "load_dashboard",
             api_name: "brandFetch",
           },
@@ -122,8 +122,9 @@ module.exports = async (req, res) => {
     if (jobId) {
       await supabase
         .from("job_queue")
-        .update([{ status: "job_complete" }])
-        .eq("job_id", jobId);
+        .upsert([{ job_id: jobId, status: "job_complete" }], {
+          onConflict: "job_id",
+        });
     }
   }
 };
