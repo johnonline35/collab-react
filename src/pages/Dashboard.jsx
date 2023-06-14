@@ -128,8 +128,9 @@ export default function Dashboard() {
 
     console.log("Setting up subscription for userId:", userId);
 
-    // Initialize the job counter to 0
+    // Initialize the job counter and the timeout ID to null
     let jobCounter = 0;
+    let timeoutId = null;
 
     // Set up a Realtime subscription
     const subscription = supabase
@@ -143,6 +144,19 @@ export default function Dashboard() {
           // Increment the job counter when a new job is added
           jobCounter++;
           console.log("Job counter:", jobCounter);
+
+          // Clear the existing timeout
+          if (timeoutId !== null) {
+            clearTimeout(timeoutId);
+          }
+
+          // Set a new timeout
+          timeoutId = setTimeout(() => {
+            if (jobCounter === 0) {
+              console.log("All jobs have completed!");
+              // Call the next step in your process here
+            }
+          }, 2000); // Wait for 2 seconds of inactivity before checking if all jobs have completed
         }
       )
       .on(
@@ -159,22 +173,19 @@ export default function Dashboard() {
             jobCounter--;
             console.log("Job counter:", jobCounter);
           }
-
-          // Check if all jobs are complete
-          if (jobCounter === 0) {
-            console.log("All jobs have completed!");
-            // Call the next step in your process here
-          }
         }
       )
       .subscribe();
 
     console.log("Subscription created:", subscription);
 
-    // Return a cleanup function to remove the subscription when it's no longer needed
+    // Return a cleanup function to remove the subscription and the timeout when they are no longer needed
     return () => {
       console.log("Cleaning up subscription for userId:", userId);
       supabase.removeSubscription(subscription);
+      if (timeoutId !== null) {
+        clearTimeout(timeoutId);
+      }
     };
   }, [userId]); // Rerun this hook whenever userId changes
 
