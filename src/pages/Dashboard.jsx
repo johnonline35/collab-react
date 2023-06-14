@@ -131,12 +131,19 @@ export default function Dashboard() {
     // Initialize completedJobs to 0
     let completedJobs = 0;
 
-    // Fetch the total number of jobs for the userId
+    // Get the current time
+    let currentTime = new Date();
+
+    // Subtract 5 seconds from the current time
+    let fiveSecondsAgo = new Date(currentTime.getTime() - 5000);
+
+    // Fetch the total number of jobs for the userId that were created in the last 5 seconds
     let totalJobs;
     supabase
       .from("job_queue")
-      .select("job_id")
+      .select("id")
       .eq("collab_user_id", userId)
+      .gte("created_at", fiveSecondsAgo.toISOString()) // Only select jobs that were created at or after 'fiveSecondsAgo'
       .then(({ data, error }) => {
         if (error) {
           console.error("Error fetching total jobs:", error);
