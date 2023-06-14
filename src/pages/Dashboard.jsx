@@ -141,7 +141,7 @@ export default function Dashboard() {
     let totalJobs;
     supabase
       .from("job_queue")
-      .select("id")
+      .select("job_id")
       .eq("collab_user_id", userId)
       .gte("created_at", fiveSecondsAgo.toISOString()) // Only select jobs that were created at or after 'fiveSecondsAgo'
       .then(({ data, error }) => {
