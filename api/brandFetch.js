@@ -122,7 +122,7 @@ module.exports = async (req, res) => {
     if (jobId) {
       await supabase
         .from("job_queue")
-        .upsert([{ job_id: jobId, status: "job_complete" }], {
+        .upsert([{ job_id: jobId, job_complete: true }], {
           onConflict: "job_id",
         });
     }
