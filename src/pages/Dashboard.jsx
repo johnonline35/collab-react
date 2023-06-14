@@ -48,6 +48,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+  const [meetingsLoaded, setMeetingsLoaded] = useState(false);
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -90,7 +91,7 @@ export default function Dashboard() {
     if (upsertError) {
       console.error("Error upserting refresh token:", upsertError);
     }
-
+    setMeetingsLoaded(false); // Reset meetingsLoaded here
     // Call getMeetings after the userId state has been set
     getMeetings(userId);
   };
@@ -117,11 +118,12 @@ export default function Dashboard() {
     } else {
       console.error("Error getting meetings:", response.status);
     }
+    setMeetingsLoaded(true);
   };
 
   // Real time function that waits for the background jobs then calls the frontend loading function
   useEffect(() => {
-    if (!userId) {
+    if (!userId || !meetingsLoaded) {
       console.log("userId is not set, returning early");
       return; // Don't set up subscription if userId is not set yet
     }
@@ -190,7 +192,7 @@ export default function Dashboard() {
       console.log("Cleaning up subscription for userId:", userId);
       supabase.removeSubscription(subscription);
     };
-  }, [userId]); // Rerun this hook whenever userId changes
+  }, [userId, meetingsLoaded]); // Rerun this hook whenever userId changes
 
   const getCompanyTileInfo = async (userId) => {
     try {
