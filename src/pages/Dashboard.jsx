@@ -152,7 +152,7 @@ export default function Dashboard() {
           console.log("Received UPDATE event:", payload);
 
           // Check if the job status is "job_complete"
-          if (payload.new.status === "job_complete") {
+          if (payload.new.job_complete === true) {
             console.log("Job completed, jobId:", payload.new.job_id);
 
             // Decrement the job counter when a job is completed
