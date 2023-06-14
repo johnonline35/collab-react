@@ -135,7 +135,7 @@ export default function Dashboard() {
     let totalJobs;
     supabase
       .from("job_queue")
-      .select("id")
+      .select("job_id")
       .eq("collab_user_id", userId)
       .then(({ data, error }) => {
         if (error) {
