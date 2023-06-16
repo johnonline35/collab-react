@@ -58,7 +58,10 @@ const avatarApiJob = async (newRow) => {
       }
     );
 
-    console.log("Received response from Avatar API", response.data);
+    if (!response.data.Success) {
+      console.error("Avatar API request failed:", response.data.Error);
+      throw new Error("Avatar API request failed: " + response.data.Error);
+    }
 
     // Convert keys to lowercase
     const avatarData = Object.keys(response.data).reduce((result, key) => {
