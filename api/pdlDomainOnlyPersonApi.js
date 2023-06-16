@@ -30,17 +30,13 @@ function correctDateFormat(dateStr) {
   return dateStr;
 }
 
-module.exports = async (req, res) => {
-  // Extract newRow from the parsed body
-  const newRow = req.body;
-
+const pdlDomainOnlyPersonApiJob = async (newRow) => {
   // Extract email from newRow
   const email = newRow?.record?.attendee_email;
 
   if (!email) {
     console.log("Missing email in request body");
-    res.status(400).json({ error: "Missing email in request body" });
-    return;
+    return { functionName: "pdlDomainOnlyPersonApi", result: "Missing email" };
   }
 
   // Check if email exists in the pdl_api_users table
@@ -51,15 +47,16 @@ module.exports = async (req, res) => {
 
   if (fetchError) {
     console.error("Error fetching data from Supabase:", fetchError);
-    res.status(500).json({ error: fetchError.message });
-    return;
+    throw fetchError;
   }
 
   // If the email already exists, exit the function
   if (existingData.length > 0) {
     console.log("Email already exists, exiting function.");
-    res.status(200).json({ message: "Email already exists." });
-    return;
+    return {
+      functionName: "pdlDomainOnlyPersonApi",
+      result: "Email already exists.",
+    };
   }
 
   const params = {
@@ -264,13 +261,33 @@ module.exports = async (req, res) => {
       }
     }
     console.log("Upserted data into pdl_api_education");
-    res.json(record);
+    return record;
   } catch (error) {
-    console.error("Enrichment unsuccessful. See error and try again.");
-    console.error(error);
+    if (error.status === 404) {
+      console.log("No records found for this email address: ", email);
+      return {
+        functionName: "pdlEmailOnlyPersonApi",
+        result: "No records found for this email address.",
+      };
+    } else {
+      console.error("Failed to fetch data from People Data Labs:", error);
+      throw error;
+    }
+  }
+};
 
-    res
-      .status(500)
-      .send("Enrichment unsuccessful. See server logs for more details.");
+module.exports = async (req, res) => {
+  try {
+    const newRow = req.body;
+    const result = await pdlDomainOnlyPersonApiJob(newRow);
+
+    // If result is "Missing email" or "Email already exists."
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).json({
+      functionName: "pdlDomainOnlyPersonApiJob",
+      error: `An error occurred: ${error.message}`,
+    });
   }
 };
