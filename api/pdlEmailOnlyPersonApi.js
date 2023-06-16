@@ -30,7 +30,7 @@ function correctDateFormat(dateStr) {
   return dateStr;
 }
 
-const pdlJob = async (newRow) => {
+const pdlEmailOnlyPersonApiJob = async (newRow) => {
   // Extract email from newRow
   const email = newRow?.record?.meeting_attendee_email;
 
@@ -269,14 +269,17 @@ const pdlJob = async (newRow) => {
 module.exports = async (req, res) => {
   try {
     const newRow = req.body;
-    const result = await pdlJob(newRow);
+    const result = await pdlEmailOnlyPersonApiJob(newRow);
 
     // If result is "Missing email" or "Email already exists."
     // because no email was provided or it already exists, send a specific response
     res.status(200).json(result);
   } catch (error) {
     console.error("An error occurred:", error);
-    res.status(500).send(`An error occurred: ${error.message}`);
+    res.status(500).json({
+      functionName: "pdlEmailOnlyPersonApiJob",
+      error: `An error occurred: ${error.message}`,
+    });
   }
 };
 

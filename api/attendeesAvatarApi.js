@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const avatar_api_username = process.env.REACT_APP_AVATARAPI_USERNAME;
 const avatar_api_password = process.env.REACT_APP_AVATARAPI_PASSWORD;
 
-const avatarApiJob = async (newRow) => {
+const attendeesAvatarApiJob = async (newRow) => {
   // Extract the email from newRow
   const email = newRow?.record?.attendee_email;
   console.log("Received email:", email);
@@ -93,14 +93,17 @@ const avatarApiJob = async (newRow) => {
 module.exports = async (req, res) => {
   try {
     const newRow = req.body;
-    const result = await avatarApiJob(newRow);
+    const result = await attendeesAvatarApiJob(newRow);
 
     // If result is "No email" or "Email {email} already exists in the table."
     // because no email was provided or it already exists, send a specific response
     res.status(200).json(result);
   } catch (error) {
     console.error("An error occurred:", error);
-    res.status(500).json(`An error occurred: ${error.message}`);
+    res.status(500).json({
+      functionName: "attendeesAvatarApiJob",
+      error: `An error occurred: ${error.message}`,
+    });
   }
 };
 

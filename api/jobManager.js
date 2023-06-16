@@ -68,11 +68,14 @@ module.exports = async (req, res) => {
       "https://www.instantcollab.co/api/attendeesAvatarApi";
     const workspacesAvatarApi =
       "https://www.instantcollab.co/api/workspacesAvatarApi";
+    const pdlEmailOnlyPersonApi =
+      "https://www.instantcollab.co/api/pdlEmailOnlyPersonApi";
 
     const jobs = [
       axios.post(workspacesBrandFetchApi, newRow),
       axios.post(attendeesAvatarApi, newRow),
       axios.post(workspacesAvatarApi, newRow),
+      axios.post(pdlEmailOnlyPersonApi, newRow),
     ];
 
     const results = await Promise.allSettled(jobs);
