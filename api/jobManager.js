@@ -18,7 +18,7 @@ async function createJobRecord(collabUserId) {
           collab_user_id: collabUserId,
           job_started: true,
           job_name: "load_dashboard",
-          api_name: "brandFetch",
+          api_name: "jobManager",
         },
       ],
       {
@@ -61,13 +61,16 @@ module.exports = async (req, res) => {
 
     const jobId = await createJobRecord(collabUserId);
 
-    const function1Url = "https://www.instantcollab.co/api/brandFetch";
-    // const function2Url = "https://your-vercel-endpoint.com/function2";
+    // List of Vercel Function Endpoints
+    const workspacesBrandFetchApi =
+      "https://www.instantcollab.co/api/brandFetch";
+    const attendeesAvatarApi =
+      "https://www.instantcollab.co/api/attendeesAvatarApi";
     // const function3Url = "https://your-vercel-endpoint.com/function3";
 
     const jobs = [
-      axios.post(function1Url, newRow),
-      //   axios.post(function2Url, newRow),
+      axios.post(workspacesBrandFetchApi, newRow),
+      axios.post(attendeesAvatarApi, newRow),
       //   axios.post(function3Url, newRow),
     ];
 
