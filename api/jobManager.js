@@ -61,24 +61,26 @@ module.exports = async (req, res) => {
 
     const jobId = await createJobRecord(collabUserId);
 
-    // Relevant supabase webhook name: attendees_table_job_manager
+    // Relevant supabase table: "attendees", and webhook name: attendees_table_job_manager
     const attendeesAvatarApi =
       "https://www.instantcollab.co/api/attendeesAvatarApi";
 
-    // Relevant supabase webhook name: workspaces_table_job_manager
+    // Relevant supabase table: "workspaces", and webhook name: workspaces_table_job_manager
     const workspacesBrandFetchApi =
       "https://www.instantcollab.co/api/brandFetch";
-
     const workspacesAvatarApi =
       "https://www.instantcollab.co/api/workspacesAvatarApi";
     const pdlEmailOnlyPersonApi =
       "https://www.instantcollab.co/api/pdlEmailOnlyPersonApi";
+    const pdlDomainOnlyPersonApi =
+      "https://www.instantcollab.co/api/pdlDomainOnlyPersonApi";
 
     const jobs = [
       axios.post(workspacesBrandFetchApi, newRow),
       axios.post(attendeesAvatarApi, newRow),
       axios.post(workspacesAvatarApi, newRow),
       axios.post(pdlEmailOnlyPersonApi, newRow),
+      axios.post(pdlDomainOnlyPersonApi, newRow),
     ];
 
     const results = await Promise.allSettled(jobs);
