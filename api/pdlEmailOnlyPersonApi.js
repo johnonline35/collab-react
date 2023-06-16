@@ -261,10 +261,23 @@ const pdlEmailOnlyPersonApiJob = async (newRow) => {
     console.log("Upserted data into pdl_api_education");
     return record;
   } catch (error) {
-    console.error("Failed to fetch data from People Data Labs:", error);
-    throw error;
+    if (error.status === 404) {
+      console.log("No records found for this email address: ", email);
+      return {
+        functionName: "pdlEmailOnlyPersonApi",
+        result: "No records found for this email address.",
+      };
+    } else {
+      console.error("Failed to fetch data from People Data Labs:", error);
+      throw error;
+    }
   }
 };
+//   } catch (error) {
+//     console.error("Failed to fetch data from People Data Labs:", error);
+//     throw error;
+//   }
+// };
 
 module.exports = async (req, res) => {
   try {

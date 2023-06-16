@@ -61,11 +61,14 @@ module.exports = async (req, res) => {
 
     const jobId = await createJobRecord(collabUserId);
 
-    // List of Vercel Function Endpoints
-    const workspacesBrandFetchApi =
-      "https://www.instantcollab.co/api/brandFetch";
+    // Relevant supabase webhook name: attendees_table_job_manager
     const attendeesAvatarApi =
       "https://www.instantcollab.co/api/attendeesAvatarApi";
+
+    // Relevant supabase webhook name: workspaces_table_job_manager
+    const workspacesBrandFetchApi =
+      "https://www.instantcollab.co/api/brandFetch";
+
     const workspacesAvatarApi =
       "https://www.instantcollab.co/api/workspacesAvatarApi";
     const pdlEmailOnlyPersonApi =
