@@ -9,13 +9,13 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 const avatar_api_username = process.env.REACT_APP_AVATARAPI_USERNAME;
 const avatar_api_password = process.env.REACT_APP_AVATARAPI_PASSWORD;
 
-const workspacesAvatarApiJob = async (newRow) => {
+const workspcesAvatarApi = async (newRow) => {
   const email = newRow?.record?.meeting_attendee_email;
   console.log("Received email:", email);
 
   if (!email) {
     console.log("No email was passed into the function");
-    return { functionName: "workspacesAvatarApiJob", result: "No email" };
+    return { functionName: "workspcesAvatarApi", result: "No email" };
   }
 
   const { data, error } = await supabase
@@ -34,7 +34,7 @@ const workspacesAvatarApiJob = async (newRow) => {
   if (data.length > 0) {
     console.log(`Email ${email} already exists in the table.`);
     return {
-      functionName: "workspacesAvatarApiJob",
+      functionName: "workspcesAvatarApi",
       result: `Email ${email} already exists in the table.`,
     };
   }
@@ -83,12 +83,15 @@ const workspacesAvatarApiJob = async (newRow) => {
 module.exports = async (req, res) => {
   try {
     const newRow = req.body;
-    const result = await workspacesAvatarApiJob(newRow);
+    const result = await workspcesAvatarApi(newRow);
 
     res.status(200).json(result);
   } catch (error) {
     console.error("An error occurred:", error);
-    res.status(500).send(`An error occurred: ${error.message}`);
+    res.status(500).json({
+      functionName: "workspcesAvatarApiJob",
+      error: `An error occurred: ${error.message}`,
+    });
   }
 };
 
