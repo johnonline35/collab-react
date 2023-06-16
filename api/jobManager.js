@@ -66,12 +66,13 @@ module.exports = async (req, res) => {
       "https://www.instantcollab.co/api/brandFetch";
     const attendeesAvatarApi =
       "https://www.instantcollab.co/api/attendeesAvatarApi";
-    // const function3Url = "https://your-vercel-endpoint.com/function3";
+    const workspacesAvatarApi =
+      "https://www.instantcollab.co/api/workspacesAvatarApi";
 
     const jobs = [
       axios.post(workspacesBrandFetchApi, newRow),
       axios.post(attendeesAvatarApi, newRow),
-      //   axios.post(function3Url, newRow),
+      axios.post(workspacesAvatarApi, newRow),
     ];
 
     const results = await Promise.allSettled(jobs);
