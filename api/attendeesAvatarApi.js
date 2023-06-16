@@ -100,7 +100,7 @@ module.exports = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.error("An error occurred:", error);
-    res.status(500).send(`An error occurred: ${error.message}`);
+    res.status(500).json(`An error occurred: ${error.message}`);
   }
 };
 
