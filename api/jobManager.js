@@ -36,13 +36,20 @@ async function createJobRecord(collabUserId) {
   return upsertData[0].job_id;
 }
 
-async function updateJobRecord(jobId) {
-  // Update the job_queue table to 'job_complete' once the function execution is finished
-  await supabase
-    .from("job_queue")
-    .upsert([{ job_id: jobId, job_complete: true }], {
+async function updateJobRecord(jobId, results) {
+  // Update the job_queue table to 'job_complete' and 'response' once the function execution is finished
+  await supabase.from("job_queue").upsert(
+    [
+      {
+        job_id: jobId,
+        job_complete: true,
+        response: JSON.stringify(results),
+      },
+    ],
+    {
       onConflict: "job_id",
-    });
+    }
+  );
 }
 
 module.exports = async (req, res) => {
@@ -77,7 +84,7 @@ module.exports = async (req, res) => {
       }
     });
 
-    await updateJobRecord(jobId);
+    await updateJobRecord(jobId, sanitizedResults);
 
     // Send the results or errors back in the response.
     res.status(200).send(sanitizedResults);
