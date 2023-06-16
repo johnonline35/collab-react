@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
     // Handle results here...
     const sanitizedResults = results.map((result) => {
       if (result.status === "fulfilled") {
-        console.log("Fulfilled with value:", result.value);
+        console.log("Fulfilled with value:", result.value.data);
         return { status: "fulfilled", value: result.value.data };
       } else {
         console.log("Rejected with reason:", result.reason);
