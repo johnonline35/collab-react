@@ -67,18 +67,20 @@ module.exports = async (req, res) => {
     const results = await Promise.allSettled(jobs);
 
     // Handle results here...
-    for (const result of results) {
+    const sanitizedResults = results.map((result) => {
       if (result.status === "fulfilled") {
         console.log("Fulfilled with value:", result.value);
+        return { status: "fulfilled", value: result.value.data };
       } else {
         console.log("Rejected with reason:", result.reason);
+        return { status: "rejected", reason: result.reason.message };
       }
-    }
+    });
 
     await updateJobRecord(jobId);
 
     // Send the results or errors back in the response.
-    res.status(200).send(results);
+    res.status(200).send(sanitizedResults);
   } catch (error) {
     console.error("An error occurred:", error);
     res.status(500).send(`An error occurred: ${error.message}`);
