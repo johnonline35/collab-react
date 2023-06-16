@@ -18,7 +18,7 @@ const brandfetchJob = async (newRow) => {
   // Check if the domainName parameter is an empty string
   if (!domainName) {
     console.log("No domain name was passed into the function");
-    return "No domain name"; // return here if no domain name
+    return { functionName: "brandfetchJob", result: "No domain name" }; // return here if no domain name
   }
 
   // Check if the domain name exists in the brandfetch_data table
@@ -38,7 +38,10 @@ const brandfetchJob = async (newRow) => {
   // If the domain exists in the table, return without doing anything
   if (data.length > 0) {
     console.log(`Domain name ${domainName} already exists in the table.`);
-    return `Domain name ${domainName} already exists in the table.`;
+    return {
+      functionName: "brandfetchJob",
+      result: `Domain name ${domainName} already exists in the table.`,
+    };
   }
 
   // If there is a domain and it doesn't exist in the brandfetch table, then retrieve it
@@ -81,10 +84,13 @@ module.exports = async (req, res) => {
 
     // if result is "No domain name" or "Domain name {domainName} already exists in the table."
     // because no domain name was provided or it already exists, send a specific response
-    res.status(200).send(result);
+    res.status(200).json(result);
   } catch (error) {
     console.error("An error occurred:", error);
-    res.status(500).send(`An error occurred: ${error.message}`);
+    res.status(500).json({
+      functionName: "brandfetchJob",
+      error: `An error occurred: ${error.message}`,
+    });
   }
 };
 

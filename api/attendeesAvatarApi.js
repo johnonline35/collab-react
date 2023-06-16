@@ -16,7 +16,7 @@ const avatarApiJob = async (newRow) => {
 
   if (!email) {
     console.log("No email was passed into the function");
-    return "No email";
+    return { functionName: "attendeeAvatarApiJob", result: "No email" }; // return here if no domain name
   }
 
   // Check if email exists in the avatarapi_data table
@@ -36,7 +36,10 @@ const avatarApiJob = async (newRow) => {
   // If the email already exists, exit the function
   if (data.length > 0) {
     console.log(`Email ${email} already exists in the table.`);
-    return `Email ${email} already exists in the table.`;
+    return {
+      functionName: "attendeeAvatarApiJob",
+      result: `Email ${email} already exists in the table.`,
+    };
   }
 
   try {
@@ -91,7 +94,7 @@ module.exports = async (req, res) => {
 
     // If result is "No email" or "Email {email} already exists in the table."
     // because no email was provided or it already exists, send a specific response
-    res.status(200).send(result);
+    res.status(200).json(result);
   } catch (error) {
     console.error("An error occurred:", error);
     res.status(500).send(`An error occurred: ${error.message}`);
