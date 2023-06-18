@@ -120,74 +120,40 @@ export default function Dashboard() {
   };
 
   // Real time function that waits for the background jobs then calls the frontend loading function
-  // useEffect(() => {
-  //   if (!userId) {
-  //     console.log("userId is not set, returning early");
-  //     return; // Don't set up subscription if userId is not set yet
-  //   }
+  useEffect(() => {
+    if (!userId) {
+      console.log("userId is not set, returning early");
+      return; // Don't set up subscription if userId is not set yet
+    }
 
-  //   console.log("Setting up subscription for userId:", userId);
+    console.log("Setting up subscription for userId:", userId);
 
-  //   // Initialize the job counter and the timeout ID to null
-  //   let jobCounter = 0;
-  //   let timeoutId = null;
+    // Set up a Realtime subscription
+    const subscription = supabase
+      .channel("job_queue:collab_user_id=eq." + userId)
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public" },
+        (payload) => {
+          console.log("Received UPDATE event:", payload);
 
-  //   // Set up a Realtime subscription
-  //   const subscription = supabase
-  //     .channel("job_queue:collab_user_id=eq." + userId)
-  //     .on(
-  //       "postgres_changes",
-  //       { event: "INSERT", schema: "public" },
-  //       (payload) => {
-  //         console.log("Received INSERT event:", payload);
+          // Check if the job status is "job_complete"
+          if (payload.new.job_complete === true) {
+            console.log("Job completed, jobId:", payload.new.job_id);
+            getCompanyTileInfo(userId);
+          }
+        }
+      )
+      .subscribe();
 
-  //         // Increment the job counter when a new job is added
-  //         jobCounter++;
-  //         console.log("Job counter:", jobCounter);
+    console.log("Subscription created:", subscription);
 
-  //         // Clear the existing timeout
-  //         if (timeoutId !== null) {
-  //           clearTimeout(timeoutId);
-  //         }
-
-  //         // Set a new timeout
-  //         timeoutId = setTimeout(() => {
-  //           if (jobCounter === 0) {
-  //             console.log("All jobs have completed!");
-  //             // Call the next step in your process here
-  //           }
-  //         }, 2000); // Wait for 2 seconds of inactivity before checking if all jobs have completed
-  //       }
-  //     )
-  //     .on(
-  //       "postgres_changes",
-  //       { event: "UPDATE", schema: "public" },
-  //       (payload) => {
-  //         console.log("Received UPDATE event:", payload);
-
-  //         // Check if the job status is "job_complete"
-  //         if (payload.new.job_complete === true) {
-  //           console.log("Job completed, jobId:", payload.new.job_id);
-
-  //           // Decrement the job counter when a job is completed
-  //           jobCounter--;
-  //           console.log("Job counter:", jobCounter);
-  //         }
-  //       }
-  //     )
-  //     .subscribe();
-
-  //   console.log("Subscription created:", subscription);
-
-  //   // Return a cleanup function to remove the subscription and the timeout when they are no longer needed
-  //   return () => {
-  //     console.log("Cleaning up subscription for userId:", userId);
-  //     supabase.removeSubscription(subscription);
-  //     if (timeoutId !== null) {
-  //       clearTimeout(timeoutId);
-  //     }
-  //   };
-  // }, [userId]); // Rerun this hook whenever userId changes
+    // Return a cleanup function to remove the subscription and the timeout when they are no longer needed
+    return () => {
+      console.log("Cleaning up subscription for userId:", userId);
+      supabase.removeSubscription(subscription);
+    };
+  }, [userId]); // Rerun this hook whenever userId changes
 
   const getCompanyTileInfo = async (userId) => {
     try {
@@ -213,11 +179,11 @@ export default function Dashboard() {
   }, []);
 
   // When userId state changes, fetch company tile info
-  useEffect(() => {
-    if (userId) {
-      getCompanyTileInfo(userId);
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (userId) {
+  //     getCompanyTileInfo(userId);
+  //   }
+  // }, [userId]);
 
   if (loadingCards) {
     return <DashboardLoader />;
