@@ -119,7 +119,7 @@ export default function Dashboard() {
     }
   };
 
-  // Real time function that waits for the background jobs then calls the frontend loading function
+  // Real time function that waits for the background jobs then calls getCompanyTileInfo(userId)
   useEffect(() => {
     if (!userId) {
       console.log("userId is not set, returning early");
@@ -151,7 +151,7 @@ export default function Dashboard() {
     // Return a cleanup function to remove the subscription and the timeout when they are no longer needed
     return () => {
       console.log("Cleaning up subscription for userId:", userId);
-      supabase.removeSubscription(subscription);
+      subscription.unsubscribe();
     };
   }, [userId]); // Rerun this hook whenever userId changes
 
