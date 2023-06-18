@@ -52,49 +52,6 @@ export default function Dashboard() {
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
 
-  const getSession = async () => {
-    const { data, error } = await supabase.auth.getSession();
-    console.log("session:", data.session);
-
-    if (error) {
-      console.error("Error getting session:", error);
-      return;
-    }
-
-    // Fetch user id from the collab_users table
-    let { data: userData, error: userError } = await supabase
-      .from("collab_users")
-      .select("id")
-      .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
-      .single();
-
-    if (userError) {
-      console.error("Error getting user data:", userError);
-      return;
-    }
-
-    const userId = userData.id;
-    console.log("initialUserId:", userId);
-    setUserId(userId); // Set the user ID in state
-
-    // Get the refresh token from the session object
-    const refreshToken = data.session.provider_refresh_token;
-
-    // Upsert the userId and the refresh token
-    const { error: upsertError } = await supabase
-      .from("collab_users")
-      .upsert([{ id: userId, refresh_token: refreshToken }], {
-        onConflict: "id",
-      });
-
-    if (upsertError) {
-      console.error("Error upserting refresh token:", upsertError);
-    }
-
-    // Call getMeetings after the userId state has been set
-    getMeetings(userId);
-  };
-
   // Fetch Google Calendar via Server and process the response
   const getMeetings = async (userId) => {
     console.log("NEWuserId:", userId);
@@ -179,15 +136,52 @@ export default function Dashboard() {
   // Fetch user session and set the userId
   useEffect(() => {
     setLoadingCards(true);
+
+    const getSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      console.log("session:", data.session);
+
+      if (error) {
+        console.error("Error getting session:", error);
+        return;
+      }
+
+      // Fetch user id from the collab_users table
+      let { data: userData, error: userError } = await supabase
+        .from("collab_users")
+        .select("id")
+        .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
+        .single();
+
+      if (userError) {
+        console.error("Error getting user data:", userError);
+        return;
+      }
+
+      const userId = userData.id;
+      console.log("initialUserId:", userId);
+      setUserId(userId); // Set the user ID in state
+
+      // Get the refresh token from the session object
+      const refreshToken = data.session.provider_refresh_token;
+
+      // Upsert the userId and the refresh token
+      const { error: upsertError } = await supabase
+        .from("collab_users")
+        .upsert([{ id: userId, refresh_token: refreshToken }], {
+          onConflict: "id",
+        });
+
+      if (upsertError) {
+        console.error("Error upserting refresh token:", upsertError);
+      }
+
+      // Call getMeetings after the userId state has been set
+      getMeetings(userId);
+    };
+
     getSession();
   }, []);
-
-  // When userId state changes, fetch company tile info
-  // useEffect(() => {
-  //   if (userId) {
-  //     getCompanyTileInfo(userId);
-  //   }
-  // }, [userId]);
 
   if (loadingCards) {
     return <DashboardLoader />;
