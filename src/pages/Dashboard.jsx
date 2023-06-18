@@ -141,6 +141,10 @@ export default function Dashboard() {
           if (payload.new.job_complete === true) {
             console.log("Job completed, jobId:", payload.new.job_id);
             getCompanyTileInfo(userId);
+
+            // Unsubscribe from the subscription as it's no longer needed
+            console.log("Unsubscribing from subscription for userId:", userId);
+            subscription.unsubscribe();
           }
         }
       )
@@ -148,7 +152,7 @@ export default function Dashboard() {
 
     console.log("Subscription created:", subscription);
 
-    // Return a cleanup function to remove the subscription and the timeout when they are no longer needed
+    // Return a cleanup function to remove the subscription when the component is unmounted
     return () => {
       console.log("Cleaning up subscription for userId:", userId);
       subscription.unsubscribe();
