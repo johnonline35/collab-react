@@ -119,7 +119,7 @@ export default function Dashboard() {
         userId
       );
       subscription.unsubscribe();
-    }, 2 * 60 * 1000); // 2 minutes in milliseconds
+    }, 2 * 60 * 1000); // 2 minutes in milliseconds.
 
     // Return a cleanup function to remove the subscription when the component is unmounted
     return () => {
