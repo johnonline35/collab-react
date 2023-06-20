@@ -85,6 +85,8 @@ export default function Dashboard() {
 
     console.log("Setting up subscription for userId:", userId);
 
+    let subscriptionTimer; // Variable to hold the timer reference
+
     // Set up a Realtime subscription
     const subscription = supabase
       .channel("job_queue:collab_user_id=eq." + userId)
@@ -101,17 +103,28 @@ export default function Dashboard() {
 
             // Unsubscribe from the subscription as it's no longer needed
             console.log("Unsubscribing from subscription for userId:", userId);
+            clearTimeout(subscriptionTimer); // Clear the timer
             subscription.unsubscribe();
           }
         }
       )
       .subscribe();
 
-    console.log("Subscription created:", subscription);
+    console.log("Subscription LIVE:", subscription);
+
+    // Start the timer after 2 minutes
+    subscriptionTimer = setTimeout(() => {
+      console.log(
+        "Timer expired, unsubscribing from subscription for userId:",
+        userId
+      );
+      subscription.unsubscribe();
+    }, 2 * 60 * 1000); // 2 minutes in milliseconds
 
     // Return a cleanup function to remove the subscription when the component is unmounted
     return () => {
       console.log("Cleaning up subscription for userId:", userId);
+      clearTimeout(subscriptionTimer); // Clear the timer
       subscription.unsubscribe();
     };
   }, [userId]); // Rerun this hook whenever userId changes
