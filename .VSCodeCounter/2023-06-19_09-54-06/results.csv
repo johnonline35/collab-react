@@ -1,0 +1,195 @@
+"filename", "language", "JSON with Comments", "JSON", "Markdown", "JavaScript", "HTML", "CSS", "TypeScript", "TypeScript JSX", "XML", "comment", "blank", "total"
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/README.md", "Markdown", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/TODO.md", "Markdown", 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 25, 60
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/attendeesAvatarApi.js", "JavaScript", 0, 0, 0, 82, 0, 0, 0, 0, 0, 89, 30, 201
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/brandFetch.js", "JavaScript", 0, 0, 0, 67, 0, 0, 0, 0, 0, 199, 52, 318
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/insertCalenderLink.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 15
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/jobManager.js", "JavaScript", 0, 0, 0, 83, 0, 0, 0, 0, 0, 9, 16, 108
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/pdlDomainOnlyPersonApi.js", "JavaScript", 0, 0, 0, 256, 0, 0, 0, 0, 0, 14, 24, 294
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/pdlEmailOnlyPersonApi.js", "JavaScript", 0, 0, 0, 189, 0, 0, 0, 0, 0, 266, 48, 503
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/api/workspacesAvatarApi.js", "JavaScript", 0, 0, 0, 79, 0, 0, 0, 0, 0, 80, 30, 189
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/package-lock.json", "JSON", 0, 35067, 0, 0, 0, 0, 0, 0, 0, 0, 1, 35068
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/package.json", "JSON", 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 1, 83
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/emoji/LICENSE.md", "Markdown", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/LICENSE.md", "Markdown", 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 2, 6
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/arrow-clockwise.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/arrow-counterclockwise.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/chat-square-quote.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/chevron-down.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/code.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/draggable-block-menu.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 2
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/journal-code.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/journal-text.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 5
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/justify.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/link.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/list-ol.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/list-ul.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/pencil-fill.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/text-center.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/text-left.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/text-paragraph.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/text-right.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-bold.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-h1.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-h2.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-h3.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-italic.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-strikethrough.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/images/icons/type-underline.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/index.html", "HTML", 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 1, 16
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/public/manifest.json", "JSON", 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 1, 26
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/App.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 3, 8
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexcialEditor.js", "JavaScript", 0, 0, 0, 241, 0, 0, 0, 0, 0, 32, 29, 302
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawNode/ExcalidrawComponent.jsx", "JavaScript", 0, 0, 0, 120, 0, 0, 0, 0, 0, 0, 12, 132
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawNode/ExcalidrawImage.jsx", "JavaScript", 0, 0, 0, 44, 0, 0, 0, 0, 0, 12, 9, 65
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawNode/ExcalidrawModal.css", "CSS", 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 6, 59
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawNode/ExcalidrawModal.jsx", "JavaScript", 0, 0, 0, 179, 0, 0, 0, 0, 0, 6, 21, 206
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawNode/index.jsx", "JavaScript", 0, 0, 0, 94, 0, 0, 0, 0, 0, 0, 16, 110
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawPlugin.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 41, 8, 49
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/ExcalidrawToolbar.jsx", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 21, 5, 26
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexcialUI/Button.css", "CSS", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 4, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexcialUI/Button.jsx", "JavaScript", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 4, 37
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexcialUI/ImageResizer.jsx", "JavaScript", 0, 0, 0, 253, 0, 0, 0, 0, 0, 1, 29, 283
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexcialUI/Modal.css", "CSS", 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 5, 58
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexcialUI/Modal.jsx", "JavaScript", 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 9, 86
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexicalUtils/guard.js", "JavaScript", 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexicalUtils/point.js", "JavaScript", 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 10, 46
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/UNUSED_LEIXCAL/LexicalUtils/rect.js", "JavaScript", 0, 0, 0, 109, 0, 0, 0, 0, 0, 0, 22, 131
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/appSettings.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 4, 36
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/collaboration.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 28, 0, 0, 3, 5, 36
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/context/SettingsContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 63, 0, 0, 10, 73
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/context/SharedAutocompleteContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 1, 0, 59, 5, 65
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/context/SharedHistoryContext.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 22, 0, 0, 6, 28
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/CustomParagraphNode.js", "JavaScript", 0, 0, 0, 29, 0, 0, 0, 0, 0, 8, 8, 45
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/CustomTextNode.js", "JavaScript", 0, 0, 0, 35, 0, 0, 0, 0, 0, 39, 12, 86
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/EmojiNode.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 82, 0, 0, 14, 96
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/ExcalidrawComponent.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 1, 0, 158, 15, 174
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/ExcalidrawImage.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 60, 0, 32, 11, 103
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/ExcalidrawModal.css", "CSS", 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 6, 59
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/ExcalidrawModal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 1, 0, 181, 23, 205
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/ExcalidrawNode.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 117, 0, 2, 19, 138
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/ExcalidrawPluginCSS.css", "CSS", 0, 0, 0, 0, 0, 169, 0, 0, 0, 0, 20, 189
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ExcalidrawNode/Modal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 91, 0, 0, 9, 100
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ImageComponent.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 1, 0, 367, 20, 388
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ImageNode.css", "CSS", 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 2, 35
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/ImageNode.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 223, 0, 3, 24, 250
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/KeywordNode.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 60, 0, 0, 0, 13, 73
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/MentionNode.js", "JavaScript", 0, 0, 0, 95, 0, 0, 0, 0, 0, 78, 31, 204
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/StickyComponent.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 237, 0, 3, 21, 261
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/StickyNode.css", "CSS", 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 1, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/nodes/StickyNode.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 129, 0, 1, 18, 148
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/AutoLinkPlugin.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 5, 35
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/ClickableLinkPlugin.js", "JavaScript", 0, 0, 0, 84, 0, 0, 0, 0, 0, 1, 18, 103
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/CodeHighlightPlugin.js", "JavaScript", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 2, 12
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/DateTimePlugin/index.jsx", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/DragDropPastePlugin.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 1, 0, 0, 40, 4, 45
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/DraggableBlockPlugin.css", "CSS", 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 4, 36
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/DraggableBlockPlugin.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 322, 0, 4, 51, 377
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/EmojisPlugin.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 56, 0, 0, 0, 16, 72
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/ExcalidrawPlugin.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 39, 0, 0, 0, 8, 47
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/ExcalidrawToolbar.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 21, 0, 0, 5, 26
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/FloatingTextFormatToolbarPlugin.css", "CSS", 0, 0, 0, 0, 0, 120, 0, 0, 0, 0, 16, 136
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/FloatingTextFormatToolbarPlugin.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 1, 0, 333, 35, 369
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/ImagesPlugin.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 1, 0, 0, 353, 34, 388
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/KeywordsPlugin.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 37, 0, 0, 0, 12, 49
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/LinkPlugin.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 1, 0, 0, 6, 3, 10
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/ListMaxIndentLevelPlugin.js", "JavaScript", 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 14, 69
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/MentionsPlugin.js", "JavaScript", 0, 0, 0, 273, 0, 0, 0, 0, 0, 9, 41, 323
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/ToolbarPlugin.js", "JavaScript", 0, 0, 0, 651, 0, 0, 0, 0, 0, 3, 46, 700
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/TreeViewPlugin.js", "JavaScript", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 2, 17
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/plugins/test.jsx", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/themes/LexicalEditorTheme.js", "JavaScript", 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 2, 70
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/themes/PlaygroundEditorTheme.css", "CSS", 0, 0, 0, 0, 0, 421, 0, 0, 0, 1, 73, 495
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/themes/PlaygroundEditorTheme.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 103, 0, 0, 0, 4, 107
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/themes/StickyEditorTheme.css", "CSS", 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/themes/StickyEditorTheme.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 5, 13
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Button.css", "CSS", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 4, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Button.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 39, 0, 0, 4, 43
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/ContentEditable.css", "CSS", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 1, 16
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/ContentEditable.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 3, 13
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Dialog.css", "CSS", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 2, 17
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Dialog.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 5, 25
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/FileInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 27, 0, 0, 4, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/ImageResizer.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 277, 0, 2, 27, 306
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Input.css", "CSS", 0, 0, 0, 0, 0, 23, 0, 0, 0, 0, 2, 25
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Modal.css", "CSS", 0, 0, 0, 0, 0, 53, 0, 0, 0, 0, 5, 58
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Modal.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 92, 0, 0, 9, 101
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Placeholder.css", "CSS", 0, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 14
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/Placeholder.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 12, 0, 0, 3, 15
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/ui/TextInput.tsx", "TypeScript JSX", 0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 4, 39
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/getDOMRangeRect.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 17, 0, 0, 0, 4, 21
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/getSelectedNode.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 2, 21
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/guard.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 4
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/joinClasses.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 1, 6
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/point.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 11, 49
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/rect.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 128, 0, 0, 0, 24, 152
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/setFloatingElemPosition.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 31, 0, 0, 0, 9, 40
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/LexicalEditor/utils/url.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 15, 0, 0, 5, 6, 26
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/NewDesign/AccountSwitcher.jsx", "JavaScript", 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 2, 43
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/NewDesign/AccountSwitcherButton.jsx", "JavaScript", 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 2, 53
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/NewDesign/NavGroup.jsx", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 2, 22
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/NewDesign/NavItem.jsx", "JavaScript", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 2, 40
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/NewDesign/NewApp.jsx", "JavaScript", 0, 0, 0, 72, 0, 0, 0, 0, 0, 4, 3, 79
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/CollabPageSidebar.jsx", "JavaScript", 0, 0, 0, 76, 0, 0, 0, 0, 0, 38, 2, 116
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/CollabWorkspaceSettings.jsx", "JavaScript", 0, 0, 0, 109, 0, 0, 0, 0, 0, 0, 9, 118
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/DisplayTeamCollabShowPage.jsx", "JavaScript", 0, 0, 0, 148, 0, 0, 0, 0, 0, 21, 4, 173
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Dropzone.jsx", "JavaScript", 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 2, 42
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/EditProfile.jsx", "JavaScript", 0, 0, 0, 203, 0, 0, 0, 0, 0, 0, 3, 206
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/MemberTable.jsx", "JavaScript", 0, 0, 0, 88, 0, 0, 0, 0, 0, 3, 2, 93
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Navbar.jsx", "JavaScript", 0, 0, 0, 67, 0, 0, 0, 0, 0, 1, 4, 72
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/NextStepsList.jsx", "JavaScript", 0, 0, 0, 136, 0, 0, 0, 0, 0, 114, 23, 273
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Q&A/Q&AComponent.jsx", "JavaScript", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 2, 40
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Q&A/data.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 1, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Rating.jsx", "JavaScript", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 2, 25
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Sidebar.jsx", "JavaScript", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 2, 28
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/SortableList/SortableListComponent.jsx", "JavaScript", 0, 0, 0, 90, 0, 0, 0, 0, 0, 6, 2, 98
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/SortableList/SortableListComponentChallenge.jsx", "JavaScript", 0, 0, 0, 94, 0, 0, 0, 0, 0, 6, 3, 103
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/SortableList/challengedata.js", "JavaScript", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 1, 23
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/SortableList/data.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 1, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/TeamMemberStack.jsx", "JavaScript", 0, 0, 0, 265, 0, 0, 0, 0, 0, 6, 26, 297
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/TeamMemberTable.jsx", "JavaScript", 0, 0, 0, 84, 0, 0, 0, 0, 0, 21, 3, 108
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Timeline/Step.jsx", "JavaScript", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 2, 34
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Timeline/StepCircle.jsx", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 2, 22
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Timeline/TimelineComponent.jsx", "JavaScript", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 2, 39
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Timeline/data.js", "JavaScript", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 1, 23
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/Timeline/useStep.jsx", "JavaScript", 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 2, 47
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/TodoList.jsx", "JavaScript", 0, 0, 0, 133, 0, 0, 0, 0, 0, 0, 11, 144
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/data.js", "JavaScript", 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 1, 51
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/listdata.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 1, 31
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/components/olddata.js", "JavaScript", 0, 0, 0, 62, 0, 0, 0, 0, 0, 0, 1, 63
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/hooks/scalableParse.js", "JavaScript", 0, 0, 0, 208, 0, 0, 0, 0, 0, 7, 31, 246
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/hooks/useImageLoaded.js", "JavaScript", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 4, 27
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/hooks/useLexicalNodeParse.js", "JavaScript", 0, 0, 0, 365, 0, 0, 0, 0, 0, 21, 53, 439
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/hooks/useScrollToTop.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 2, 10
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/hooks/useSession.js", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 7, 24
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/index.js", "JavaScript", 0, 0, 0, 39, 0, 0, 0, 0, 0, 1, 6, 46
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/layouts/CollabPageLayout.jsx", "JavaScript", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 2, 25
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/layouts/RootLayout.jsx", "JavaScript", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 2, 26
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/Account.jsx", "JavaScript", 0, 0, 0, 108, 0, 0, 0, 0, 0, 8, 16, 132
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/Dashboard.jsx", "JavaScript", 0, 0, 0, 377, 0, 0, 0, 0, 0, 46, 41, 464
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/GoogleLogin.jsx", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 1, 17
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/LazyLoadDashboard.jsx", "JavaScript", 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 6, 37
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/Login.jsx", "JavaScript", 0, 0, 0, 49, 0, 0, 0, 0, 0, 53, 4, 106
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/MasterTodoList.jsx", "JavaScript", 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 9, 57
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageAllAttachments.jsx", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 3, 21
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageChallenges.jsx", "JavaScript", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 3, 21
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageCurrentState.jsx", "JavaScript", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 3, 23
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageHome.jsx", "JavaScript", 0, 0, 0, 223, 0, 0, 0, 0, 0, 4, 18, 245
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageJourney.jsx", "JavaScript", 0, 0, 0, 116, 0, 0, 0, 0, 0, 18, 4, 138
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageLegalDocuments.jsx", "JavaScript", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 3, 28
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageNotes.jsx", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 1, 4, 22
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPagePricing.jsx", "JavaScript", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 3, 28
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageProposals.jsx", "JavaScript", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 3, 28
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageQuestions.jsx", "JavaScript", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 3, 24
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageShowcase.jsx", "JavaScript", 0, 0, 0, 23, 0, 0, 0, 0, 0, 10, 5, 38
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageTeam.jsx", "JavaScript", 0, 0, 0, 17, 0, 0, 0, 0, 0, 14, 3, 34
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/collabs/CollabPageTimeline.jsx", "JavaScript", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 3, 15
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/compliance/Privacy.jsx", "JavaScript", 0, 0, 0, 386, 0, 0, 0, 0, 0, 0, 6, 392
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/pages/compliance/TermsOfService.jsx", "JavaScript", 0, 0, 0, 574, 0, 0, 0, 0, 0, 0, 2, 576
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/privateRoute.jsx", "JavaScript", 0, 0, 0, 35, 0, 0, 0, 0, 0, 34, 11, 80
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/routes.jsx", "JavaScript", 0, 0, 0, 127, 0, 0, 0, 0, 0, 34, 12, 173
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/styles.css", "CSS", 0, 0, 0, 0, 0, 781, 0, 0, 0, 9, 145, 935
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/supabase/clientapp.js", "JavaScript", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 5, 33
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/src/util/helper.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 0, 20, 4, 29
+"/Users/johnchildseddy/Desktop/COLLAB_PROJECT/collab-react/tsconfig.json", "JSON with Comments", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 27
+"Total", "-", 26, 35174, 45, 8557, 15, 1923, 622, 1884, 79, 2982, 1818, 53125
