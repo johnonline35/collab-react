@@ -436,13 +436,9 @@ export default function Dashboard() {
                       <HStack spacing='3'>
                         {/* <Checkbox /> */}
                         <Avatar
-                          src={
-                            info.attendee_avatar
-                              ? info.attendee_avatar.headshot
-                              : undefined
-                          }
+                          src={info ? info.image : undefined}
                           boxSize='10'
-                          name={info.attendee_name}
+                          name={info.attendee_email}
                         />
                         {/* <AvatarBadge
                         boxSize='4'
@@ -453,21 +449,21 @@ export default function Dashboard() {
                         }
                       />
                     </Avatar> */}
-                        <Box>
+                        {/* <Box>
                           <Flex direction='row' justify='space-between'>
                             <Text fontWeight='medium' color='emphasized'>
                               {info.attendee_name}
                             </Text>
-                            {/* <Badge
+                            <Badge
                           size='sm'
                           colorScheme={info.status === "lead" ? "green" : null}
                         >
                           {info.status}
-                        </Badge> */}
+                        </Badge>
                           </Flex>
 
                           <Text color='muted'>{info.attendee_job_title}</Text>
-                        </Box>
+                        </Box> */}
                       </HStack>
                     </Stack>
                     <Text
