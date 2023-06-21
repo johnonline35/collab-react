@@ -403,7 +403,7 @@ export default function Dashboard() {
                     </Flex>
                     {/* <Text>Led by {info.collab_user_name}</Text> */}
                     <Flex mt='10px' gap='1'>
-                      <Icon
+                      {/* <Icon
                         // ml='3px'
 
                         style={{
@@ -411,7 +411,7 @@ export default function Dashboard() {
                         }}
                         as={MdAttachMoney}
                       />
-                      <Text>2.7m</Text>
+                      <Text>2.7m</Text> */}
 
                       <Icon
                         ml='3px'
