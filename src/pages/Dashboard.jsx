@@ -421,14 +421,12 @@ export default function Dashboard() {
                         }}
                         as={IoMdPeople}
                       />
-                      <Text>11-20</Text>
+                      <Text>{info.job_company_size}</Text>
                     </Flex>
                     <Box py='4'>
                       <Flex>
                         <Text fontWeight='medium' size='xs'>
-                          Secoda is the fastest way to discover data. Get the
-                          data catalog and lineage portal built for analytics
-                          engineers and modern data teams.
+                          {info.description}
                         </Text>
                       </Flex>
                     </Box>
