@@ -370,7 +370,7 @@ export default function Dashboard() {
                       </Heading>
                     </Link>
                     <Flex>
-                      <Link href='https://secoda.co' isExternal>
+                      <Link href={info.domain} isExternal>
                         <Icon
                           mr='3px'
                           style={{
@@ -378,7 +378,7 @@ export default function Dashboard() {
                           }}
                           as={FiLink}
                         />
-                        secoda.co
+                        {info.domain}
                       </Link>
                       <Link>
                         <Icon
