@@ -481,7 +481,7 @@ export default function Dashboard() {
                         display: "-webkit-box",
                       }}
                     >
-                      Current Time: {formatTime(info.attendee_timezone)}
+                      {/* Current Time: {formatTime(info.attendee_timezone)} */}
                       <br />
                       Email: {info.attendee_email}
                     </Text>
@@ -512,7 +512,7 @@ export default function Dashboard() {
                 <CardFooter>
                   <HStack>
                     <Text size='xs' color='gray.400'>
-                      Meeting Scheduled: {formatTime(info.attendee_timezone)}
+                      {/* Meeting Scheduled: {formatTime(info.attendee_timezone)} */}
                     </Text>
                     {/* <Button
                       // onClick={() => {}}
