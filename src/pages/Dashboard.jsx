@@ -27,7 +27,7 @@ import {
   Image,
   Icon,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { supabase } from "../supabase/clientapp";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
@@ -78,6 +78,9 @@ export default function Dashboard() {
 
   // Real time function that waits for the background jobs then calls getCompanyTileInfo(userId)
 
+  const receivedUpdate = useRef(false);
+  const isSubscribed = useRef(false);
+
   useEffect(() => {
     if (!userId) {
       console.log("userId is not set, returning early");
@@ -85,8 +88,6 @@ export default function Dashboard() {
     }
 
     console.log("Setting up subscription for userId:", userId);
-
-    let subscriptionTimer; // Variable to hold the timer reference
 
     // Set up a Realtime subscription
     const subscription = supabase
@@ -97,47 +98,39 @@ export default function Dashboard() {
         (payload) => {
           console.log("Received UPDATE event:", payload);
 
-          // Check if the payload contains the property 'new'
-          if (payload.new) {
-            // Check if the job status is "job_complete"
-            if (payload.new.job_complete === true) {
-              console.log("Job completed, jobId:", payload.new.job_id);
-              getCompanyTileInfo(userId);
+          // Check if the job status is "job_complete"
+          if (payload.new.job_complete === true) {
+            console.log("Job completed, jobId:", payload.new.job_id);
 
-              // Unsubscribe from the subscription as it's no longer needed
-              console.log(
-                "Unsubscribing from subscription for userId:",
-                userId
-              );
-              clearTimeout(subscriptionTimer); // Clear the timer
-              subscription.unsubscribe();
-            }
-          } else {
-            // If there is no 'new' property in payload, call the getCompanyTileInfo function
-            console.log("No new job. Calling getCompanyTileInfo.");
+            // Mark that an update was received
+            receivedUpdate.current = true;
+
             getCompanyTileInfo(userId);
+
+            // Unsubscribe from the subscription as it's no longer needed
+            console.log("Unsubscribing from subscription for userId:", userId);
+            subscription.unsubscribe();
+            isSubscribed.current = false;
           }
         }
       )
       .subscribe();
 
     console.log("Subscription LIVE:", subscription);
+    isSubscribed.current = true;
 
-    // Start the timer after 2 minutes
-    subscriptionTimer = setTimeout(() => {
-      console.log(
-        "Timer expired, unsubscribing from subscription for userId:",
-        userId
-      );
-      subscription.unsubscribe();
-    }, 2 * 60 * 1000); // 2 minutes in milliseconds.
+    // Check shortly after subscribing if an update was received
+    setTimeout(() => {
+      if (isSubscribed.current && !receivedUpdate.current) {
+        console.log("No update received, calling getCompanyTileInfo.");
+        getCompanyTileInfo(userId);
 
-    // Return a cleanup function to remove the subscription when the component is unmounted
-    return () => {
-      console.log("Cleaning up subscription for userId:", userId);
-      clearTimeout(subscriptionTimer); // Clear the timer
-      subscription.unsubscribe();
-    };
+        // Unsubscribe as it's no longer needed
+        console.log("Unsubscribing from subscription for userId:", userId);
+        subscription.unsubscribe();
+        isSubscribed.current = false;
+      }
+    }, 5000); // Check after 5 seconds for example, can be adjusted
   }, [userId]); // Rerun this hook whenever userId changes
 
   // useEffect(() => {
