@@ -131,7 +131,7 @@ export default function Dashboard() {
 
   const getCompanyTileInfo = async (userId) => {
     try {
-      const { data, error } = await supabase.rpc("new_dashboard", {
+      const { data, error } = await supabase.rpc("test_dashboard", {
         _userid: userId,
       });
 
@@ -142,7 +142,7 @@ export default function Dashboard() {
       setCompanyInfo(data);
       setLoadingCards(false);
     } catch (error) {
-      console.error("Error in get_dashboard:", error);
+      console.error("Error in test_dashboard:", error);
     }
   };
 
