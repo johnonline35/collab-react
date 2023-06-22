@@ -435,6 +435,10 @@ export default function Dashboard() {
                             borderStyle: "solid",
                             boxSizing: "border-box",
                             borderColor: "var(--chakra-colors-gray-200)",
+                            marginBlockStart: "1em",
+                            marginBlockEnd: "1em",
+                            marginInlineStart: "0px",
+                            marginInlineEnd: "0px",
                           }}
                         />
                       )}
