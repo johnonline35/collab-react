@@ -33,9 +33,9 @@ import { supabase } from "../supabase/clientapp";
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
 import { FiLink } from "react-icons/fi";
-import { FaLinkedin, FaSquareFacebook, FaInstagram } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import { RiTwitterFill, RiTwitterLine } from "react-icons/ri";
-import { SiCrunchbase } from "react-icons/si";
+import { MdOutlineAttachMoney, MdAttachMoney } from "react-icons/md";
 import { IoMdPeople } from "react-icons/io";
 
 export default function Dashboard() {
@@ -349,48 +349,6 @@ export default function Dashboard() {
                           as={RiTwitterFill}
                         />
                       </Link>
-                      <Link
-                        href={info.crunchbase_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={SiCrunchbase}
-                        />
-                      </Link>
-                      <Link
-                        href={info.facebook_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={FaSquareFacebook}
-                        />
-                      </Link>
-                      <Link
-                        href={info.instagram_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={FaInstagram}
-                        />
-                      </Link>
                     </Flex>
                     {/* <Text>Led by {info.collab_user_name}</Text> */}
                     <Flex mt='10px' gap='1'>
@@ -486,7 +444,6 @@ export default function Dashboard() {
                         leftIcon={<EditIcon />}
                         variant='secondary'
                         width='250px'
-                        color='blue'
                       >
                         Workspace AI
                       </Button>
