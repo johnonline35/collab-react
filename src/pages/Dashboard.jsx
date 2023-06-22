@@ -486,6 +486,7 @@ export default function Dashboard() {
                         leftIcon={<EditIcon />}
                         variant='secondary'
                         width='250px'
+                        color='blue'
                       >
                         Workspace AI
                       </Button>
