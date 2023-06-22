@@ -333,22 +333,23 @@ export default function Dashboard() {
                         {info.domain}
                       </Link>
 
-                      {info.linkedin_url && (
-                        <Link
-                          href={info.linkedin_url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          <Icon
-                            ml='3px'
-                            mr='3px'
-                            style={{
-                              transform: "translateY(2px)",
-                            }}
-                            as={GrLinkedin}
-                          />
-                        </Link>
-                      )}
+                      {info.linkedin_url &&
+                        info.linkedin_url !== "/undefined" && (
+                          <Link
+                            href={info.linkedin_url}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            <Icon
+                              ml='3px'
+                              mr='3px'
+                              style={{
+                                transform: "translateY(2px)",
+                              }}
+                              as={GrLinkedin}
+                            />
+                          </Link>
+                        )}
 
                       <Link
                         href={info.twitter_url}
