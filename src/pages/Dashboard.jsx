@@ -350,48 +350,56 @@ export default function Dashboard() {
                         </Link>
                       )}
 
-                      <Link
-                        href={info.twitter_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={GrTwitter}
-                        />
-                      </Link>
-                      <Link
-                        href={info.crunchbase_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={SiCrunchbase}
-                        />
-                      </Link>
-                      <Link
-                        href={info.facebook_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={GrFacebook}
-                        />
-                      </Link>
+                      {info.twitter_url && (
+                        <Link
+                          href={info.twitter_url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          <Icon
+                            ml='3px'
+                            mr='3px'
+                            style={{
+                              transform: "translateY(2px)",
+                            }}
+                            as={GrTwitter}
+                          />
+                        </Link>
+                      )}
+
+                      {info.crunchbase_url && (
+                        <Link
+                          href={info.crunchbase_url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          <Icon
+                            ml='3px'
+                            mr='3px'
+                            style={{
+                              transform: "translateY(2px)",
+                            }}
+                            as={SiCrunchbase}
+                          />
+                        </Link>
+                      )}
+
+                      {info.facebook_url && (
+                        <Link
+                          href={info.facebook_url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          <Icon
+                            ml='3px'
+                            mr='3px'
+                            style={{
+                              transform: "translateY(2px)",
+                            }}
+                            as={GrFacebook}
+                          />
+                        </Link>
+                      )}
                     </Flex>
                     {/* <Text>Led by {info.collab_user_name}</Text> */}
                     <Flex mt='10px' gap='1'>
