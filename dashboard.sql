@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION test_dashboard(_userid UUID)
+ CREATE OR REPLACE FUNCTION test_dashboard(_userid UUID)
 RETURNS TABLE (
     collab_user_name TEXT,
     workspace_name TEXT,
@@ -7,7 +7,9 @@ RETURNS TABLE (
     job_company_size TEXT,
     description TEXT,
     image TEXT,
-    attendee_email TEXT
+    attendee_email TEXT,
+    banner_src TEXT,
+    icon_src TEXT
 ) AS $$
 BEGIN
     RETURN QUERY
@@ -19,7 +21,20 @@ BEGIN
         COALESCE(pau.job_company_size, 'undefined') AS job_company_size,
         COALESCE(bd.description, 'undefined') AS description,
         COALESCE(aa.image, 'undefined') AS image,
-        COALESCE(a.attendee_email, 'undefined') AS attendee_email
+        COALESCE(a.attendee_email, 'undefined') AS attendee_email,
+        -- Extract the src value for banner from the JSONB column
+        COALESCE(bd.images #>> '{0,formats,0,src}', 'undefined') AS banner_src,
+        -- Extract the src value for icon with dark theme from the logos JSONB column
+        COALESCE(
+            (
+                SELECT jsonb_array_element #>> '{formats,0,src}'
+                FROM jsonb_array_elements(bd.logos) AS dt(jsonb_array_element)
+                WHERE dt.jsonb_array_element ->> 'type' = 'icon'
+                AND dt.jsonb_array_element ->> 'theme' = 'dark'
+                LIMIT 1
+            ),
+            'undefined'
+        ) AS icon_src
     FROM
         collab_users AS cu
     INNER JOIN workspaces AS w ON cu.id = w.collab_user_id AND cu.id = _userid
