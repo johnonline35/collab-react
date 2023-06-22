@@ -133,58 +133,6 @@ export default function Dashboard() {
     }, 5000); // Check after 5 seconds for example, can be adjusted
   }, [userId]); // Rerun this hook whenever userId changes
 
-  // useEffect(() => {
-  //   if (!userId) {
-  //     console.log("userId is not set, returning early");
-  //     return; // Don't set up subscription if userId is not set yet
-  //   }
-
-  //   console.log("Setting up subscription for userId:", userId);
-
-  //   let subscriptionTimer; // Variable to hold the timer reference
-
-  //   // Set up a Realtime subscription
-  //   const subscription = supabase
-  //     .channel("job_queue:collab_user_id=eq." + userId)
-  //     .on(
-  //       "postgres_changes",
-  //       { event: "UPDATE", schema: "public" },
-  //       (payload) => {
-  //         console.log("Received UPDATE event:", payload);
-
-  //         // Check if the job status is "job_complete"
-  //         if (payload.new.job_complete === true) {
-  //           console.log("Job completed, jobId:", payload.new.job_id);
-  //           getCompanyTileInfo(userId);
-
-  //           // Unsubscribe from the subscription as it's no longer needed
-  //           console.log("Unsubscribing from subscription for userId:", userId);
-  //           clearTimeout(subscriptionTimer); // Clear the timer
-  //           subscription.unsubscribe();
-  //         }
-  //       }
-  //     )
-  //     .subscribe();
-
-  //   console.log("Subscription LIVE:", subscription);
-
-  //   // Start the timer after 2 minutes
-  //   subscriptionTimer = setTimeout(() => {
-  //     console.log(
-  //       "Timer expired, unsubscribing from subscription for userId:",
-  //       userId
-  //     );
-  //     subscription.unsubscribe();
-  //   }, 2 * 60 * 1000); // 2 minutes in milliseconds.
-
-  //   // Return a cleanup function to remove the subscription when the component is unmounted
-  //   return () => {
-  //     console.log("Cleaning up subscription for userId:", userId);
-  //     clearTimeout(subscriptionTimer); // Clear the timer
-  //     subscription.unsubscribe();
-  //   };
-  // }, [userId]); // Rerun this hook whenever userId changes
-
   const getCompanyTileInfo = async (userId) => {
     try {
       const { data, error } = await supabase.rpc("test_dashboard", {
@@ -376,7 +324,8 @@ export default function Dashboard() {
                             transform: "translateY(2px)",
                           }}
                           as={FaLinkedin}
-                        ></Icon>
+                        />
+                        {info.linkedin_url}
                       </Link>
                       <Link>
                         <Icon
@@ -386,7 +335,8 @@ export default function Dashboard() {
                             transform: "translateY(2px)",
                           }}
                           as={RiTwitterFill}
-                        ></Icon>
+                        />
+                        {info.twitter_url}
                       </Link>
                     </Flex>
                     {/* <Text>Led by {info.collab_user_name}</Text> */}
