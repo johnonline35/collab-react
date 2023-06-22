@@ -440,9 +440,16 @@ export default function Dashboard() {
                         </>
                       )}
                     </Flex>
-                    <Box py='4'>
-                      <Flex>
-                        <Text fontWeight='medium' size='xs'>
+                    <Box py='4' height='70px' maxHeight='70px'>
+                      <Flex height='70px' maxHeight='70px'>
+                        <Text
+                          fontWeight='medium'
+                          size='xs'
+                          isTruncated
+                          whiteSpace='nowrap'
+                          overflow='hidden'
+                          textOverflow='ellipsis'
+                        >
                           {info.description}
                         </Text>
                       </Flex>
