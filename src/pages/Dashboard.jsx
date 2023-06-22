@@ -29,6 +29,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState, useRef } from "react";
 import { supabase } from "../supabase/clientapp";
+import { useFullUrl } from "../hooks/useFullUrl";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
@@ -310,10 +311,12 @@ export default function Dashboard() {
                     <Flex>
                       <Link
                         href={
-                          info.domain.startsWith("http://") ||
-                          info.domain.startsWith("https://")
-                            ? info.domain
-                            : `https://${info.domain}`
+                          info.domain
+                            ? info.domain.startsWith("http://") ||
+                              info.domain.startsWith("https://")
+                              ? info.domain
+                              : `https://${info.domain}`
+                            : undefined
                         }
                         isExternal
                         target='_blank'
