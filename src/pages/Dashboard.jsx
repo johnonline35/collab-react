@@ -316,7 +316,7 @@ export default function Dashboard() {
                         />
                         {info.domain}
                       </Link>
-                      {/* <Link>
+                      <Link>
                         <Icon
                           ml='3px'
                           mr='3px'
@@ -326,7 +326,7 @@ export default function Dashboard() {
                           as={FaLinkedin}
                         />
                         {info.linkedin_url}
-                      </Link> */}
+                      </Link>
                       {/* <Link>
                         <Icon
                           ml='3px'
