@@ -33,10 +33,11 @@ import { supabase } from "../supabase/clientapp";
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
 import { FiLink } from "react-icons/fi";
-import { FaLinkedin, FaSquareFacebook } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import { RiTwitterFill, RiTwitterLine } from "react-icons/ri";
 import { SiCrunchbase } from "react-icons/si";
 import { IoMdPeople } from "react-icons/io";
+import { AiFillFacebook } from "react-icons/ai";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -374,7 +375,7 @@ export default function Dashboard() {
                           style={{
                             transform: "translateY(2px)",
                           }}
-                          as={FaSquareFacebook}
+                          as={AiFillFacebook}
                         />
                       </Link>
                       {/* <Link
