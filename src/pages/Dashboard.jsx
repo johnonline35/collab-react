@@ -334,7 +334,7 @@ export default function Dashboard() {
                       </Link>
 
                       {info.linkedin_url &&
-                        info.linkedin_url !== "/undefined" && (
+                        info.linkedin_url !== "undefined" && (
                           <Link
                             href={info.linkedin_url}
                             target='_blank'
