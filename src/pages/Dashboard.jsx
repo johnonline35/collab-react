@@ -305,16 +305,9 @@ export default function Dashboard() {
           </TabPanel>
         </TabPanels> */}
       </Tabs>
-      <SimpleGrid mt={10} spacing={10} minChildWidth='300px'>
+      <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
           companyInfo.map((info) => {
-            {
-              /* const isLoading =
-              info.icon_src && info.icon_src && !imageLoaded[info.icon_src]; */
-            }
-
-            const isLoading = !imageLoaded[info.icon_src];
-
             return (
               <Card
                 key={info.workspace_id}
@@ -339,20 +332,16 @@ export default function Dashboard() {
                   </Flex>
                   <Flex gap={5}>
                     <Box position='relative'>
-                      {isLoading ? (
-                        <Spinner mt='5px' ml='5px' size='md' />
-                      ) : (
-                        <Avatar
-                          position='absolute'
-                          z-index='10px'
-                          left='20px'
-                          top='-50px'
-                          bg='white'
-                          transform='translateY(50%)'
-                          src={info?.icon_src}
-                          name={info?.workspace_name}
-                        />
-                      )}
+                      <Avatar
+                        position='absolute'
+                        z-index='10px'
+                        left='20px'
+                        top='-50px'
+                        bg='white'
+                        transform='translateY(50%)'
+                        src={info.icon_src}
+                        name={info.workspace_name}
+                      />
                     </Box>
                   </Flex>
                 </CardHeader>
