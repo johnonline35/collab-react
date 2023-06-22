@@ -321,9 +321,10 @@ export default function Dashboard() {
                         isExternal
                         target='_blank'
                         rel='noopener noreferrer'
+                        mr={7}
                       >
                         <Icon
-                          mr='7px'
+                          mr='3px'
                           style={{
                             transform: "translateY(2px)",
                           }}
