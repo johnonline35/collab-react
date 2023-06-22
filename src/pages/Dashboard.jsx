@@ -306,7 +306,11 @@ export default function Dashboard() {
                       </Heading>
                     </Link>
                     <Flex>
-                      <Link href={info.domain} isExternal>
+                      <Link
+                        href={info.domain}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
                         <Icon
                           mr='3px'
                           style={{
