@@ -308,6 +308,7 @@ export default function Dashboard() {
                     <Flex>
                       <Link
                         href={info.domain}
+                        isExternal
                         target='_blank'
                         rel='noopener noreferrer'
                       >

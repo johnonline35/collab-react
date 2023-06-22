@@ -1,4 +1,4 @@
- CREATE OR REPLACE FUNCTION test_dashboard(_userid UUID)
+CREATE OR REPLACE FUNCTION test_dashboard(_userid UUID)
 RETURNS TABLE (
     collab_user_name TEXT,
     workspace_name TEXT,
@@ -9,7 +9,8 @@ RETURNS TABLE (
     image TEXT,
     attendee_email TEXT,
     banner_src TEXT,
-    icon_src TEXT
+    icon_src TEXT,
+    linkedin_url TEXT -- New column
 ) AS $$
 BEGIN
     RETURN QUERY
@@ -34,7 +35,17 @@ BEGIN
                 LIMIT 1
             ),
             'undefined'
-        ) AS icon_src
+        ) AS icon_src,
+        -- Extract the linkedin url from the links JSONB column
+        COALESCE(
+            (
+                SELECT jsonb_element ->> 'url'
+                FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
+                WHERE dt.jsonb_element ->> 'name' = 'linkedin'
+                LIMIT 1
+            ),
+            'undefined'
+        ) AS linkedin_url -- New functionality
     FROM
         collab_users AS cu
     INNER JOIN workspaces AS w ON cu.id = w.collab_user_id AND cu.id = _userid
@@ -46,6 +57,7 @@ BEGIN
         cu.id = _userid;
 END; $$
 LANGUAGE plpgsql;
+
 
 
 
