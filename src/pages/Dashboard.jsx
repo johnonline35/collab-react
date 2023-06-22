@@ -316,7 +316,11 @@ export default function Dashboard() {
                         />
                         {info.domain}
                       </Link>
-                      <Link href={info.linkedin_url}>
+                      <Link
+                        href={info.linkedin_url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
                         <Icon
                           ml='3px'
                           mr='3px'
@@ -326,7 +330,11 @@ export default function Dashboard() {
                           as={FaLinkedin}
                         />
                       </Link>
-                      {/* <Link>
+                      <Link
+                        href={info.twitter_url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
                         <Icon
                           ml='3px'
                           mr='3px'
@@ -335,8 +343,7 @@ export default function Dashboard() {
                           }}
                           as={RiTwitterFill}
                         />
-                        {info.twitter_url}
-                      </Link> */}
+                      </Link>
                     </Flex>
                     {/* <Text>Led by {info.collab_user_name}</Text> */}
                     <Flex mt='10px' gap='1'>
