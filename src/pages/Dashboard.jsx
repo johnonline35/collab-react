@@ -332,7 +332,7 @@ export default function Dashboard() {
                     overflow='hidden'
                   >
                     <Image
-                      src='https://asset.brandfetch.io/idtTJnlm_T/idI_ebYyhw.jpeg'
+                      src={info.banner_src}
                       maxHeight='100%'
                       width='auto'
                       height='auto'
