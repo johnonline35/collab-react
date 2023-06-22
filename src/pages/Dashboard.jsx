@@ -413,7 +413,7 @@ export default function Dashboard() {
                         as={MdAttachMoney}
                       />
                       <Text>2.7m</Text> */}
-                      {info.job_company_size && (
+                      {info.job_company_size ? (
                         <>
                           <Icon
                             ml='3px'
@@ -425,6 +425,16 @@ export default function Dashboard() {
                           />
                           <Text>{info.job_company_size}</Text>
                         </>
+                      ) : (
+                        <div
+                          style={{
+                            display: "block",
+                            marginBlockStart: "1em",
+                            marginBlockEnd: "1em",
+                            marginInlineStart: "0px",
+                            marginInlineEnd: "0px",
+                          }}
+                        />
                       )}
                     </Flex>
                     <Box py='4'>
