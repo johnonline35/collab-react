@@ -445,10 +445,9 @@ export default function Dashboard() {
                         <Text
                           fontWeight='medium'
                           size='xs'
-                          isTruncated
-                          whiteSpace='nowrap'
-                          overflow='hidden'
+                          overflow='auto'
                           textOverflow='ellipsis'
+                          maxHeight='200px'
                         >
                           {info.description}
                         </Text>
