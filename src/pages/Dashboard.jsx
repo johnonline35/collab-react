@@ -321,7 +321,7 @@ export default function Dashboard() {
                         isExternal
                         target='_blank'
                         rel='noopener noreferrer'
-                        mr={7}
+                        mr={3}
                       >
                         <Icon
                           mr='3px'
