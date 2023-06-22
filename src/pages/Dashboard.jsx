@@ -426,21 +426,18 @@ export default function Dashboard() {
                           <Text>{info.job_company_size}</Text>
                         </>
                       ) : (
-                        <div
-                          style={{
-                            display: "flex",
-                            marginTop: "10px",
-                            gap: "var(--chakra-space-1)",
-                            borderWidth: "0px",
-                            borderStyle: "solid",
-                            boxSizing: "border-box",
-                            borderColor: "var(--chakra-colors-gray-200)",
-                            marginBlockStart: "1em",
-                            marginBlockEnd: "1em",
-                            marginInlineStart: "0px",
-                            marginInlineEnd: "0px",
-                          }}
-                        />
+                        <>
+                          <Icon
+                            ml='3px'
+                            mr='1px'
+                            style={{
+                              transform: "translateY(4px)",
+                              color: "white",
+                            }}
+                            as={IoMdPeople}
+                          />
+                          <Text style={{ color: "white" }}>undefined</Text>
+                        </>
                       )}
                     </Flex>
                     <Box py='4'>
