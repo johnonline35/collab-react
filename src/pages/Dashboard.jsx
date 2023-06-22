@@ -275,7 +275,7 @@ export default function Dashboard() {
                     overflow='hidden'
                   >
                     <Image
-                      src={info.banner_src}
+                      src={info.banner_src ? info.banner_src : undefined}
                       maxHeight='100%'
                       width='auto'
                       height='auto'
