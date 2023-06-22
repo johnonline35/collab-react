@@ -413,16 +413,19 @@ export default function Dashboard() {
                         as={MdAttachMoney}
                       />
                       <Text>2.7m</Text> */}
-
-                      <Icon
-                        ml='3px'
-                        mr='1px'
-                        style={{
-                          transform: "translateY(4px)",
-                        }}
-                        as={IoMdPeople}
-                      />
-                      <Text>{info.job_company_size}</Text>
+                      {info.job_company_size && (
+                        <>
+                          <Icon
+                            ml='3px'
+                            mr='1px'
+                            style={{
+                              transform: "translateY(4px)",
+                            }}
+                            as={IoMdPeople}
+                          />
+                          <Text>{info.job_company_size}</Text>
+                        </>
+                      )}
                     </Flex>
                     <Box py='4'>
                       <Flex>
