@@ -33,7 +33,7 @@ import { supabase } from "../supabase/clientapp";
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
 import { FiLink } from "react-icons/fi";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaSquareFacebook } from "react-icons/fa";
 import { RiTwitterFill, RiTwitterLine } from "react-icons/ri";
 import { SiCrunchbase } from "react-icons/si";
 import { IoMdPeople } from "react-icons/io";
@@ -363,7 +363,7 @@ export default function Dashboard() {
                           as={SiCrunchbase}
                         />
                       </Link>
-                      {/* <Link
+                      <Link
                         href={info.facebook_url}
                         target='_blank'
                         rel='noopener noreferrer'
@@ -377,7 +377,7 @@ export default function Dashboard() {
                           as={FaSquareFacebook}
                         />
                       </Link>
-                      <Link
+                      {/* <Link
                         href={info.instagram_url}
                         target='_blank'
                         rel='noopener noreferrer'
