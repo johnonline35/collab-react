@@ -309,9 +309,7 @@ export default function Dashboard() {
         {companyInfo &&
           companyInfo.map((info) => {
             const isLoading =
-              info.workspace_avatar &&
-              info.workspace_avatar.logo &&
-              !imageLoaded[info.workspace_avatar.logo];
+              info.icon_src && info.icon_src && !imageLoaded[info.icon_src];
 
             {
               /* const isLoading = !imageLoaded[info.workspace_avatar.logo]; */
