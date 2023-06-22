@@ -440,8 +440,8 @@ export default function Dashboard() {
                         </>
                       )}
                     </Flex>
-                    <Box py='4' height='200px' maxHeight='70px'>
-                      <Flex height='200px' maxHeight='70px'>
+                    <Box py='4' height='200px' maxHeight='200px'>
+                      <Flex height='200px' maxHeight='200px'>
                         <Text
                           fontWeight='medium'
                           size='xs'
