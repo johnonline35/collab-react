@@ -428,11 +428,13 @@ export default function Dashboard() {
                       ) : (
                         <div
                           style={{
-                            display: "block",
-                            marginBlockStart: "1em",
-                            marginBlockEnd: "1em",
-                            marginInlineStart: "0px",
-                            marginInlineEnd: "0px",
+                            display: "flex",
+                            marginTop: "10px",
+                            gap: "var(--chakra-space-1)",
+                            borderWidth: "0px",
+                            borderStyle: "solid",
+                            boxSizing: "border-box",
+                            borderColor: "var(--chakra-colors-gray-200)",
                           }}
                         />
                       )}
