@@ -309,7 +309,12 @@ export default function Dashboard() {
                     </Link>
                     <Flex>
                       <Link
-                        href={info.domain}
+                        href={
+                          info.domain.startsWith("http://") ||
+                          info.domain.startsWith("https://")
+                            ? info.domain
+                            : `https://${info.domain}`
+                        }
                         isExternal
                         target='_blank'
                         rel='noopener noreferrer'
@@ -323,6 +328,7 @@ export default function Dashboard() {
                         />
                         {info.domain}
                       </Link>
+
                       <Link
                         href={info.linkedin_url}
                         target='_blank'
