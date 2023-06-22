@@ -37,7 +37,8 @@ import { FaLinkedin } from "react-icons/fa";
 import { RiTwitterFill, RiTwitterLine } from "react-icons/ri";
 import { SiCrunchbase } from "react-icons/si";
 import { IoMdPeople } from "react-icons/io";
-import { AiFillFacebook } from "react-icons/ai";
+// import { AiFillFacebook } from "react-icons/ai";
+import { GrFacebook } from "react-icons/gr";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -375,7 +376,7 @@ export default function Dashboard() {
                           style={{
                             transform: "translateY(2px)",
                           }}
-                          as={AiFillFacebook}
+                          as={GrFacebook}
                         />
                       </Link>
                       {/* <Link
