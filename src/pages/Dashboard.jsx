@@ -33,7 +33,7 @@ import { supabase } from "../supabase/clientapp";
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
 import { FiLink } from "react-icons/fi";
-import { FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import { RiTwitterFill, RiTwitterLine } from "react-icons/ri";
 import { SiCrunchbase } from "react-icons/si";
 import { IoMdPeople } from "react-icons/io";
@@ -377,20 +377,6 @@ export default function Dashboard() {
                             transform: "translateY(2px)",
                           }}
                           as={GrFacebook}
-                        />
-                      </Link>
-                      <Link
-                        href={info.instagram_url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        <Icon
-                          ml='3px'
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={FaInstagram}
                         />
                       </Link>
                     </Flex>
