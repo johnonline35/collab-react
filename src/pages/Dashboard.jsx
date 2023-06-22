@@ -323,7 +323,7 @@ export default function Dashboard() {
                         rel='noopener noreferrer'
                       >
                         <Icon
-                          mr='3px'
+                          mr='7px'
                           style={{
                             transform: "translateY(2px)",
                           }}
