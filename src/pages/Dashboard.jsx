@@ -300,6 +300,7 @@ export default function Dashboard() {
                   <Box>
                     <Link
                       href={`/collabs/${info.workspace_id}/${info.workspace_name}`}
+                      mb={1}
                     >
                       <Heading as='h3' size='sm'>
                         {info.workspace_name}
