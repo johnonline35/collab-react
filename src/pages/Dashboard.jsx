@@ -284,7 +284,7 @@ export default function Dashboard() {
       {" "}
       <Tabs>
         <TabList pb={3}>
-          <Tab>Upcoming Meetings</Tab>
+          <Tab>Workspaces</Tab>
           {/* <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
           <Tab>Alerts</Tab> */}
@@ -305,15 +305,16 @@ export default function Dashboard() {
           </TabPanel>
         </TabPanels> */}
       </Tabs>
-      <SimpleGrid spacing={10} minChildWidth='300px'>
+      <SimpleGrid mt={10} spacing={10} minChildWidth='300px'>
         {companyInfo &&
           companyInfo.map((info) => {
-            const isLoading =
-              info.icon_src && info.icon_src && !imageLoaded[info.icon_src];
-
             {
-              /* const isLoading = !imageLoaded[info.workspace_avatar.logo]; */
+              /* const isLoading =
+              info.icon_src && info.icon_src && !imageLoaded[info.icon_src]; */
             }
+
+            const isLoading = !imageLoaded[info.icon_src];
+
             return (
               <Card
                 key={info.workspace_id}
