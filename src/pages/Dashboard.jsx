@@ -477,14 +477,14 @@ export default function Dashboard() {
                             <Text fontWeight='medium' color='emphasized'>
                               {info.attendee_name}
                             </Text>
-                            <Badge
+                            {/* <Badge
                               size='sm'
                               colorScheme={
                                 info.status === "lead" ? "green" : null
                               }
                             >
                               {info.status}
-                            </Badge>
+                            </Badge> */}
                           </Flex>
 
                           <Text color='muted'>{info.attendee_job_title}</Text>
