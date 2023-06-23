@@ -279,14 +279,13 @@ export default function Dashboard() {
                 <CardHeader
                   p='0'
                   bg={info.banner_src ? "transparent" : "blue.400"}
-                  style={{ height: "70px" }}
+                  style={{ height: "70px", position: "relative" }} // Added position relative here
                 >
                   <Flex
                     justifyContent='center'
                     alignItems='center'
-                    position='relative'
                     maxHeight='70px'
-                    overflow='hidden'
+                    overflow='visible' // Set overflow visible
                   >
                     {info.banner_src ? (
                       <Image
@@ -298,22 +297,20 @@ export default function Dashboard() {
                     ) : (
                       <Box width='100%' height='100%'></Box>
                     )}
-
-                    {/* Move Avatar inside Flex and adjust positioning properties */}
-                    <Box
-                      position='absolute'
-                      zIndex='10'
-                      left='20px'
-                      top='-50px'
-                      transform='translateY(50%)'
-                    >
-                      <Avatar
-                        bg='white'
-                        src={info.icon_src ? info.icon_src : undefined}
-                        name={info.workspace_name}
-                      />
-                    </Box>
                   </Flex>
+                  {/* Moved Avatar outside Flex and adjusted positioning properties */}
+                  <Box
+                    position='absolute'
+                    zIndex='1000' // Increased zIndex
+                    left='20px'
+                    top='10px' // Adjusted top position
+                  >
+                    <Avatar
+                      bg='white'
+                      src={info.icon_src ? info.icon_src : undefined}
+                      name={info.workspace_name}
+                    />
+                  </Box>
                 </CardHeader>
 
                 {/* <CardHeader
