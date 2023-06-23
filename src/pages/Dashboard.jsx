@@ -279,43 +279,6 @@ export default function Dashboard() {
                 <CardHeader
                   p='0'
                   bg={info.banner_src ? "transparent" : "blue.400"}
-                  style={{ height: "70px", position: "relative" }}
-                >
-                  <Flex
-                    justifyContent='center'
-                    alignItems='center'
-                    maxHeight='70px'
-                    overflow='visible'
-                  >
-                    {info.banner_src ? (
-                      <Image
-                        src={info.banner_src}
-                        maxHeight='100%'
-                        width='auto'
-                        height='auto'
-                      />
-                    ) : (
-                      <Box width='100%' height='100%'></Box>
-                    )}
-                  </Flex>
-                  <Box
-                    position='absolute'
-                    zIndex='1000'
-                    left='20px'
-                    top='50%' // Adjusted top position to 50%
-                    transform='translateY(-50%)' // Added translateY to align center
-                  >
-                    <Avatar
-                      bg='white'
-                      src={info.icon_src ? info.icon_src : undefined}
-                      name={info.workspace_name}
-                    />
-                  </Box>
-                </CardHeader>
-
-                {/* <CardHeader
-                  p='0'
-                  bg={info.banner_src ? "transparent" : "blue.400"}
                   style={{ height: "70px" }}
                 >
                   <Flex
@@ -349,7 +312,7 @@ export default function Dashboard() {
                       />
                     </Box>
                   </Flex>
-                </CardHeader> */}
+                </CardHeader>
                 <CardBody>
                   <Box>
                     <Link
