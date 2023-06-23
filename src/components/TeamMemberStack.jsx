@@ -215,17 +215,17 @@ const TeamMemberStack = () => {
                   <Stack direction='row' justify='space-between' spacing='4'>
                     <HStack spacing='3'>
                       <Avatar
-                        src={member.attendee_avatar.headshot}
+                        src={member.attendee_avatar || undefined}
                         boxSize='10'
                       >
-                        <AvatarBadge
+                        {/* <AvatarBadge
                           boxSize='4'
                           bg={
                             member.workingHours === "yes"
                               ? "green.500"
                               : "red.500"
                           }
-                        />
+                        /> */}
                       </Avatar>
                       <Box>
                         <Flex direction='row' justify='space-between'>
@@ -260,7 +260,7 @@ const TeamMemberStack = () => {
                         </Editable>
                       </Box>
                     </HStack>
-                    <Text color='muted'>{member.lastSeen}</Text>
+                    {/* <Text color='muted'>{member.lastSeen}</Text> */}
                   </Stack>
                   <Text
                     color='muted'
@@ -271,7 +271,7 @@ const TeamMemberStack = () => {
                       display: "-webkit-box",
                     }}
                   >
-                    Current Time: {time} {location} <br />
+                    {/* Current Time: {time} {location} <br /> */}
                     {/* Email: {member.attendee_email} */}
                     <Editable
                       fontSize='sm'
