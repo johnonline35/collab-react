@@ -280,6 +280,46 @@ export default function Dashboard() {
                   p='0'
                   style={{
                     backgroundColor: info.banner_src ? "transparent" : "blue",
+                    height: "70px",
+                  }}
+                >
+                  <Flex
+                    justifyContent='center'
+                    alignItems='center'
+                    maxHeight='70px'
+                    overflow='hidden'
+                  >
+                    {info.banner_src ? (
+                      <Image
+                        src={info.banner_src}
+                        maxHeight='100%'
+                        width='auto'
+                        height='auto'
+                      />
+                    ) : (
+                      <Box width='100%' height='100%'></Box>
+                    )}
+                  </Flex>
+                  <Flex gap={5}>
+                    <Box position='relative'>
+                      <Avatar
+                        position='absolute'
+                        zIndex='10'
+                        left='20px'
+                        top='-50px'
+                        bg='white'
+                        transform='translateY(50%)'
+                        src={info.icon_src ? info.icon_src : undefined}
+                        name={info.workspace_name}
+                      />
+                    </Box>
+                  </Flex>
+                </CardHeader>
+
+                {/* <CardHeader
+                  p='0'
+                  style={{
+                    backgroundColor: info.banner_src ? "transparent" : "blue",
                   }}
                 >
                   <Flex
@@ -309,7 +349,7 @@ export default function Dashboard() {
                       />
                     </Box>
                   </Flex>
-                </CardHeader>
+                </CardHeader> */}
                 <CardBody>
                   <Box>
                     <Link
