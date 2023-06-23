@@ -327,34 +327,34 @@ export default function Dashboard() {
                       </Heading>
                     </Link>
                     <Flex>
-                      <Link
-                        href={
-                          info.domain
-                            ? info.domain.startsWith("http://") ||
-                              info.domain.startsWith("https://")
+                      {info.domain && (
+                        <Link
+                          href={
+                            info.domain.startsWith("http://") ||
+                            info.domain.startsWith("https://")
                               ? info.domain
                               : `https://${info.domain}`
-                            : undefined
-                        }
-                        isExternal
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        mr={2}
-                      >
-                        <Icon
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                            color: info.domain ? undefined : "white",
-                          }}
-                          as={FiLink}
-                        />
-                        <Text
-                          style={{ color: info.domain ? undefined : "white" }}
+                          }
+                          isExternal
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          mr={2}
                         >
-                          {info.domain || "undefined"}
-                        </Text>
-                      </Link>
+                          <Icon
+                            mr='3px'
+                            style={{
+                              transform: "translateY(2px)",
+                              color: info.domain ? undefined : "white",
+                            }}
+                            as={FiLink}
+                          />
+                          <Text
+                            style={{ color: info.domain ? undefined : "white" }}
+                          >
+                            {info.domain || "undefined"}
+                          </Text>
+                        </Link>
+                      )}
 
                       {info.linkedin_url && (
                         <Link
