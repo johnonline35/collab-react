@@ -327,29 +327,29 @@ export default function Dashboard() {
                       </Heading>
                     </Link>
                     <Flex>
-                      <Link
-                        href={
-                          info.domain
-                            ? info.domain.startsWith("http://") ||
-                              info.domain.startsWith("https://")
+                      {info.domain ? (
+                        <Link
+                          href={
+                            info.domain.startsWith("http://") ||
+                            info.domain.startsWith("https://")
                               ? info.domain
                               : `https://${info.domain}`
-                            : undefined
-                        }
-                        isExternal
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        mr={2}
-                      >
-                        <Icon
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                          }}
-                          as={FiLink}
-                        />
-                        {info.domain}
-                      </Link>
+                          }
+                          isExternal
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          mr={2}
+                        >
+                          <Icon
+                            mr='3px'
+                            style={{
+                              transform: "translateY(2px)",
+                            }}
+                            as={FiLink}
+                          />
+                          {info.domain}
+                        </Link>
+                      ) : null}
 
                       {info.linkedin_url && (
                         <Link
