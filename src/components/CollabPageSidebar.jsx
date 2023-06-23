@@ -41,7 +41,7 @@ export default function Sidebar() {
           to={`/collabs/${params.workspace_id}/${params.workspace_name}/notes`}
         >
           <ListIcon as={EditIcon} color='white' />
-          Notes
+          Workspace AI
         </NavLink>
       </ListItem>
       {/* <ListItem>
@@ -50,14 +50,14 @@ export default function Sidebar() {
           Next Steps
         </NavLink>
       </ListItem> */}
-      <ListItem>
+      {/* <ListItem>
         <NavLink
           to={`/collabs/${params.workspace_id}/${params.workspace_name}/journey`}
         >
           <ListIcon as={SlRocket} color='white' />
           Journey
         </NavLink>
-      </ListItem>
+      </ListItem> */}
       {/* <ListItem>
         <NavLink to={`/collabs/${params.attendee_company_id}/proposals`}>
           <ListIcon as={SunIcon} color='white' />
@@ -94,14 +94,14 @@ export default function Sidebar() {
           Realtime Q&A
         </NavLink>
       </ListItem> */}
-      <ListItem>
+      {/* <ListItem>
         <NavLink
           to={`/collabs/${params.workspace_id}/${params.workspace_name}/allattachments`}
         >
           <ListIcon as={AttachmentIcon} color='white' />
           All Attachments
         </NavLink>
-      </ListItem>
+      </ListItem> */}
       <ListItem>
         <NavLink
           to={`/collabs/${params.workspace_id}/${params.workspace_name}/showcase`}
