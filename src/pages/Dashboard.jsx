@@ -307,7 +307,7 @@ export default function Dashboard() {
                         top='-50px'
                         bg='white'
                         transform='translateY(50%)'
-                        src={info.icon_src ? info.icon_src : undefined}
+                        src={info.icon_src || info.image || undefined}
                         name={info.workspace_name}
                       />
                     </Box>
