@@ -304,7 +304,7 @@ export default function Dashboard() {
                         position='absolute'
                         zIndex='10'
                         left='20px'
-                        top='-50px'
+                        top={info.banner_src ? "-50px" : "20px"}
                         bg='white'
                         transform='translateY(50%)'
                         src={info.icon_src || info.image || undefined}
