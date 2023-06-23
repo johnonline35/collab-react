@@ -345,6 +345,7 @@ export default function Dashboard() {
                           mr='3px'
                           style={{
                             transform: "translateY(2px)",
+                            color: info.domain ? undefined : "white",
                           }}
                           as={FiLink}
                         />
