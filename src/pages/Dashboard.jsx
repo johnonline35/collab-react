@@ -278,7 +278,7 @@ export default function Dashboard() {
               >
                 <CardHeader
                   p='0'
-                  bg={info.banner_src ? "transparent" : "blue"}
+                  bg={info.banner_src ? "transparent" : "blue.400"}
                   style={{ height: "70px" }}
                 >
                   <Flex
