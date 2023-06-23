@@ -276,7 +276,12 @@ export default function Dashboard() {
                 bg='white'
                 loading={loadingCards}
               >
-                <CardHeader p='0'>
+                <CardHeader
+                  p='0'
+                  style={{
+                    backgroundColor: info.banner_src ? "transparent" : "blue",
+                  }}
+                >
                   <Flex
                     justifyContent='center'
                     alignItems='center'
