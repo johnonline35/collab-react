@@ -284,7 +284,7 @@ export default function Dashboard() {
                   <Flex
                     justifyContent='center'
                     alignItems='center'
-                    position='relative' // Add position relative here
+                    position='relative'
                     maxHeight='70px'
                     overflow='hidden'
                   >
@@ -299,17 +299,20 @@ export default function Dashboard() {
                       <Box width='100%' height='100%'></Box>
                     )}
 
-                    {/* Move Avatar inside Flex */}
-                    <Avatar
+                    {/* Move Avatar inside Flex and adjust positioning properties */}
+                    <Box
                       position='absolute'
                       zIndex='10'
                       left='20px'
                       top='-50px'
-                      bg='white'
                       transform='translateY(50%)'
-                      src={info.icon_src ? info.icon_src : undefined}
-                      name={info.workspace_name}
-                    />
+                    >
+                      <Avatar
+                        bg='white'
+                        src={info.icon_src ? info.icon_src : undefined}
+                        name={info.workspace_name}
+                      />
+                    </Box>
                   </Flex>
                 </CardHeader>
 
