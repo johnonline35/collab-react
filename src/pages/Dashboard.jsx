@@ -229,6 +229,11 @@ export default function Dashboard() {
   }
   // COOKIE
   // console.log("cookie", document.cookie);
+  function capitalizeFirstLetterOfEachWord(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
 
   return (
     <>
@@ -475,19 +480,23 @@ export default function Dashboard() {
                         <Box>
                           <Flex direction='row' justify='space-between'>
                             <Text fontWeight='medium' color='emphasized'>
-                              {info.attendee_name}
+                              {capitalizeFirstLetterOfEachWord(
+                                info.attendee_name
+                              )}
                             </Text>
                             {/* <Badge
-                              size='sm'
-                              colorScheme={
-                                info.status === "lead" ? "green" : null
-                              }
-                            >
-                              {info.status}
-                            </Badge> */}
+      size="sm"
+      colorScheme={info.status === "lead" ? "green" : null}
+    >
+      {info.status}
+    </Badge> */}
                           </Flex>
 
-                          <Text color='muted'>{info.attendee_job_title}</Text>
+                          <Text color='muted'>
+                            {capitalizeFirstLetterOfEachWord(
+                              info.attendee_job_title
+                            )}
+                          </Text>
                         </Box>
                       </HStack>
                     </Stack>

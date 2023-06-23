@@ -8,13 +8,15 @@ RETURNS TABLE (
     description TEXT,
     image TEXT,
     attendee_email TEXT,
+    attendee_name TEXT, 
+    attendee_job_title TEXT, 
     banner_src TEXT,
     icon_src TEXT,
     linkedin_url TEXT,
     twitter_url TEXT,
-    instagram_url TEXT, -- New column
-    facebook_url TEXT, -- New column
-    crunchbase_url TEXT -- New column
+    instagram_url TEXT,
+    facebook_url TEXT,
+    crunchbase_url TEXT
 ) AS $$
 BEGIN
     RETURN QUERY
@@ -23,59 +25,49 @@ BEGIN
         w.workspace_name AS workspace_name,
         w.workspace_id AS workspace_id,
         w.domain AS domain,
-        COALESCE(pau.job_company_size) AS job_company_size,
-        COALESCE(bd.description, 'undefined') AS description,
-        COALESCE(aa.image, 'undefined') AS image,
-        COALESCE(a.attendee_email) AS attendee_email,
-        COALESCE(bd.images #>> '{0,formats,0,src}', 'undefined') AS banner_src,
-        COALESCE(
-            (
-                SELECT jsonb_array_element #>> '{formats,0,src}'
-                FROM jsonb_array_elements(bd.logos) AS dt(jsonb_array_element)
-                WHERE dt.jsonb_array_element ->> 'type' = 'icon'
-                AND dt.jsonb_array_element ->> 'theme' = 'dark'
-                LIMIT 1
-            )
+        pau.job_company_size AS job_company_size,
+        bd.description AS description,
+        aa.image AS image,
+        a.attendee_email AS attendee_email,
+        a.attendee_name AS attendee_name, 
+        a.attendee_job_title AS attendee_job_title, 
+        bd.images #>> '{0,formats,0,src}' AS banner_src,
+        (
+            SELECT jsonb_array_element #>> '{formats,0,src}'
+            FROM jsonb_array_elements(bd.logos) AS dt(jsonb_array_element)
+            WHERE dt.jsonb_array_element ->> 'type' = 'icon'
+            AND dt.jsonb_array_element ->> 'theme' = 'dark'
+            LIMIT 1
         ) AS icon_src,
-        COALESCE(
-            (
-                SELECT jsonb_element ->> 'url'
-                FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
-                WHERE dt.jsonb_element ->> 'name' = 'linkedin'
-                LIMIT 1
-            )
+        (
+            SELECT jsonb_element ->> 'url'
+            FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
+            WHERE dt.jsonb_element ->> 'name' = 'linkedin'
+            LIMIT 1
         ) AS linkedin_url,
-        COALESCE(
-            (
-                SELECT jsonb_element ->> 'url'
-                FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
-                WHERE dt.jsonb_element ->> 'name' = 'twitter'
-                LIMIT 1
-            )
+        (
+            SELECT jsonb_element ->> 'url'
+            FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
+            WHERE dt.jsonb_element ->> 'name' = 'twitter'
+            LIMIT 1
         ) AS twitter_url,
-        COALESCE(
-            (
-                SELECT jsonb_element ->> 'url'
-                FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
-                WHERE dt.jsonb_element ->> 'name' = 'instagram'
-                LIMIT 1
-            )
+        (
+            SELECT jsonb_element ->> 'url'
+            FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
+            WHERE dt.jsonb_element ->> 'name' = 'instagram'
+            LIMIT 1
         ) AS instagram_url,
-        COALESCE(
-            (
-                SELECT jsonb_element ->> 'url'
-                FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
-                WHERE dt.jsonb_element ->> 'name' = 'facebook'
-                LIMIT 1
-            )
+        (
+            SELECT jsonb_element ->> 'url'
+            FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
+            WHERE dt.jsonb_element ->> 'name' = 'facebook'
+            LIMIT 1
         ) AS facebook_url,
-        COALESCE(
-            (
-                SELECT jsonb_element ->> 'url'
-                FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
-                WHERE dt.jsonb_element ->> 'name' = 'crunchbase'
-                LIMIT 1
-            )
+        (
+            SELECT jsonb_element ->> 'url'
+            FROM jsonb_array_elements(bd.links) AS dt(jsonb_element)
+            WHERE dt.jsonb_element ->> 'name' = 'crunchbase'
+            LIMIT 1
         ) AS crunchbase_url
     FROM
         collab_users AS cu
@@ -86,8 +78,10 @@ BEGIN
     LEFT JOIN avatarapi_data AS aa ON a.attendee_email = aa.email
     WHERE
         cu.id = _userid;
-        END; $$
-LANGUAGE plpgsql;
+END;
+$$ LANGUAGE plpgsql;
+
+
 
 
 
