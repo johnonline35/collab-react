@@ -329,10 +329,12 @@ export default function Dashboard() {
                     <Flex>
                       <Link
                         href={
-                          info.domain.startsWith("http://") ||
-                          info.domain.startsWith("https://")
-                            ? info.domain
-                            : `https://${info.domain}`
+                          info.domain
+                            ? info.domain.startsWith("http://") ||
+                              info.domain.startsWith("https://")
+                              ? info.domain
+                              : `https://${info.domain}`
+                            : undefined
                         }
                         isExternal
                         target='_blank'
@@ -343,11 +345,15 @@ export default function Dashboard() {
                           mr='3px'
                           style={{
                             transform: "translateY(2px)",
-                            color: info.domain ? "black" : "white",
+                            color: info.domain ? undefined : "white",
                           }}
                           as={FiLink}
                         />
-                        {info.domain}
+                        <Text
+                          style={{ color: info.domain ? undefined : "white" }}
+                        >
+                          {info.domain || "undefined"}
+                        </Text>
                       </Link>
 
                       {info.linkedin_url && (
