@@ -279,13 +279,13 @@ export default function Dashboard() {
                 <CardHeader
                   p='0'
                   bg={info.banner_src ? "transparent" : "blue.400"}
-                  style={{ height: "70px", position: "relative" }} // Added position relative here
+                  style={{ height: "70px", position: "relative" }}
                 >
                   <Flex
                     justifyContent='center'
                     alignItems='center'
                     maxHeight='70px'
-                    overflow='visible' // Set overflow visible
+                    overflow='visible'
                   >
                     {info.banner_src ? (
                       <Image
@@ -298,12 +298,12 @@ export default function Dashboard() {
                       <Box width='100%' height='100%'></Box>
                     )}
                   </Flex>
-                  {/* Moved Avatar outside Flex and adjusted positioning properties */}
                   <Box
                     position='absolute'
-                    zIndex='1000' // Increased zIndex
+                    zIndex='1000'
                     left='20px'
-                    top='10px' // Adjusted top position
+                    top='50%' // Adjusted top position to 50%
+                    transform='translateY(-50%)' // Added translateY to align center
                   >
                     <Avatar
                       bg='white'
