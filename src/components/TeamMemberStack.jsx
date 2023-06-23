@@ -209,7 +209,7 @@ const TeamMemberStack = () => {
             );
 
             return (
-              <HStack key={member.attendee_id} alignItems='left'>
+              <HStack key={member.attendee_id} justifyContent='flex-start'>
                 {/* <Checkbox position='relative' left='-40px' /> */}
                 <Stack fontSize='sm' px='4' spacing='4'>
                   <Stack direction='row' justify='space-between' spacing='4'>
