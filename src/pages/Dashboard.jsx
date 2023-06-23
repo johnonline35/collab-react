@@ -327,7 +327,7 @@ export default function Dashboard() {
                       </Heading>
                     </Link>
                     <Flex>
-                      {info.domain ? (
+                      {info.domain && (
                         <Link
                           href={
                             info.domain.startsWith("http://") ||
@@ -349,7 +349,7 @@ export default function Dashboard() {
                           />
                           {info.domain}
                         </Link>
-                      ) : null}
+                      )}
 
                       {info.linkedin_url && (
                         <Link
