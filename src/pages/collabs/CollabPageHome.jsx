@@ -187,7 +187,7 @@ export default function CollabPageHome() {
                   Customer Team
                 </ListItem>
                 <Flex pr='10px' gap='2'>
-                  <Button variant='secondary' size='sm'>
+                  {/* <Button variant='secondary' size='sm'>
                     Display on Dashboard
                   </Button>
 
@@ -196,7 +196,7 @@ export default function CollabPageHome() {
                     size='sm'
                     variant='secondary'
                     icon={<DeleteIcon />}
-                  />
+                  /> */}
                 </Flex>
               </Flex>
               <TeamMemberStack mt='0px' />
@@ -210,9 +210,9 @@ export default function CollabPageHome() {
                   Next Steps
                 </ListItem>
                 <Flex pr='10px' gap='2'>
-                  <Button variant='secondary' size='sm'>
+                  {/* <Button variant='secondary' size='sm'>
                     Create Briefing Doc
-                  </Button>
+                  </Button> */}
                   <Spacer />
                   <IconButton
                     size='sm'
