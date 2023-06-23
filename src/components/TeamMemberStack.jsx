@@ -130,95 +130,95 @@ const TeamMemberStack = () => {
   }
 
   return (
-    <Center
-      maxW='sm'
-      mx='auto'
-      py={{
-        base: "4",
-        md: "8",
-      }}
-    >
-      <Box bg='bg-surface' py='4'>
-        <Stack divider={<StackDivider />} spacing='4'>
-          {members.map((member) => {
-            const handleNameChange = (value) => {
-              dispatch({
-                type: "updateInfo",
-                id: member.attendee_id,
-                update: { attendee_name: value },
-              });
-            };
+    // <Center
+    //   maxW='sm'
+    //   mx='auto'
+    //   py={{
+    //     base: "4",
+    //     md: "8",
+    //   }}
+    // >
+    <Box bg='bg-surface' py='4'>
+      <Stack divider={<StackDivider />} spacing='4'>
+        {members.map((member) => {
+          const handleNameChange = (value) => {
+            dispatch({
+              type: "updateInfo",
+              id: member.attendee_id,
+              update: { attendee_name: value },
+            });
+          };
 
-            const handleJobTitleChange = (value) => {
-              dispatch({
-                type: "updateInfo",
-                id: member.attendee_id,
-                update: { attendee_job_title: value },
-              });
-            };
+          const handleJobTitleChange = (value) => {
+            dispatch({
+              type: "updateInfo",
+              id: member.attendee_id,
+              update: { attendee_job_title: value },
+            });
+          };
 
-            const handleEmailChange = (value) => {
-              dispatch({
-                type: "updateInfo",
-                id: member.attendee_id,
-                update: { attendee_email: value },
-              });
-            };
+          const handleEmailChange = (value) => {
+            dispatch({
+              type: "updateInfo",
+              id: member.attendee_id,
+              update: { attendee_email: value },
+            });
+          };
 
-            const handleNameSubmit = async (value) => {
-              await updateAttendee(member.attendee_id, {
-                attendee_name: value,
-              });
-              setMembers(
-                members.map((m) =>
-                  m.attendee_id === member.attendee_id
-                    ? { ...m, attendee_name: value }
-                    : m
-                )
-              );
-            };
-
-            const handleJobTitleSubmit = async (value) => {
-              await updateAttendee(member.attendee_id, {
-                attendee_job_title: value,
-              });
-              setMembers(
-                members.map((m) =>
-                  m.attendee_id === member.attendee_id
-                    ? { ...m, attendee_job_title: value }
-                    : m
-                )
-              );
-            };
-
-            const handleEmailSubmit = async (value) => {
-              await updateAttendee(member.attendee_id, {
-                attendee_email: value,
-              });
-              setMembers(
-                members.map((m) =>
-                  m.attendee_id === member.attendee_id
-                    ? { ...m, attendee_email: value }
-                    : m
-                )
-              );
-            };
-
-            const { time, location } = getTimeWithLocation(
-              member.attendee_timezone
+          const handleNameSubmit = async (value) => {
+            await updateAttendee(member.attendee_id, {
+              attendee_name: value,
+            });
+            setMembers(
+              members.map((m) =>
+                m.attendee_id === member.attendee_id
+                  ? { ...m, attendee_name: value }
+                  : m
+              )
             );
+          };
 
-            return (
-              <HStack key={member.attendee_id} alignItems='flex-start'>
-                {/* <Checkbox position='relative' left='-40px' /> */}
-                <Stack fontSize='sm' px='4' spacing='4'>
-                  <Stack direction='row' justify='space-between' spacing='4'>
-                    <HStack spacing='3'>
-                      <Avatar
-                        src={member.attendee_avatar || undefined}
-                        boxSize='10'
-                      >
-                        {/* <AvatarBadge
+          const handleJobTitleSubmit = async (value) => {
+            await updateAttendee(member.attendee_id, {
+              attendee_job_title: value,
+            });
+            setMembers(
+              members.map((m) =>
+                m.attendee_id === member.attendee_id
+                  ? { ...m, attendee_job_title: value }
+                  : m
+              )
+            );
+          };
+
+          const handleEmailSubmit = async (value) => {
+            await updateAttendee(member.attendee_id, {
+              attendee_email: value,
+            });
+            setMembers(
+              members.map((m) =>
+                m.attendee_id === member.attendee_id
+                  ? { ...m, attendee_email: value }
+                  : m
+              )
+            );
+          };
+
+          const { time, location } = getTimeWithLocation(
+            member.attendee_timezone
+          );
+
+          return (
+            <HStack key={member.attendee_id} alignItems='flex-start'>
+              {/* <Checkbox position='relative' left='-40px' /> */}
+              <Stack fontSize='sm' px='4' spacing='4'>
+                <Stack direction='row' justify='space-between' spacing='4'>
+                  <HStack spacing='3'>
+                    <Avatar
+                      src={member.attendee_avatar || undefined}
+                      boxSize='10'
+                    >
+                      {/* <AvatarBadge
                           boxSize='4'
                           bg={
                             member.workingHours === "yes"
@@ -226,19 +226,19 @@ const TeamMemberStack = () => {
                               : "red.500"
                           }
                         /> */}
-                      </Avatar>
-                      <Box>
-                        <Flex direction='row' justify='space-between'>
-                          <Editable
-                            fontSize='sm'
-                            onChange={handleNameChange}
-                            onSubmit={handleNameSubmit}
-                            defaultValue={member.attendee_name}
-                          >
-                            <EditablePreview />
-                            <EditableInput />
-                          </Editable>
-                          {/* <Badge
+                    </Avatar>
+                    <Box>
+                      <Flex direction='row' justify='space-between'>
+                        <Editable
+                          fontSize='sm'
+                          onChange={handleNameChange}
+                          onSubmit={handleNameSubmit}
+                          defaultValue={member.attendee_name}
+                        >
+                          <EditablePreview />
+                          <EditableInput />
+                        </Editable>
+                        {/* <Badge
                             size='sm'
                             colorScheme={
                               member.status === "lead" ? "green" : null
@@ -246,50 +246,50 @@ const TeamMemberStack = () => {
                           >
                             {member.status}
                           </Badge> */}
-                        </Flex>
-                        {/* <Text color='muted'>{member.attendee_job_title}</Text> */}
-                        <Editable
-                          color='muted'
-                          fontSize='sm'
-                          onChange={handleJobTitleChange}
-                          onSubmit={handleJobTitleSubmit}
-                          defaultValue={member.attendee_job_title}
-                        >
-                          <EditablePreview />
-                          <EditableInput />
-                        </Editable>
-                      </Box>
-                    </HStack>
-                    {/* <Text color='muted'>{member.lastSeen}</Text> */}
-                  </Stack>
-                  <Text
-                    color='muted'
-                    sx={{
-                      "-webkit-box-orient": "vertical",
-                      "-webkit-line-clamp": "2",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                    }}
-                  >
-                    {/* Current Time: {time} {location} <br /> */}
-                    {/* Email: {member.attendee_email} */}
-                    <Editable
-                      fontSize='sm'
-                      onChange={handleEmailChange}
-                      onSubmit={handleEmailSubmit}
-                      defaultValue={member.attendee_email}
-                    >
-                      <EditablePreview />
-                      <EditableInput />
-                    </Editable>
-                  </Text>
+                      </Flex>
+                      {/* <Text color='muted'>{member.attendee_job_title}</Text> */}
+                      <Editable
+                        color='muted'
+                        fontSize='sm'
+                        onChange={handleJobTitleChange}
+                        onSubmit={handleJobTitleSubmit}
+                        defaultValue={member.attendee_job_title}
+                      >
+                        <EditablePreview />
+                        <EditableInput />
+                      </Editable>
+                    </Box>
+                  </HStack>
+                  {/* <Text color='muted'>{member.lastSeen}</Text> */}
                 </Stack>
-              </HStack>
-            );
-          })}
-        </Stack>
-      </Box>
-    </Center>
+                <Text
+                  color='muted'
+                  sx={{
+                    "-webkit-box-orient": "vertical",
+                    "-webkit-line-clamp": "2",
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                  }}
+                >
+                  {/* Current Time: {time} {location} <br /> */}
+                  {/* Email: {member.attendee_email} */}
+                  <Editable
+                    fontSize='sm'
+                    onChange={handleEmailChange}
+                    onSubmit={handleEmailSubmit}
+                    defaultValue={member.attendee_email}
+                  >
+                    <EditablePreview />
+                    <EditableInput />
+                  </Editable>
+                </Text>
+              </Stack>
+            </HStack>
+          );
+        })}
+      </Stack>
+    </Box>
+    // </Center>
   );
 };
 
