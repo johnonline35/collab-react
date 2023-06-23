@@ -231,14 +231,14 @@ export default function CollabPageHome() {
           </Card>
         </SimpleGrid>
       </Stack>
-      <Card p='12px' minH='xs'>
+      {/* <Card p='12px' minH='xs'>
         <List>
           <ListItem>
             <ListIcon as={AttachmentIcon} color='black' />
             All Attachments
           </ListItem>
         </List>
-      </Card>
+      </Card> */}
     </Stack>
   );
 }
