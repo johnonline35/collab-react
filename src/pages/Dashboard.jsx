@@ -454,7 +454,7 @@ export default function Dashboard() {
                             }}
                             as={IoMdPeople}
                           />
-                          <Text style={{ color: "white" }}>1 One</Text>
+                          <Text>1</Text>
                         </>
                       )}
                     </Flex>
