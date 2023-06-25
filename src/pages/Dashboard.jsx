@@ -450,11 +450,11 @@ export default function Dashboard() {
                             mr='1px'
                             style={{
                               transform: "translateY(4px)",
-                              color: "white",
+                              // color: "white",
                             }}
                             as={IoMdPeople}
                           />
-                          <Text style={{ color: "white" }}>undefined</Text>
+                          <Text style={{ color: "white" }}>1</Text>
                         </>
                       )}
                     </Flex>
