@@ -51,6 +51,25 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+  const [publicemail, setPublicEmail] = useState(null);
+
+  const fetchPublicEmailDomains = async () => {
+    const { data, error } = await supabase
+      .from("public_email_domains")
+      .select("domain");
+
+    if (error) {
+      console.error("Error fetching domains: ", error);
+      return;
+    }
+
+    // Assuming 'domain' is a column in your table
+    const publicEmailDomains = data.map((row) => row.domain);
+    setPublicEmail(publicEmailDomains);
+    console.log(publicemail);
+
+    // return publicEmailDomains;
+  };
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -147,6 +166,7 @@ export default function Dashboard() {
       }
 
       setCompanyInfo(data);
+      fetchPublicEmailDomains();
       setLoadingCards(false);
     } catch (error) {
       console.error("Error in test_dashboard:", error);
