@@ -51,7 +51,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
-  const [publicemail, setPublicEmail] = useState(null);
+  const [publicEmail, setPublicEmail] = useState(null);
 
   const fetchPublicEmailDomains = async () => {
     const { data, error } = await supabase
@@ -66,7 +66,7 @@ export default function Dashboard() {
     // Assuming 'domain' is a column in your table
     const publicEmailDomains = data.map((row) => row.domain);
     setPublicEmail(publicEmailDomains);
-    console.log(publicemail);
+    console.log(publicEmail);
 
     // return publicEmailDomains;
   };
