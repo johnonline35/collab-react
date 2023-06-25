@@ -51,25 +51,6 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
-  const [publicEmail, setPublicEmail] = useState(null);
-
-  const fetchPublicEmailDomains = async () => {
-    const { data, error } = await supabase
-      .from("public_email_domains")
-      .select("domain");
-
-    if (error) {
-      console.error("Error fetching domains: ", error);
-      return;
-    }
-
-    // Assuming 'domain' is a column in your table
-    const publicEmailDomains = data.map((row) => row.domain);
-    setPublicEmail(publicEmailDomains);
-    console.log(publicEmail);
-
-    // return publicEmailDomains;
-  };
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -166,7 +147,6 @@ export default function Dashboard() {
       }
 
       setCompanyInfo(data);
-      fetchPublicEmailDomains();
       setLoadingCards(false);
     } catch (error) {
       console.error("Error in test_dashboard:", error);
@@ -451,18 +431,33 @@ export default function Dashboard() {
                         as={MdAttachMoney}
                       />
                       <Text>2.7m</Text> */}
-                      {info.job_company_size ? (
-                        <>
-                          <Icon
-                            ml='3px'
-                            mr='1px'
-                            style={{
-                              transform: "translateY(4px)",
-                            }}
-                            as={IoMdPeople}
-                          />
-                          <Text>{info.job_company_size}</Text>
-                        </>
+                      {info.domain ? (
+                        info.job_company_size ? (
+                          <>
+                            <Icon
+                              ml='3px'
+                              mr='1px'
+                              style={{
+                                transform: "translateY(4px)",
+                              }}
+                              as={IoMdPeople}
+                            />
+                            <Text>{info.job_company_size}</Text>
+                          </>
+                        ) : (
+                          <>
+                            <Icon
+                              ml='3px'
+                              mr='1px'
+                              style={{
+                                transform: "translateY(4px)",
+                                color: "white",
+                              }}
+                              as={IoMdPeople}
+                            />
+                            <Text style={{ color: "white" }}>Undefined</Text>
+                          </>
+                        )
                       ) : (
                         <>
                           <Icon
@@ -470,7 +465,6 @@ export default function Dashboard() {
                             mr='1px'
                             style={{
                               transform: "translateY(4px)",
-                              // color: "white",
                             }}
                             as={IoMdPeople}
                           />
