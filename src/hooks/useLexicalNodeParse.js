@@ -142,45 +142,59 @@ export const useLexicalNodeParse = () => {
 
   // Run this algo every five seconds while the user is active. If the user becomes inactive for 60 secs, pause until active
   useEffect(() => {
-    let timeoutId;
-    let inactivityTimeoutId;
-    const debouncedFetchNotes = debounce(fetchNotes, 5000);
-
-    const handleUserActivity = () => {
-      clearTimeout(inactivityTimeoutId);
-      inactivityTimeoutId = setTimeout(() => {
-        clearTimeout(timeoutId);
-        debouncedFetchNotes.cancel();
-      }, 60000);
-
-      debouncedFetchNotes();
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        debouncedFetchNotes();
-      }, 5000);
+    const handleKeyDown = (event) => {
+      if (event.key === "Enter") {
+        fetchNotes();
+      }
     };
 
-    const events = [
-      "mousemove",
-      "mousedown",
-      "keydown",
-      "scroll",
-      "touchstart",
-    ];
-
-    events.forEach((event) =>
-      window.addEventListener(event, handleUserActivity)
-    );
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      events.forEach((event) =>
-        window.removeEventListener(event, handleUserActivity)
-      );
-      clearTimeout(timeoutId);
-      clearTimeout(inactivityTimeoutId);
-      debouncedFetchNotes.cancel();
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [fetchNotes]);
+
+  // useEffect(() => {
+  //   let timeoutId;
+  //   let inactivityTimeoutId;
+  //   const debouncedFetchNotes = debounce(fetchNotes, 5000);
+
+  //   const handleUserActivity = () => {
+  //     clearTimeout(inactivityTimeoutId);
+  //     inactivityTimeoutId = setTimeout(() => {
+  //       clearTimeout(timeoutId);
+  //       debouncedFetchNotes.cancel();
+  //     }, 60000);
+
+  //     debouncedFetchNotes();
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => {
+  //       debouncedFetchNotes();
+  //     }, 5000);
+  //   };
+
+  //   const events = [
+  //     "mousemove",
+  //     "mousedown",
+  //     "keydown",
+  //     "scroll",
+  //     "touchstart",
+  //   ];
+
+  //   events.forEach((event) =>
+  //     window.addEventListener(event, handleUserActivity)
+  //   );
+
+  //   return () => {
+  //     events.forEach((event) =>
+  //       window.removeEventListener(event, handleUserActivity)
+  //     );
+  //     clearTimeout(timeoutId);
+  //     clearTimeout(inactivityTimeoutId);
+  //     debouncedFetchNotes.cancel();
+  //   };
+  // }, [fetchNotes]);
 
   // console.log("nextSingleStepContent", nextSingleStepContent);
 
