@@ -208,6 +208,8 @@ const TeamMemberStack = () => {
             member.attendee_timezone
           );
 
+          const displayName = member.attendee_name || "Enter Details";
+
           return (
             <HStack key={member.attendee_id} alignItems='flex-start'>
               {/* <Checkbox position='relative' left='-40px' /> */}
@@ -233,7 +235,7 @@ const TeamMemberStack = () => {
                           fontSize='sm'
                           onChange={handleNameChange}
                           onSubmit={handleNameSubmit}
-                          defaultValue={member.attendee_name}
+                          defaultValue={displayName}
                         >
                           <EditablePreview />
                           <EditableInput />

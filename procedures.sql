@@ -48,4 +48,24 @@ FROM avatarapi_data
 WHERE attendees.attendee_email = avatarapi_data.email
   AND attendees.attendee_avatar IS NULL;
 
+  -- Insert Default values if everything is still null:
+
+CREATE OR REPLACE FUNCTION insert_default_values() RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE attendees
+    SET attendee_name = COALESCE(attendee_name, (SELECT name FROM defaults LIMIT 1)),
+        attendee_job_title = COALESCE(attendee_job_title, (SELECT job_title FROM defaults LIMIT 1))
+    WHERE attendee_name IS NULL OR attendee_job_title IS NULL;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- Trigger for it:
+CREATE TRIGGER trigger_insert_default_values
+AFTER INSERT OR UPDATE ON attendees
+FOR EACH ROW EXECUTE PROCEDURE insert_default_values();
+
+
 
