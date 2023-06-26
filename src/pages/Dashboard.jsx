@@ -268,6 +268,8 @@ export default function Dashboard() {
       <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
           companyInfo.map((info) => {
+            const displayName = info.attendee_name || "Enter Name";
+            const displayTitle = info.attendee_job_title || "Enter Title";
             return (
               <Card
                 key={info.workspace_id}
@@ -509,22 +511,20 @@ export default function Dashboard() {
                         <Box>
                           <Flex direction='row' justify='space-between'>
                             <Text fontWeight='medium' color='emphasized'>
-                              {capitalizeFirstLetterOfEachWord(
-                                info.attendee_name
-                              )}
+                              {capitalizeFirstLetterOfEachWord(displayName)}
                             </Text>
                             {/* <Badge
-      size="sm"
-      colorScheme={info.status === "lead" ? "green" : null}
-    >
-      {info.status}
-    </Badge> */}
+                              size='sm'
+                              colorScheme={
+                                info.status === "lead" ? "green" : null
+                              }
+                            >
+                              {info.status}
+                            </Badge> */}
                           </Flex>
 
                           <Text color='muted'>
-                            {capitalizeFirstLetterOfEachWord(
-                              info.attendee_job_title
-                            )}
+                            {capitalizeFirstLetterOfEachWord(displayTitle)}
                           </Text>
                         </Box>
                       </HStack>
