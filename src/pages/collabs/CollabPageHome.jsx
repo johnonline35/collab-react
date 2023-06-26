@@ -254,7 +254,7 @@ export default function CollabPageHome() {
         >
           <Container maxW='lg'>
             <FormControl id='file'>
-              <FormLabel>Dropzone</FormLabel>
+              {/* <FormLabel>Dropzone</FormLabel> */}
               <Dropzone />
             </FormControl>
           </Container>
