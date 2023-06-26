@@ -237,7 +237,7 @@ export default function CollabPageHome() {
           </Card>
         </SimpleGrid>
       </Stack>
-      <Card p='12px' minH='xs'>
+      {/* <Card p='12px' minH='xs'>
         <List>
           <ListItem>
             <ListIcon as={FiArchive} color='black' />
@@ -253,13 +253,10 @@ export default function CollabPageHome() {
           }}
         >
           <Container maxW='lg'>
-            <FormControl id='file'>
-              {/* <FormLabel>Dropzone</FormLabel> */}
-              <Dropzone />
-            </FormControl>
+            
           </Container>
         </Box>
-      </Card>
+      </Card> */}
     </Stack>
   );
 }
