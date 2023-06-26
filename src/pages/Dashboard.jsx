@@ -231,8 +231,8 @@ export default function Dashboard() {
   // console.log("cookie", document.cookie);
   function capitalizeFirstLetterOfEachWord(str) {
     if (str) {
-      return str.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      return str.replace(/\b\w/g, function (char) {
+        return char.toUpperCase();
       });
     } else {
       return "";
