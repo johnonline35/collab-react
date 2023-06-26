@@ -31,6 +31,7 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
+import { GoFileDirectory } from "react-icons/go";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -231,14 +232,14 @@ export default function CollabPageHome() {
           </Card>
         </SimpleGrid>
       </Stack>
-      {/* <Card p='12px' minH='xs'>
+      <Card p='12px' minH='xs'>
         <List>
           <ListItem>
-            <ListIcon as={AttachmentIcon} color='black' />
-            All Attachments
+            <ListIcon as={GoFileDirectory} color='black' />
+            Files
           </ListItem>
         </List>
-      </Card> */}
+      </Card>
     </Stack>
   );
 }
