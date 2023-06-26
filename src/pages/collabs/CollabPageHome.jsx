@@ -151,13 +151,13 @@ export default function CollabPageHome() {
                 <Flex direction='row' justify='space-between'>
                   <Flex>
                     <ListIcon as={FiDribbble} color='black' mt='5px' />
-                    Momentum
+                    TBD
                   </Flex>
                   <CloseButton />
                 </Flex>
               </ListItem>
 
-              <ListItem mt='20px'>
+              {/* <ListItem mt='20px'>
                 <Alert
                   status='success'
                   variant='subtle'
@@ -176,7 +176,7 @@ export default function CollabPageHome() {
                     up the good work!
                   </AlertDescription>
                 </Alert>
-              </ListItem>
+              </ListItem> */}
             </List>
           </Card>
           <Card p='12px'>
@@ -186,8 +186,8 @@ export default function CollabPageHome() {
                   <ListIcon as={FiUsers} color='black' />
                   Customer Team
                 </ListItem>
-                <Flex pr='10px' gap='2'>
-                  {/* <Button variant='secondary' size='sm'>
+                {/* <Flex pr='10px' gap='2'>
+                  <Button variant='secondary' size='sm'>
                     Display on Dashboard
                   </Button>
 
@@ -196,8 +196,8 @@ export default function CollabPageHome() {
                     size='sm'
                     variant='secondary'
                     icon={<DeleteIcon />}
-                  /> */}
-                </Flex>
+                  />
+                </Flex> */}
               </Flex>
               <TeamMemberStack mt='0px' />
             </List>

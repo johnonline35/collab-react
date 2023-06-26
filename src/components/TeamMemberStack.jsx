@@ -138,7 +138,7 @@ const TeamMemberStack = () => {
     //     md: "8",
     //   }}
     // >
-    <Box bg='bg-surface' py='4'>
+    <Box bg='bg-surface' py='4' w='100%'>
       <Stack divider={<StackDivider />} spacing='4'>
         {members.map((member) => {
           const handleNameChange = (value) => {
