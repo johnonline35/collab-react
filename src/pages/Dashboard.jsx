@@ -73,12 +73,18 @@ export default function Dashboard() {
 
     if (response.ok) {
       console.log("Got Meetings");
-      const meetingsData = await response.json();
+      const responseText = await response.text();
+      try {
+        const meetingsData = JSON.parse(responseText);
 
-      const workspaceId = meetingsData.workspaceId;
-      // handle response here
-      getCompanyTileInfo(userId);
-      getNextOrLastMeeting(workspaceId, userId);
+        const workspaceId = meetingsData.workspaceId;
+        // handle response here
+        getCompanyTileInfo(userId);
+        getNextOrLastMeeting(workspaceId, userId);
+      } catch (error) {
+        console.error("Error parsing response as JSON:", error);
+        console.error("Response text:", responseText);
+      }
     } else {
       console.error("Error getting meetings:", response.status);
     }
