@@ -31,7 +31,7 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
-import { GoFileDirectory } from "react-icons/go";
+import { AiOutlineFolder } from "react-icons/ai";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -235,7 +235,7 @@ export default function CollabPageHome() {
       <Card p='12px' minH='xs'>
         <List>
           <ListItem>
-            <ListIcon as={GoFileDirectory} color='black' />
+            <ListIcon as={AiOutlineFolder} color='black' />
             Files
           </ListItem>
         </List>
