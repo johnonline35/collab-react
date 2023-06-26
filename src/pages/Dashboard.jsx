@@ -277,7 +277,7 @@ export default function Dashboard() {
                 borderColor='blue.400'
                 bg='white'
                 loading={loadingCards}
-                minW='270px'
+                minW='md'
               >
                 <CardHeader
                   p='0'
