@@ -30,6 +30,7 @@ import {
   FiDribbble,
   FiSettings,
   FiUsers,
+  FiArchive,
 } from "react-icons/fi";
 import { AiOutlineFolder } from "react-icons/ai";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
@@ -235,7 +236,7 @@ export default function CollabPageHome() {
       <Card p='12px' minH='xs'>
         <List>
           <ListItem>
-            <ListIcon as={AiOutlineFolder} color='black' />
+            <ListIcon as={FiArchive} color='black' />
             Files
           </ListItem>
         </List>
