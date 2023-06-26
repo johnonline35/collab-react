@@ -19,6 +19,9 @@ import {
   EditablePreview,
   EditableInput,
   Text,
+  Container,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -38,6 +41,7 @@ import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
 import { ToDoList } from "../../components/TodoList";
+import { Dropzone } from "../../components/Dropzone";
 
 export default function CollabPageHome() {
   console.log("Parent component rendering"); // Add this line
@@ -240,6 +244,21 @@ export default function CollabPageHome() {
             Files
           </ListItem>
         </List>
+        <Box
+          as='section'
+          bg='bg.surface'
+          py={{
+            base: "4",
+            md: "8",
+          }}
+        >
+          <Container maxW='lg'>
+            <FormControl id='file'>
+              <FormLabel>Dropzone</FormLabel>
+              <Dropzone />
+            </FormControl>
+          </Container>
+        </Box>
       </Card>
     </Stack>
   );
