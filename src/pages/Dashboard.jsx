@@ -90,8 +90,8 @@ export default function Dashboard() {
   const getNextOrLastMeeting = async (workspaceId, userId) => {
     try {
       const { data, error } = await supabase.rpc("get_next_or_last_meeting", {
-        _workspaceid: workspaceId,
-        _collabuserid: userId,
+        p_workspace_id: workspaceId,
+        p_collab_user_id: userId,
       });
 
       if (error) {
