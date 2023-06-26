@@ -73,10 +73,36 @@ export default function Dashboard() {
 
     if (response.ok) {
       console.log("Got Meetings");
+      const meetingsData = await response.json();
+
+      const workspaceId = meetingsData.workspaceId;
       // handle response here
       getCompanyTileInfo(userId);
+      getNextOrLastMeeting(workspaceId, userId);
     } else {
       console.error("Error getting meetings:", response.status);
+    }
+  };
+
+  const [loadingMeetings, setLoadingMeetings] = useState(true);
+  const [meetingInfo, setMeetingInfo] = useState(null);
+
+  const getNextOrLastMeeting = async (workspaceId, userId) => {
+    try {
+      const { data, error } = await supabase.rpc("get_next_or_last_meeting", {
+        _workspaceid: workspaceId,
+        _collabuserid: userId,
+      });
+
+      if (error) {
+        console.error("Error fetching data:", error);
+      }
+
+      setMeetingInfo(data);
+      console.log(meetingInfo);
+      setLoadingMeetings(false);
+    } catch (error) {
+      console.error("Error in get_next_or_last_meeting:", error);
     }
   };
 
