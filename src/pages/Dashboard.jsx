@@ -481,7 +481,9 @@ export default function Dashboard() {
                           textOverflow='ellipsis'
                           maxHeight='200px'
                         >
-                          {info.description}
+                          {info.description
+                            ? info.description
+                            : "This is a personal email account workspace. Workspaces of personal email accounts are not automatically associated with a specific company. This workspace still functions the same way as other company specific workspaces."}
                         </Text>
                       </Flex>
                     </Box>
