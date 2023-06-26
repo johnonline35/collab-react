@@ -208,7 +208,8 @@ const TeamMemberStack = () => {
             member.attendee_timezone
           );
 
-          const displayName = member.attendee_name || "Enter Details";
+          const displayName = member.attendee_name || "Enter Name";
+          const displayTitle = member.attendee_job_title || "Enter Title";
 
           return (
             <HStack key={member.attendee_id} alignItems='flex-start'>
@@ -255,7 +256,7 @@ const TeamMemberStack = () => {
                         fontSize='sm'
                         onChange={handleJobTitleChange}
                         onSubmit={handleJobTitleSubmit}
-                        defaultValue={member.attendee_job_title}
+                        defaultValue={displayTitle}
                       >
                         <EditablePreview />
                         <EditableInput />
