@@ -71,8 +71,6 @@ export default function Dashboard() {
     });
     console.log("Sent fetch request");
 
-    // ...
-
     if (response.ok) {
       console.log("Got Meetings");
       const meetingsData = await response.json();
@@ -121,10 +119,13 @@ export default function Dashboard() {
       userId: userId,
     });
     try {
-      const { data, error } = await supabase.rpc("get_next_or_last_meeting", {
-        p_workspace_id: workspaceId,
-        p_collab_user_id: userId,
-      });
+      const { data, error } = await supabase.rpc(
+        "get_next_or_last_meeting_v2",
+        {
+          p_workspace_id: workspaceId,
+          p_collab_user_id: userId,
+        }
+      );
 
       if (error) {
         console.error("Error fetching data:", error);
