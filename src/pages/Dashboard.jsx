@@ -129,10 +129,10 @@ export default function Dashboard() {
       if (error) {
         console.error("Error fetching data:", error);
       } else {
-        console.log("Data received from get_next_or_last_meeting:", data);
+        console.log("Data received from get_next_or_last_meeting:", data[0]);
       }
 
-      setMeetingInfo(data);
+      setMeetingInfo(data[0]);
       console.log("Updated meetingInfo state:", meetingInfo);
 
       setLoadingMeetings(false);
