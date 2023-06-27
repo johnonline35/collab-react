@@ -78,9 +78,22 @@ export default function Dashboard() {
 
       const workspaceId = meetingsData.workspace_id;
       console.log("workspaceId:", workspaceId);
+
+      const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
+      console.log("meetingIds:", meetingIds);
+
       // handle response here
-      getCompanyTileInfo(userId);
+      getCompanyTileInfo(userId, workspaceId);
       getNextOrLastMeeting(workspaceId, userId);
+      // console.log("Got Meetings");
+      // const meetingsData = await response.json();
+      // console.log("meetingsData:", meetingsData);
+
+      // const workspaceId = meetingsData.workspace_id;
+      // console.log("workspaceId:", workspaceId);
+      // // handle response here
+      // getCompanyTileInfo(userId);
+      // getNextOrLastMeeting(workspaceId, userId);
     } else {
       console.error("Error getting meetings:", response.status);
     }
