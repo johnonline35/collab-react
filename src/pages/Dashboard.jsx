@@ -78,26 +78,23 @@ export default function Dashboard() {
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
 
-      const workspaceIds = meetingsData.meetings
+      let workspaceIds = meetingsData.meetings
         .filter((meeting) => meeting.workspace_id !== undefined)
         .map((meeting) => meeting.workspace_id);
+
+      // Remove duplicates
+      workspaceIds = [...new Set(workspaceIds)];
       console.log("workspaceIds:", workspaceIds);
 
       const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
       console.log("meetingIds:", meetingIds);
 
       // handle response here
-      // Loop over each workspaceId and call your functions
-      const promises = workspaceIds.map((workspaceId) => {
-        console.log("workspaceId:", workspaceId);
+      // Loop over workspaceIds array to get info for each workspace
+      for (const workspaceId of workspaceIds) {
         getCompanyTileInfo(userId, workspaceId);
-        return getNextOrLastMeeting(workspaceId, userId);
-      });
-
-      // Wait for all promises to resolve
-      Promise.all(promises)
-        .then(() => console.log("All data fetched."))
-        .catch((error) => console.error("An error occurred:", error));
+        getNextOrLastMeeting(workspaceId, userId);
+      }
     } else {
       console.error("Error getting meetings:", response.status);
     }
