@@ -133,7 +133,6 @@ export default function Dashboard() {
       }
 
       setMeetingInfo(data[0]);
-      console.log("Updated meetingInfo state:", setMeetingInfo);
 
       setLoadingMeetings(false);
       console.log("Updated loadingMeetings state:", loadingMeetings);
@@ -141,6 +140,10 @@ export default function Dashboard() {
       console.error("Error in get_next_or_last_meeting:", error);
     }
   };
+
+  useEffect(() => {
+    console.log("Updated meetingInfo state:", meetingInfo);
+  }, [meetingInfo]);
 
   // Real time function that waits for the background jobs then calls getCompanyTileInfo(userId)
 
