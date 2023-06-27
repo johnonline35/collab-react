@@ -114,11 +114,13 @@ export default function Dashboard() {
   const [meetingInfo, setMeetingInfo] = useState(null);
 
   const getNextOrLastMeeting = async (workspaceId, userId) => {
-    console.log({
+    console.log("Invoked getNextOrLastMeeting with:", {
       workspaceId: workspaceId,
       userId: userId,
     });
+
     try {
+      console.log("Sending request to get_next_or_last_meeting_v2");
       const { data, error } = await supabase.rpc(
         "get_next_or_last_meeting_v2",
         {
@@ -127,13 +129,19 @@ export default function Dashboard() {
         }
       );
 
+      console.log("Received response from get_next_or_last_meeting_v2");
+
       if (error) {
         console.error("Error fetching data:", error);
+      } else {
+        console.log("Data received from get_next_or_last_meeting_v2:", data);
       }
 
       setMeetingInfo(data);
-      console.log(meetingInfo);
+      console.log("Updated meetingInfo state:", meetingInfo);
+
       setLoadingMeetings(false);
+      console.log("Updated loadingMeetings state:", loadingMeetings);
     } catch (error) {
       console.error("Error in get_next_or_last_meeting:", error);
     }
