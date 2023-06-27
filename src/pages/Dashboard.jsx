@@ -96,8 +96,6 @@ export default function Dashboard() {
     } else {
       console.error("Error getting meetings:", response.status);
     }
-
-    // ...
   };
 
   // console.log("Got Meetings");
@@ -120,21 +118,18 @@ export default function Dashboard() {
     });
 
     try {
-      console.log("Sending request to get_next_or_last_meeting_v2");
-      const { data, error } = await supabase.rpc(
-        "get_next_or_last_meeting_v2",
-        {
-          p_workspace_id: workspaceId,
-          p_collab_user_id: userId,
-        }
-      );
+      console.log("Sending request to get_next_or_last_meeting");
+      const { data, error } = await supabase.rpc("get_next_or_last_meeting", {
+        p_workspace_id: workspaceId,
+        p_collab_user_id: userId,
+      });
 
-      console.log("Received response from get_next_or_last_meeting_v2");
+      console.log("Received response from get_next_or_last_meeting");
 
       if (error) {
         console.error("Error fetching data:", error);
       } else {
-        console.log("Data received from get_next_or_last_meeting_v2:", data);
+        console.log("Data received from get_next_or_last_meeting:", data);
       }
 
       setMeetingInfo(data);
