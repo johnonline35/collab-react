@@ -71,33 +71,49 @@ export default function Dashboard() {
     });
     console.log("Sent fetch request");
 
+    // ...
+
     if (response.ok) {
       console.log("Got Meetings");
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
 
-      const workspaceId = meetingsData.workspace_id;
-      console.log("workspaceId:", workspaceId);
+      const workspaceIds = meetingsData.meetings
+        .filter((meeting) => meeting.workspace_id !== undefined)
+        .map((meeting) => meeting.workspace_id);
+      console.log("workspaceIds:", workspaceIds);
 
       const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
       console.log("meetingIds:", meetingIds);
 
       // handle response here
-      getCompanyTileInfo(userId, workspaceId);
-      getNextOrLastMeeting(workspaceId, userId);
-      // console.log("Got Meetings");
-      // const meetingsData = await response.json();
-      // console.log("meetingsData:", meetingsData);
+      // Loop over each workspaceId and call your functions
+      const promises = workspaceIds.map((workspaceId) => {
+        console.log("workspaceId:", workspaceId);
+        getCompanyTileInfo(userId, workspaceId);
+        return getNextOrLastMeeting(workspaceId, userId);
+      });
 
-      // const workspaceId = meetingsData.workspace_id;
-      // console.log("workspaceId:", workspaceId);
-      // // handle response here
-      // getCompanyTileInfo(userId);
-      // getNextOrLastMeeting(workspaceId, userId);
+      // Wait for all promises to resolve
+      Promise.all(promises)
+        .then(() => console.log("All data fetched."))
+        .catch((error) => console.error("An error occurred:", error));
     } else {
       console.error("Error getting meetings:", response.status);
     }
+
+    // ...
   };
+
+  // console.log("Got Meetings");
+  // const meetingsData = await response.json();
+  // console.log("meetingsData:", meetingsData);
+
+  // const workspaceId = meetingsData.workspace_id;
+  // console.log("workspaceId:", workspaceId);
+  // // handle response here
+  // getCompanyTileInfo(userId);
+  // getNextOrLastMeeting(workspaceId, userId);
 
   const [loadingMeetings, setLoadingMeetings] = useState(true);
   const [meetingInfo, setMeetingInfo] = useState(null);
