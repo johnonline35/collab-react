@@ -75,7 +75,8 @@ export default function Dashboard() {
       console.log("Got Meetings");
       const meetingsData = await response.json();
 
-      const workspaceId = meetingsData.workspaceId;
+      const workspaceId = meetingsData.workspace_id;
+      console.log("workspaceId:", workspaceId);
       // handle response here
       getCompanyTileInfo(userId);
       getNextOrLastMeeting(workspaceId, userId);
