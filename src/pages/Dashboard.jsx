@@ -74,6 +74,7 @@ export default function Dashboard() {
     if (response.ok) {
       console.log("Got Meetings");
       const meetingsData = await response.json();
+      console.log("meetingsData:", meetingsData);
 
       const workspaceId = meetingsData.workspace_id;
       console.log("workspaceId:", workspaceId);
