@@ -88,6 +88,10 @@ export default function Dashboard() {
   const [meetingInfo, setMeetingInfo] = useState(null);
 
   const getNextOrLastMeeting = async (workspaceId, userId) => {
+    console.log({
+      workspaceId: workspaceId,
+      userId: userId,
+    });
     try {
       const { data, error } = await supabase.rpc("get_next_or_last_meeting", {
         p_workspace_id: workspaceId,
