@@ -133,7 +133,7 @@ export default function Dashboard() {
       }
 
       setMeetingInfo(data[0]);
-      console.log("Updated meetingInfo state:", meetingInfo);
+      console.log("Updated meetingInfo state:", setMeetingInfo);
 
       setLoadingMeetings(false);
       console.log("Updated loadingMeetings state:", loadingMeetings);
