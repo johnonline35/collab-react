@@ -134,11 +134,13 @@ export default function Dashboard() {
       _workspaceid: workspaceId,
     });
 
+    console.log("getTotalDashboard", data[0]);
+
     if (error) {
       console.error("Error getting total dashboard:", error.message);
     } else {
       // Push data into finalArray if start_dateTime is truthy
-      if (data.start_dateTime) {
+      if (data[0].start_dateTime) {
         finalArray.push(data);
       }
     }
