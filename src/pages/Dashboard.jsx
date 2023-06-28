@@ -138,25 +138,6 @@ export default function Dashboard() {
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
 
-    function mergeById(array) {
-      const result = array.reduce((accumulator, current) => {
-        let index = accumulator.findIndex(
-          (item) => item.workspace_id === current.workspace_id
-        );
-        if (index === -1) {
-          accumulator.push(current);
-        } else {
-          accumulator[index] = { ...accumulator[index], ...current };
-        }
-        return accumulator;
-      }, []);
-
-      return result;
-    }
-
-    let finalArray = mergeById(combinedArray);
-    console.log("finalArray:", finalArray);
-
     // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
     setLoadingCards(false);
