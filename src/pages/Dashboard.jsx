@@ -732,7 +732,8 @@ export default function Dashboard() {
                 <CardFooter>
                   <HStack>
                     <Text size='xs' color='gray.400'>
-                      Meeting Scheduled: (info.start_dateTime)
+                      Meeting Scheduled: (info.start_dateTime) and{" "}
+                      {info.attendee_email}
                     </Text>
                     {/* <Button
                       // onClick={() => {}}
