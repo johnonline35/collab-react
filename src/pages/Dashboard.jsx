@@ -100,14 +100,20 @@ export default function Dashboard() {
   };
 
   const fetchAndCombineData = async (workspaceId, userId) => {
+    console.log(
+      `Fetching and combining data for workspaceId: ${workspaceId} and userId: ${userId}`
+    );
+
     const result1 = await supabase.rpc("get_next_or_last_meeting", {
       p_workspace_id: workspaceId,
       p_collab_user_id: userId,
     });
+    console.log("result1:", result1);
 
     const result2 = await supabase.rpc("test_dashboard", {
       _userid: userId,
     });
+    console.log("result2:", result2);
 
     // Create a Map to hold combined data.
     const combinedData = new Map();
