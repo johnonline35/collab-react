@@ -124,24 +124,17 @@ export default function Dashboard() {
     });
 
     // Iterate over the second result, finding the corresponding item in the Map and merging the data.
+
     result2.data.forEach((item) => {
       const key = item.workspace_id;
       if (combinedData.has(key)) {
         // Merge the existing item with the new data.
         combinedData.set(key, { ...combinedData.get(key), ...item });
+      } else {
+        // If no matching item exists, add a new one.
+        combinedData.set(key, { ...item });
       }
     });
-
-    // result2.data.forEach((item) => {
-    //   const key = item.workspace_id;
-    //   if (combinedData.has(key)) {
-    //     // Merge the existing item with the new data.
-    //     combinedData.set(key, { ...combinedData.get(key), ...item });
-    //   } else {
-    //     // If no matching item exists, add a new one.
-    //     combinedData.set(key, { ...item });
-    //   }
-    // });
 
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
