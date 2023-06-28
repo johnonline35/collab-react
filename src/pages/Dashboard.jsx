@@ -51,6 +51,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+  let finalArray = [];
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -96,6 +97,7 @@ export default function Dashboard() {
       }
       // const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
       // console.log("Final Results:", finalResults);
+      console.log(finalArray);
     } else {
       console.error("Error getting meetings:", response.status);
     }
@@ -135,10 +137,10 @@ export default function Dashboard() {
     if (error) {
       console.error("Error getting total dashboard:", error.message);
     } else {
-      console.log("Got Total Dashboard");
-      console.log("dashboardData:", data);
-      // Handle the dashboard data here
-      // The dashboardData will contain both the company tile info and the next or last meeting info
+      // Push data into finalArray if start_dateTime is truthy
+      if (data.start_dateTime) {
+        finalArray.push(data);
+      }
     }
   };
 
