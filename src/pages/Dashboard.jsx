@@ -114,12 +114,12 @@ export default function Dashboard() {
 
     // Iterate over the first result, adding each item to the Map.
     result1.data.forEach((item) => {
-      combinedData.set(item.workspace_id + item.collab_user_id, { ...item });
+      combinedData.set(item.workspace_id, { ...item });
     });
 
     // Iterate over the second result, finding the corresponding item in the Map and merging the data.
     result2.data.forEach((item) => {
-      const key = item.workspace_id + item.collab_user_id;
+      const key = item.workspace_id;
       if (combinedData.has(key)) {
         // Merge the existing item with the new data.
         combinedData.set(key, { ...combinedData.get(key), ...item });
