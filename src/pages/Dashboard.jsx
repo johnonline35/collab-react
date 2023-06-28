@@ -90,12 +90,28 @@ export default function Dashboard() {
       // handle response here
       // Loop over workspaceIds array to get info for each workspace
       for (const workspaceId of workspaceIds) {
-        fetchAndCombineData(workspaceId, userId);
+        getTotalDashboard(userId, workspaceId);
         // getCompanyTileInfo(userId, workspaceId);
         // getNextOrLastMeeting(workspaceId, userId);
       }
     } else {
       console.error("Error getting meetings:", response.status);
+    }
+  };
+
+  const getTotalDashboard = async (userId, workspaceId) => {
+    let { data, error } = await supabase.rpc("total_dashboard", {
+      _userid: userId,
+      _workspaceid: workspaceId,
+    });
+
+    if (error) {
+      console.error("Error getting total dashboard:", error.message);
+    } else {
+      console.log("Got Total Dashboard");
+      console.log("dashboardData:", data);
+      // Handle the dashboard data here
+      // The dashboardData will contain both the company tile info and the next or last meeting info
     }
   };
 
