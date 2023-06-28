@@ -732,7 +732,7 @@ export default function Dashboard() {
                 <CardFooter>
                   <HStack>
                     <Text size='xs' color='gray.400'>
-                      Meeting Scheduled: {formatTime(info.start_dateTime)}
+                      Meeting Scheduled: (info.start_dateTime)
                     </Text>
                     {/* <Button
                       // onClick={() => {}}
