@@ -90,12 +90,50 @@ export default function Dashboard() {
       // handle response here
       // Loop over workspaceIds array to get info for each workspace
       for (const workspaceId of workspaceIds) {
-        getCompanyTileInfo(userId, workspaceId);
-        getNextOrLastMeeting(workspaceId, userId);
+        fetchAndCombineData(workspaceId, userId);
+        // getCompanyTileInfo(userId, workspaceId);
+        // getNextOrLastMeeting(workspaceId, userId);
       }
     } else {
       console.error("Error getting meetings:", response.status);
     }
+  };
+
+  const fetchAndCombineData = async (workspaceId, userId) => {
+    const result1 = await supabase.rpc("get_next_or_last_meeting", {
+      p_workspace_id: workspaceId,
+      p_collab_user_id: userId,
+    });
+
+    const result2 = await supabase.rpc("test_dashboard", {
+      _userid: userId,
+    });
+
+    // Create a Map to hold combined data.
+    const combinedData = new Map();
+
+    // Iterate over the first result, adding each item to the Map.
+    result1.data.forEach((item) => {
+      combinedData.set(item.workspace_id + item.collab_user_id, { ...item });
+    });
+
+    // Iterate over the second result, finding the corresponding item in the Map and merging the data.
+    result2.data.forEach((item) => {
+      const key = item.workspace_id + item.collab_user_id;
+      if (combinedData.has(key)) {
+        // Merge the existing item with the new data.
+        combinedData.set(key, { ...combinedData.get(key), ...item });
+      } else {
+        // If no matching item exists, add a new one.
+        combinedData.set(key, { ...item });
+      }
+    });
+
+    // Convert the Map back to an array.
+    const combinedArray = Array.from(combinedData.values());
+
+    // Now you can set your state with the combinedArray.
+    setCompanyInfo(combinedArray);
   };
 
   // console.log("Got Meetings");

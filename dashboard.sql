@@ -84,6 +84,34 @@ $$ LANGUAGE plpgsql;
 
 
 
+CREATE OR REPLACE FUNCTION get_next_or_last_meeting(p_workspace_id UUID, p_collab_user_id UUID)
+RETURNS TABLE(
+    workspace_id UUID,
+    collab_user_id UUID,
+    "start_dateTime" TIMESTAMPTZ
+)
+AS $$
+BEGIN
+    RETURN QUERY 
+    SELECT 
+        a.workspace_id,
+        m.collab_user_id,
+        m."start_dateTime"
+    FROM 
+        meetings m
+    INNER JOIN 
+        meeting_attendees ma ON m.id = ma.meeting_id
+    INNER JOIN 
+        attendees a ON ma.email = a.attendee_email AND a.workspace_id = p_workspace_id
+    WHERE 
+        m."start_dateTime" > NOW() 
+        AND (m.organizer_email = a.attendee_email OR m.creator_email = a.attendee_email OR ma.email = a.attendee_email)
+        AND m.collab_user_id = p_collab_user_id
+    ORDER BY 
+        m."start_dateTime" ASC
+    LIMIT 1;
+END; $$
+LANGUAGE plpgsql;
 
 
 
