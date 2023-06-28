@@ -124,6 +124,9 @@ export default function Dashboard() {
         (res1) => res1.workspace_id === item.workspace_id
       );
 
+      console.log("item:", item);
+      console.log("match:", match);
+
       // If a match is found, combine the objects
       if (match) {
         combinedArray.push({ ...match, ...item });
