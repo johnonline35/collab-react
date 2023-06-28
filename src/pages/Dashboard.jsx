@@ -115,20 +115,24 @@ export default function Dashboard() {
     });
     console.log("result2:", result2);
 
-    // Create a Map to hold combined data.
-    const combinedData = new Map();
+    const combinedArray = [];
 
-    // Use the first result to set the default data for all items.
-    const defaultData = result1.data[0];
+    // Iterate over result2
+    for (let item of result2.data) {
+      // Find matching workspace_id in result1
+      const match = result1.data.find(
+        (res1) => res1.workspace_id === item.workspace_id
+      );
 
-    // Iterate over the second result, adding each item to the Map along with the default data.
-    result2.data.forEach((item) => {
-      const key = item.workspace_id;
-      combinedData.set(key, { ...defaultData, ...item });
-    });
+      // If a match is found, combine the objects
+      if (match) {
+        combinedArray.push({ ...match, ...item });
+      } else {
+        // If no match is found, simply add the item from result2
+        combinedArray.push(item);
+      }
+    }
 
-    // Convert the Map back to an array.
-    const combinedArray = Array.from(combinedData.values());
     console.log("combinedArray:", combinedArray);
 
     // Now you can set your state with the combinedArray.
