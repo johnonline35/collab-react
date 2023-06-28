@@ -138,7 +138,7 @@ export default function Dashboard() {
 
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
-    console.log("combinedArray:", combinedArray);
+    console.log("combinedArray:", combinedArray[0]);
 
     // Create a final array with the first element from each iteration in combinedArray.
     const finalArray = combinedArray.map((item) => item[0]);
