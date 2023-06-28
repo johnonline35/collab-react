@@ -145,7 +145,7 @@ export default function Dashboard() {
     console.log("finalArray:", finalArray);
 
     // Now you can set your state with the finalArray.
-    setCompanyInfo(finalArray);
+    setCompanyInfo(combinedArray);
     setLoadingCards(false);
   };
 
