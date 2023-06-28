@@ -433,6 +433,7 @@ export default function Dashboard() {
             const displayName = info.attendee_name || "Enter Name";
             const displayTitle = info.attendee_job_title || "Enter Title";
             console.log("companyInfo:", companyInfo);
+            console.log("Does start_dateTime exist?", "start_dateTime" in info);
             return (
               <Card
                 key={info.workspace_id}
