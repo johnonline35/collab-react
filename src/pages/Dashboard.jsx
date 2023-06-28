@@ -137,7 +137,11 @@ export default function Dashboard() {
 
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
-    console.log("combinedArray:", combinedArray);
+    let uniqueArray = combinedArray.filter(
+      (v, i, a) => a.findIndex((t) => t.workspace_id === v.workspace_id) === i
+    );
+
+    console.log("uniqueArray:", uniqueArray);
 
     // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
