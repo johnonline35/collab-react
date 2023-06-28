@@ -131,6 +131,7 @@ export default function Dashboard() {
 
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
+    console.log("combinedArray:", combinedArray);
 
     // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
