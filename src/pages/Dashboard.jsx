@@ -141,6 +141,7 @@ export default function Dashboard() {
 
     // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
+    setLoadingCards(false);
   };
 
   // console.log("Got Meetings");
