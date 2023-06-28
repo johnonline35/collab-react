@@ -56,28 +56,6 @@ export default function Dashboard() {
     "https://collab-express-production.up.railway.app/";
 
   // Fetch Google Calendar via Server and process the response
-  const getDashboardData = async (userId, workspaceIds) => {
-    // Use map to return an array of promises
-    const promises = workspaceIds.map((workspaceId) =>
-      getTotalDashboard(userId, workspaceId)
-    );
-
-    // Wait for all promises to resolve
-    const results = await Promise.all(promises);
-
-    // Flatten the array of arrays into a single array
-    const flattenedResults = [].concat(...results);
-
-    // Use a Set to remove duplicates based on workspace_id
-    const uniqueResults = Array.from(
-      new Set(flattenedResults.map(JSON.stringify))
-    ).map(JSON.parse);
-
-    console.log("uniqueResults:", uniqueResults);
-
-    return uniqueResults;
-  };
-
   const getMeetings = async (userId) => {
     console.log("NEWuserId:", userId);
     console.log("Starting getMeetings");
@@ -109,56 +87,44 @@ export default function Dashboard() {
       const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
       console.log("meetingIds:", meetingIds);
 
-      // Get dashboard data for each workspace
-      const dashboardData = await getDashboardData(userId, workspaceIds);
-      console.log("dashboardData:", dashboardData);
+      // handle response here
+      // Loop over workspaceIds array to get info for each workspace
+      // for (const workspaceId of workspaceIds) {
+      //   getTotalDashboard(userId, workspaceId);
+      //   // getCompanyTileInfo(userId, workspaceId);
+      //   // getNextOrLastMeeting(workspaceId, userId);
+      // }
+      const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
+      console.log("Final Results:", finalResults);
     } else {
       console.error("Error getting meetings:", response.status);
     }
   };
 
-  // const getMeetings = async (userId) => {
-  //   console.log("NEWuserId:", userId);
-  //   console.log("Starting getMeetings");
-  //   if (!userId) return; // Do not proceed if there's no user ID
-  //   console.log("Passed userId check");
+  async function fetchDataForWorkspaces(workspaceIds, userId) {
+    let finalResults = [];
 
-  //   const response = await fetch(getMeetingsEndpoint, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ userId }),
-  //   });
-  //   console.log("Sent fetch request");
+    for (const workspaceId of workspaceIds) {
+      const data = await getTotalDashboard(userId, workspaceId);
 
-  //   if (response.ok) {
-  //     console.log("Got Meetings");
-  //     const meetingsData = await response.json();
-  //     console.log("meetingsData:", meetingsData);
+      if (data) {
+        // Merge data based on workspace_id
+        const existingEntry = finalResults.find(
+          (entry) => entry.workspace_id === data.workspace_id
+        );
 
-  //     let workspaceIds = meetingsData.meetings
-  //       .filter((meeting) => meeting.workspace_id !== undefined)
-  //       .map((meeting) => meeting.workspace_id);
+        if (existingEntry) {
+          // Merge properties of data into the existing entry
+          Object.assign(existingEntry, data);
+        } else {
+          // Add data to finalResults if workspace_id does not already exist
+          finalResults.push(data);
+        }
+      }
+    }
 
-  //     // Remove duplicates
-  //     workspaceIds = [...new Set(workspaceIds)];
-  //     console.log("workspaceIds:", workspaceIds);
-
-  //     const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
-  //     console.log("meetingIds:", meetingIds);
-
-  //     // handle response here
-  //     // Loop over workspaceIds array to get info for each workspace
-  //     for (const workspaceId of workspaceIds) {
-  //       getTotalDashboard(userId, workspaceId);
-  //       // getCompanyTileInfo(userId, workspaceId);
-  //       // getNextOrLastMeeting(workspaceId, userId);
-  //     }
-  //   } else {
-  //     console.error("Error getting meetings:", response.status);
-  //   }
-  // };
+    return finalResults;
+  }
 
   const getTotalDashboard = async (userId, workspaceId) => {
     let { data, error } = await supabase.rpc("total_dashboard", {
