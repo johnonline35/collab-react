@@ -118,13 +118,13 @@ export default function Dashboard() {
     // Create a Map to hold combined data.
     const combinedData = new Map();
 
-    // Iterate over the first result, adding each item to the Map.
-    result1.data.forEach((item) => {
+    // Iterate over the second result, adding each item to the Map.
+    result2.data.forEach((item) => {
       combinedData.set(item.workspace_id, { ...item });
     });
 
-    // Iterate over the second result, finding the corresponding item in the Map and merging the data.
-    result2.data.forEach((item) => {
+    // Iterate over the first result, finding the corresponding item in the Map and merging the data.
+    result1.data.forEach((item) => {
       const key = item.workspace_id;
       if (combinedData.has(key)) {
         // Merge the existing item with the new data.
@@ -137,11 +137,56 @@ export default function Dashboard() {
 
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
+    console.log("combinedArray:", combinedArray);
 
     // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
     setLoadingCards(false);
   };
+
+  // const fetchAndCombineData = async (workspaceId, userId) => {
+  //   console.log(
+  //     `Fetching and combining data for workspaceId: ${workspaceId} and userId: ${userId}`
+  //   );
+
+  //   const result1 = await supabase.rpc("get_next_or_last_meeting", {
+  //     p_workspace_id: workspaceId,
+  //     p_collab_user_id: userId,
+  //   });
+  //   console.log("result1:", result1);
+
+  //   const result2 = await supabase.rpc("test_dashboard", {
+  //     _userid: userId,
+  //   });
+  //   console.log("result2:", result2);
+
+  //   // Create a Map to hold combined data.
+  //   const combinedData = new Map();
+
+  //   // Iterate over the first result, adding each item to the Map.
+  //   result1.data.forEach((item) => {
+  //     combinedData.set(item.workspace_id, { ...item });
+  //   });
+
+  //   // Iterate over the second result, finding the corresponding item in the Map and merging the data.
+  //   result2.data.forEach((item) => {
+  //     const key = item.workspace_id;
+  //     if (combinedData.has(key)) {
+  //       // Merge the existing item with the new data.
+  //       combinedData.set(key, { ...combinedData.get(key), ...item });
+  //     } else {
+  //       // If no matching item exists, add a new one.
+  //       combinedData.set(key, { ...item });
+  //     }
+  //   });
+
+  //   // Convert the Map back to an array.
+  //   const combinedArray = Array.from(combinedData.values());
+
+  //   // Now you can set your state with the combinedArray.
+  //   setCompanyInfo(combinedArray);
+  //   setLoadingCards(false);
+  // };
 
   // console.log("Got Meetings");
   // const meetingsData = await response.json();
