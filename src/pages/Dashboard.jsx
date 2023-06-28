@@ -830,9 +830,11 @@ export default function Dashboard() {
 
                 <CardFooter>
                   <HStack>
-                    <Text size='xs' color='gray.400'>
-                      Meeting Scheduled: {info.next_meeting_date}
-                    </Text>
+                    {info.next_meeting_date && (
+                      <Text size='xs' color='gray.400'>
+                        Meeting Scheduled: {info.next_meeting_date}
+                      </Text>
+                    )}
                     {/* <Button
                       // onClick={() => {}}
                       variant='ghost'
