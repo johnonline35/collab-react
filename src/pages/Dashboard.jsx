@@ -89,13 +89,13 @@ export default function Dashboard() {
 
       // handle response here
       // Loop over workspaceIds array to get info for each workspace
-      // for (const workspaceId of workspaceIds) {
-      //   getTotalDashboard(userId, workspaceId);
-      //   // getCompanyTileInfo(userId, workspaceId);
-      //   // getNextOrLastMeeting(workspaceId, userId);
-      // }
-      const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
-      console.log("Final Results:", finalResults);
+      for (const workspaceId of workspaceIds) {
+        getTotalDashboard(userId, workspaceId);
+        // getCompanyTileInfo(userId, workspaceId);
+        // getNextOrLastMeeting(workspaceId, userId);
+      }
+      // const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
+      // console.log("Final Results:", finalResults);
     } else {
       console.error("Error getting meetings:", response.status);
     }
