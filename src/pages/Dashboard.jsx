@@ -76,28 +76,29 @@ export default function Dashboard() {
       console.log("Got Meetings");
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
+      getCompanyTileInfo(userId);
 
-      let workspaceIds = meetingsData.meetings
-        .filter((meeting) => meeting.workspace_id !== undefined)
-        .map((meeting) => meeting.workspace_id);
+      // let workspaceIds = meetingsData.meetings
+      //   .filter((meeting) => meeting.workspace_id !== undefined)
+      //   .map((meeting) => meeting.workspace_id);
 
-      // Remove duplicates
-      workspaceIds = [...new Set(workspaceIds)];
-      console.log("workspaceIds:", workspaceIds);
+      // // Remove duplicates
+      // workspaceIds = [...new Set(workspaceIds)];
+      // console.log("workspaceIds:", workspaceIds);
 
-      const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
-      console.log("meetingIds:", meetingIds);
+      // const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
+      // console.log("meetingIds:", meetingIds);
 
-      // handle response here
-      // Loop over workspaceIds array to get info for each workspace
-      for (const workspaceId of workspaceIds) {
-        getTotalDashboard(userId, workspaceId);
-        // getCompanyTileInfo(userId, workspaceId);
-        // getNextOrLastMeeting(workspaceId, userId);
-      }
-      // const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
-      // console.log("Final Results:", finalResults);
-      console.log(finalArray);
+      // // handle response here
+      // // Loop over workspaceIds array to get info for each workspace
+      // for (const workspaceId of workspaceIds) {
+      //   // getTotalDashboard(userId, workspaceId);
+      //   getCompanyTileInfo(userId, workspaceId);
+      //   // getNextOrLastMeeting(workspaceId, userId);
+      // }
+      // // const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
+      // // console.log("Final Results:", finalResults);
+      // console.log(finalArray);
     } else {
       console.error("Error getting meetings:", response.status);
     }
@@ -141,6 +142,10 @@ export default function Dashboard() {
     } else {
       // Push data into finalArray if start_dateTime is truthy
       if (data[0].start_dateTime) {
+        console.log(
+          "here is the object for finalArray:",
+          data[0].start_dateTime
+        );
         finalArray.push(data);
       }
     }
@@ -391,7 +396,7 @@ export default function Dashboard() {
 
   const getCompanyTileInfo = async (userId) => {
     try {
-      const { data, error } = await supabase.rpc("test_dashboard", {
+      const { data, error } = await supabase.rpc("new_test_dashboard", {
         _userid: userId,
       });
 
@@ -399,6 +404,7 @@ export default function Dashboard() {
         console.error("Error fetching data:", error);
       }
 
+      console.log("datanewtestdasboard:", data);
       setCompanyInfo(data);
       setLoadingCards(false);
     } catch (error) {
