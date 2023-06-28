@@ -118,36 +118,73 @@ export default function Dashboard() {
     // Create a Map to hold combined data.
     const combinedData = new Map();
 
-    // Iterate over the first result, adding each item to the Map.
-    result1.data.forEach((item) => {
-      combinedData.set(item.workspace_id, { ...item });
-    });
+    // Use the first result to set the default data for all items.
+    const defaultData = result1.data[0];
 
-    // Iterate over the second result, finding the corresponding item in the Map and merging the data.
-
+    // Iterate over the second result, adding each item to the Map along with the default data.
     result2.data.forEach((item) => {
       const key = item.workspace_id;
-      if (combinedData.has(key)) {
-        // Merge the existing item with the new data.
-        combinedData.set(key, { ...combinedData.get(key), ...item });
-      } else {
-        // If no matching item exists, add a new one.
-        combinedData.set(key, { ...item });
-      }
+      combinedData.set(key, { ...defaultData, ...item });
     });
 
     // Convert the Map back to an array.
     const combinedArray = Array.from(combinedData.values());
-    console.log("combinedArray:", combinedArray[0]);
+    console.log("combinedArray:", combinedArray);
 
-    // Create a final array with the first element from each iteration in combinedArray.
-    const finalArray = combinedArray.map((item) => item[0]);
-    console.log("finalArray:", finalArray);
-
-    // Now you can set your state with the finalArray.
+    // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
     setLoadingCards(false);
   };
+
+  // const fetchAndCombineData = async (workspaceId, userId) => {
+  //   console.log(
+  //     `Fetching and combining data for workspaceId: ${workspaceId} and userId: ${userId}`
+  //   );
+
+  //   const result1 = await supabase.rpc("get_next_or_last_meeting", {
+  //     p_workspace_id: workspaceId,
+  //     p_collab_user_id: userId,
+  //   });
+  //   console.log("result1:", result1);
+
+  //   const result2 = await supabase.rpc("test_dashboard", {
+  //     _userid: userId,
+  //   });
+  //   console.log("result2:", result2);
+
+  //   // Create a Map to hold combined data.
+  //   const combinedData = new Map();
+
+  //   // Iterate over the first result, adding each item to the Map.
+  //   result1.data.forEach((item) => {
+  //     combinedData.set(item.workspace_id, { ...item });
+  //   });
+
+  //   // Iterate over the second result, finding the corresponding item in the Map and merging the data.
+
+  //   result2.data.forEach((item) => {
+  //     const key = item.workspace_id;
+  //     if (combinedData.has(key)) {
+  //       // Merge the existing item with the new data.
+  //       combinedData.set(key, { ...combinedData.get(key), ...item });
+  //     } else {
+  //       // If no matching item exists, add a new one.
+  //       combinedData.set(key, { ...item });
+  //     }
+  //   });
+
+  //   // Convert the Map back to an array.
+  //   const combinedArray = Array.from(combinedData.values());
+  //   console.log("combinedArray:", combinedArray[0]);
+
+  //   // Create a final array with the first element from each iteration in combinedArray.
+  //   const finalArray = combinedArray.map((item) => item[0]);
+  //   console.log("finalArray:", finalArray);
+
+  //   // Now you can set your state with the finalArray.
+  //   setCompanyInfo(combinedArray);
+  //   setLoadingCards(false);
+  // };
 
   // const fetchAndCombineData = async (workspaceId, userId) => {
   //   console.log(
