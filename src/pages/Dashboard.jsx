@@ -581,9 +581,13 @@ export default function Dashboard() {
 
                   <CardFooter>
                     <HStack>
-                      {info.next_meeting_date && (
+                      {info.next_meeting_date ? (
                         <Text size='xs' color='gray.400'>
                           Next meeting: {formatTime(info.next_meeting_date)}
+                        </Text>
+                      ) : (
+                        <Text size='xs' color='gray.400'>
+                          Next meeting: {formatTime(info.last_meeting_date)}
                         </Text>
                       )}
                       {/* <Button
