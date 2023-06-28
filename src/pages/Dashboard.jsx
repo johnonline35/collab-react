@@ -587,7 +587,7 @@ export default function Dashboard() {
                         </Text>
                       ) : (
                         <Text size='xs' color='gray.400'>
-                          Next meeting: {formatTime(info.last_meeting_date)}
+                          Last meeting: {formatTime(info.last_meeting_date)}
                         </Text>
                       )}
                       {/* <Button
