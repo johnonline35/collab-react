@@ -266,10 +266,26 @@ export default function Dashboard() {
       <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
           companyInfo
-            .sort(
-              (a, b) =>
-                new Date(a.next_meeting_date) - new Date(b.next_meeting_date)
-            )
+            .sort((a, b) => {
+              // Check if next_meeting_date is present in both items
+              if (a.next_meeting_date && b.next_meeting_date) {
+                return (
+                  new Date(a.next_meeting_date) - new Date(b.next_meeting_date)
+                );
+              }
+              // If next_meeting_date is only present in one of the items, that item should come first
+              else if (a.next_meeting_date) {
+                return -1;
+              } else if (b.next_meeting_date) {
+                return 1;
+              }
+              // If next_meeting_date is not present in either item, sort by last_meeting_date in descending order
+              else {
+                return (
+                  new Date(b.last_meeting_date) - new Date(a.last_meeting_date)
+                );
+              }
+            })
             .map((info) => {
               const displayName = info.attendee_name || "Enter Name";
               const displayTitle = info.attendee_job_title || "Enter Title";
