@@ -51,7 +51,6 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
-  let finalArray = [];
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -77,265 +76,10 @@ export default function Dashboard() {
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
       getCompanyTileInfo(userId);
-
-      // let workspaceIds = meetingsData.meetings
-      //   .filter((meeting) => meeting.workspace_id !== undefined)
-      //   .map((meeting) => meeting.workspace_id);
-
-      // // Remove duplicates
-      // workspaceIds = [...new Set(workspaceIds)];
-      // console.log("workspaceIds:", workspaceIds);
-
-      // const meetingIds = meetingsData.meetings.map((meeting) => meeting.id);
-      // console.log("meetingIds:", meetingIds);
-
-      // // handle response here
-      // // Loop over workspaceIds array to get info for each workspace
-      // for (const workspaceId of workspaceIds) {
-      //   // getTotalDashboard(userId, workspaceId);
-      //   getCompanyTileInfo(userId, workspaceId);
-      //   // getNextOrLastMeeting(workspaceId, userId);
-      // }
-      // // const finalResults = await fetchDataForWorkspaces(workspaceIds, userId);
-      // // console.log("Final Results:", finalResults);
-      // console.log(finalArray);
     } else {
       console.error("Error getting meetings:", response.status);
     }
   };
-
-  async function fetchDataForWorkspaces(workspaceIds, userId) {
-    let finalResults = [];
-
-    for (const workspaceId of workspaceIds) {
-      const data = await getTotalDashboard(userId, workspaceId);
-
-      if (data) {
-        // Merge data based on workspace_id
-        const existingEntry = finalResults.find(
-          (entry) => entry.workspace_id === data.workspace_id
-        );
-
-        if (existingEntry) {
-          // Merge properties of data into the existing entry
-          Object.assign(existingEntry, data);
-        } else {
-          // Add data to finalResults if workspace_id does not already exist
-          finalResults.push(data);
-        }
-      }
-    }
-
-    return finalResults;
-  }
-
-  const getTotalDashboard = async (userId, workspaceId) => {
-    let { data, error } = await supabase.rpc("total_dashboard", {
-      _userid: userId,
-      _workspaceid: workspaceId,
-    });
-
-    console.log("getTotalDashboard", data[0]);
-
-    if (error) {
-      console.error("Error getting total dashboard:", error.message);
-    } else {
-      // Push data into finalArray if start_dateTime is truthy
-      if (data[0].start_dateTime) {
-        console.log(
-          "here is the object for finalArray:",
-          data[0].start_dateTime
-        );
-        finalArray.push(data);
-      }
-    }
-  };
-
-  const fetchAndCombineData = async (workspaceId, userId) => {
-    console.log(
-      `Fetching and combining data for workspaceId: ${workspaceId} and userId: ${userId}`
-    );
-
-    const result1 = await supabase.rpc("get_next_or_last_meeting", {
-      p_workspace_id: workspaceId,
-      p_collab_user_id: userId,
-    });
-    console.log("result1:", result1);
-
-    const result2 = await supabase.rpc("test_dashboard", {
-      _userid: userId,
-    });
-    console.log("result2:", result2);
-
-    const combinedArray = [];
-
-    // Iterate over result2
-    for (let item of result2.data) {
-      // Find matching workspace_id in result1
-      const match = result1.data.find(
-        (res1) => res1.workspace_id === item.workspace_id
-      );
-
-      console.log("item:", item);
-      console.log("match:", match);
-
-      // If a match is found, combine the objects
-      if (match) {
-        combinedArray.push({ ...match, ...item });
-      } else {
-        // If no match is found, simply add the item from result2
-        combinedArray.push(item);
-      }
-    }
-
-    console.log("combinedArray:", combinedArray);
-
-    // Now you can set your state with the combinedArray.
-    setCompanyInfo(combinedArray);
-    setLoadingCards(false);
-  };
-
-  // const fetchAndCombineData = async (workspaceId, userId) => {
-  //   console.log(
-  //     `Fetching and combining data for workspaceId: ${workspaceId} and userId: ${userId}`
-  //   );
-
-  //   const result1 = await supabase.rpc("get_next_or_last_meeting", {
-  //     p_workspace_id: workspaceId,
-  //     p_collab_user_id: userId,
-  //   });
-  //   console.log("result1:", result1);
-
-  //   const result2 = await supabase.rpc("test_dashboard", {
-  //     _userid: userId,
-  //   });
-  //   console.log("result2:", result2);
-
-  //   // Create a Map to hold combined data.
-  //   const combinedData = new Map();
-
-  //   // Iterate over the first result, adding each item to the Map.
-  //   result1.data.forEach((item) => {
-  //     combinedData.set(item.workspace_id, { ...item });
-  //   });
-
-  //   // Iterate over the second result, finding the corresponding item in the Map and merging the data.
-
-  //   result2.data.forEach((item) => {
-  //     const key = item.workspace_id;
-  //     if (combinedData.has(key)) {
-  //       // Merge the existing item with the new data.
-  //       combinedData.set(key, { ...combinedData.get(key), ...item });
-  //     } else {
-  //       // If no matching item exists, add a new one.
-  //       combinedData.set(key, { ...item });
-  //     }
-  //   });
-
-  //   // Convert the Map back to an array.
-  //   const combinedArray = Array.from(combinedData.values());
-  //   console.log("combinedArray:", combinedArray[0]);
-
-  //   // Create a final array with the first element from each iteration in combinedArray.
-  //   const finalArray = combinedArray.map((item) => item[0]);
-  //   console.log("finalArray:", finalArray);
-
-  //   // Now you can set your state with the finalArray.
-  //   setCompanyInfo(combinedArray);
-  //   setLoadingCards(false);
-  // };
-
-  // const fetchAndCombineData = async (workspaceId, userId) => {
-  //   console.log(
-  //     `Fetching and combining data for workspaceId: ${workspaceId} and userId: ${userId}`
-  //   );
-
-  //   const result1 = await supabase.rpc("get_next_or_last_meeting", {
-  //     p_workspace_id: workspaceId,
-  //     p_collab_user_id: userId,
-  //   });
-  //   console.log("result1:", result1);
-
-  //   const result2 = await supabase.rpc("test_dashboard", {
-  //     _userid: userId,
-  //   });
-  //   console.log("result2:", result2);
-
-  //   // Create a Map to hold combined data.
-  //   const combinedData = new Map();
-
-  //   // Iterate over the first result, adding each item to the Map.
-  //   result1.data.forEach((item) => {
-  //     combinedData.set(item.workspace_id, { ...item });
-  //   });
-
-  //   // Iterate over the second result, finding the corresponding item in the Map and merging the data.
-  //   result2.data.forEach((item) => {
-  //     const key = item.workspace_id;
-  //     if (combinedData.has(key)) {
-  //       // Merge the existing item with the new data.
-  //       combinedData.set(key, { ...combinedData.get(key), ...item });
-  //     } else {
-  //       // If no matching item exists, add a new one.
-  //       combinedData.set(key, { ...item });
-  //     }
-  //   });
-
-  //   // Convert the Map back to an array.
-  //   const combinedArray = Array.from(combinedData.values());
-  //   console.log("combinedArray:", combinedArray);
-
-  //   // Now you can set your state with the combinedArray.
-  //   setCompanyInfo(combinedArray);
-  //   setLoadingCards(false);
-  // };
-
-  // console.log("Got Meetings");
-  // const meetingsData = await response.json();
-  // console.log("meetingsData:", meetingsData);
-
-  // const workspaceId = meetingsData.workspace_id;
-  // console.log("workspaceId:", workspaceId);
-  // // handle response here
-  // getCompanyTileInfo(userId);
-  // getNextOrLastMeeting(workspaceId, userId);
-
-  const [loadingMeetings, setLoadingMeetings] = useState(true);
-  const [meetingInfo, setMeetingInfo] = useState(null);
-
-  const getNextOrLastMeeting = async (workspaceId, userId) => {
-    console.log("Invoked getNextOrLastMeeting with:", {
-      workspaceId: workspaceId,
-      userId: userId,
-    });
-
-    try {
-      console.log("Sending request to get_next_or_last_meeting");
-      const { data, error } = await supabase.rpc("get_next_or_last_meeting", {
-        p_workspace_id: workspaceId,
-        p_collab_user_id: userId,
-      });
-
-      console.log("Received response from get_next_or_last_meeting");
-
-      if (error) {
-        console.error("Error fetching data:", error);
-      } else {
-        console.log("Data received from get_next_or_last_meeting:", data[0]);
-      }
-
-      setMeetingInfo(data[0]);
-
-      setLoadingMeetings(false);
-      console.log("Updated loadingMeetings state:", loadingMeetings);
-    } catch (error) {
-      console.error("Error in get_next_or_last_meeting:", error);
-    }
-  };
-
-  useEffect(() => {
-    console.log("Updated meetingInfo state:", meetingInfo);
-  }, [meetingInfo]);
 
   // Real time function that waits for the background jobs then calls getCompanyTileInfo(userId)
 
@@ -467,25 +211,20 @@ export default function Dashboard() {
   }
 
   function formatTime(timeString) {
-    const [time, timeZoneOffset] = timeString.split("+");
-    const [hour, minute, second] = time.split(":");
-    const timeZone = parseInt(timeZoneOffset);
-
-    const date = new Date();
-    date.setHours(parseInt(hour));
-    date.setMinutes(parseInt(minute));
-    date.setSeconds(parseInt(second));
-
+    const date = new Date(timeString);
     const formatter = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
       hour: "numeric",
       minute: "numeric",
       second: "numeric",
-      timeZone: `Etc/GMT${timeZone > 0 ? "-" : "+"}${Math.abs(timeZone)}`,
       timeZoneName: "short",
     });
 
     return formatter.format(date);
   }
+
   // COOKIE
   // console.log("cookie", document.cookie);
   function capitalizeFirstLetterOfEachWord(str) {
@@ -832,7 +571,7 @@ export default function Dashboard() {
                   <HStack>
                     {info.next_meeting_date && (
                       <Text size='xs' color='gray.400'>
-                        Meeting Scheduled: {info.next_meeting_date}
+                        Meeting Scheduled: {formatTime(info.next_meeting_date)}
                       </Text>
                     )}
                     {/* <Button
