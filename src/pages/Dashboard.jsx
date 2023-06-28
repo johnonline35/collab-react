@@ -432,6 +432,7 @@ export default function Dashboard() {
           companyInfo.map((info) => {
             const displayName = info.attendee_name || "Enter Name";
             const displayTitle = info.attendee_job_title || "Enter Title";
+            console.log("companyInfo:", companyInfo);
             return (
               <Card
                 key={info.workspace_id}
