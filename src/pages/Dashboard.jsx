@@ -155,7 +155,7 @@ export default function Dashboard() {
     }
 
     let finalArray = mergeById(combinedArray);
-    console.log(finalArray);
+    console.log("finalArray:", finalArray);
 
     // Now you can set your state with the combinedArray.
     setCompanyInfo(combinedArray);
