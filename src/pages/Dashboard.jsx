@@ -265,167 +265,175 @@ export default function Dashboard() {
       </Tabs>
       <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
-          companyInfo.map((info) => {
-            const displayName = info.attendee_name || "Enter Name";
-            const displayTitle = info.attendee_job_title || "Enter Title";
-            console.log("companyInfo:", companyInfo);
-            console.log("Does start_dateTime exist?", "start_dateTime" in info);
-            return (
-              <Card
-                key={info.workspace_id}
-                borderTop='2px'
-                borderColor='blue.400'
-                bg='white'
-                loading={loadingCards}
-                minW='xs'
-              >
-                <CardHeader
-                  p='0'
-                  bg={info.banner_src ? "transparent" : "blue.400"}
-                  style={{ height: "70px" }}
+          companyInfo
+            .sort(
+              (a, b) =>
+                new Date(a.next_meeting_date) - new Date(b.next_meeting_date)
+            )
+            .map((info) => {
+              const displayName = info.attendee_name || "Enter Name";
+              const displayTitle = info.attendee_job_title || "Enter Title";
+              console.log("companyInfo:", companyInfo);
+              console.log(
+                "Does start_dateTime exist?",
+                "start_dateTime" in info
+              );
+              return (
+                <Card
+                  key={info.workspace_id}
+                  borderTop='2px'
+                  borderColor='blue.400'
+                  bg='white'
+                  loading={loadingCards}
+                  minW='xs'
                 >
-                  <Flex
-                    justifyContent='center'
-                    alignItems='center'
-                    maxHeight='70px'
-                    overflow='hidden'
+                  <CardHeader
+                    p='0'
+                    bg={info.banner_src ? "transparent" : "blue.400"}
+                    style={{ height: "70px" }}
                   >
-                    {info.banner_src ? (
-                      <Image
-                        src={info.banner_src}
-                        maxHeight='100%'
-                        width='auto'
-                        height='auto'
-                      />
-                    ) : (
-                      <Box width='100%' height='100%'></Box>
-                    )}
-                  </Flex>
-                  <Flex gap={5}>
-                    <Box position='relative'>
-                      <Avatar
-                        position='absolute'
-                        zIndex='10'
-                        left='20px'
-                        top={info.banner_src ? "-50px" : "20px"}
-                        bg='white'
-                        transform='translateY(50%)'
-                        src={info.icon_src || info.image || undefined}
-                        name={info.workspace_name}
-                      />
-                    </Box>
-                  </Flex>
-                </CardHeader>
-                <CardBody>
-                  <Box>
-                    <Link
-                      href={`/collabs/${info.workspace_id}/${info.workspace_name}`}
-                      mb={1}
+                    <Flex
+                      justifyContent='center'
+                      alignItems='center'
+                      maxHeight='70px'
+                      overflow='hidden'
                     >
-                      <Heading as='h3' size='sm'>
-                        {info.workspace_name}
-                        {/* <Badge marginTop='-15px' size='sm' colorScheme='green'>
-                          2 Next Steps
-                        </Badge> */}
-                      </Heading>
-                    </Link>
-                    <Flex>
-                      <Link
-                        href={
-                          info.domain
-                            ? info.domain.startsWith("http://") ||
-                              info.domain.startsWith("https://")
-                              ? info.domain
-                              : `https://${info.domain}`
-                            : undefined
-                        }
-                        isExternal
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        mr={2}
-                      >
-                        <Icon
-                          mr='3px'
-                          style={{
-                            transform: "translateY(2px)",
-                            color: info.domain ? undefined : "white",
-                          }}
-                          as={FiLink}
+                      {info.banner_src ? (
+                        <Image
+                          src={info.banner_src}
+                          maxHeight='100%'
+                          width='auto'
+                          height='auto'
                         />
-                        {info.domain}
-                      </Link>
-
-                      {info.linkedin_url && (
-                        <Link
-                          href={info.linkedin_url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          <Icon
-                            ml='3px'
-                            mr='3px'
-                            style={{
-                              transform: "translateY(2px)",
-                            }}
-                            as={GrLinkedin}
-                          />
-                        </Link>
-                      )}
-
-                      {info.twitter_url && (
-                        <Link
-                          href={info.twitter_url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          <Icon
-                            ml='3px'
-                            mr='3px'
-                            style={{
-                              transform: "translateY(2px)",
-                            }}
-                            as={GrTwitter}
-                          />
-                        </Link>
-                      )}
-
-                      {info.crunchbase_url && (
-                        <Link
-                          href={info.crunchbase_url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          <Icon
-                            ml='3px'
-                            mr='3px'
-                            style={{
-                              transform: "translateY(2px)",
-                            }}
-                            as={SiCrunchbase}
-                          />
-                        </Link>
-                      )}
-
-                      {info.facebook_url && (
-                        <Link
-                          href={info.facebook_url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          <Icon
-                            ml='3px'
-                            mr='3px'
-                            style={{
-                              transform: "translateY(2px)",
-                            }}
-                            as={GrFacebook}
-                          />
-                        </Link>
+                      ) : (
+                        <Box width='100%' height='100%'></Box>
                       )}
                     </Flex>
-                    {/* <Text>Led by {info.collab_user_name}</Text> */}
-                    <Flex mt='10px' gap='1'>
-                      {/* <Icon
+                    <Flex gap={5}>
+                      <Box position='relative'>
+                        <Avatar
+                          position='absolute'
+                          zIndex='10'
+                          left='20px'
+                          top={info.banner_src ? "-50px" : "20px"}
+                          bg='white'
+                          transform='translateY(50%)'
+                          src={info.icon_src || info.image || undefined}
+                          name={info.workspace_name}
+                        />
+                      </Box>
+                    </Flex>
+                  </CardHeader>
+                  <CardBody>
+                    <Box>
+                      <Link
+                        href={`/collabs/${info.workspace_id}/${info.workspace_name}`}
+                        mb={1}
+                      >
+                        <Heading as='h3' size='sm'>
+                          {info.workspace_name}
+                          {/* <Badge marginTop='-15px' size='sm' colorScheme='green'>
+                          2 Next Steps
+                        </Badge> */}
+                        </Heading>
+                      </Link>
+                      <Flex>
+                        <Link
+                          href={
+                            info.domain
+                              ? info.domain.startsWith("http://") ||
+                                info.domain.startsWith("https://")
+                                ? info.domain
+                                : `https://${info.domain}`
+                              : undefined
+                          }
+                          isExternal
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          mr={2}
+                        >
+                          <Icon
+                            mr='3px'
+                            style={{
+                              transform: "translateY(2px)",
+                              color: info.domain ? undefined : "white",
+                            }}
+                            as={FiLink}
+                          />
+                          {info.domain}
+                        </Link>
+
+                        {info.linkedin_url && (
+                          <Link
+                            href={info.linkedin_url}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            <Icon
+                              ml='3px'
+                              mr='3px'
+                              style={{
+                                transform: "translateY(2px)",
+                              }}
+                              as={GrLinkedin}
+                            />
+                          </Link>
+                        )}
+
+                        {info.twitter_url && (
+                          <Link
+                            href={info.twitter_url}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            <Icon
+                              ml='3px'
+                              mr='3px'
+                              style={{
+                                transform: "translateY(2px)",
+                              }}
+                              as={GrTwitter}
+                            />
+                          </Link>
+                        )}
+
+                        {info.crunchbase_url && (
+                          <Link
+                            href={info.crunchbase_url}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            <Icon
+                              ml='3px'
+                              mr='3px'
+                              style={{
+                                transform: "translateY(2px)",
+                              }}
+                              as={SiCrunchbase}
+                            />
+                          </Link>
+                        )}
+
+                        {info.facebook_url && (
+                          <Link
+                            href={info.facebook_url}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            <Icon
+                              ml='3px'
+                              mr='3px'
+                              style={{
+                                transform: "translateY(2px)",
+                              }}
+                              as={GrFacebook}
+                            />
+                          </Link>
+                        )}
+                      </Flex>
+                      {/* <Text>Led by {info.collab_user_name}</Text> */}
+                      <Flex mt='10px' gap='1'>
+                        {/* <Icon
                         // ml='3px'
 
                         style={{
@@ -434,19 +442,33 @@ export default function Dashboard() {
                         as={MdAttachMoney}
                       />
                       <Text>2.7m</Text> */}
-                      {info.domain ? (
-                        info.job_company_size ? (
-                          <>
-                            <Icon
-                              ml='3px'
-                              mr='1px'
-                              style={{
-                                transform: "translateY(4px)",
-                              }}
-                              as={IoMdPeople}
-                            />
-                            <Text>{info.job_company_size}</Text>
-                          </>
+                        {info.domain ? (
+                          info.job_company_size ? (
+                            <>
+                              <Icon
+                                ml='3px'
+                                mr='1px'
+                                style={{
+                                  transform: "translateY(4px)",
+                                }}
+                                as={IoMdPeople}
+                              />
+                              <Text>{info.job_company_size}</Text>
+                            </>
+                          ) : (
+                            <>
+                              <Icon
+                                ml='3px'
+                                mr='1px'
+                                style={{
+                                  transform: "translateY(4px)",
+                                  color: "white",
+                                }}
+                                as={IoMdPeople}
+                              />
+                              <Text style={{ color: "white" }}>Undefined</Text>
+                            </>
+                          )
                         ) : (
                           <>
                             <Icon
@@ -454,53 +476,43 @@ export default function Dashboard() {
                               mr='1px'
                               style={{
                                 transform: "translateY(4px)",
-                                color: "white",
                               }}
                               as={IoMdPeople}
                             />
-                            <Text style={{ color: "white" }}>Undefined</Text>
+                            <Text>1</Text>
                           </>
-                        )
-                      ) : (
-                        <>
-                          <Icon
-                            ml='3px'
-                            mr='1px'
-                            style={{
-                              transform: "translateY(4px)",
-                            }}
-                            as={IoMdPeople}
-                          />
-                          <Text>1</Text>
-                        </>
-                      )}
-                    </Flex>
-                    <Box py='4' height='200px' maxHeight='200px'>
-                      <Flex height='200px' maxHeight='200px'>
-                        <Text
-                          fontWeight='medium'
-                          size='xs'
-                          overflow='auto'
-                          textOverflow='ellipsis'
-                          maxHeight='200px'
-                        >
-                          {info.description
-                            ? info.description
-                            : "This is a personal email account workspace. Workspaces of personal email accounts are not automatically associated with a specific company. This workspace still functions the same way as other company specific workspaces."}
-                        </Text>
+                        )}
                       </Flex>
+                      <Box py='4' height='200px' maxHeight='200px'>
+                        <Flex height='200px' maxHeight='200px'>
+                          <Text
+                            fontWeight='medium'
+                            size='xs'
+                            overflow='auto'
+                            textOverflow='ellipsis'
+                            maxHeight='200px'
+                          >
+                            {info.description
+                              ? info.description
+                              : "This is a personal email account workspace. Workspaces of personal email accounts are not automatically associated with a specific company. This workspace still functions the same way as other company specific workspaces."}
+                          </Text>
+                        </Flex>
+                      </Box>
                     </Box>
-                  </Box>
-                  <Box bg='bg-surface' py='4'>
-                    <Stack direction='row' justify='space-between' spacing='4'>
-                      <HStack spacing='3'>
-                        {/* <Checkbox /> */}
-                        <Avatar
-                          src={info ? info.image : undefined}
-                          boxSize='10'
-                          name={info.attendee_email}
-                        />
-                        {/* <AvatarBadge
+                    <Box bg='bg-surface' py='4'>
+                      <Stack
+                        direction='row'
+                        justify='space-between'
+                        spacing='4'
+                      >
+                        <HStack spacing='3'>
+                          {/* <Checkbox /> */}
+                          <Avatar
+                            src={info ? info.image : undefined}
+                            boxSize='10'
+                            name={info.attendee_email}
+                          />
+                          {/* <AvatarBadge
                         boxSize='4'
                         bg={
                           member.workingHours === "yes"
@@ -509,12 +521,12 @@ export default function Dashboard() {
                         }
                       />
                     </Avatar> */}
-                        <Box>
-                          <Flex direction='row' justify='space-between'>
-                            <Text fontWeight='medium' color='emphasized'>
-                              {capitalizeFirstLetterOfEachWord(displayName)}
-                            </Text>
-                            {/* <Badge
+                          <Box>
+                            <Flex direction='row' justify='space-between'>
+                              <Text fontWeight='medium' color='emphasized'>
+                                {capitalizeFirstLetterOfEachWord(displayName)}
+                              </Text>
+                              {/* <Badge
                               size='sm'
                               colorScheme={
                                 info.status === "lead" ? "green" : null
@@ -522,70 +534,70 @@ export default function Dashboard() {
                             >
                               {info.status}
                             </Badge> */}
-                          </Flex>
+                            </Flex>
 
-                          <Text color='muted'>
-                            {capitalizeFirstLetterOfEachWord(displayTitle)}
-                          </Text>
-                        </Box>
-                      </HStack>
-                    </Stack>
-                    <Text
-                      color='muted'
-                      sx={{
-                        "-webkit-box-orient": "vertical",
-                        "-webkit-line-clamp": "2",
-                        overflow: "hidden",
-                        display: "-webkit-box",
-                      }}
-                    >
-                      {/* Current Time: {formatTime(info.attendee_timezone)} */}
-                      <br />
-                      Email: {info.attendee_email}
-                    </Text>
-                  </Box>
-
-                  <Flex
-                    direction='column'
-                    justify='center'
-                    align='center'
-                    gap={10}
-                  >
-                    <Spacer />
-                    <Link
-                      href={`/collabs/${info.workspace_id}/${info.workspace_name}/notes`}
-                    >
-                      <Button
-                        leftIcon={<EditIcon />}
-                        variant='secondary'
-                        width='250px'
+                            <Text color='muted'>
+                              {capitalizeFirstLetterOfEachWord(displayTitle)}
+                            </Text>
+                          </Box>
+                        </HStack>
+                      </Stack>
+                      <Text
+                        color='muted'
+                        sx={{
+                          "-webkit-box-orient": "vertical",
+                          "-webkit-line-clamp": "2",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                        }}
                       >
-                        Workspace AI
-                      </Button>
-                    </Link>
-                  </Flex>
-                </CardBody>
-                <Divider borderColor='gray.200' />
-
-                <CardFooter>
-                  <HStack>
-                    {info.next_meeting_date && (
-                      <Text size='xs' color='gray.400'>
-                        Next meeting: {info.next_meeting_date}
+                        {/* Current Time: {formatTime(info.attendee_timezone)} */}
+                        <br />
+                        Email: {info.attendee_email}
                       </Text>
-                    )}
-                    {/* <Button
+                    </Box>
+
+                    <Flex
+                      direction='column'
+                      justify='center'
+                      align='center'
+                      gap={10}
+                    >
+                      <Spacer />
+                      <Link
+                        href={`/collabs/${info.workspace_id}/${info.workspace_name}/notes`}
+                      >
+                        <Button
+                          leftIcon={<EditIcon />}
+                          variant='secondary'
+                          width='250px'
+                        >
+                          Workspace AI
+                        </Button>
+                      </Link>
+                    </Flex>
+                  </CardBody>
+                  <Divider borderColor='gray.200' />
+
+                  <CardFooter>
+                    <HStack>
+                      {info.next_meeting_date && (
+                        <Text size='xs' color='gray.400'>
+                          Next meeting: {info.next_meeting_date}
+                        </Text>
+                      )}
+                      {/* <Button
                       // onClick={() => {}}
                       variant='ghost'
                       leftIcon={<ViewIcon />}
                     >
                       View
                     </Button> */}
-                  </HStack>
-                </CardFooter>
-              </Card>
-            );
-          })}
+                    </HStack>
+                  </CardFooter>
+                </Card>
+              );
+            })}
       </SimpleGrid>
     </>
   );
