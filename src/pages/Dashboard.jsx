@@ -571,7 +571,7 @@ export default function Dashboard() {
                   <HStack>
                     {info.next_meeting_date && (
                       <Text size='xs' color='gray.400'>
-                        Meeting Scheduled: {formatTime(info.next_meeting_date)}
+                        Next meeting: {info.next_meeting_date}
                       </Text>
                     )}
                     {/* <Button
