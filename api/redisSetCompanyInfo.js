@@ -11,9 +11,12 @@ module.exports = async (req, res) => {
     const { userId, data } = req.body;
 
     console.log(`Received request to store company info for user ${userId}`);
+    console.log(`Data to be stored in Redis: ${JSON.stringify(data)}`);
 
     // Store the company info in Redis, with the key being the userId
     const response = await redis.set(userId, JSON.stringify(data));
+
+    console.log(`Response from Redis set operation: ${response}`);
 
     // Log the response status code and result of the operation
     console.log(`Response status from Redis: ${response}`);
@@ -25,7 +28,7 @@ module.exports = async (req, res) => {
     res.status(200).send("Successfully stored company info in Redis");
   } catch (error) {
     // Log the error message if something goes wrong
-    console.log(`Error occurred: ${error.message}`);
+    console.error(`Error occurred: ${error.message}`);
 
     res.status(500).send("Something went wrong");
   }
