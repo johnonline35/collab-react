@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
     res.status(200).send("Successfully stored company info in Redis");
   } catch (error) {
     // Log the error message if something goes wrong
-    console.error(`Error occurred: ${error.message}`);
+    console.log(`Error occurred: ${error.message}`);
 
     res.status(500).send("Something went wrong");
   }
