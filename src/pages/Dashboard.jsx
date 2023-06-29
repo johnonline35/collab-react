@@ -180,13 +180,17 @@ export default function Dashboard() {
       setLoadingCards(false);
 
       // Update the Redis cache with the new company info
-      await fetch("/api/redisSetCompanyInfo", {
+      const response = await fetch("/api/redisSetCompanyInfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId, data }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.statusText}`);
+      }
     } catch (error) {
       console.error("Error in test_dashboard:", error);
     }
