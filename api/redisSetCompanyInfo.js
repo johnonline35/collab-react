@@ -7,16 +7,12 @@ const redis = new Redis({
 });
 
 module.exports = async (req, res) => {
-  const key = "mytestkey"; // Define a key
-
-  // Set a fixed string value to the key in Upstash Redis
-  await redis.set(key, "Hello from Vercel");
-
-  // Get the value of the key from Upstash Redis
-  const value = await redis.get(key);
-
-  // Return the key and value in the response
-  res.json({ key, value });
+  try {
+    const data = await redis.get("key");
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 // module.exports = async (req, res) => {
