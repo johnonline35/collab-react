@@ -13,8 +13,13 @@ module.exports = async (req, res) => {
     console.log(`Received request to store company info for user ${userId}`);
     console.log(`Data to be stored in Redis: ${JSON.stringify(data)}`);
 
-    // Store the company info in Redis, with the key being the userId
-    const response = await redis.set(userId, JSON.stringify(data));
+    // Set the company info in Redis using the JSON path and optional parameters
+    const response = await redis.json.set(
+      userId,
+      "$.path",
+      JSON.stringify(data),
+      { nx: true }
+    );
 
     console.log(`Response from Redis set operation: ${response}`);
 
