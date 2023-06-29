@@ -258,13 +258,13 @@ export default function Dashboard() {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
-      timeZoneName: "short",
+      // timeZoneName: "short",
     };
     const time = new Intl.DateTimeFormat("en-US", timeOptions).format(
       localDate
     );
 
-    return `${dayMonth} ${time}`;
+    return `${dayMonth} at ${time}`;
   }
 
   // COOKIE
