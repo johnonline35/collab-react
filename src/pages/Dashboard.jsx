@@ -53,12 +53,40 @@ export default function Dashboard() {
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
 
+  const getWorkspaceData = async (userId) => {
+    try {
+      const { data, error } = await supabase
+        .from("workspaces")
+        .select("*")
+        .eq("collab_user_id", userId);
+
+      if (error) {
+        console.error("Error fetching workspace data:", error);
+        return null;
+      }
+
+      console.log("Workspace data:", data);
+      return data;
+    } catch (error) {
+      console.error("Unexpected error fetching workspace data:", error);
+      return null;
+    }
+  };
+
   // Fetch Google Calendar via Server and process the response
   const getMeetings = async (userId) => {
     console.log("NEWuserId:", userId);
     console.log("Starting getMeetings");
     if (!userId) return; // Do not proceed if there's no user ID
     console.log("Passed userId check");
+
+    // Fetch and load the local workspace data first, if any
+    let workspaceData = await getWorkspaceData(userId);
+    if (workspaceData) {
+      console.log("Loaded workspace data:", workspaceData);
+      // Call getCompanyTileInfo with userId when workspace data is present
+      getCompanyTileInfo(userId);
+    }
 
     const response = await fetch(getMeetingsEndpoint, {
       method: "POST",
@@ -73,6 +101,7 @@ export default function Dashboard() {
       console.log("Got Meetings");
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
+
       getCompanyTileInfo(userId);
     } else {
       console.error("Error getting meetings:", response.status);
