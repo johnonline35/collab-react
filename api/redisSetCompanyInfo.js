@@ -10,8 +10,8 @@ module.exports = async (req, res) => {
   try {
     const { userId, data } = req.body;
 
-    console.log(`Received request to store company info for user ${userId}`);
-    console.log(`Data to be stored in Redis: ${JSON.stringify(data)}`);
+    // console.log(`Received request to store company info for user ${userId}`);
+    // console.log(`Data to be stored in Redis: ${JSON.stringify(data)}`);
 
     // Set the company info in Redis using the JSON path and optional parameters
     const response = await redis.json.set(
@@ -33,7 +33,8 @@ module.exports = async (req, res) => {
     res.status(200).send("Successfully stored company info in Redis");
   } catch (error) {
     // Log the error message if something goes wrong
-    console.log(`Error occurred: ${error.message}`);
+    console.error(`Error occurred: ${error.message}`);
+    console.error(error);
 
     res.status(500).send("Something went wrong");
   }
