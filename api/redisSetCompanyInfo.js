@@ -7,7 +7,14 @@ const redis = new Redis({
 });
 
 module.exports = async (req, res) => {
-  res.status(200).send("Hello, world!");
+  (async () => {
+    try {
+      const data = await redis.get("key");
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  })();
 };
 
 // module.exports = async (req, res) => {
