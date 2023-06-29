@@ -8,15 +8,9 @@ const redis = new Redis({
 
 module.exports = async (req, res) => {
   try {
-    const key = "myKey";
-    const value = "myValue";
+    const data = await redis.set("foo", "bar");
 
-    console.log(`Received request to store key-value pair: ${key} - ${value}`);
-
-    // Store the key-value pair in Redis
-    await redis.set(key, value);
-
-    console.log(`Successfully stored key-value pair in Redis`);
+    console.log("data", data);
 
     // Close the connection to the Redis instance
     await redis.disconnect();
