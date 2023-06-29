@@ -7,11 +7,6 @@ const redis = new Redis({
 });
 
 module.exports.hello = async (event) => {
-  const redis = new Redis({
-    url: "https://positive-fox-40625.upstash.io",
-    token: "********",
-  });
-
   const data = await redis.incr("counter");
   return {
     statusCode: 200,
