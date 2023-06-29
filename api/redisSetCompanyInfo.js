@@ -6,14 +6,11 @@ const redis = new Redis({
   token: process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN,
 });
 
-module.exports.hello = async (event) => {
+module.exports = async (req, res) => {
   const data = await redis.incr("counter");
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      view_count: data,
-    }),
-  };
+  res.status(200).send({
+    view_count: data,
+  });
 };
 
 // module.exports = async (req, res) => {
