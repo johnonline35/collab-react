@@ -7,22 +7,7 @@ const redis = new Redis({
 });
 
 module.exports = async (req, res) => {
-  try {
-    const data = await redis.set("foo", "bar");
-
-    console.log("data", data);
-
-    // Close the connection to the Redis instance
-    await redis.disconnect();
-
-    res.status(200).send("Successfully stored key-value pair in Redis");
-  } catch (error) {
-    // Log the error message if something goes wrong
-    console.error(`Error occurred: ${error.message}`);
-    console.error(error);
-
-    res.status(500).send("Something went wrong");
-  }
+  res.status(200).send("Hello, world!");
 };
 
 // module.exports = async (req, res) => {
