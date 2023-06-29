@@ -6,15 +6,19 @@ const redis = new Redis({
   token: process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN,
 });
 
-module.exports = async (req, res) => {
-  (async () => {
-    try {
-      const data = await redis.get("key");
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  })();
+module.exports.hello = async (event) => {
+  const redis = new Redis({
+    url: "https://positive-fox-40625.upstash.io",
+    token: "********",
+  });
+
+  const data = await redis.incr("counter");
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      view_count: data,
+    }),
+  };
 };
 
 // module.exports = async (req, res) => {
