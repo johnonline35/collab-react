@@ -1,15 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { Redis } = require("@upstash/redis");
 
-const redis = new Redis({
-  url: process.env.REACT_APP_UPSTASH_REDIS_REST_URL,
-  token: process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN,
-});
-
-console.log("Redis client has been created");
-
 // Define a simple test function
 module.exports = async (req, res) => {
+  const redis = new Redis({
+    url: process.env.REACT_APP_UPSTASH_REDIS_REST_URL,
+    token: process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN,
+  });
+
+  console.log(
+    "Redis client has been created",
+    process.env.REACT_APP_UPSTASH_REDIS_REST_URL,
+    process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN
+  );
+
   try {
     console.log("Attempting to set value in Redis");
 
