@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 export const SessionContext = React.createContext();
 
 export const PrivateRoute = ({ children }) => {
-  let token = getCookie("token");
-  return token ? <>{children}</> : <Navigate to='/' />;
+  const [tokenCheckComplete, setTokenCheckComplete] = useState(false);
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    setToken(getCookie("token"));
+    setTokenCheckComplete(true);
+  }, []);
+
+  if (!tokenCheckComplete) {
+    // Token hasn't been checked yet, don't render anything
+    return null;
+  } else if (token) {
+    // Token exists, render children
+    return <>{children}</>;
+  } else {
+    // No token, redirect to login
+    return <Navigate to='/' replace />;
+  }
 };
+
+// export const PrivateRoute = ({ children }) => {
+//   let token = getCookie("token");
+//   return token ? <>{children}</> : <Navigate to='/' />;
+// };
 
 export const createCookie = function (name, value, days) {
   let expires;
