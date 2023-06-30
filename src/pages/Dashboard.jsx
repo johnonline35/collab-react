@@ -298,12 +298,12 @@ export default function Dashboard() {
       <Tabs>
         <TabList pb={3}>
           <Tab>Workspaces</Tab>
-          <Tab>Recently Viewed</Tab>
+          {/* <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
-          <Tab>Alerts</Tab>
+          <Tab>Alerts</Tab> */}
         </TabList>
 
-        <TabPanels>
+        {/* <TabPanels>
           <TabPanel>
             <p>Group</p>
           </TabPanel>
@@ -313,10 +313,10 @@ export default function Dashboard() {
           <TabPanel>
             <p>All</p>
           </TabPanel>
-          {/* <TabPanel>
+          <TabPanel>
             <p>four!</p>
-          </TabPanel> */}
-        </TabPanels>
+          </TabPanel>
+        </TabPanels> */}
       </Tabs>
       <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
