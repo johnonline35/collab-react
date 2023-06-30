@@ -51,12 +51,12 @@ export function NewApp() {
                 <NavLink to='/dashboard/account'>
                   <NavItem icon={<BiNews />} label='Your Account' />
                 </NavLink>
-                <NavItem icon={<BiEnvelope />} label='Your Team Members' />
+                {/* <NavItem icon={<BiEnvelope />} label='Your Team Members' />
                 <NavItem
                   icon={<BiPurchaseTagAlt />}
                   label='Workspace Settings'
                 />
-                <NavItem icon={<BiRecycle />} label='Subscription' />
+                <NavItem icon={<BiRecycle />} label='Subscription' /> */}
               </NavGroup>
             </Stack>
             <Box>
