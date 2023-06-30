@@ -33,7 +33,7 @@ import {
   StackDivider,
   Textarea,
 } from "@chakra-ui/react";
-import { Dropzone } from "./Dropzone";
+import { Dropzone } from "../components/Dropzone";
 import EditProfile from "../components/EditProfile";
 import { useSession } from "../hooks/useSession";
 
