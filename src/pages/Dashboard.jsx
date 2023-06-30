@@ -298,9 +298,9 @@ export default function Dashboard() {
       <Tabs>
         <TabList pb={3}>
           <Tab>Workspaces</Tab>
-          {/* <Tab>Recently Viewed</Tab>
+          <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
-          <Tab>Alerts</Tab> */}
+          <Tab>Alerts</Tab>
         </TabList>
 
         <TabPanels>
