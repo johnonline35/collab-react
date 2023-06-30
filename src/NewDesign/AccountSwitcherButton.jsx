@@ -11,6 +11,7 @@ export const AccountSwitcherButton = (props) => {
 
   const [avatarUrl, setAvatarUrl] = useState("");
   const [userName, setUserName] = useState("");
+  const [companyName, setCompanyName] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -20,7 +21,7 @@ export const AccountSwitcherButton = (props) => {
 
       const { data, error } = await supabase
         .from("collab_users")
-        .select("collab_user_avatar_url, collab_user_name")
+        .select("collab_user_avatar_url, collab_user_name, company_name")
         .eq("collab_user_email", user.email)
         .single();
 
@@ -29,6 +30,7 @@ export const AccountSwitcherButton = (props) => {
       if (data && !error) {
         setAvatarUrl(data.collab_user_avatar_url);
         setUserName(data.collab_user_name);
+        setCompanyName(data.company_name);
       }
     };
 
@@ -69,7 +71,7 @@ export const AccountSwitcherButton = (props) => {
         />
         <Box textAlign='start'>
           <Box noOfLines={1} fontWeight='semibold'>
-            Collab Inc.
+            {companyName}
           </Box>
           <Box fontSize='xs' color='blue.100'>
             {userName}
