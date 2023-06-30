@@ -303,20 +303,20 @@ export default function Dashboard() {
           <Tab>Alerts</Tab> */}
         </TabList>
 
-        {/* <TabPanels>
+        <TabPanels>
           <TabPanel>
-            <p>one!</p>
+            <p>Group</p>
           </TabPanel>
           <TabPanel>
-            <p>two!</p>
+            <p>Individual</p>
           </TabPanel>
           <TabPanel>
-            <p>three!</p>
+            <p>All</p>
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <p>four!</p>
-          </TabPanel>
-        </TabPanels> */}
+          </TabPanel> */}
+        </TabPanels>
       </Tabs>
       <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
