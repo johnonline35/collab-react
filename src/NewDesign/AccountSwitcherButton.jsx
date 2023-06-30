@@ -21,12 +21,12 @@ export const AccountSwitcherButton = (props) => {
       const { data, error } = await supabase
         .from("collab_users")
         .select("collab_user_avatar_url, collab_user_name")
-        .eq("id", user.id) // Use the user's ID from the session
+        .eq("collab_user_email", user.email)
         .single();
 
       if (data && !error) {
-        setAvatarUrl(data.collab_user_avatar_url);
-        setUserName(data.collab_user_name);
+        setAvatarUrl(data[0].collab_user_avatar_url);
+        setUserName(data[0].collab_user_name);
       }
     };
 
