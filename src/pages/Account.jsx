@@ -82,7 +82,7 @@ export default function Account() {
         setUsername(data.collab_user_name);
         setJobTitle(data.collab_user_job_title);
         setAvatarUrl(data.collab_user_avatar_url);
-        setSocialUrl(data.collab_user_socials.linkedin);
+        setSocialUrl(data.collab_user_socials?.linkedin);
         setPhoneNumber(data.phone_number);
         setBio(data.bio);
       }
@@ -105,7 +105,7 @@ export default function Account() {
         collab_user_name: username,
         collab_user_job_title: jobTitle,
         collab_user_avatar_url: avatarUrl,
-        collab_user_socials: { linkedin: socialUrl },
+        collab_user_socials: socialUrl ? { linkedin: socialUrl } : null,
         phone_number: phoneNumber,
         bio: bio,
         updated_at: new Date(),
@@ -148,7 +148,7 @@ export default function Account() {
           >
             <Box>
               <Text color='muted' fontSize='sm'>
-                Tell your customers who you are and how to contact you
+                Tell your partners who you are and how to contact you
               </Text>
             </Box>
           </Stack>
