@@ -10,6 +10,7 @@ module.exports = async (req, res) => {
   });
 
   const data = await redis.set("foo", "bar");
+  console.log("Response from redis.set():", data);
 };
 
 // module.exports = async (req, res) => {
