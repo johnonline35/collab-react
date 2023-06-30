@@ -25,6 +25,7 @@ import { supabase } from "./supabase/clientapp";
 
 function Router() {
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   async function supabaseCall() {
     const {
@@ -34,6 +35,7 @@ function Router() {
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
     }
+    setLoading(false); // set loading to false after supabaseCall completes
   }
 
   useEffect(() => {
