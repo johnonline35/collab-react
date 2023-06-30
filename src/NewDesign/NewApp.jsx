@@ -38,7 +38,7 @@ export function NewApp() {
                 <NavLink to='/dashboard'>
                   <NavItem active icon={<HamburgerIcon />} label='Dashboard' />
                 </NavLink>
-                <NavItem icon={<FiCheckCircle />} label='Master ToDo List' />
+                {/* <NavItem icon={<FiCheckCircle />} label='Master ToDo List' /> */}
               </Stack>
               {/* <NavGroup label='Your Accounts'>
                 <NavItem icon={<BiCreditCard />} label='Transactions' />

@@ -10,12 +10,12 @@ export default function Sidebar() {
           <ListIcon as={HamburgerIcon} color='white' /> Dashboard
         </NavLink>
       </ListItem>
-      <ListItem>
-        {/* <NavLink to='/dashboard/mastertodolist'>
+      {/* <ListItem>
+        <NavLink to='/dashboard/mastertodolist'>
           <ListIcon as={EditIcon} color='white' />
           Master ToDo List
-        </NavLink> */}
-      </ListItem>
+        </NavLink>
+      </ListItem> */}
       <ListItem>
         <NavLink to='/dashboard/account'>
           <ListIcon as={AtSignIcon} color='white' />
