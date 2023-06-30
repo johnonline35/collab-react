@@ -8,9 +8,12 @@ export const PrivateRoute = ({ children }) => {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    setToken(getCookie("token"));
-    setTokenCheckComplete(true);
-  }, []);
+    const tokenFromCookie = getCookie("token");
+    setToken(tokenFromCookie);
+    if (tokenFromCookie) {
+      setTokenCheckComplete(true);
+    }
+  }, [token]);
 
   if (!tokenCheckComplete) {
     // Token hasn't been checked yet, don't render anything
