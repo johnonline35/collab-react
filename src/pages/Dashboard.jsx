@@ -645,7 +645,7 @@ export default function Dashboard() {
                         >
                           Workspace AI
                         </Button>
-                        {info.workspace_id}
+                        {/* {info.workspace_id} */}
                       </Link>
                     </Flex>
                   </CardBody>
