@@ -59,7 +59,7 @@ export function NewApp() {
                 <NavItem icon={<BiRecycle />} label='Subscription' /> */}
               </NavGroup>
             </Stack>
-            <Box>
+            {/* <Box>
               <Stack spacing='1'>
                 <NavItem subtle icon={<BiCog />} label='Settings' />
                 <NavItem
@@ -69,7 +69,7 @@ export function NewApp() {
                   endElement={<Circle size='2' bg='blue.400' />}
                 />
               </Stack>
-            </Box>
+            </Box> */}
           </Flex>
         </Box>
       </Flex>
