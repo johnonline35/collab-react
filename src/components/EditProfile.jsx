@@ -17,6 +17,9 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Dropzone } from "./Dropzone";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabase/clientapp";
+import { useSession } from "../hooks/useSession";
 
 export default function EditProfile() {
   return (
@@ -79,6 +82,28 @@ export default function EditProfile() {
               <FormLabel variant='inline'>Email</FormLabel>
               <Input
                 type='email'
+                maxW={{
+                  md: "3xl",
+                }}
+                defaultValue='john@instantcollab.co'
+              />
+            </Stack>
+          </FormControl>
+          <FormControl id='companyName'>
+            <Stack
+              direction={{
+                base: "column",
+                md: "row",
+              }}
+              spacing={{
+                base: "1.5",
+                md: "8",
+              }}
+              justify='space-between'
+            >
+              <FormLabel variant='inline'>Company Name</FormLabel>
+              <Input
+                type='companyName'
                 maxW={{
                   md: "3xl",
                 }}
@@ -182,7 +207,7 @@ export default function EditProfile() {
               <Box>
                 <FormLabel variant='inline'>Bio</FormLabel>
                 <FormHelperText mt='0' color='muted'>
-                  Write a short introduction about you
+                  Write a short introduction
                 </FormHelperText>
               </Box>
               <Textarea
