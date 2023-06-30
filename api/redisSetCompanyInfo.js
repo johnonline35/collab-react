@@ -4,36 +4,12 @@ const { Redis } = require("@upstash/redis");
 // Define a simple test function
 module.exports = async (req, res) => {
   const redis = new Redis({
-    url: process.env.REACT_APP_UPSTASH_REDIS_REST_URL,
-    token: process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN,
+    url: "https://thankful-hen-40789.upstash.io",
+    token:
+      "AZ9VACQgYjdhOTZlYmMtM2U4Ny00MGEzLWI5ZDctNTg1MzY4NDM2NjdmMDNjZjA4ODMzODliNGIyYzlmZTU1NjBlY2Q2YjliNDM=",
   });
 
-  console.log(
-    "Redis client has been created",
-    process.env.REACT_APP_UPSTASH_REDIS_REST_URL,
-    process.env.REACT_APP_UPSTASH_REDIS_REST_TOKEN
-  );
-
-  try {
-    console.log("Attempting to set value in Redis");
-
-    // Try to set a value in Redis
-    await redis.set("testKey", "testValue");
-
-    console.log("Value has been set in Redis");
-
-    // Try to get the value we just set
-    const value = await redis.get("testKey");
-
-    console.log("Got value from Redis:", value);
-
-    // If we got here without any errors, return the value we got from Redis
-    res.json({ value });
-  } catch (error) {
-    // If there was an error, log it and return an error response
-    console.error("Error connecting to Redis:", error);
-    res.status(500).json({ error: "Error connecting to Redis" });
-  }
+  const data = await redis.set("foo", "bar");
 };
 
 // module.exports = async (req, res) => {
