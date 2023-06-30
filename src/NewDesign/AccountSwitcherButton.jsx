@@ -1,9 +1,8 @@
 import { Box, Flex, HStack, Img, useMenuButton } from "@chakra-ui/react";
 import { HiSelector } from "react-icons/hi";
 import { useSession } from "../hooks/useSession";
-import supabase from "../supabase/clientapp";
-import { useEffect } from "react";
-import { useState } from "react";
+import { supabase } from "../supabase/clientapp";
+import { useEffect, useState } from "react";
 
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
