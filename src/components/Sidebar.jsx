@@ -11,10 +11,10 @@ export default function Sidebar() {
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink to='/dashboard/mastertodolist'>
+        {/* <NavLink to='/dashboard/mastertodolist'>
           <ListIcon as={EditIcon} color='white' />
           Master ToDo List
-        </NavLink>
+        </NavLink> */}
       </ListItem>
       <ListItem>
         <NavLink to='/dashboard/account'>
