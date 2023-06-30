@@ -19,8 +19,8 @@ export const AccountSwitcherButton = (props) => {
         .single();
 
       if (data && !error) {
-        setAvatarUrl(data.collab_user_avatar_url);
-        setUserName(data.collab_user_name);
+        setAvatarUrl(data[0].collab_user_avatar_url);
+        setUserName(data[0].collab_user_name);
       }
     };
 
@@ -57,7 +57,7 @@ export const AccountSwitcherButton = (props) => {
           rounded='md'
           objectFit='cover'
           src={avatarUrl}
-          alt='Chakra UI'
+          alt={userName}
         />
         <Box textAlign='start'>
           <Box noOfLines={1} fontWeight='semibold'>
