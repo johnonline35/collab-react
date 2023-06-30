@@ -13,7 +13,7 @@ export const PrivateRoute = ({ children }) => {
     if (tokenFromCookie) {
       setTokenCheckComplete(true);
     }
-  }, [token]);
+  }, []);
 
   if (!tokenCheckComplete) {
     // Token hasn't been checked yet, don't render anything
