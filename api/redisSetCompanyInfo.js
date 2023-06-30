@@ -9,8 +9,15 @@ module.exports = async (req, res) => {
       "AZ9VACQgYjdhOTZlYmMtM2U4Ny00MGEzLWI5ZDctNTg1MzY4NDM2NjdmMDNjZjA4ODMzODliNGIyYzlmZTU1NjBlY2Q2YjliNDM=",
   });
 
-  const data = await redis.set("foo", "bar");
-  console.log("Response from redis.set():", data);
+  try {
+    const pingResponse = await redis.ping();
+    console.log("PING response:", pingResponse);
+  } catch (err) {
+    console.error("Error while trying to PING Redis:", err);
+  }
+
+  // const data = await redis.set("foo", "bar");
+  // console.log("Response from redis.set():", data);
 };
 
 // module.exports = async (req, res) => {
