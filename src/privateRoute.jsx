@@ -14,6 +14,7 @@ export const PrivateRoute = ({ children }) => {
 
   if (!tokenCheckComplete) {
     // Token hasn't been checked yet, don't render anything
+    console.log("token check not complete");
     return null;
   } else if (token) {
     // Token exists, render children
