@@ -24,9 +24,11 @@ export const AccountSwitcherButton = (props) => {
         .eq("collab_user_email", user.email)
         .single();
 
+      console.log("avatar data", data);
+
       if (data && !error) {
-        setAvatarUrl(data[0].collab_user_avatar_url);
-        setUserName(data[0].collab_user_name);
+        setAvatarUrl(data.collab_user_avatar_url);
+        setUserName(data.collab_user_name);
       }
     };
 
