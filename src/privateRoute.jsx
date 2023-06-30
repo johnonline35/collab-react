@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 export const SessionContext = React.createContext();
 
 export const PrivateRoute = ({ children }) => {
+  const session = useContext(SessionContext);
   const [tokenCheckComplete, setTokenCheckComplete] = useState(false);
   const [token, setToken] = useState(null);
 
+  // Set token when session changes
   useEffect(() => {
-    const tokenFromCookie = getCookie("token");
-    setToken(tokenFromCookie);
-    if (tokenFromCookie) {
+    if (session) {
+      const tokenFromCookie = getCookie("token");
+      setToken(tokenFromCookie);
       setTokenCheckComplete(true);
     }
-  }, []);
+  }, [session]); // Note that session is now a dependency
 
   if (!tokenCheckComplete) {
     // Token hasn't been checked yet, don't render anything

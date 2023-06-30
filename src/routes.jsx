@@ -38,6 +38,16 @@ function Router() {
     setLoading(false); // set loading to false after supabaseCall completes
   }
 
+  //  async function supabaseCall() {
+  //    const {
+  //      data: { session },
+  //    } = await supabase.auth.getSession();
+  //    if (session) {
+  //      createCookie("token", session.access_token, session.expires_in);
+  //      setSession(session);
+  //    }
+  //  }
+
   useEffect(() => {
     supabaseCall();
   }, []);
