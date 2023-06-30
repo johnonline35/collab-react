@@ -31,7 +31,6 @@ import {
   InputLeftAddon,
   Stack,
   StackDivider,
-  Text,
   Textarea,
 } from "@chakra-ui/react";
 import { Dropzone } from "./Dropzone";
