@@ -33,7 +33,7 @@ import { useEffect, useState } from "react";
 // import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { useLexicalNodeParse } from "./hooks/useLexicalNodeParse";
-import { Placeholder } from "./hooks/useLexcialPlaceholder";
+import Placeholder from "./hooks/useLexcialPlaceholder";
 import { CustomParagraphNode } from "./LexicalEditor/nodes/CustomParagraphNode";
 
 import ListMaxIndentLevelPlugin from "./LexicalEditor/plugins/ListMaxIndentLevelPlugin";
