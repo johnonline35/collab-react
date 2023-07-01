@@ -69,7 +69,7 @@ export default function Account() {
       let { data, error } = await supabase
         .from("collab_users")
         .select(
-          `collab_user_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
+          `collab_user_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials.linkedin, phone_number, bio`
         )
         .eq("collab_user_email", user.email)
         .single();
@@ -101,7 +101,6 @@ export default function Account() {
       const { user } = session;
 
       const updates = {
-        id: user.id,
         collab_user_name: username,
         collab_user_job_title: jobTitle,
         collab_user_avatar_url: avatarUrl,
@@ -111,7 +110,10 @@ export default function Account() {
         updated_at: new Date(),
       };
 
-      let { error } = await supabase.from("collab_users").upsert(updates);
+      let { error } = await supabase
+        .from("collab_users")
+        .eq("collab_user_email", user.email)
+        .upsert(updates);
 
       if (error) {
         throw error;
@@ -172,7 +174,6 @@ export default function Account() {
                     md: "3xl",
                   }}
                   value={username}
-                  defaultValue={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </Stack>
