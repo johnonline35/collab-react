@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 // import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
 import { useLexicalNodeParse } from "./hooks/useLexicalNodeParse";
+import { Placeholder } from "./hooks/useLexcialPlaceholder";
 import { CustomParagraphNode } from "./LexicalEditor/nodes/CustomParagraphNode";
 
 import ListMaxIndentLevelPlugin from "./LexicalEditor/plugins/ListMaxIndentLevelPlugin";
@@ -48,46 +49,6 @@ import { v4 as uuidv4 } from "uuid";
 import { CustomTextNode } from "./LexicalEditor/nodes/CustomTextNode";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
-
-function DateTime() {
-  const today = new Date();
-  const date = new Intl.DateTimeFormat("en-us", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
-
-  return date.format(today);
-}
-
-function Placeholder() {
-  const params = useParams();
-  const name = params.workspace_name;
-  // console.log("workspaceName", params.workspace_name);
-  return (
-    <div className='editor-placeholder'>
-      {DateTime()}, Notes for {name}
-    </div>
-  );
-}
-
-function simpleUuid() {
-  const S4 = () =>
-    (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-  return (
-    S4() +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    "-" +
-    S4() +
-    S4() +
-    S4()
-  );
-}
 
 const defaultState = `{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Start writing here...\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}`;
 
@@ -185,7 +146,7 @@ export default function LexicalEditor() {
         console.log("data.note_content", data[0].note_content);
         setLoadingState("loaded");
       } else {
-        const newUuid = simpleUuid();
+        const newUuid = uuidv4();
         const { data: newData, error: newError } = await supabase
           .from("collab_users_notes")
           .insert([
