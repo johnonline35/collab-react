@@ -41,7 +41,7 @@ export function DashboardLoader() {
       </Tabs>
       <Box display='flex' flexWrap='wrap' justifyContent='space-between'>
         {noOfCards.map(() => (
-          <Box mb='20px' minW='sm' mr='10px' mt='20px'>
+          <Box mb='20px' minW='xs' mr='10px' mt='20px'>
             <SkeletonCircle size='10' />
             <SkeletonText
               mt='4'
