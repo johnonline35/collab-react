@@ -7,16 +7,15 @@ function DateTime() {
     timeStyle: "short",
   });
 
-  return date.format(today);
+  return <>{date.format(today)}</>;
 }
 
 export default function Placeholder() {
   const params = useParams();
   const name = params.workspace_name;
-  // console.log("workspaceName", params.workspace_name);
   return (
     <div className='editor-placeholder'>
-      {DateTime()}, Notes for {name}
+      <DateTime />, Notes for {name}
     </div>
   );
 }
