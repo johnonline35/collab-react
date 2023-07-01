@@ -350,22 +350,20 @@ export default function Account() {
             <Flex direction='row-reverse'>
               <Button
                 colorScheme='blue'
-                onClick={async () => {
-                  try {
-                    await updateProfile();
-                    toast({
-                      position: "top",
-                      title: "Profile update successful.",
-                      description: "Your profile has been updated.",
-                      status: "success",
-                      duration: 2000,
-                      isClosable: true,
-                    });
-                    window.location.reload();
-                  } catch (error) {
-                    // Handle errors here, if any
-                  }
-                }}
+                onClick={() =>
+                  updateProfile()
+                    .then(
+                      toast({
+                        position: "top",
+                        title: "Profile update successful.",
+                        description: "Your profile has been updated.",
+                        status: "success",
+                        duration: 2000,
+                        isClosable: true,
+                      })
+                    )
+                    .then(window.location.reload())
+                }
               >
                 Save
               </Button>
