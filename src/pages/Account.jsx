@@ -42,6 +42,7 @@ export default function Account() {
 
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
   const [companyname, setCompanyname] = useState(null);
   const [jobTitle, setJobTitle] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState(null);
@@ -51,6 +52,7 @@ export default function Account() {
 
   useEffect(() => {
     if (session) {
+      setEmail(session.user?.email);
       getProfile(); // Only call getProfile if session is not null
     }
   }, [session]);
@@ -69,7 +71,7 @@ export default function Account() {
       let { data, error } = await supabase
         .from("collab_users")
         .select(
-          `collab_user_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials.linkedin, phone_number, bio`
+          `collab_user_name, collab_user_email, collab_user_company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials.linkedin, phone_number, bio`
         )
         .eq("collab_user_email", user.email)
         .single();
@@ -80,6 +82,8 @@ export default function Account() {
 
       if (data) {
         setUsername(data.collab_user_name);
+
+        setCompanyname(data.collab_user_company_name);
         setJobTitle(data.collab_user_job_title);
         setAvatarUrl(data.collab_user_avatar_url);
         setSocialUrl(data.collab_user_socials?.linkedin);
@@ -102,6 +106,8 @@ export default function Account() {
 
       const updates = {
         collab_user_name: username,
+
+        collab_user_company_name: companyname,
         collab_user_job_title: jobTitle,
         collab_user_avatar_url: avatarUrl,
         collab_user_socials: socialUrl ? { linkedin: socialUrl } : null,
@@ -196,7 +202,7 @@ export default function Account() {
                   maxW={{
                     md: "3xl",
                   }}
-                  defaultValue='john@instantcollab.co'
+                  value={email}
                 />
               </Stack>
             </FormControl>
@@ -218,7 +224,8 @@ export default function Account() {
                   maxW={{
                     md: "3xl",
                   }}
-                  defaultValue='john@instantcollab.co'
+                  value={companyname}
+                  onChange={(e) => setCompanyname(e.target.value)}
                 />
               </Stack>
             </FormControl>
@@ -240,7 +247,8 @@ export default function Account() {
                   maxW={{
                     md: "3xl",
                   }}
-                  preview='+1 (555) 555-5555'
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </Stack>
             </FormControl>
@@ -299,7 +307,10 @@ export default function Account() {
                   }}
                 >
                   <InputLeftAddon>https://</InputLeftAddon>
-                  <Input defaultValue='www.linkedin.com/yourprofileURL' />
+                  <Input
+                    value={socialUrl}
+                    onChange={(e) => setSocialUrl(e.target.value)}
+                  />
                 </InputGroup>
               </Stack>
             </FormControl>
@@ -327,12 +338,16 @@ export default function Account() {
                   }}
                   rows={5}
                   resize='none'
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
                 />
               </Stack>
             </FormControl>
 
             <Flex direction='row-reverse'>
-              <Button colorScheme='blue'>Save</Button>
+              <Button colorScheme='blue' onClick={updateProfile}>
+                Save
+              </Button>
             </Flex>
           </Stack>
         </Stack>
