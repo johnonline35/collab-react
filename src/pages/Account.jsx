@@ -350,8 +350,8 @@ export default function Account() {
             <Flex direction='row-reverse'>
               <Button
                 colorScheme='blue'
-                onClick={() =>
-                  updateProfile().then(
+                onClick={() => {
+                  updateProfile().then(() => {
                     toast({
                       position: "top",
                       title: "Profile update successful.",
@@ -359,9 +359,9 @@ export default function Account() {
                       status: "success",
                       duration: 2000,
                       isClosable: true,
-                    })
-                  )
-                }
+                    });
+                  });
+                }}
               >
                 Save
               </Button>
