@@ -91,39 +91,39 @@ function simpleUuid() {
 
 const defaultState = `{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Start writing here...\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}`;
 
-const editorConfig = {
-  namespace: "collabEditor",
-  // The editor theme
-  theme: LexicalEditorTheme,
-  // Handling of errors during update
-  onError(error) {
-    throw error;
-  },
-  editorState: defaultState,
-  // Any custom nodes go here
-  nodes: [
-    HeadingNode,
-    ListNode,
-    ListItemNode,
-    QuoteNode,
-    HashtagNode,
-    CodeNode,
-    CodeHighlightNode,
-    TableNode,
-    MentionNode,
-    TableCellNode,
-    TableRowNode,
-    AutoLinkNode,
-    LinkNode,
-    // CustomParagraphNode,
-    // {
-    //   replace: ParagraphNode,
-    //   with: (node) => {
-    //     return new CustomParagraphNode();
-    //   },
-    // },
-  ],
-};
+// const editorConfig = {
+//   namespace: "collabEditor",
+//   // The editor theme
+//   theme: LexicalEditorTheme,
+//   // Handling of errors during update
+//   onError(error) {
+//     throw error;
+//   },
+//   editorState: defaultState,
+//   // Any custom nodes go here
+//   nodes: [
+//     HeadingNode,
+//     ListNode,
+//     ListItemNode,
+//     QuoteNode,
+//     HashtagNode,
+//     CodeNode,
+//     CodeHighlightNode,
+//     TableNode,
+//     MentionNode,
+//     TableCellNode,
+//     TableRowNode,
+//     AutoLinkNode,
+//     LinkNode,
+//     // CustomParagraphNode,
+//     // {
+//     //   replace: ParagraphNode,
+//     //   with: (node) => {
+//     //     return new CustomParagraphNode();
+//     //   },
+//     // },
+//   ],
+// };
 
 export default function LexicalEditor() {
   const params = useParams();
