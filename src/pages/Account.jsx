@@ -106,8 +106,7 @@ export default function Account() {
 
       const updates = {
         collab_user_name: username,
-
-        collab_user_company_name: companyname,
+        company_name: companyname,
         collab_user_job_title: jobTitle,
         collab_user_avatar_url: avatarUrl,
         collab_user_socials: socialUrl ? { linkedin: socialUrl } : null,
