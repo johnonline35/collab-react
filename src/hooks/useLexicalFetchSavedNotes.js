@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../supabase/clientapp";
 // import { updateLexicalWithMeetingData } from "./useLexicalMeetingInsert";
 import { v4 as uuidv4 } from "uuid";
+import { defaultState } from "./useLexicalDefaultState";
 
 //   const fetchSavedNote = async () => {
 //     try {
@@ -46,7 +47,7 @@ import { v4 as uuidv4 } from "uuid";
 //     }
 //   };
 
-export const useFetchSavedNotes = (workspaceId, defaultState) => {
+export const useFetchSavedNotes = (workspaceId) => {
   const [initialNoteJson, setInitialNoteJson] = useState();
   const [loadingState, setLoadingState] = useState("loading");
   const [collabUserNoteId, setCollabUserNoteId] = useState(null);
@@ -104,7 +105,7 @@ export const useFetchSavedNotes = (workspaceId, defaultState) => {
     };
 
     fetchSavedNote();
-  }, [workspaceId, defaultState]);
+  }, [workspaceId]);
 
   return { initialNoteJson, loadingState, collabUserNoteId };
 };

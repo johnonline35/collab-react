@@ -51,8 +51,6 @@ import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
-const defaultState = `{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Start writing here...\",\"type\":\"text\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}`;
-
 // const editorConfig = {
 //   namespace: "collabEditor",
 //   // The editor theme
@@ -93,7 +91,7 @@ export default function LexicalEditor() {
   // const [loadingState, setLoadingState] = useState("loading");
   // const [collabUserNoteId, setCollabUserNoteId] = useState(null);
   const { initialNoteJson, loadingState, collabUserNoteId } =
-    useFetchSavedNotes(params.workspace_id, defaultState);
+    useFetchSavedNotes(params.workspace_id);
 
   useLexicalNodeParse();
 
