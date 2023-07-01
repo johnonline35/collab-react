@@ -32,12 +32,16 @@ import {
   Stack,
   StackDivider,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { Dropzone } from "../components/Dropzone";
 import EditProfile from "../components/EditProfile";
 import { useSession } from "../hooks/useSession";
+import { useNavigate } from "react-router-dom";
 
 export default function Account() {
+  const toast = useToast();
+  const navigate = useNavigate();
   const session = useSession();
 
   const [loading, setLoading] = useState(true);
@@ -344,7 +348,25 @@ export default function Account() {
             </FormControl>
 
             <Flex direction='row-reverse'>
-              <Button colorScheme='blue' onClick={updateProfile}>
+              <Button
+                colorScheme='blue'
+                onClick={async () => {
+                  try {
+                    await updateProfile();
+                    toast({
+                      position: "top",
+                      title: "Profile update successful.",
+                      description: "Your profile has been updated.",
+                      status: "success",
+                      duration: 2000,
+                      isClosable: true,
+                    });
+                    window.location.reload();
+                  } catch (error) {
+                    // Handle errors here, if any
+                  }
+                }}
+              >
                 Save
               </Button>
             </Flex>
