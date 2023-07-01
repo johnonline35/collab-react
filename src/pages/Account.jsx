@@ -71,7 +71,7 @@ export default function Account() {
       let { data, error } = await supabase
         .from("collab_users")
         .select(
-          `collab_user_name, collab_user_email, collab_user_company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
+          `collab_user_name, collab_user_email, company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
         )
         .eq("collab_user_email", user.email)
         .single();
@@ -83,7 +83,7 @@ export default function Account() {
       if (data) {
         setUsername(data.collab_user_name);
 
-        setCompanyname(data.collab_user_company_name);
+        setCompanyname(data.company_name);
         setJobTitle(data.collab_user_job_title);
         setAvatarUrl(data.collab_user_avatar_url);
         setSocialUrl(data.collab_user_socials?.linkedin);
