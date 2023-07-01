@@ -65,10 +65,6 @@ export const useFetchSavedNotes = (workspaceId) => {
         }
 
         if (data && data.length > 0) {
-          //   let updatedNoteContent = await updateLexicalWithMeetingData(
-          //     workspaceId,
-          //     data[0].note_content
-          //   );
           setInitialNoteJson(data[0].note_content);
           setCollabUserNoteId(data[0].collab_user_note_id); // Store the collab_user_note_id
           console.log("data.note_content", data[0].note_content);
