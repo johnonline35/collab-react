@@ -102,7 +102,7 @@ export default function Account() {
   };
 
   const updateProfile = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     try {
       setLoading(true);
