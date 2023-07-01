@@ -118,8 +118,8 @@ export default function Account() {
 
       let { error } = await supabase
         .from("collab_users")
-        .eq("collab_user_email", user.email)
-        .upsert(updates);
+        .update(updates)
+        .eq("collab_user_email", user.email);
 
       if (error) {
         throw error;
