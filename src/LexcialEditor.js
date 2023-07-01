@@ -47,6 +47,7 @@ import { Skeleton, Stack } from "@chakra-ui/react";
 
 import { v4 as uuidv4 } from "uuid";
 import { CustomTextNode } from "./LexicalEditor/nodes/CustomTextNode";
+import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -88,9 +89,12 @@ const defaultState = `{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"fo
 
 export default function LexicalEditor() {
   const params = useParams();
-  const [initialNoteJson, setInitialNoteJson] = useState();
-  const [loadingState, setLoadingState] = useState("loading");
-  const [collabUserNoteId, setCollabUserNoteId] = useState(null);
+  // const [initialNoteJson, setInitialNoteJson] = useState();
+  // const [loadingState, setLoadingState] = useState("loading");
+  // const [collabUserNoteId, setCollabUserNoteId] = useState(null);
+  const { initialNoteJson, loadingState, collabUserNoteId } =
+    useFetchSavedNotes(params.workspace_id, defaultState);
+
   useLexicalNodeParse();
 
   const handleEditorChange = async (EditorState, params) => {
@@ -117,9 +121,9 @@ export default function LexicalEditor() {
     }
   };
 
-  useEffect(() => {
-    fetchSavedNote();
-  }, []);
+  // useEffect(() => {
+  //   useFetchSavedNotes();
+  // }, []);
 
   useEffect(() => {
     if (loadingState === "loaded") {
@@ -129,48 +133,48 @@ export default function LexicalEditor() {
     }
   }, [loadingState]);
 
-  const fetchSavedNote = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("collab_users_notes")
-        .select("note_content, collab_user_note_id")
-        .eq("workspace_id", params.workspace_id);
+  // const fetchSavedNote = async () => {
+  //   try {
+  //     const { data, error } = await supabase
+  //       .from("collab_users_notes")
+  //       .select("note_content, collab_user_note_id")
+  //       .eq("workspace_id", params.workspace_id);
 
-      if (error) {
-        throw error;
-      }
+  //     if (error) {
+  //       throw error;
+  //     }
 
-      if (data && data.length > 0) {
-        setInitialNoteJson(data[0].note_content);
-        setCollabUserNoteId(data[0].collab_user_note_id); // Store the collab_user_note_id
-        console.log("data.note_content", data[0].note_content);
-        setLoadingState("loaded");
-      } else {
-        const newUuid = uuidv4();
-        const { data: newData, error: newError } = await supabase
-          .from("collab_users_notes")
-          .insert([
-            {
-              collab_user_note_id: newUuid,
-              workspace_id: params.workspace_id,
-              note_content: defaultState,
-            },
-          ]);
+  //     if (data && data.length > 0) {
+  //       setInitialNoteJson(data[0].note_content);
+  //       setCollabUserNoteId(data[0].collab_user_note_id); // Store the collab_user_note_id
+  //       console.log("data.note_content", data[0].note_content);
+  //       setLoadingState("loaded");
+  //     } else {
+  //       const newUuid = uuidv4();
+  //       const { data: newData, error: newError } = await supabase
+  //         .from("collab_users_notes")
+  //         .insert([
+  //           {
+  //             collab_user_note_id: newUuid,
+  //             workspace_id: params.workspace_id,
+  //             note_content: defaultState,
+  //           },
+  //         ]);
 
-        if (newError) {
-          throw newError;
-        }
+  //       if (newError) {
+  //         throw newError;
+  //       }
 
-        setInitialNoteJson(defaultState);
-        setCollabUserNoteId(newUuid); // Store the new collab_user_note_id
-        setLoadingState("loaded");
-      }
-    } catch (error) {
-      console.error("Error fetching or creating saved note:", error.message);
-      setInitialNoteJson(defaultState);
-      setLoadingState("error");
-    }
-  };
+  //       setInitialNoteJson(defaultState);
+  //       setCollabUserNoteId(newUuid); // Store the new collab_user_note_id
+  //       setLoadingState("loaded");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching or creating saved note:", error.message);
+  //     setInitialNoteJson(defaultState);
+  //     setLoadingState("error");
+  //   }
+  // };
 
   if (loadingState === "loading") {
     return (
