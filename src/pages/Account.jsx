@@ -351,18 +351,16 @@ export default function Account() {
               <Button
                 colorScheme='blue'
                 onClick={() =>
-                  updateProfile()
-                    .then(
-                      toast({
-                        position: "top",
-                        title: "Profile update successful.",
-                        description: "Your profile has been updated.",
-                        status: "success",
-                        duration: 2000,
-                        isClosable: true,
-                      })
-                    )
-                    .then(window.location.reload())
+                  updateProfile().then(
+                    toast({
+                      position: "top",
+                      title: "Profile update successful.",
+                      description: "Your profile has been updated.",
+                      status: "success",
+                      duration: 2000,
+                      isClosable: true,
+                    })
+                  )
                 }
               >
                 Save
