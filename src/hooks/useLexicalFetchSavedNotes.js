@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "./supabase/clientapp";
+import { supabase } from "../supabase/clientapp";
 import { updateLexicalWithMeetingData } from "./useLexicalMeetingInsert";
 import { v4 as uuidv4 } from "uuid";
 
