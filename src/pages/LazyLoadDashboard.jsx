@@ -15,7 +15,7 @@ export function DashboardLoader() {
             mt='4'
             noOfLines={8}
             spacing='4'
-            mb='60px'
+            mb='160px'
             skeletonHeight='2'
           />
           <SkeletonText noOfLines={1} spacing='4' skeletonHeight='2' />
