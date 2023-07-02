@@ -28,7 +28,6 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
     .from("meetings")
     .select("start_dateTime")
     .eq("workspace_id", workspaceId)
-    .gte("start_dateTime", new Date().toISOString())
     .order("start_dateTime", { ascending: true })
     .limit(1)
     .single();
