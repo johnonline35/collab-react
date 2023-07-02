@@ -25,27 +25,14 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
     );
 
   // Query the meetings table for next meeting time
-  let currentDate = new Date();
-  let isoString = currentDate.toISOString();
-
   const { data: meetingsData, error: meetingsError } = await supabase
     .from("meetings")
     .select("start_dateTime")
     .eq("workspace_id", workspaceId)
-    .filter("start_dateTime", "gte", isoString)
+    .range("start_dateTime", new Date().toISOString(), null)
     .order("start_dateTime", { ascending: true })
     .limit(1)
     .single();
-
-  // Query the meetings table for next meeting time
-  //   const { data: meetingsData, error: meetingsError } = await supabase
-  //     .from("meetings")
-  //     .select("start_dateTime")
-  //     .eq("workspace_id", workspaceId)
-  //     .gte("start_dateTime", new Date().toISOString())
-  //     .order("start_dateTime", { ascending: true })
-  //     .limit(1)
-  //     .single();\
 
   if (meetingsError) {
     console.error("Error retrieving meetings:", meetingsError);
