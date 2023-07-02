@@ -9,58 +9,58 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
   let jsonObj = JSON.parse(jsonString);
 
   // Query the workspace table for workspace name
-  const { data: workspaceData, error: workspaceError } = await supabase
-    .from("workspaces")
-    .select("workspace_name")
-    .eq("workspace_id", workspaceId)
-    .single();
+  //   const { data: workspaceData, error: workspaceError } = await supabase
+  //     .from("workspaces")
+  //     .select("workspace_name")
+  //     .eq("workspace_id", workspaceId)
+  //     .single();
 
-  if (workspaceError) throw workspaceError;
+  //   if (workspaceError) throw workspaceError;
 
-  // Replace the workspace name placeholder
-  jsonObj.root.children[0].children[0].text =
-    jsonObj.root.children[0].children[0].text.replace(
-      "{workspaces.workspace_name}",
-      `${workspaceData.workspace_name}`
-    );
+  //   // Replace the workspace name placeholder
+  //   jsonObj.root.children[0].children[0].text =
+  //     jsonObj.root.children[0].children[0].text.replace(
+  //       "{workspaces.workspace_name}",
+  //       `${workspaceData.workspace_name}`
+  //     );
 
-  // Query the meetings table for next meeting time
-  let currentDate = new Date();
-  let isoString = currentDate.toISOString();
+  //   // Query the meetings table for next meeting time
+  //   let currentDate = new Date();
+  //   let isoString = currentDate.toISOString();
 
-  const { data: meetingsData, error: meetingsError } = await supabase
-    .from("meetings")
-    .select("start_dateTime")
-    .eq("workspace_id", workspaceId)
-    .filter("start_dateTime", "gte", isoString)
-    .order("start_dateTime", { ascending: true })
-    .limit(1)
-    .single();
+  //   const { data: meetingsData, error: meetingsError } = await supabase
+  //     .from("meetings")
+  //     .select("start_dateTime")
+  //     .eq("workspace_id", workspaceId)
+  //     .filter("start_dateTime", "gte", isoString)
+  //     .order("start_dateTime", { ascending: true })
+  //     .limit(1)
+  //     .single();
 
-  if (meetingsError) {
-    console.error("Error retrieving meetings:", meetingsError);
-    // You could also replace the meetings.start_datetime placeholder with a default value here
-    jsonObj.root.children[2].children[0].text =
-      jsonObj.root.children[2].children[0].text.replace(
-        "{meetings.start_datetime}",
-        "No upcoming meetings scheduled"
-      );
-  } else if (meetingsData === null) {
-    // Replace the meetings.start_datetime placeholder with a default value
-    jsonObj.root.children[2].children[0].text =
-      jsonObj.root.children[2].children[0].text.replace(
-        "{meetings.start_datetime}",
-        "No upcoming meetings scheduled"
-      );
-  } else {
-    // Replace the meetings.start_datetime placeholder
-    // const date = formatTime(meetingsData.start_dateTime);
-    jsonObj.root.children[2].children[0].text =
-      jsonObj.root.children[2].children[0].text.replace(
-        "{meetings.start_datetime}",
-        `${meetingsData.start_dateTime}`
-      );
-  }
+  //   if (meetingsError) {
+  //     console.error("Error retrieving meetings:", meetingsError);
+  //     // You could also replace the meetings.start_datetime placeholder with a default value here
+  //     jsonObj.root.children[2].children[0].text =
+  //       jsonObj.root.children[2].children[0].text.replace(
+  //         "{meetings.start_datetime}",
+  //         "No upcoming meetings scheduled"
+  //       );
+  //   } else if (meetingsData === null) {
+  //     // Replace the meetings.start_datetime placeholder with a default value
+  //     jsonObj.root.children[2].children[0].text =
+  //       jsonObj.root.children[2].children[0].text.replace(
+  //         "{meetings.start_datetime}",
+  //         "No upcoming meetings scheduled"
+  //       );
+  //   } else {
+  //     // Replace the meetings.start_datetime placeholder
+  //     // const date = formatTime(meetingsData.start_dateTime);
+  //     jsonObj.root.children[2].children[0].text =
+  //       jsonObj.root.children[2].children[0].text.replace(
+  //         "{meetings.start_datetime}",
+  //         `${meetingsData.start_dateTime}`
+  //       );
+  //   }
 
   // Query the attendees table
   //   const { data: attendeesData, error: attendeesError } = await supabase
