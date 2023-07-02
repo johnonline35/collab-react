@@ -25,11 +25,14 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
     );
 
   // Query the meetings table for next meeting time
+  let currentDate = new Date();
+  let isoString = currentDate.toISOString();
+
   const { data: meetingsData, error: meetingsError } = await supabase
     .from("meetings")
     .select("start_dateTime")
     .eq("workspace_id", workspaceId)
-    .range("start_dateTime", new Date().toISOString(), null)
+    .filter("start_dateTime", "gte", isoString)
     .order("start_dateTime", { ascending: true })
     .limit(1)
     .single();
