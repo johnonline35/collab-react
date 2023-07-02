@@ -13,7 +13,12 @@ export function useSession() {
         return;
       }
 
-      setSession(data.session); // Set the session with the received data
+      // Check if data is not null or undefined before trying to access the session property
+      if (data) {
+        setSession(data.session); // Set the session with the received data
+      } else {
+        console.log("No active session");
+      }
     };
 
     getSession(); // Fetch the session when the component is mounted
