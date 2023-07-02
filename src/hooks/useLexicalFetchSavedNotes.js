@@ -88,11 +88,11 @@ export const useFetchSavedNotes = (workspaceId) => {
             throw newError;
           }
 
-          let updatedNoteContent = await updateLexicalWithMeetingData(
-            workspaceId,
-            session?.user?.email
-          );
-          setInitialNoteJson(updatedNoteContent);
+          //   let updatedNoteContent = await updateLexicalWithMeetingData(
+          //     workspaceId,
+          //     session?.user?.email
+          //   );
+          setInitialNoteJson(defaultState);
           setCollabUserNoteId(newUuid); // Store the new collab_user_note_id
           setLoadingState("loaded");
         }
