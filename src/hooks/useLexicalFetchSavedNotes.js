@@ -52,7 +52,8 @@ export const useFetchSavedNotes = (workspaceId) => {
   const [initialNoteJson, setInitialNoteJson] = useState();
   const [loadingState, setLoadingState] = useState("loading");
   const [collabUserNoteId, setCollabUserNoteId] = useState(null);
-  const { session } = useSession();
+  const sessionData = useSession();
+  const session = sessionData ? sessionData.session : null;
 
   useEffect(() => {
     const fetchSavedNote = async () => {
