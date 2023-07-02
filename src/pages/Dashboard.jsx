@@ -350,6 +350,7 @@ export default function Dashboard() {
                 "Does start_dateTime exist?",
                 "start_dateTime" in info
               );
+              console.log("rawDate", info.next_meeting_date);
               return (
                 <Card
                   key={info.workspace_id}

@@ -44,6 +44,8 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
       );
   } else {
     // Replace the meetings.start_datetime placeholder
+    const rawDate = meetingsData.start_dateTime;
+    console.log("rawDate", rawDate);
     const date = formatTime(meetingsData.start_dateTime);
     jsonObj.root.children[2].children[0].text =
       jsonObj.root.children[2].children[0].text.replace(
