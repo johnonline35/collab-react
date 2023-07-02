@@ -38,6 +38,7 @@ import { SiCrunchbase } from "react-icons/si";
 import { IoMdPeople } from "react-icons/io";
 // import { AiFillFacebook } from "react-icons/ai";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
+import { formatTime } from "../hooks/useFormatTime";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -250,35 +251,35 @@ export default function Dashboard() {
     return <DashboardLoader />;
   }
 
-  function formatTime(timeString) {
-    // Create a date object from the timeString
-    const utcDate = new Date(timeString);
+  // function formatTime(timeString) {
+  //   // Create a date object from the timeString
+  //   const utcDate = new Date(timeString);
 
-    // Get the timezone offset in minutes for the current locale
-    const timezoneOffsetMinutes = new Date().getTimezoneOffset();
+  //   // Get the timezone offset in minutes for the current locale
+  //   const timezoneOffsetMinutes = new Date().getTimezoneOffset();
 
-    // Convert the offset to milliseconds and subtract it from the UTC time to get the local time
-    const localDate = new Date(
-      utcDate.getTime() - timezoneOffsetMinutes * 60 * 1000
-    );
+  //   // Convert the offset to milliseconds and subtract it from the UTC time to get the local time
+  //   const localDate = new Date(
+  //     utcDate.getTime() - timezoneOffsetMinutes * 60 * 1000
+  //   );
 
-    const options = { month: "long", day: "numeric" };
-    const dayMonth = new Intl.DateTimeFormat("en-US", options).format(
-      localDate
-    );
+  //   const options = { month: "long", day: "numeric" };
+  //   const dayMonth = new Intl.DateTimeFormat("en-US", options).format(
+  //     localDate
+  //   );
 
-    const timeOptions = {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-      // timeZoneName: "short",
-    };
-    const time = new Intl.DateTimeFormat("en-US", timeOptions).format(
-      localDate
-    );
+  //   const timeOptions = {
+  //     hour: "numeric",
+  //     minute: "2-digit",
+  //     hour12: true,
+  //     // timeZoneName: "short",
+  //   };
+  //   const time = new Intl.DateTimeFormat("en-US", timeOptions).format(
+  //     localDate
+  //   );
 
-    return `${dayMonth} at ${time}`;
-  }
+  //   return `${dayMonth} at ${time}`;
+  // }
 
   // COOKIE
   // console.log("cookie", document.cookie);
