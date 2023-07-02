@@ -1,4 +1,4 @@
-export function formatTime(timeString) {
+function formatTime(timeString) {
   // Create a date object from the timeString
   const utcDate = new Date(timeString);
 
