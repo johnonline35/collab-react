@@ -23,23 +23,6 @@ export const updateLexicalWithMeetingData = async (workspaceId, email) => {
       `${workspaceData.workspace_name}`
     );
 
-  // Query the collab_users table
-  const { data: collabUserData, error: collabUserError } = await supabase
-    .from("collab_users")
-    .select("collab_user_name, collab_user_job_title")
-    .eq("collab_user_email", email)
-    .single(); // Assuming there is only one collab_user per workspace
-
-  if (collabUserError) throw collabUserError;
-
-  // Replace collab_users.collab_user_name, collab_user_job_title in jsonObj
-  // Here you might need to adjust the path depending on where these fields are in your JSON
-  jsonObj.root.children[5].children[0].text =
-    jsonObj.root.children[5].children[0].text.replace(
-      "collab_users.collab_user_name, collab_users.collab_user_job_title",
-      `${collabUserData.collab_user_name}, ${collabUserData.collab_user_job_title}`
-    );
-
   // Query the attendees table
   const { data: attendeesData, error: attendeesError } = await supabase
     .from("attendees")
