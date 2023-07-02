@@ -1,4 +1,5 @@
 import { supabase } from "../supabase/clientapp";
+import { formatTime } from "../hooks/useFormatTime";
 
 export const updateLexicalWithMeetingData = async (workspaceId) => {
   let jsonString =
@@ -43,10 +44,11 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
       );
   } else {
     // Replace the meetings.start_datetime placeholder
+    const date = formatTime(meetingsData.start_dateTime);
     jsonObj.root.children[2].children[0].text =
       jsonObj.root.children[2].children[0].text.replace(
         "{meetings.start_datetime}",
-        `${meetingsData.start_dateTime}`
+        date
       );
   }
 
