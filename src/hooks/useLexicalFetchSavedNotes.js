@@ -103,11 +103,12 @@ export const useFetchSavedNotes = (workspaceId) => {
       }
     };
 
-    if (session) {
-      // Check if session is defined
-      fetchSavedNote();
-    }
-  }, [workspaceId, session]);
+    // if (session) {
+    //   // Check if session is defined
+    //   fetchSavedNote();
+    // }
+    fetchSavedNote();
+  }, [workspaceId]);
 
   return { initialNoteJson, loadingState, collabUserNoteId };
 };
