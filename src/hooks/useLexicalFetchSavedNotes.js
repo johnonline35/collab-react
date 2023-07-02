@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabase/clientapp";
-// import { updateLexicalWithMeetingData } from "./useLexicalMeetingInsert";
+import { updateLexicalWithMeetingData } from "./useLexicalMeetingInsert";
 import { v4 as uuidv4 } from "uuid";
 import { defaultState } from "./useLexicalDefaultState";
 
@@ -85,11 +85,10 @@ export const useFetchSavedNotes = (workspaceId) => {
             throw newError;
           }
 
-          //   let updatedNoteContent = await updateLexicalWithMeetingData(
-          //     workspaceId,
-          //     defaultState
-          //   );
-          setInitialNoteJson(defaultState);
+          let updatedNoteContent = await updateLexicalWithMeetingData(
+            workspaceId
+          );
+          setInitialNoteJson(updatedNoteContent);
           setCollabUserNoteId(newUuid); // Store the new collab_user_note_id
           setLoadingState("loaded");
         }
