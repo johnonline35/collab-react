@@ -28,8 +28,8 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
   const { data: meetingsData, error: meetingsError } = await supabase
     .from("meetings")
     .select("start_dateTime")
-    .eq("workspace_id", workspaceId)
-    .gt("start_dateTime", new Date().toISOString())
+    .filter("workspace_id", "eq", workspaceId)
+    .filter("start_dateTime", "gte", new Date().toISOString())
     .order("start_dateTime", { ascending: true })
     .limit(1)
     .single();
