@@ -35,12 +35,21 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
 
   if (meetingsError) throw meetingsError;
 
-  // Replace the meetings.start_datetime placeholder
-  jsonObj.root.children[2].children[0].text =
-    jsonObj.root.children[2].children[0].text.replace(
-      "{meetings.start_datetime}",
-      `${meetingsData.start_dateTime}`
-    );
+  if (!meetingsData) {
+    // Replace the meetings.start_datetime placeholder with a default value
+    jsonObj.root.children[2].children[0].text =
+      jsonObj.root.children[2].children[0].text.replace(
+        "{meetings.start_datetime}",
+        "No upcoming meetings scheduled"
+      );
+  } else {
+    // Replace the meetings.start_datetime placeholder
+    jsonObj.root.children[2].children[0].text =
+      jsonObj.root.children[2].children[0].text.replace(
+        "{meetings.start_datetime}",
+        `${meetingsData.start_dateTime}`
+      );
+  }
 
   // Query the attendees table
   //   const { data: attendeesData, error: attendeesError } = await supabase
