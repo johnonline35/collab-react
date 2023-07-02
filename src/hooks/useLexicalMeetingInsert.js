@@ -1,4 +1,4 @@
-import { supabase } from "./supabase/clientapp";
+import { supabase } from "../supabase/clientapp";
 
 export const updateLexicalWithMeetingData = async (workspaceId) => {
   let jsonString =
