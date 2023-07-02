@@ -23,6 +23,25 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
       `${workspaceData.workspace_name}`
     );
 
+  // Query the meetings table for next meeting time
+  const { data: meetingsData, error: meetingsError } = await supabase
+    .from("meetings")
+    .select("start_dateTime")
+    .eq("workspace_id", workspaceId)
+    .gte("start_dateTime", new Date().toISOString())
+    .order("start_dateTime", { ascending: true })
+    .limit(1)
+    .single();
+
+  if (meetingsError) throw meetingsError;
+
+  // Replace the meetings.start_datetime placeholder
+  jsonObj.root.children[2].children[0].text =
+    jsonObj.root.children[2].children[0].text.replace(
+      "{meetings.start_datetime}",
+      `${meetingsData.start_dateTime}`
+    );
+
   // Query the attendees table
   //   const { data: attendeesData, error: attendeesError } = await supabase
   //     .from("attendees")
