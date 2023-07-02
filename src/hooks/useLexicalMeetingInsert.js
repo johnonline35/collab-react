@@ -45,11 +45,17 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
   //     .gte("start_dateTime", new Date().toISOString())
   //     .order("start_dateTime", { ascending: true })
   //     .limit(1)
-  //     .single();
+  //     .single();\
 
-  if (meetingsError) throw meetingsError;
-
-  if (!meetingsData) {
+  if (meetingsError) {
+    console.error("Error retrieving meetings:", meetingsError);
+    // You could also replace the meetings.start_datetime placeholder with a default value here
+    jsonObj.root.children[2].children[0].text =
+      jsonObj.root.children[2].children[0].text.replace(
+        "{meetings.start_datetime}",
+        "No upcoming meetings scheduled"
+      );
+  } else if (meetingsData === null) {
     // Replace the meetings.start_datetime placeholder with a default value
     jsonObj.root.children[2].children[0].text =
       jsonObj.root.children[2].children[0].text.replace(
