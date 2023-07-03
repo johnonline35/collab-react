@@ -1,68 +1,46 @@
-import { ElementNode, TextNode } from "lexical";
-import { supabase } from "../supabase/clientapp";
-import { RootNode } from "lexical";
-
-// Extend ElementNode to create a HeadingNode
-export class HeadingNode extends ElementNode {
-  static getType() {
-    return "heading";
-  }
-
-  createDOM() {
-    const dom = document.createElement("h1");
-    return dom;
-  }
-}
-
-// Extend TextNode to create a WorkspaceNameNode
-export class WorkspaceNameNode extends TextNode {
-  static getType() {
-    return "workspace-name";
-  }
-}
-
-export const updateLexicalWithMeetingData = async (
-  workspaceId,
-  EditorState
-) => {
-  let jsonString = JSON.stringify(EditorState);
-
-  // Query the workspace table for workspace name
-  const { data: workspaceData, error: workspaceError } = await supabase
-    .from("workspaces")
-    .select("workspace_name")
-    .eq("workspace_id", workspaceId)
-    .single();
-
-  if (workspaceError) throw workspaceError;
-
-  // Create Lexical nodes
-  const workspaceNameNode = new WorkspaceNameNode(
-    `${workspaceData.workspace_name}`
-  );
-  const headingNode = new HeadingNode();
-  headingNode.addChild(workspaceNameNode);
-
-  const rootNode = new RootNode();
-  rootNode.addChild(headingNode);
-
-  // Convert the rootNode to a JSON string
-  jsonString = JSON.stringify(rootNode);
-
-  return jsonString;
-};
-
+// import { ElementNode, TextNode } from "lexical";
 // import { supabase } from "../supabase/clientapp";
-// import { formatTime } from "../hooks/useFormatTime";
+// import { RootNode } from "lexical";
 
-// export const updateLexicalWithMeetingData = async (workspaceId) => {
-//   let jsonString =
-//     '{"root":{"children":[{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"{workspaces.workspace_name} Meeting Notes","type":"text","version":1}],"direction":"ltr","format":"center","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"{meetings.start_datetime}","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h2"},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Attendees:","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"quote","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"quote","version":1},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Notes:","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"children":[],"direction":"ltr","format":"","indent":0,"type":"listitem","version":1,"value":1}],"direction":null,"format":"","indent":0,"type":"list","version":1,"listType":"bullet","start":1,"tag":"ul"}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}';
+// // Extend ElementNode to create a HeadingNode
+// export class HeadingNode extends ElementNode {
+//   constructor(key) {
+//     super(key);
+//   }
 
-//   // Convert jsonString into a JavaScript object
-//   let jsonObj = JSON.parse(jsonString);
+//   static getType() {
+//     return "heading";
+//   }
 
-//   //   Query the workspace table for workspace name
+//   createDOM() {
+//     const dom = document.createElement("h1");
+//     return dom;
+//   }
+// }
+
+// // Extend TextNode to create a WorkspaceNameNode
+// export class WorkspaceNameNode extends TextNode {
+//   constructor(text, key) {
+//     super(text, key);
+//   }
+
+//   static getType() {
+//     return "workspace-name";
+//   }
+
+//   createDOM(config) {
+//     const dom = super.createDOM(config);
+//     return dom;
+//   }
+// }
+
+// export const updateLexicalWithMeetingData = async (
+//   workspaceId,
+//   EditorState
+// ) => {
+//   let jsonString = JSON.stringify(EditorState);
+
+//   // Query the workspace table for workspace name
 //   const { data: workspaceData, error: workspaceError } = await supabase
 //     .from("workspaces")
 //     .select("workspace_name")
@@ -71,57 +49,92 @@ export const updateLexicalWithMeetingData = async (
 
 //   if (workspaceError) throw workspaceError;
 
-//   // Replace the workspace name placeholder
-//   jsonObj.root.children[0].children[0].text =
-//     jsonObj.root.children[0].children[0].text.replace(
-//       "{workspaces.workspace_name}",
-//       `${workspaceData.workspace_name}`
-//     );
+//   // Create Lexical nodes
+//   const workspaceNameNode = new WorkspaceNameNode(
+//     `${workspaceData.workspace_name}`
+//   );
+//   const headingNode = new HeadingNode();
+//   headingNode.addChild(workspaceNameNode);
 
-//   jsonString = JSON.stringify(jsonObj);
+//   const rootNode = new RootNode();
+//   rootNode.addChild(headingNode);
+
+//   // Convert the rootNode to a JSON string
+//   jsonString = JSON.stringify(rootNode);
 
 //   return jsonString;
 // };
 
-//   // Query the meetings table for next meeting time
-//   let currentDate = new Date();
-//   let isoString = currentDate.toISOString();
+import { supabase } from "../supabase/clientapp";
+import { formatTime } from "../hooks/useFormatTime";
 
-//   const { data: meetingsData, error: meetingsError } = await supabase
-//     .from("meetings")
-//     .select("start_dateTime")
-//     .eq("workspace_id", workspaceId)
-//     .filter("start_dateTime", "gte", isoString)
-//     .order("start_dateTime", { ascending: true })
-//     .limit(1)
-//     .single();
+export const updateLexicalWithMeetingData = async (workspaceId) => {
+  let jsonString =
+    '{"root":{"children":[{"children":[{"detail":0,"format":1,"mode":"normal","style":"","text":"{workspaces.workspace_name} Meeting Notes","type":"text","version":1}],"direction":"ltr","format":"center","indent":0,"type":"heading","version":1,"tag":"h1"},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"{meetings.start_datetime}","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"heading","version":1,"tag":"h2"},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Attendees:","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"quote","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"quote","version":1},{"children":[],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Notes:","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1},{"children":[{"children":[],"direction":"ltr","format":"","indent":0,"type":"listitem","version":1,"value":1}],"direction":null,"format":"","indent":0,"type":"list","version":1,"listType":"bullet","start":1,"tag":"ul"}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}';
 
-//   if (meetingsError) {
-//     console.error("Error retrieving meetings:", meetingsError);
-//     // You could also replace the meetings.start_datetime placeholder with a default value here
-//     jsonObj.root.children[2].children[0].text =
-//       jsonObj.root.children[2].children[0].text.replace(
-//         "{meetings.start_datetime}",
-//         "No upcoming meetings scheduled"
-//       );
-//   } else if (meetingsData === null) {
-//     // Replace the meetings.start_datetime placeholder with a default value
-//     jsonObj.root.children[2].children[0].text =
-//       jsonObj.root.children[2].children[0].text.replace(
-//         "{meetings.start_datetime}",
-//         "No upcoming meetings scheduled"
-//       );
-//   } else {
-//     // Replace the meetings.start_datetime placeholder
-//     // const date = formatTime(meetingsData.start_dateTime);
-//     jsonObj.root.children[2].children[0].text =
-//       jsonObj.root.children[2].children[0].text.replace(
-//         "{meetings.start_datetime}",
-//         `${meetingsData.start_dateTime}`
-//       );
-//   }
+  // Convert jsonString into a JavaScript object
+  let jsonObj = JSON.parse(jsonString);
 
-//   // Query the attendees table
+  //   Query the workspace table for workspace name
+  const { data: workspaceData, error: workspaceError } = await supabase
+    .from("workspaces")
+    .select("workspace_name")
+    .eq("workspace_id", workspaceId)
+    .single();
+
+  if (workspaceError) throw workspaceError;
+
+  // Replace the workspace name placeholder
+  jsonObj.root.children[0].children[0].text =
+    jsonObj.root.children[0].children[0].text.replace(
+      "{workspaces.workspace_name}",
+      `${workspaceData.workspace_name}`
+    );
+
+  // Query the meetings table for next meeting time
+  let currentDate = new Date();
+  let isoString = currentDate.toISOString();
+
+  const { data: meetingsData, error: meetingsError } = await supabase
+    .from("meetings")
+    .select("start_dateTime")
+    .eq("workspace_id", workspaceId)
+    .filter("start_dateTime", "gte", isoString)
+    .order("start_dateTime", { ascending: true })
+    .limit(1)
+    .single();
+
+  if (meetingsError) {
+    console.error("Error retrieving meetings:", meetingsError);
+    // You could also replace the meetings.start_datetime placeholder with a default value here
+    jsonObj.root.children[2].children[0].text =
+      jsonObj.root.children[2].children[0].text.replace(
+        "{meetings.start_datetime}",
+        "No upcoming meetings scheduled"
+      );
+  } else if (meetingsData === null) {
+    // Replace the meetings.start_datetime placeholder with a default value
+    jsonObj.root.children[2].children[0].text =
+      jsonObj.root.children[2].children[0].text.replace(
+        "{meetings.start_datetime}",
+        "No upcoming meetings scheduled"
+      );
+  } else {
+    // Replace the meetings.start_datetime placeholder
+    // const date = formatTime(meetingsData.start_dateTime);
+    jsonObj.root.children[2].children[0].text =
+      jsonObj.root.children[2].children[0].text.replace(
+        "{meetings.start_datetime}",
+        `${meetingsData.start_dateTime}`
+      );
+  }
+
+  jsonString = JSON.stringify(jsonObj);
+
+  return jsonString;
+};
+
+// Query the attendees table
 //   const { data: attendeesData, error: attendeesError } = await supabase
 //     .from("attendees")
 //     .select(
