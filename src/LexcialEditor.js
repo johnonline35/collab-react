@@ -49,7 +49,7 @@ import { v4 as uuidv4 } from "uuid";
 import { CustomTextNode } from "./LexicalEditor/nodes/CustomTextNode";
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 
-// import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
+import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
 // const editorConfig = {
 //   namespace: "collabEditor",
