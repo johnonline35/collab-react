@@ -17,6 +17,7 @@ export const AccountSwitcher = () => {
   const session = useSession();
 
   useEffect(() => {
+    if (!session) return;
     setEmail(session.email);
   }, [session]);
 
