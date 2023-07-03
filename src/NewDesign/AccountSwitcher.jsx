@@ -24,7 +24,7 @@ export const AccountSwitcher = () => {
 
   return (
     <Menu>
-      <AccountSwitcherButton />
+      <AccountSwitcherButton session={session} />
       <MenuList
         shadow='lg'
         py='4'
