@@ -346,6 +346,9 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
     display: flex;
     margin-bottom: 1px;
     background: #fff;
