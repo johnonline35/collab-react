@@ -14,7 +14,7 @@ import { useSession } from "../hooks/useSession";
 export const AccountSwitcher = () => {
   const session = useSession();
   const email = session?.email;
-  console.log("AccountSwitcher:", email);
+  console.log("AccountSwitcher:", session);
 
   return (
     <Menu>
