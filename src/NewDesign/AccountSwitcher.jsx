@@ -10,11 +10,15 @@ import {
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
 import { useSession } from "../hooks/useSession";
+import { useEffect, useState } from "react";
 
 export const AccountSwitcher = () => {
+  const [email, setEmail] = useState();
   const session = useSession();
-  const email = session?.email;
-  console.log("AccountSwitcher:", session);
+
+  useEffect(() => {
+    setEmail(session.email);
+  }, [session]);
 
   return (
     <Menu>
