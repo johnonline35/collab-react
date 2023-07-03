@@ -42,10 +42,10 @@ export const AccountSwitcher = () => {
             Microsoft Team
           </MenuItemOption> */}
         </MenuOptionGroup>
-        {/* <MenuDivider />
-        <MenuItem rounded='md'>Workspace settings</MenuItem>
-        <MenuItem rounded='md'>Add an account</MenuItem>
-        <MenuDivider /> */}
+        <MenuDivider />
+        <MenuItem rounded='md'>Account settings</MenuItem>
+        {/* <MenuItem rounded='md'>Add an account</MenuItem> */}
+        <MenuDivider />
         <MenuItem rounded='md'>Logout</MenuItem>
       </MenuList>
     </Menu>
