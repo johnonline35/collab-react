@@ -2,6 +2,25 @@ import { supabase } from "../supabase/clientapp";
 import { formatTime } from "../hooks/useFormatTime";
 import { TextNode, ElementNode, RootNode } from "lexical";
 
+// Extend ElementNode to create a HeadingNode
+class HeadingNode extends ElementNode {
+  static getType() {
+    return "heading";
+  }
+
+  createDOM() {
+    const dom = document.createElement("h1");
+    return dom;
+  }
+}
+
+// Extend TextNode to create a WorkspaceNameNode
+class WorkspaceNameNode extends TextNode {
+  static getType() {
+    return "workspace-name";
+  }
+}
+
 export const updateLexicalWithMeetingData = async (workspaceId) => {
   // Query the workspace table for workspace name
   const { data: workspaceData, error: workspaceError } = await supabase
@@ -13,8 +32,10 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
   if (workspaceError) throw workspaceError;
 
   // Create Lexical nodes
-  const workspaceNameNode = new TextNode(`${workspaceData.workspace_name}`);
-  const headingNode = new ElementNode("heading");
+  const workspaceNameNode = new WorkspaceNameNode(
+    `${workspaceData.workspace_name}`
+  );
+  const headingNode = new HeadingNode();
   headingNode.addChild(workspaceNameNode);
 
   const rootNode = new RootNode();
