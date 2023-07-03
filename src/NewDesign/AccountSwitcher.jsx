@@ -9,8 +9,12 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
+import { useSession } from "../hooks/useSession";
 
 export const AccountSwitcher = () => {
+  const session = useSession();
+  const email = session?.email;
+
   return (
     <Menu>
       <AccountSwitcherButton />
@@ -21,20 +25,20 @@ export const AccountSwitcher = () => {
         px='3'
       >
         <Text fontWeight='medium' mb='2'>
-          john@instantcollab.co
+          {email}
         </Text>
         <MenuOptionGroup defaultValue='chakra-ui'>
-          <MenuItemOption value='chakra-ui' fontWeight='semibold' rounded='md'>
+          {/* <MenuItemOption value='chakra-ui' fontWeight='semibold' rounded='md'>
             Google Team
           </MenuItemOption>
           <MenuItemOption value='careerlyft' fontWeight='semibold' rounded='md'>
             Microsoft Team
-          </MenuItemOption>
+          </MenuItemOption> */}
         </MenuOptionGroup>
-        <MenuDivider />
+        {/* <MenuDivider />
         <MenuItem rounded='md'>Workspace settings</MenuItem>
         <MenuItem rounded='md'>Add an account</MenuItem>
-        <MenuDivider />
+        <MenuDivider /> */}
         <MenuItem rounded='md'>Logout</MenuItem>
       </MenuList>
     </Menu>
