@@ -49,7 +49,7 @@ import { v4 as uuidv4 } from "uuid";
 import { CustomTextNode } from "./LexicalEditor/nodes/CustomTextNode";
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 
-import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
+// import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
 // const editorConfig = {
 //   namespace: "collabEditor",
@@ -253,7 +253,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={handleEditorChange} />
-          <ExcalidrawPlugin />
+          {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
