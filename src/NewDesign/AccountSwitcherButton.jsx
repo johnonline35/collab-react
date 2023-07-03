@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
 
-  const session = props;
+  const session = useSession();
 
   const [avatarUrl, setAvatarUrl] = useState("");
   const [userName, setUserName] = useState("");
