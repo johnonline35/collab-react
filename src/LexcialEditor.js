@@ -253,7 +253,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={handleEditorChange} />
-          {/* <ExcalidrawPlugin /> */}
+          <ExcalidrawPlugin />
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
