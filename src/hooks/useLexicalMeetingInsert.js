@@ -1,9 +1,9 @@
+import { ElementNode, TextNode } from "lexical";
 import { supabase } from "../supabase/clientapp";
-import { formatTime } from "../hooks/useFormatTime";
-import { TextNode, ElementNode, RootNode } from "lexical";
+import { RootNode } from "lexical";
 
 // Extend ElementNode to create a HeadingNode
-class HeadingNode extends ElementNode {
+export class HeadingNode extends ElementNode {
   static getType() {
     return "heading";
   }
@@ -15,13 +15,18 @@ class HeadingNode extends ElementNode {
 }
 
 // Extend TextNode to create a WorkspaceNameNode
-class WorkspaceNameNode extends TextNode {
+export class WorkspaceNameNode extends TextNode {
   static getType() {
     return "workspace-name";
   }
 }
 
-export const updateLexicalWithMeetingData = async (workspaceId) => {
+export const updateLexicalWithMeetingData = async (
+  workspaceId,
+  EditorState
+) => {
+  let jsonString = JSON.stringify(EditorState);
+
   // Query the workspace table for workspace name
   const { data: workspaceData, error: workspaceError } = await supabase
     .from("workspaces")
@@ -42,7 +47,7 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
   rootNode.addChild(headingNode);
 
   // Convert the rootNode to a JSON string
-  let jsonString = JSON.stringify(rootNode);
+  jsonString = JSON.stringify(rootNode);
 
   return jsonString;
 };
