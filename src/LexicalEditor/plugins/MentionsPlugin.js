@@ -90,29 +90,7 @@ function currentDate() {
   return date.format(today);
 }
 
-const dummyMentionsData = [
-  "John Childs-Eddy",
-  "Aleisha McKenzie, CSM",
-  "Challenge",
-  "ChatGPT",
-  "Customer",
-  "Goal",
-  "Keira Kleine, Solutions Architect",
-  "Peter Rogers, Sales Engineer",
-  "Travis Smith, Director of Sales",
-  "Patrick Harris, VP of Engineering at Google",
-  "Mark Jacobs, Director of Engineering at Google",
-  "Audio Snippet",
-  "Next Step:",
-  "Draw",
-  "Diagram",
-  "Todo",
-  "Timeline",
-  "Salesforce, Opportunity",
-  "Salesforce, Opportunity, Update Stage",
-  "Salesforce, Next Step",
-  "Slack, Insert Collab Link Now",
-];
+const dummyMentionsData = ["Next Step:", "Todo"];
 
 // line 498 - 557
 
