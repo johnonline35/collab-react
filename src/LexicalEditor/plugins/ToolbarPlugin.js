@@ -39,7 +39,7 @@ import {
   getDefaultCodeLanguage,
   getCodeLanguages,
 } from "@lexical/code";
-// import ExcalidrawToolbarPlugin from "./ExcalidrawToolbar";
+import ExcalidrawToolbarPlugin from "./ExcalidrawToolbar";
 
 const LowPriority = 1;
 
@@ -690,8 +690,8 @@ export default function ToolbarPlugin() {
           >
             <i className='format justify-align' />
           </button>{" "}
-          {/* <Divider />
-          <ExcalidrawToolbarPlugin /> */}
+          <Divider />
+          <ExcalidrawToolbarPlugin />
         </>
       )}
     </div>
