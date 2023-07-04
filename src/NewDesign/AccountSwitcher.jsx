@@ -6,15 +6,20 @@ import {
   MenuList,
   MenuOptionGroup,
   Text,
+  useToast,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
 import { useSession } from "../hooks/useSession";
 import { useEffect, useState } from "react";
+import { signout } from "../supabase/clientapp";
+import { useNavigate } from "react-router-dom";
 
 export const AccountSwitcher = () => {
   const [email, setEmail] = useState();
   const session = useSession();
+  const navigate = useNavigate();
+  const toast = useToast();
 
   useEffect(() => {
     if (!session) return;
@@ -55,7 +60,24 @@ export const AccountSwitcher = () => {
           Add an account
         </MenuItem> */}
         <MenuDivider />
-        <MenuItem closeOnSelect='true' rounded='md'>
+        <MenuItem
+          closeOnSelect='true'
+          rounded='md'
+          onClick={() =>
+            signout()
+              .then(
+                toast({
+                  position: "top",
+                  title: "Log out successful.",
+                  description: "You have been logged out.",
+                  status: "success",
+                  duration: 5000,
+                  isClosable: true,
+                })
+              )
+              .then(() => navigate("/"))
+          }
+        >
           Logout
         </MenuItem>
       </MenuList>
