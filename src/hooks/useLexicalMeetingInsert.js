@@ -1,5 +1,14 @@
 import { supabase } from "../supabase/clientapp";
 import { formatTime } from "../hooks/useFormatTime";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { TextNode } from "lexical";
+import { useState } from "react";
+import {
+  $getRoot,
+  $getSelection,
+  $createParagraphNode,
+  $createTextNode,
+} from "lexical";
 
 export const updateLexicalWithMeetingData = async (workspaceId) => {
   let jsonString =
@@ -63,54 +72,179 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
   }
 
   // Query the attendees table
-  const { data: attendeesData, error: attendeesError } = await supabase
-    .from("attendees")
-    .select(
-      "attendee_name, attendee.job_title, attendee_linkedin, attendee_twitter"
-    )
-    .eq("workspace_id", workspaceId)
-    .eq("attendee_is_workspace_lead", true);
+  //   const { data: attendeesData, error: attendeesError } = await supabase
+  //     .from("attendees")
+  //     .select(
+  //       "attendee_name, attendee.job_title, attendee_linkedin, attendee_twitter"
+  //     )
+  //     .eq("workspace_id", workspaceId)
+  //     .eq("attendee_is_workspace_lead", true);
 
-  if (attendeesError) throw attendeesError;
+  //   if (attendeesError) throw attendeesError;
 
-  // Replace attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter in jsonObj
-  // Here you might need to adjust the path depending on where these fields are in your JSON
-  let replacementString = "";
-  attendeesData.forEach((attendee, index) => {
-    // Add attendee name if it's not null
-    if (attendee.attendee_name) {
-      replacementString += attendee.attendee_name;
-    }
+  //   // Replace attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter in jsonObj
+  //   // Here you might need to adjust the path depending on where these fields are in your JSON
+  //   let replacementString = "";
+  //   attendeesData.forEach((attendee, index) => {
+  //     // Add attendee name if it's not null
+  //     if (attendee.attendee_name) {
+  //       replacementString += attendee.attendee_name;
+  //     }
 
-    // Add job title if it's not null
-    if (attendee.job_title) {
-      replacementString += `, ${attendee.job_title}`;
-    }
+  //     // Add job title if it's not null
+  //     if (attendee.job_title) {
+  //       replacementString += `, ${attendee.job_title}`;
+  //     }
 
-    // Add LinkedIn if it's not null
-    if (attendee.attendee_linkedin) {
-      replacementString += `, ${attendee.attendee_linkedin}`;
-    }
+  //     // Add LinkedIn if it's not null
+  //     if (attendee.attendee_linkedin) {
+  //       replacementString += `, ${attendee.attendee_linkedin}`;
+  //     }
 
-    // Add Twitter if it's not null
-    if (attendee.attendee_twitter) {
-      replacementString += `, ${attendee.attendee_twitter}`;
-    }
+  //     // Add Twitter if it's not null
+  //     if (attendee.attendee_twitter) {
+  //       replacementString += `, ${attendee.attendee_twitter}`;
+  //     }
 
-    // Add a line break for all but the last attendee
-    if (index < attendeesData.length - 1) {
-      replacementString += "\n";
-    }
-  });
+  //     // Add a line break for all but the last attendee
+  //     if (index < attendeesData.length - 1) {
+  //       replacementString += "\n";
+  //     }
+  //   });
 
-  // Replace the placeholder in jsonObj
-  jsonObj.root.children[5].children[0].text =
-    jsonObj.root.children[5].children[0].text.replace(
-      "attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter",
-      replacementString
-    );
+  //   // Replace the placeholder in jsonObj
+  //   jsonObj.root.children[5].children[0].text =
+  //     jsonObj.root.children[5].children[0].text.replace(
+  //       "attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter",
+  //       replacementString
+  //     );
 
   jsonString = JSON.stringify(jsonObj);
 
   return jsonString;
 };
+
+// import { ElementNode, TextNode } from "lexical";
+// import { supabase } from "../supabase/clientapp";
+// import { RootNode } from "lexical";
+// import { useEffect } from "react";
+
+// // Extend ElementNode to create a HeadingNode
+// export class HeadingNode extends ElementNode {
+//   constructor(key) {
+//     super(key);
+//   }
+
+//   static getType() {
+//     return "heading";
+//   }
+
+//   createDOM() {
+//     const dom = document.createElement("h1");
+//     return dom;
+//   }
+// }
+
+// // Extend TextNode to create a WorkspaceNameNode
+// export class WorkspaceNameNode extends TextNode {
+//   constructor(text, key) {
+//     super(text, key);
+//   }
+
+//   static getType() {
+//     return "workspace-name";
+//   }
+
+//   createDOM(config) {
+//     const dom = super.createDOM(config);
+//     return dom;
+//   }
+// }
+
+// export const useGetWorkspaceName = (workspaceName, editor) => {
+//   useEffect(() => {
+//     const fetchWorkspaceData = async () => {
+//       // Query the workspace table for workspace name
+//       const { data: workspaceData, error: workspaceError } = await supabase
+//         .from("workspaces")
+//         .select("workspace_name")
+//         .eq("workspace_id", workspaceId)
+//         .single();
+
+//       if (workspaceError) throw workspaceError;
+
+//       // Create Lexical nodes
+//       const workspaceNameNode = new WorkspaceNameNode(
+//         `${workspaceData.workspace_name}`
+//       );
+//       const headingNode = new HeadingNode();
+//       headingNode.addChild(workspaceNameNode);
+
+//       const rootNode = new RootNode();
+//       rootNode.addChild(headingNode);
+
+//       // Convert the rootNode to a JSON string
+//       const jsonString = JSON.stringify(rootNode.toJSON());
+//       return jsonString;
+//     };
+
+//     fetchWorkspaceData();
+//   }, [workspaceId, editor]);
+// };
+
+// function emoticonTransform(node) {
+//   const textContent = node.getTextContent();
+//   if (textContent === ":avo:") {
+//     node.replace($createEmoticonNode("emoticon avo-emoticon", "avo"));
+//   } else if (textContent === ":)") {
+//     node.replace($createEmoticonNode("", "🙂"));
+//   }
+// }
+
+// function useUpdateWorkspaceName(workspaceName, editor) {
+//   useEffect(() => {
+//     editor.update(() => {
+//       // Get the RootNode from the EditorState
+//       const root = $getRoot();
+
+//       // Get the selection from the EditorState
+//       const selection = $getSelection();
+
+//       // Create a new ParagraphNode
+//       const paragraphNode = $createParagraphNode();
+
+//       // Create a new TextNode
+//       const textNode = $createTextNode(`${workspaceName}`);
+
+//       // Append the text node to the paragraph
+//       paragraphNode.append(textNode);
+
+//       // Finally, append the paragraph to the root
+//       root.append(paragraphNode);
+//     });
+//   }, [editor]);
+// }
+
+// export default function UpdateLexicalWithMeetingData(workspaceId) {
+//   const [editor] = useLexicalComposerContext();
+//   const [workspaceName, setWorkspaceName] = useState("");
+
+//   useEffect(() => {
+//     const fetchWorkspaceData = async () => {
+//       // Query the workspace table for workspace name
+//       const { data: workspaceData, error: workspaceError } = await supabase
+//         .from("workspaces")
+//         .select("workspace_name")
+//         .eq("workspace_id", workspaceId)
+//         .single();
+
+//       if (workspaceError) throw workspaceError;
+
+//       setWorkspaceName(workspaceData.workspace_name);
+//     };
+//     fetchWorkspaceData();
+//   }, [workspaceId]);
+
+//   useUpdateWorkspaceName(workspaceName, editor);
+//   return null;
+// }
