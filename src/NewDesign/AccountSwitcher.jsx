@@ -43,10 +43,21 @@ export const AccountSwitcher = () => {
           </MenuItemOption> */}
         </MenuOptionGroup>
         <MenuDivider />
-        <MenuItem rounded='md'>Account settings</MenuItem>
-        {/* <MenuItem rounded='md'>Add an account</MenuItem> */}
+        <MenuItem
+          closeOnSelect='true'
+          rounded='md'
+          as='a'
+          href='/dashboard/account'
+        >
+          Account settings
+        </MenuItem>
+        {/* <MenuItem closeOnSelect='true' rounded='md'>
+          Add an account
+        </MenuItem> */}
         <MenuDivider />
-        <MenuItem rounded='md'>Logout</MenuItem>
+        <MenuItem closeOnSelect='true' rounded='md'>
+          Logout
+        </MenuItem>
       </MenuList>
     </Menu>
   );
