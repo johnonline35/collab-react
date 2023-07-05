@@ -5,23 +5,9 @@ import {
   ListIcon,
   ListItem,
   List,
-  Alert,
-  AlertIcon,
-  AlertTitle,
   IconButton,
-  AlertDescription,
-  CloseButton,
-  Button,
   Flex,
   Spacer,
-  Select,
-  Editable,
-  EditablePreview,
-  EditableInput,
-  Text,
-  Container,
-  FormControl,
-  FormLabel,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -36,6 +22,7 @@ import {
   FiArchive,
 } from "react-icons/fi";
 import { AiOutlineFolder } from "react-icons/ai";
+import { BiUpload } from "react-icons/bi";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -85,8 +72,8 @@ export default function CollabPageHome() {
           <Card p='20px'>
             <List>
               <ListItem>
-                <ListIcon as={FiSettings} color='black' />
-                Upload Files
+                <ListIcon as={BiUpload} color='black' />
+                Upload Files (Uploaded files are private to you only by default)
               </ListItem>
 
               {/* <ListItem mt='20px'>
