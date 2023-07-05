@@ -44,12 +44,12 @@ import { ToDoList } from "../../components/TodoList";
 import { Dropzone } from "../../components/Dropzone";
 
 export default function CollabPageHome() {
-  const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
   const params = useParams();
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
   const { workspace_id } = useParams();
+  const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
 
   const getSupabaseData = async () => {
     const { data, error } = await supabase
