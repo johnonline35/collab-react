@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { supabase } from "../supabase/clientapp";
 import {
@@ -57,9 +57,7 @@ export const Dropzone = ({ userId, ...props }) => {
 
             let publicURL = urlResponse.data.publicUrl;
             console.log("publicUrl:", publicURL);
-
             setAvatar(publicURL);
-            console.log("recoilAvatar", avatar);
             // Update the user's avatar URL in the collab_users table.
             const { data, error: updateError } = await supabase
               .from("collab_users")
@@ -98,6 +96,11 @@ export const Dropzone = ({ userId, ...props }) => {
     },
     [userId, toast]
   );
+
+  useEffect(() => {
+    console.log("recoilAvatar", avatar);
+    // Perform the operation that depends on the updated avatar state here
+  }, [avatar]);
 
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
     useDropzone({
