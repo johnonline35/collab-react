@@ -55,7 +55,7 @@ export const Dropzone = ({ userId, ...props }) => {
             toast({
               position: "top",
               title: "Error: Upload Unsuccessful",
-              description: `${error}`,
+              description: `${error.message}`,
               status: "error",
               duration: 5000,
               isClosable: true,
