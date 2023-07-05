@@ -58,6 +58,8 @@ export const Dropzone = ({ userId, ...props }) => {
 
             if (updateError) {
               throw updateError;
+            } else {
+              console.log("Update data:", data);
             }
 
             // Show success toast
@@ -74,11 +76,9 @@ export const Dropzone = ({ userId, ...props }) => {
             toast({
               position: "top",
               title: "Error: Upload Unsuccessful",
-              description: `Error message: ${
-                error.message
-              }, Error details: ${JSON.stringify(error.details, null, 2)}`,
+              description: `${error.message}`,
               status: "error",
-              duration: 9000,
+              duration: 5000,
               isClosable: true,
             });
           }
