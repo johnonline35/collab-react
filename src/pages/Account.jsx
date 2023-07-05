@@ -76,7 +76,7 @@ export default function Account() {
       let { data, error } = await supabase
         .from("collab_users")
         .select(
-          `collab_user__id, collab_user_name, collab_user_email, company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
+          `collab_user_id, collab_user_name, collab_user_email, company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
         )
         .eq("collab_user_email", user.email)
         .single();
