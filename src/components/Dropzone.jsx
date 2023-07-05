@@ -44,14 +44,22 @@ export const Dropzone = ({ userId, ...props }) => {
             // Show success toast
             toast({
               position: "top",
-              title: "File upload successful.",
-              description: "File upload successful.",
+              title: "File upload successful!",
+              description: "Your file upload was successful.",
               status: "success",
               duration: 2000,
               isClosable: true,
             });
           } catch (error) {
-            alert(error.message);
+            // Error toast
+            toast({
+              position: "bottom",
+              title: "Error: Upload Unsuccessful",
+              description: "Ensure the file is PNG, JPG or GIF up to 2MB",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
           }
         };
         reader.readAsArrayBuffer(file);
