@@ -141,7 +141,6 @@ export default function CollabPageHome() {
                   />
                 </Flex> */}
               </Flex>
-              <TeamMemberStack mt='0px' />
             </List>
           </Card>
           <Card p='12px'>
