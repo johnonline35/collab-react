@@ -21,7 +21,7 @@ import {
   FiUsers,
   FiArchive,
 } from "react-icons/fi";
-import { AiOutlineFolder } from "react-icons/ai";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BiUpload } from "react-icons/bi";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
@@ -72,7 +72,7 @@ export default function CollabPageHome() {
           <Card p='20px'>
             <List>
               <ListItem>
-                <ListIcon as={BiUpload} color='black' />
+                <ListIcon as={AiOutlineCloudUpload} color='black' />
                 Upload Files (Uploaded files are private to you only by default)
               </ListItem>
 
