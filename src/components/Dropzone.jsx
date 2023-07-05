@@ -11,11 +11,13 @@ import {
   Icon,
   useColorModeValue,
   UnorderedList,
+  useToast,
   ListItem,
 } from "@chakra-ui/react";
 import { FiUploadCloud } from "react-icons/fi";
 
 export const Dropzone = ({ userId, ...props }) => {
+  const toast = useToast();
   const onDrop = useCallback(
     async (acceptedFiles) => {
       if (!userId) return;
@@ -38,6 +40,16 @@ export const Dropzone = ({ userId, ...props }) => {
               throw response.error;
             }
             console.log("File uploaded successfully: ", response);
+
+            // Show success toast
+            toast({
+              position: "top",
+              title: "File upload successful.",
+              description: "File upload successful.",
+              status: "success",
+              duration: 2000,
+              isClosable: true,
+            });
           } catch (error) {
             alert(error.message);
           }
@@ -45,7 +57,7 @@ export const Dropzone = ({ userId, ...props }) => {
         reader.readAsArrayBuffer(file);
       });
     },
-    [userId]
+    [userId, toast]
   );
 
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
