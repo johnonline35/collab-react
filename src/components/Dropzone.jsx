@@ -39,7 +39,26 @@ export const Dropzone = ({ userId, ...props }) => {
             if (response.error) {
               throw response.error;
             }
+
             console.log("File uploaded successfully: ", response);
+
+            // Get the public URL for the new file.
+            let { publicURL, error: urlError } = supabase.storage
+              .from("avatars")
+              .getPublicUrl(path);
+            if (urlError) {
+              throw urlError;
+            }
+
+            // Update the user's avatar URL in the collab_users table.
+            const { data, error: updateError } = await supabase
+              .from("collab_users")
+              .update({ collab_user_avatar_url: publicURL })
+              .match({ user_id: userId });
+
+            if (updateError) {
+              throw updateError;
+            }
 
             // Show success toast
             toast({
@@ -53,7 +72,7 @@ export const Dropzone = ({ userId, ...props }) => {
           } catch (error) {
             // Error toast
             toast({
-              position: "top",
+              position: "bottom",
               title: "Error: Upload Unsuccessful",
               description: `${error.message}`,
               status: "error",
