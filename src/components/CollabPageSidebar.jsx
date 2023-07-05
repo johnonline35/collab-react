@@ -104,14 +104,14 @@ export default function Sidebar() {
           Collab Show Page
         </NavLink>
       </ListItem>
-      {/* <ListItem>
+      <ListItem>
         <NavLink
-          to={`/collabs/${params.workspace_id}/${params.workspace_name}/allattachments`}
+          to={`/collabs/${params.workspace_id}/${params.workspace_name}/files`}
         >
           <ListIcon as={GoFileDirectory} color='white' />
           Files
         </NavLink>
-      </ListItem> */}
+      </ListItem>
     </List>
   );
 }
