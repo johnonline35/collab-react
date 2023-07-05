@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "../../supabase/clientapp";
 import {
   FiCheck,
@@ -44,7 +44,7 @@ import { ToDoList } from "../../components/TodoList";
 import { Dropzone } from "../../components/Dropzone";
 
 export default function CollabPageHome() {
-  console.log("Parent component rendering"); // Add this line
+  const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
   const params = useParams();
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
@@ -205,7 +205,7 @@ export default function CollabPageHome() {
                   />
                 </Flex> */}
               </Flex>
-              <TeamMemberStack mt='0px' />
+              <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} />
             </List>
           </Card>
           <Card p='12px'>
@@ -227,7 +227,7 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              <NextStepsList workspace_id={workspace_id} />
+              <NextStepsList workspace_id={workspace_id_memo} />
               <ListItem>
                 <ListIcon as={FiCheckCircle} color='black' />
                 Todo List
