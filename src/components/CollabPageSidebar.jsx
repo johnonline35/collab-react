@@ -13,7 +13,7 @@ import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import { NavLink, useParams } from "react-router-dom";
 import { FiDollarSign, FiUsers, FiShare, FiHome } from "react-icons/fi";
 import { SlRocket } from "react-icons/sl";
-import { GoFileDirectory } from "react-icons/go";
+import { GoFileDirectoryFill } from "react-icons/go";
 
 export default function Sidebar() {
   const params = useParams();
@@ -108,7 +108,7 @@ export default function Sidebar() {
         <NavLink
           to={`/collabs/${params.workspace_id}/${params.workspace_name}/files`}
         >
-          <ListIcon as={GoFileDirectory} color='white' />
+          <ListIcon as={GoFileDirectoryFill} color='white' />
           Files
         </NavLink>
       </ListItem>
