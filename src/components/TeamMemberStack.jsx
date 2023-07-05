@@ -44,9 +44,7 @@ const TeamMemberStack = ({ workspace_id }) => {
       console.log("fetchAttendees called");
 
       if (!workspace_id) {
-        console.error(
-          "Invalid or missing parameters: 'params' or 'params.workspace_id'"
-        );
+        console.error("Invalid or missing parameters: workspace_id'");
         return;
       }
 

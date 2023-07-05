@@ -205,7 +205,9 @@ export default function CollabPageHome() {
                   />
                 </Flex> */}
               </Flex>
-              {workspace_id && <TeamMemberStack workspace_id={workspace_id} />}
+              {workspace_id && (
+                <TeamMemberStack workspace_id={workspace_id_memo} />
+              )}
               {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
             </List>
           </Card>
