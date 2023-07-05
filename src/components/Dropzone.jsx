@@ -57,7 +57,10 @@ export const Dropzone = ({ userId, ...props }) => {
 
             let publicURL = urlResponse.data.publicUrl;
             console.log("publicUrl:", publicURL);
+
+            // Set Avatar Recoil State
             setAvatar(publicURL);
+
             // Update the user's avatar URL in the collab_users table.
             const { data, error: updateError } = await supabase
               .from("collab_users")
