@@ -37,6 +37,9 @@ const TeamMemberStack = ({ workspace_id }) => {
   // const { workspace_id } = useParams();
 
   useEffect(() => {
+    if (!workspace_id) {
+      return null; // Or replace with <Loading /> component
+    }
     const fetchAttendees = async () => {
       console.log("fetchAttendees called");
 
