@@ -3,16 +3,15 @@ import { HiSelector } from "react-icons/hi";
 import { useSession } from "../hooks/useSession";
 import { supabase } from "../supabase/clientapp";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil"; // Use useRecoilState instead of useRecoilValue
 import { avatarState } from "../atoms/avatarAtom";
 
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
-  const avatar = useRecoilValue(avatarState);
+  const [avatar, setAvatar] = useRecoilState(avatarState); // Use Recoil state
 
   const session = useSession();
 
-  const [avatarUrl, setAvatarUrl] = useState("");
   const [userName, setUserName] = useState("");
   const [companyName, setCompanyName] = useState("");
 
@@ -31,14 +30,14 @@ export const AccountSwitcherButton = (props) => {
       console.log("avatar data", data);
 
       if (data && !error) {
-        setAvatarUrl(data.collab_user_avatar_url);
+        setAvatar(data.collab_user_avatar_url); // Update Recoil state
         setUserName(data.collab_user_name);
         setCompanyName(data.company_name);
       }
     };
 
     fetchUserData();
-  }, [session]);
+  }, [session, setAvatar]);
 
   return (
     <Flex
