@@ -105,7 +105,7 @@ export default function Sidebar() {
       </ListItem>
       <ListItem>
         <NavLink
-          to={`/collabs/${params.workspace_id}/${params.workspace_name}/showcase`}
+          to={`/collabs/${params.workspace_id}/${params.workspace_name}/share`}
         >
           <ListIcon as={CgWebsite} color='white' />
           Collab Share Page
