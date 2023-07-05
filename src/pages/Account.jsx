@@ -43,8 +43,8 @@ export default function Account() {
   const toast = useToast();
   const navigate = useNavigate();
   const session = useSession();
-  const [userId, setUserId] = useSession();
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
   const [companyname, setCompanyname] = useState(null);
@@ -63,6 +63,7 @@ export default function Account() {
 
   const getProfile = async () => {
     console.log("Session user:", session?.user);
+    const userId = session ? session.user.id : null;
 
     try {
       setLoading(true);
@@ -102,7 +103,7 @@ export default function Account() {
   };
 
   const updateProfile = async (e) => {
-    // e.preventDefault();
+    const userId = session ? session.user.id : null;
 
     try {
       setLoading(true);
