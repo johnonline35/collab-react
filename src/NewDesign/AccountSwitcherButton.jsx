@@ -78,7 +78,7 @@ export const AccountSwitcherButton = (props) => {
             speed='0.65s'
             emptyColor='gray.200'
             color='blue.400'
-            size='xs'
+            size='md'
           />
         ) : (
           <Img
