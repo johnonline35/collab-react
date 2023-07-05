@@ -3,12 +3,12 @@ import { HiSelector } from "react-icons/hi";
 import { useSession } from "../hooks/useSession";
 import { supabase } from "../supabase/clientapp";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil"; // Use useRecoilState instead of useRecoilValue
+import { useRecoilState } from "recoil";
 import { avatarState } from "../atoms/avatarAtom";
 
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
-  const [avatar, setAvatar] = useRecoilState(avatarState); // Use Recoil state
+  const [avatar, setAvatar] = useRecoilState(avatarState);
 
   const session = useSession();
 
