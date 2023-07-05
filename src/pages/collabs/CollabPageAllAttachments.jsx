@@ -89,16 +89,6 @@ export default function CollabPageHome() {
                 Upload Files
               </ListItem>
 
-              <ListItem>
-                <Flex direction='row' justify='space-between'>
-                  <Flex>
-                    <ListIcon as={FiDribbble} color='black' mt='5px' />
-                    TBD
-                  </Flex>
-                  <CloseButton />
-                </Flex>
-              </ListItem>
-
               {/* <ListItem mt='20px'>
                 <Alert
                   status='success'
@@ -126,7 +116,7 @@ export default function CollabPageHome() {
               <Flex direction='row' justify='space-between'>
                 <ListItem mb='0px'>
                   <ListIcon as={FiUsers} color='black' />
-                  Local Files
+                  Private Files
                 </ListItem>
                 {/* <Flex pr='10px' gap='2'>
                   <Button variant='secondary' size='sm'>
