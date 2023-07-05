@@ -55,7 +55,7 @@ export const Dropzone = ({ userId, ...props }) => {
             toast({
               position: "bottom",
               title: "Error: Upload Unsuccessful",
-              description: "Ensure the file is PNG, JPG or GIF up to 2MB",
+              description: `${error}`,
               status: "error",
               duration: 5000,
               isClosable: true,
