@@ -53,7 +53,7 @@ export const Dropzone = ({ userId, ...props }) => {
           } catch (error) {
             // Error toast
             toast({
-              position: "bottom",
+              position: "top",
               title: "Error: Upload Unsuccessful",
               description: `${error}`,
               status: "error",
