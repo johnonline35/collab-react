@@ -37,30 +37,30 @@ const TeamMemberStack = ({ workspace_id }) => {
   // const { workspace_id } = useParams();
 
   useEffect(() => {
-    fetchAttendees({ workspace_id });
+    const fetchAttendees = async () => {
+      console.log("fetchAttendees called");
+
+      if (!workspace_id) {
+        console.error(
+          "Invalid or missing parameters: 'params' or 'params.workspace_id'"
+        );
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("attendees")
+        .select("*")
+        .eq("workspace_id", workspace_id);
+
+      if (error) {
+        console.error(error);
+      } else {
+        setMembers(data);
+      }
+    };
+
+    fetchAttendees();
   }, [workspace_id]);
-
-  const fetchAttendees = async () => {
-    console.log("fetchAttendees called");
-
-    // if (!params || !params.workspace_id) {
-    //   console.error(
-    //     "Invalid or missing parameters: 'params' or 'params.workspace_id'"
-    //   );
-    //   return;
-    // }
-
-    const { data, error } = await supabase
-      .from("attendees")
-      .select("*")
-      .eq("workspace_id", workspace_id);
-
-    if (error) {
-      console.error(error);
-    } else {
-      setMembers(data);
-    }
-  };
 
   const updateAttendee = async (id, updates) => {
     const { data, error } = await supabase
