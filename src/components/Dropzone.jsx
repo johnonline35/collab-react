@@ -54,7 +54,7 @@ export const Dropzone = ({ userId, ...props }) => {
             const { data, error: updateError } = await supabase
               .from("collab_users")
               .update({ collab_user_avatar_url: publicURL })
-              .match({ user_id: userId });
+              .match({ id: userId });
 
             if (updateError) {
               throw updateError;
