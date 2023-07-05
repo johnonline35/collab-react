@@ -43,7 +43,7 @@ export default function Account() {
   const toast = useToast();
   const navigate = useNavigate();
   const session = useSession();
-
+  const [userId, setUserId] = useSession();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
@@ -75,7 +75,7 @@ export default function Account() {
       let { data, error } = await supabase
         .from("collab_users")
         .select(
-          `collab_user_name, collab_user_email, company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
+          `collab_user__id, collab_user_name, collab_user_email, company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
         )
         .eq("collab_user_email", user.email)
         .single();
@@ -86,7 +86,7 @@ export default function Account() {
 
       if (data) {
         setUsername(data.collab_user_name);
-
+        setUserId(data.collab_user__id);
         setCompanyname(data.company_name);
         setJobTitle(data.collab_user_job_title);
         setAvatarUrl(data.collab_user_avatar_url);
@@ -159,7 +159,8 @@ export default function Account() {
           >
             <Box>
               <Text color='muted' fontSize='sm'>
-                Tell your partners who you are and how to contact you
+                This information is displayed on your show page (which is
+                available to your partners via the calendar link)
               </Text>
             </Box>
           </Stack>
@@ -287,7 +288,7 @@ export default function Account() {
                     name='John Childs-Eddy'
                     src='https://lh3.googleusercontent.com/a/AGNmyxb7QUWBr69-91RRmDn276lrbHDfnbZoMwpwNlavYw=s96'
                   />
-                  <Dropzone width='full' />
+                  <Dropzone width='full' userId={userId} />
                 </Stack>
               </Stack>
             </FormControl>
