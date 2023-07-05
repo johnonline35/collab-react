@@ -43,8 +43,16 @@ export const Dropzone = ({ userId, ...props }) => {
             console.log("File uploaded successfully: ", response);
 
             // Get the public URL for the new file.
-            let publicURL = supabase.storage.from("avatars").getPublicUrl(path);
+            let urlResponse = supabase.storage
+              .from("avatars")
+              .getPublicUrl(path);
 
+            // Check if response includes a public URL
+            if (urlResponse.error) {
+              throw urlResponse.error;
+            }
+
+            let publicURL = urlResponse.data.publicUrl;
             console.log("publicUrl:", publicURL);
 
             // Update the user's avatar URL in the collab_users table.
