@@ -123,7 +123,7 @@ function Router() {
           element={<CollabPageQuestions />}
         /> */}
           <Route
-            path='/collabs/:workspace_id/:workspace_name/allattachments'
+            path='/collabs/:workspace_id/:workspace_name/files'
             element={<CollabPageAllAttachments />}
           />
         </Route>
