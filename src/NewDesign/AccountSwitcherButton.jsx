@@ -1,4 +1,11 @@
-import { Box, Flex, HStack, Img, useMenuButton } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Img,
+  useMenuButton,
+  Spinner,
+} from "@chakra-ui/react";
 import { HiSelector } from "react-icons/hi";
 import { useSession } from "../hooks/useSession";
 import { supabase } from "../supabase/clientapp";
@@ -14,6 +21,7 @@ export const AccountSwitcherButton = (props) => {
 
   const [userName, setUserName] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -33,6 +41,7 @@ export const AccountSwitcherButton = (props) => {
         setAvatar(data.collab_user_avatar_url); // Update Recoil state
         setUserName(data.collab_user_name);
         setCompanyName(data.company_name);
+        setLoading(false);
       }
     };
 
@@ -63,14 +72,24 @@ export const AccountSwitcherButton = (props) => {
       }}
     >
       <HStack flex='1' spacing='3'>
-        <Img
-          w='8'
-          h='8'
-          rounded='md'
-          objectFit='cover'
-          src={avatar}
-          alt={userName}
-        />
+        {loading ? (
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.400'
+            size='xs'
+          />
+        ) : (
+          <Img
+            w='8'
+            h='8'
+            rounded='md'
+            objectFit='cover'
+            src={avatar}
+            alt={userName}
+          />
+        )}
         <Box textAlign='start'>
           <Box noOfLines={1} fontWeight='semibold'>
             {companyName}
