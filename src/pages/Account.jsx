@@ -164,8 +164,7 @@ export default function Account() {
           >
             <Box>
               <Text color='muted' fontSize='sm'>
-                This information is displayed on your show page (which is
-                available to your partners via the calendar link)
+                This information is displayed on your 'Showpage'
               </Text>
             </Box>
           </Stack>
