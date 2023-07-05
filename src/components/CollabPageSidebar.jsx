@@ -13,6 +13,7 @@ import { List, ListIcon, ListItem } from "@chakra-ui/react";
 import { NavLink, useParams } from "react-router-dom";
 import { FiDollarSign, FiUsers, FiShare, FiHome } from "react-icons/fi";
 import { SlRocket, SlFolderAlt } from "react-icons/sl";
+import { CgWebsite } from "react-icons/cg";
 
 export default function Sidebar() {
   const params = useParams();
@@ -106,8 +107,8 @@ export default function Sidebar() {
         <NavLink
           to={`/collabs/${params.workspace_id}/${params.workspace_name}/showcase`}
         >
-          <ListIcon as={FiShare} color='white' />
-          Collab Show Page
+          <ListIcon as={CgWebsite} color='white' />
+          Collab Share Page
         </NavLink>
       </ListItem>
     </List>
