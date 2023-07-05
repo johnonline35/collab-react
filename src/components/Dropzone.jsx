@@ -57,6 +57,7 @@ export const Dropzone = ({ userId, ...props }) => {
 
             let publicURL = urlResponse.data.publicUrl;
             console.log("publicUrl:", publicURL);
+
             setAvatar(publicURL);
             console.log("recoilAvatar", avatar);
             // Update the user's avatar URL in the collab_users table.
