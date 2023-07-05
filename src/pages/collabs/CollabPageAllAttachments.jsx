@@ -21,7 +21,11 @@ import {
   FiUsers,
   FiArchive,
 } from "react-icons/fi";
-import { AiOutlineCloudUpload } from "react-icons/ai";
+import {
+  AiOutlineCloudUpload,
+  AiOutlineLock,
+  AiOutlineShareAlt,
+} from "react-icons/ai";
 import { BiUpload } from "react-icons/bi";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
@@ -73,7 +77,7 @@ export default function CollabPageHome() {
             <List>
               <ListItem>
                 <ListIcon as={AiOutlineCloudUpload} color='black' />
-                Upload Files (Uploaded files are private to you only by default)
+                Upload Files (Private by default)
               </ListItem>
 
               {/* <ListItem mt='20px'>
@@ -102,7 +106,7 @@ export default function CollabPageHome() {
             <List>
               <Flex direction='row' justify='space-between'>
                 <ListItem mb='0px'>
-                  <ListIcon as={FiUsers} color='black' />
+                  <ListIcon as={AiOutlineLock} color='black' />
                   Private Files
                 </ListItem>
                 {/* <Flex pr='10px' gap='2'>
@@ -124,7 +128,7 @@ export default function CollabPageHome() {
             <List>
               <Flex direction='row' justify='space-between'>
                 <ListItem>
-                  <ListIcon as={ArrowRightIcon} color='black' />
+                  <ListIcon as={AiOutlineShareAlt} color='black' />
                   Shared Files
                 </ListItem>
                 <Flex pr='10px' gap='2'>
