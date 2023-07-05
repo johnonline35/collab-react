@@ -44,62 +44,6 @@ import { ToDoList } from "../../components/TodoList";
 import { Dropzone } from "../../components/Dropzone";
 
 export default function CollabPageHome() {
-  console.log("Parent component rendering"); // Add this line
-  const params = useParams();
-  const [emailLink, setEmailLink] = useState();
-  const [loadingToggle, setLoadingToggle] = useState(false);
-  const [customerName, setCustomerName] = useState("");
-  const { workspace_id } = useParams();
-
-  const getSupabaseData = async () => {
-    const { data, error } = await supabase
-      .from("collab_users")
-      .select("*, workspaces(*)");
-
-    if (error) {
-      console.log(error);
-    }
-
-    console.log("Different log:", data);
-  };
-
-  const getEmailLinkStateAndName = async () => {
-    const { data, error } = await supabase
-      .from("workspaces")
-      .select()
-      .eq("workspace_id", params.workspace_id);
-
-    setEmailLink(data[0].workspace_attendee_enable_calendar_link);
-    setCustomerName(data[0].workspace_name);
-
-    setLoadingToggle(false);
-  };
-
-  useEffect(() => {
-    setLoadingToggle(true);
-    getEmailLinkStateAndName();
-    getSupabaseData();
-  }, []);
-
-  // useEffect(() => {
-  //   console.log(customerName);
-  // }, [customerName]);
-
-  const handleCustomerNameChange = useCallback((value) => {
-    setCustomerName(value);
-  }, []);
-
-  const updateEmailToggle = async () => {
-    // console.log("toggle");
-    const { data, error } = await supabase
-      .from("workspaces")
-      .update({ workspace_attendee_enable_calendar_link: !emailLink })
-      .eq("workspace_id", params.workspace_id)
-      .select();
-
-    setEmailLink(data[0].workspace_attendee_enable_calendar_link);
-  };
-
   const Card = (props) => (
     <Box
       minH='36'
@@ -142,17 +86,9 @@ export default function CollabPageHome() {
             <List>
               <ListItem>
                 <ListIcon as={FiSettings} color='black' />
-                Settings for <Text as='b'>{customerName}</Text>
+                Upload Files
               </ListItem>
-              <CollabWorkspaceSettings
-                customerName={customerName}
-                handleCustomerNameChange={handleCustomerNameChange}
-                emailLink={emailLink}
-                setEmailLink={setEmailLink}
-                updateEmailToggle={updateEmailToggle}
-                loadingToggle={loadingToggle}
-                workspace_id={params.workspace_id}
-              />
+
               <ListItem>
                 <Flex direction='row' justify='space-between'>
                   <Flex>
@@ -190,7 +126,7 @@ export default function CollabPageHome() {
               <Flex direction='row' justify='space-between'>
                 <ListItem mb='0px'>
                   <ListIcon as={FiUsers} color='black' />
-                  Customer Team
+                  Local Files
                 </ListItem>
                 {/* <Flex pr='10px' gap='2'>
                   <Button variant='secondary' size='sm'>
@@ -213,7 +149,7 @@ export default function CollabPageHome() {
               <Flex direction='row' justify='space-between'>
                 <ListItem>
                   <ListIcon as={ArrowRightIcon} color='black' />
-                  Next Steps
+                  Shared Files
                 </ListItem>
                 <Flex pr='10px' gap='2'>
                   {/* <Button variant='secondary' size='sm'>
@@ -227,12 +163,6 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              <NextStepsList workspace_id={workspace_id} />
-              <ListItem>
-                <ListIcon as={FiCheckCircle} color='black' />
-                Todo List
-              </ListItem>
-              <ToDoList workspace_id={workspace_id} />
             </List>
           </Card>
         </SimpleGrid>
