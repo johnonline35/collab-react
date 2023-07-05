@@ -31,29 +31,29 @@ const infoReducer = (state, action) => {
   }
 };
 
-const TeamMemberStack = () => {
+const TeamMemberStack = ({ workspace_id }) => {
   const [members, setMembers] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
-  const { workspace_id } = useParams();
+  // const { workspace_id } = useParams();
 
   useEffect(() => {
     fetchAttendees({ workspace_id });
   }, [workspace_id]);
 
-  const fetchAttendees = async (params) => {
+  const fetchAttendees = async () => {
     console.log("fetchAttendees called");
 
-    if (!params || !params.workspace_id) {
-      console.error(
-        "Invalid or missing parameters: 'params' or 'params.workspace_id'"
-      );
-      return;
-    }
+    // if (!params || !params.workspace_id) {
+    //   console.error(
+    //     "Invalid or missing parameters: 'params' or 'params.workspace_id'"
+    //   );
+    //   return;
+    // }
 
     const { data, error } = await supabase
       .from("attendees")
       .select("*")
-      .eq("workspace_id", params.workspace_id);
+      .eq("workspace_id", workspace_id);
 
     if (error) {
       console.error(error);
