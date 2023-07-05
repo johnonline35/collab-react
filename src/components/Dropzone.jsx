@@ -15,8 +15,11 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { FiUploadCloud } from "react-icons/fi";
+import { useRecoilState } from "recoil";
+import { avatarState } from "../atoms/avatarAtom";
 
 export const Dropzone = ({ userId, ...props }) => {
+  const [avatar, setAvatar] = useRecoilState(avatarState);
   const toast = useToast();
   const onDrop = useCallback(
     async (acceptedFiles) => {
@@ -54,7 +57,7 @@ export const Dropzone = ({ userId, ...props }) => {
 
             let publicURL = urlResponse.data.publicUrl;
             console.log("publicUrl:", publicURL);
-
+            setAvatar(publicURL);
             // Update the user's avatar URL in the collab_users table.
             const { data, error: updateError } = await supabase
               .from("collab_users")

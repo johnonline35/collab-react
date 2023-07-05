@@ -3,9 +3,12 @@ import { HiSelector } from "react-icons/hi";
 import { useSession } from "../hooks/useSession";
 import { supabase } from "../supabase/clientapp";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { avatarState } from "../atoms/avatarAtom";
 
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
+  const avatar = useRecoilValue(avatarState);
 
   const session = useSession();
 
@@ -66,7 +69,7 @@ export const AccountSwitcherButton = (props) => {
           h='8'
           rounded='md'
           objectFit='cover'
-          src={avatarUrl}
+          src={avatar}
           alt={userName}
         />
         <Box textAlign='start'>
