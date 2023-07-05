@@ -284,11 +284,7 @@ export default function Account() {
                     md: "3xl",
                   }}
                 >
-                  <Avatar
-                    size='lg'
-                    name='John Childs-Eddy'
-                    src='https://lh3.googleusercontent.com/a/AGNmyxb7QUWBr69-91RRmDn276lrbHDfnbZoMwpwNlavYw=s96'
-                  />
+                  <Avatar size='lg' name={username} src={avatarUrl} />
                   <Dropzone width='full' userId={userId} />
                 </Stack>
               </Stack>
