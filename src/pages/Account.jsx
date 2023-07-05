@@ -38,8 +38,11 @@ import { Dropzone } from "../components/Dropzone";
 import EditProfile from "../components/EditProfile";
 import { useSession } from "../hooks/useSession";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { avatarState } from "../atoms/avatarAtom";
 
 export default function Account() {
+  const avatar = useRecoilValue(avatarState);
   const toast = useToast();
   const navigate = useNavigate();
   const session = useSession();
@@ -284,7 +287,7 @@ export default function Account() {
                     md: "3xl",
                   }}
                 >
-                  <Avatar size='lg' name={username} src={avatarUrl} />
+                  <Avatar size='lg' name={username} src={avatar} />
                   <Dropzone width='full' userId={userId} />
                 </Stack>
               </Stack>
