@@ -287,7 +287,7 @@ export default function Account() {
                     md: "3xl",
                   }}
                 >
-                  <Avatar size='lg' name={username} src={avatar} />
+                  <Avatar size='lg' name={username} src={avatarUrl} />
                   <Dropzone width='full' userId={userId} />
                 </Stack>
               </Stack>
