@@ -82,7 +82,7 @@ function Router() {
             }
           />
           <Route
-            path='/collabs/:workspace_id/:workspace_name/showcase'
+            path='/collabs/:workspace_id/:workspace_name/share'
             element={<CollabPageShowcase />}
           />
           <Route

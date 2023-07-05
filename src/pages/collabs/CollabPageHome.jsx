@@ -190,7 +190,7 @@ export default function CollabPageHome() {
               <Flex direction='row' justify='space-between'>
                 <ListItem mb='0px'>
                   <ListIcon as={FiUsers} color='black' />
-                  Customer Team
+                  Team
                 </ListItem>
                 {/* <Flex pr='10px' gap='2'>
                   <Button variant='secondary' size='sm'>
