@@ -49,7 +49,7 @@ export const Dropzone = ({ userId, ...props }) => {
             if (urlError) {
               throw urlError;
             }
-
+            console.log("plublicUrl:", publicURL);
             // Update the user's avatar URL in the collab_users table.
             const { data, error: updateError } = await supabase
               .from("collab_users")
