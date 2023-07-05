@@ -67,6 +67,7 @@ export default function Account() {
   const getProfile = async () => {
     console.log("Session user:", session?.user);
     const userId = session ? session.user.id : null;
+    console.log("avatarrecoil:", avatar);
 
     try {
       setLoading(true);
