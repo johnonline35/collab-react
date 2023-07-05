@@ -72,11 +72,13 @@ export const Dropzone = ({ userId, ...props }) => {
           } catch (error) {
             // Error toast
             toast({
-              position: "bottom",
+              position: "top",
               title: "Error: Upload Unsuccessful",
-              description: `${error.message}`,
+              description: `Error message: ${
+                error.message
+              }, Error details: ${JSON.stringify(error.details, null, 2)}`,
               status: "error",
-              duration: 5000,
+              duration: 9000,
               isClosable: true,
             });
           }

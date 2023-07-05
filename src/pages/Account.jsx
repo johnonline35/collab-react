@@ -330,7 +330,7 @@ export default function Account() {
                 <Box>
                   <FormLabel variant='inline'>Bio</FormLabel>
                   <FormHelperText mt='0' color='muted'>
-                    Write a short introduction
+                    Write a short bio
                   </FormHelperText>
                 </Box>
                 <Textarea
