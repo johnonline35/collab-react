@@ -87,7 +87,7 @@ export default function Account() {
 
       if (data) {
         setUsername(data.collab_user_name);
-        setUserId(data.collab_user__id);
+        setUserId(data.collab_user_id);
         setCompanyname(data.company_name);
         setJobTitle(data.collab_user_job_title);
         setAvatarUrl(data.collab_user_avatar_url);
