@@ -18,6 +18,8 @@ import { FiUploadCloud } from "react-icons/fi";
 export const Dropzone = ({ userId, ...props }) => {
   const onDrop = useCallback(
     async (acceptedFiles) => {
+      if (!userId) return;
+
       acceptedFiles.forEach(async (file) => {
         const reader = new FileReader();
 
@@ -74,14 +76,20 @@ export const Dropzone = ({ userId, ...props }) => {
       bg={useColorModeValue("white", "gray.800")}
       {...props}
     >
-      <input {...getInputProps()} /> {/* Hidden file input */}
+      <input {...getInputProps()} disabled={!userId} />{" "}
+      {/* Disabled file input when no userId */}
       <VStack spacing='3'>
         <Square size='10' bg='bg-subtle' borderRadius='lg'>
           <Icon as={FiUploadCloud} boxSize='5' color='muted' />
         </Square>
         <VStack spacing='1'>
           <HStack spacing='1' whiteSpace='nowrap'>
-            <Button variant='link' colorScheme='blue' size='sm'>
+            <Button
+              variant='link'
+              colorScheme='blue'
+              size='sm'
+              disabled={!userId}
+            >
               Click to upload
             </Button>
             <Text fontSize='sm' color='muted'>
