@@ -247,7 +247,9 @@ const TeamMemberStack = ({ workspace_id }) => {
                             fontSize='sm'
                             onChange={handleNameChange}
                             onSubmit={handleNameSubmit}
-                            defaultValue={displayName}
+                            defaultValue={capitalizeFirstLetterOfEachWord(
+                              displayName
+                            )}
                           >
                             <EditablePreview />
                             <EditableInput />
