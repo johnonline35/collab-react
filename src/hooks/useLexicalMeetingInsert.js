@@ -71,58 +71,58 @@ export const updateLexicalWithMeetingData = async (workspaceId) => {
       );
   }
 
-  // Query the attendees table
-  //   const { data: attendeesData, error: attendeesError } = await supabase
-  //     .from("attendees")
-  //     .select(
-  //       "attendee_name, attendee.job_title, attendee_linkedin, attendee_twitter"
-  //     )
-  //     .eq("workspace_id", workspaceId)
-  //     .eq("attendee_is_workspace_lead", true);
-
-  //   if (attendeesError) throw attendeesError;
-
-  //   // Replace attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter in jsonObj
-  //   // Here you might need to adjust the path depending on where these fields are in your JSON
-  //   let replacementString = "";
-  //   attendeesData.forEach((attendee, index) => {
-  //     // Add attendee name if it's not null
-  //     if (attendee.attendee_name) {
-  //       replacementString += attendee.attendee_name;
-  //     }
-
-  //     // Add job title if it's not null
-  //     if (attendee.job_title) {
-  //       replacementString += `, ${attendee.job_title}`;
-  //     }
-
-  //     // Add LinkedIn if it's not null
-  //     if (attendee.attendee_linkedin) {
-  //       replacementString += `, ${attendee.attendee_linkedin}`;
-  //     }
-
-  //     // Add Twitter if it's not null
-  //     if (attendee.attendee_twitter) {
-  //       replacementString += `, ${attendee.attendee_twitter}`;
-  //     }
-
-  //     // Add a line break for all but the last attendee
-  //     if (index < attendeesData.length - 1) {
-  //       replacementString += "\n";
-  //     }
-  //   });
-
-  //   // Replace the placeholder in jsonObj
-  //   jsonObj.root.children[5].children[0].text =
-  //     jsonObj.root.children[5].children[0].text.replace(
-  //       "attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter",
-  //       replacementString
-  //     );
-
   jsonString = JSON.stringify(jsonObj);
 
   return jsonString;
 };
+
+// Query the attendees table
+//   const { data: attendeesData, error: attendeesError } = await supabase
+//     .from("attendees")
+//     .select(
+//       "attendee_name, attendee.job_title, attendee_linkedin, attendee_twitter"
+//     )
+//     .eq("workspace_id", workspaceId)
+//     .eq("attendee_is_workspace_lead", true);
+
+//   if (attendeesError) throw attendeesError;
+
+//   // Replace attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter in jsonObj
+//   // Here you might need to adjust the path depending on where these fields are in your JSON
+//   let replacementString = "";
+//   attendeesData.forEach((attendee, index) => {
+//     // Add attendee name if it's not null
+//     if (attendee.attendee_name) {
+//       replacementString += attendee.attendee_name;
+//     }
+
+//     // Add job title if it's not null
+//     if (attendee.job_title) {
+//       replacementString += `, ${attendee.job_title}`;
+//     }
+
+//     // Add LinkedIn if it's not null
+//     if (attendee.attendee_linkedin) {
+//       replacementString += `, ${attendee.attendee_linkedin}`;
+//     }
+
+//     // Add Twitter if it's not null
+//     if (attendee.attendee_twitter) {
+//       replacementString += `, ${attendee.attendee_twitter}`;
+//     }
+
+//     // Add a line break for all but the last attendee
+//     if (index < attendeesData.length - 1) {
+//       replacementString += "\n";
+//     }
+//   });
+
+//   // Replace the placeholder in jsonObj
+//   jsonObj.root.children[5].children[0].text =
+//     jsonObj.root.children[5].children[0].text.replace(
+//       "attendees.attendee_name, attendees.attendee.job_title, attendees.attendee_linkedin, attendees.attendee_twitter",
+//       replacementString
+//     );
 
 // import { ElementNode, TextNode } from "lexical";
 // import { supabase } from "../supabase/clientapp";
