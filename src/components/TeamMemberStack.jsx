@@ -231,6 +231,7 @@ const TeamMemberStack = ({ workspace_id }) => {
                       <Avatar
                         src={member.attendee_avatar || undefined}
                         boxSize='10'
+                        name={displayName}
                       >
                         {/* <AvatarBadge
                           boxSize='4'
