@@ -130,6 +130,16 @@ const TeamMemberStack = ({ workspace_id }) => {
     };
   }
 
+  function capitalizeFirstLetterOfEachWord(str) {
+    if (str) {
+      return str.replace(/\b\w/g, function (char) {
+        return char.toUpperCase();
+      });
+    } else {
+      return "";
+    }
+  }
+
   return (
     <Center
       maxW='sm'
@@ -257,7 +267,9 @@ const TeamMemberStack = ({ workspace_id }) => {
                           fontSize='sm'
                           onChange={handleJobTitleChange}
                           onSubmit={handleJobTitleSubmit}
-                          defaultValue={displayTitle}
+                          defaultValue={capitalizeFirstLetterOfEachWord(
+                            displayTitle
+                          )}
                         >
                           <EditablePreview />
                           <EditableInput />
