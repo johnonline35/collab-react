@@ -205,9 +205,7 @@ export default function CollabPageHome() {
                   />
                 </Flex> */}
               </Flex>
-              {workspace_id && (
-                <TeamMemberStack workspace_id={workspace_id_memo} />
-              )}
+              {workspace_id && <TeamMemberStack workspace_id={workspace_id} />}
               {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
             </List>
           </Card>
@@ -230,12 +228,12 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              <NextStepsList workspace_id={workspace_id_memo} />
+              <NextStepsList workspace_id={workspace_id} />
               <ListItem>
                 <ListIcon as={FiCheckCircle} color='black' />
                 Todo List
               </ListItem>
-              <ToDoList workspace_id={workspace_id_memo} />
+              <ToDoList workspace_id={workspace_id} />
             </List>
           </Card>
         </SimpleGrid>
