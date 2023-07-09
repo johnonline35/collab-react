@@ -24,6 +24,8 @@ import {
   ParagraphNode,
   ElementNode,
   TextNode,
+  $getRoot,
+  $getSelection,
 } from "lexical";
 import { PlainTextPlugin } from "@lexical/react/LexicalPlainTextPlugin";
 import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
@@ -191,7 +193,15 @@ export default function LexicalEditor() {
   }
 
   const editorConfig = {
-    editorState: initialNoteJson,
+    editorState:
+      // () => {
+      //   // Read the contents of the EditorState here.
+      //   const root = $getRoot();
+      //   const selection = $getSelection();
+
+      //   console.log(root, selection);
+      // },
+      initialNoteJson,
     namespace: "collabEditor",
     // The editor theme
     theme: LexicalEditorTheme,
