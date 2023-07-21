@@ -25,9 +25,7 @@ export default function Sidebar() {
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink
-          to={`/collabs/${params.workspace_id}/${params.workspace_name}`}
-        >
+        <NavLink to={`/collabs/${params.workspace_id}`}>
           <ListIcon as={FiHome} color='white' /> Overview
         </NavLink>
       </ListItem>
@@ -38,9 +36,7 @@ export default function Sidebar() {
         </NavLink>
       </ListItem> */}
       <ListItem>
-        <NavLink
-          to={`/collabs/${params.workspace_id}/${params.workspace_name}/notes`}
-        >
+        <NavLink to={`/collabs/${params.workspace_id}/notes`}>
           <ListIcon as={EditIcon} color='white' />
           Workspace AI
         </NavLink>
@@ -96,17 +92,13 @@ export default function Sidebar() {
         </NavLink>
       </ListItem> */}
       <ListItem>
-        <NavLink
-          to={`/collabs/${params.workspace_id}/${params.workspace_name}/files`}
-        >
+        <NavLink to={`/collabs/${params.workspace_id}/files`}>
           <ListIcon as={SlFolderAlt} color='white' />
           Files
         </NavLink>
       </ListItem>
       <ListItem>
-        <NavLink
-          to={`/collabs/${params.workspace_id}/${params.workspace_name}/share`}
-        >
+        <NavLink to={`/collabs/${params.workspace_id}/share`}>
           <ListIcon as={CgWebsite} color='white' />
           Collab Share Page
         </NavLink>
