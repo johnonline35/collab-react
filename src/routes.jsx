@@ -61,10 +61,7 @@ function Router() {
         <Route path='' element={<Privacy />} />
       </Route> */}
         <Route path='/termsofservice' element={<TermsOfService />} />
-        <Route
-          path='/collabs/:workspace_id/:workspace_name'
-          element={<CollabPageLayout />}
-        >
+        <Route path='/collabs/:workspace_id' element={<CollabPageLayout />}>
           <Route
             path='/collabs/:workspace_id'
             element={
@@ -82,15 +79,15 @@ function Router() {
             }
           />
           <Route
-            path='/collabs/:workspace_id/:workspace_name/share'
+            path='/collabs/:workspace_id/share'
             element={<CollabPageShowcase />}
           />
           <Route
-            path='/collabs/:workspace_id/:workspace_name/notes'
+            path='/collabs/:workspace_id/notes'
             element={<CollabPageNotes />}
           />
           <Route
-            path='/collabs/:workspace_id/:workspace_name/journey'
+            path='/collabs/:workspace_id/journey'
             element={<CollabPageJourney />}
           />
 
@@ -123,7 +120,7 @@ function Router() {
           element={<CollabPageQuestions />}
         /> */}
           <Route
-            path='/collabs/:workspace_id/:workspace_name/files'
+            path='/collabs/:workspace_id/files'
             element={<CollabPageAllAttachments />}
           />
         </Route>
