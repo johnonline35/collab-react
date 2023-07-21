@@ -343,10 +343,7 @@ export default function Dashboard() {
                   </CardHeader>
                   <CardBody>
                     <Box>
-                      <Link
-                        href={`/collabs/${info.workspace_id}/${info.workspace_name}`}
-                        mb={1}
-                      >
+                      <Link href={`/collabs/${info.workspace_id}`} mb={1}>
                         <Heading as='h3' size='sm'>
                           {info.workspace_name}
                           {/* <Badge marginTop='-15px' size='sm' colorScheme='green'>
@@ -581,9 +578,7 @@ export default function Dashboard() {
                       gap={10}
                     >
                       <Spacer />
-                      <Link
-                        href={`/collabs/${info.workspace_id}/${info.workspace_name}/notes`}
-                      >
+                      <Link href={`/collabs/${info.workspace_id}/notes`}>
                         <Button
                           leftIcon={<EditIcon />}
                           variant='secondary'
