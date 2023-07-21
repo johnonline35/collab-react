@@ -50,6 +50,9 @@ import { Skeleton, Stack } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { CustomTextNode } from "./LexicalEditor/nodes/CustomTextNode";
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
+import { useCallback } from "react";
+import { debounce } from "lodash";
+import { MeetingNode } from "./LexicalEditor/nodes/CollabMeetingNode";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -97,29 +100,32 @@ export default function LexicalEditor() {
 
   useLexicalNodeParse();
 
-  const handleEditorChange = async (EditorState, params) => {
-    const jsonString = JSON.stringify(EditorState);
+  const handleEditorChange = useCallback(
+    debounce(async (EditorState) => {
+      const jsonString = JSON.stringify(EditorState);
 
-    try {
-      if (collabUserNoteId) {
-        // Update existing record
-        const { data, error } = await supabase
-          .from("collab_users_notes")
-          .update({
-            note_content: jsonString,
-          })
-          .eq("collab_user_note_id", collabUserNoteId);
+      try {
+        if (collabUserNoteId) {
+          // Update existing record
+          const { data, error } = await supabase
+            .from("collab_users_notes")
+            .update({
+              note_content: jsonString,
+            })
+            .eq("collab_user_note_id", collabUserNoteId);
 
-        if (error) {
-          throw error;
-        } else {
-          console.log("handleEditorChange data", data);
+          if (error) {
+            throw error;
+          } else {
+            console.log("handleEditorChange data", data);
+          }
         }
+      } catch (error) {
+        console.error("Error updating note:", error.message);
       }
-    } catch (error) {
-      console.error("Error updating note:", error.message);
-    }
-  };
+    }, 500), // This is the delay time in milliseconds
+    [collabUserNoteId]
+  );
 
   // useEffect(() => {
   //   useFetchSavedNotes();
@@ -225,6 +231,7 @@ export default function LexicalEditor() {
       TableRowNode,
       AutoLinkNode,
       LinkNode,
+      // MeetingNode,
       // CustomTextNode,
       // {
       //   replace: TextNode,
@@ -263,6 +270,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={handleEditorChange} />
+          {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />

@@ -66,7 +66,7 @@ function Router() {
           element={<CollabPageLayout />}
         >
           <Route
-            path='/collabs/:workspace_id/:workspace_name'
+            path='/collabs/:workspace_id'
             element={
               <PrivateRoute>
                 <CollabPageHome />
@@ -74,7 +74,7 @@ function Router() {
             }
           />
           <Route
-            path='/collabs/:workspace_id/:workspace_name/team'
+            path='/collabs/:workspace_id/team'
             element={
               <PrivateRoute>
                 <CollabPageTeam />
