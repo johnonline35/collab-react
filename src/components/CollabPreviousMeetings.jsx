@@ -12,7 +12,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
-import { format, formatDistanceStrict } from "date-fns";
 
 const PreviousMeetings = () => {
   const params = useParams();
@@ -26,6 +25,14 @@ const PreviousMeetings = () => {
       day: "2-digit",
       year: "numeric",
     }).format(date);
+  };
+
+  const getDuration = (startDate, endDate) => {
+    const differenceInMilliseconds = endDate - startDate;
+    const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
+    const hours = Math.floor(differenceInSeconds / 3600);
+    const minutes = Math.floor((differenceInSeconds % 3600) / 60);
+    return `${hours} hour(s) ${minutes} minute(s)`;
   };
 
   useEffect(() => {
@@ -78,10 +85,8 @@ const PreviousMeetings = () => {
                     const startDate = new Date(meeting.start_dateTime);
                     const endDate = new Date(meeting.end_dateTime);
 
-                    const formattedStartDate = formatDate(
-                      meeting.start_dateTime
-                    );
-                    const duration = formatDistanceStrict(endDate, startDate);
+                    const formattedStartDate = formatDate(startDate);
+                    const duration = getDuration(startDate, endDate);
 
                     return (
                       <ListItem key={meeting.id}>
