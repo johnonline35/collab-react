@@ -27,10 +27,13 @@ const infoReducer = (state, action) => {
   }
 };
 
-export const NextStepsList = ({ isChecked, handleCheckboxChange }) => {
+export const NextStepsList = ({
+  isChecked,
+  handleCheckboxChange,
+  workspace_id,
+}) => {
   const [nextSteps, setNextSteps] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
-  const { workspace_id } = useParams();
 
   const fetchNextSteps = useCallback(async () => {
     console.log("fetchNextSteps called");

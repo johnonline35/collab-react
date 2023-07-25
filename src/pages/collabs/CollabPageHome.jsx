@@ -248,7 +248,11 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              <NextStepsList workspace_id={workspace_id} />
+              <NextStepsList
+                workspace_id={workspace_id}
+                isChecked={isChecked}
+                handleCheckboxChange={handleCheckboxChange}
+              />
               <ListItem>
                 <ListIcon as={FiCheckCircle} color='black' />
                 Todo List
