@@ -35,6 +35,7 @@
     "@upstash/redis": "^1.22.0",
     "aws-sdk": "^2.1394.0",
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "framer-motion": "^9.0.4",
     "inngest": "^2.0.0",
     "lexical": "^0.9.1",
