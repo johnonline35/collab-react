@@ -269,7 +269,11 @@ export default function CollabPageHome() {
                 <ListIcon as={FiCheckCircle} color='black' />
                 Todo List
               </ListItem>
-              <ToDoList workspace_id={workspace_id} />
+              <ToDoList
+                workspace_id={workspace_id}
+                isChecked={isChecked}
+                handleCheckboxChange={handleCheckboxChange}
+              />
             </List>
           </Card>
         </SimpleGrid>

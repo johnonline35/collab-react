@@ -8,6 +8,8 @@ import {
   Stack,
   StackDivider,
   Text,
+  Flex,
+  Checkbox,
 } from "@chakra-ui/react";
 import { supabase } from "../supabase/clientapp";
 import { useParams } from "react-router-dom";
@@ -24,10 +26,9 @@ const infoReducer = (state, action) => {
   }
 };
 
-export const ToDoList = () => {
+export const ToDoList = ({ workspace_id, isChecked, handleCheckboxChange }) => {
   const [toDoList, setToDoList] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
-  const { workspace_id } = useParams();
 
   const fetchToDos = useCallback(async () => {
     console.log("fetchToDos called");
@@ -85,17 +86,25 @@ export const ToDoList = () => {
       <Box bg='bg-surface' py='4' w='100%'>
         <Stack divider={<StackDivider />} spacing='4'>
           {toDoList.map((list) => (
-            <Stack
+            <Flex
               key={list.collab_user_todo_id}
               fontSize='sm'
               px='4'
               spacing='0.5'
+              w='100%'
+              alignItems='center'
             >
-              <Box>
+              <Checkbox
+                isChecked={isChecked.includes(list.collab_user_todo_id)}
+                onChange={() => handleCheckboxChange(list.collab_user_todo_id)}
+                mr={5} // Add some margin to the right of the checkbox
+              />
+              <Stack w='100%'>
                 <Editable
                   fontSize='sm'
                   fontWeight='medium'
                   color='emphasized'
+                  w='100%'
                   onChange={(value) =>
                     dispatch({
                       type: "updateInfo",
@@ -108,7 +117,7 @@ export const ToDoList = () => {
                       todo_content: value,
                     });
                     setToDoList(
-                      list.map((l) =>
+                      toDoList.map((l) =>
                         l.collab_user_todo_id === list.collab_user_todo_id
                           ? { ...l, todo_content: value }
                           : l
@@ -120,21 +129,21 @@ export const ToDoList = () => {
                   <EditablePreview w='100%' />
                   <EditableTextarea w='100%' resize='none' />
                 </Editable>
-              </Box>
-              <Text
-                color='subtle'
-                sx={{
-                  "-webkit-box-orient": "vertical",
-                  "-webkit-line-clamp": "2",
-                  overflow: "hidden",
-                  display: "-webkit-box",
-                }}
-              >
-                {list.collab_user_todo_id && (
-                  <>Todo created {formatDate(list.created_at)}</>
-                )}
-              </Text>
-            </Stack>
+                <Text
+                  color='subtle'
+                  sx={{
+                    "-webkit-box-orient": "vertical",
+                    "-webkit-line-clamp": "2",
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                  }}
+                >
+                  {list.collab_user_todo_id && (
+                    <>Todo created {formatDate(list.created_at)}</>
+                  )}
+                </Text>
+              </Stack>
+            </Flex>
           ))}
         </Stack>
       </Box>
