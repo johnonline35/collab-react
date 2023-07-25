@@ -24,10 +24,17 @@ const PreviousMeetings = () => {
         .eq("workspace_id", params.workspace_id)
         .order("start_dateTime", { ascending: false });
 
-      if (error) console.error("Error fetching meetings: ", error);
-      else setMeetings(meetings);
+      if (error) {
+        console.error("Error fetching meetings: ", error);
+        return;
+      }
+
+      console.log("Fetched meetings: ", meetings);
+
+      setMeetings(meetings);
     };
 
+    console.log("Workspace ID: ", params.workspace_id);
     fetchMeetings();
   }, [params.workspace_id]);
 
