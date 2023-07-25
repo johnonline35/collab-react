@@ -79,7 +79,6 @@ const PreviousMeetings = () => {
                         <ListIcon as={MdCheckCircle} color='green.500' />
                         <Text>Start Time: {formattedStartDate}</Text>
                         <Text>Duration: {duration}</Text>
-                        <Text>Description: {meeting.description}</Text>
                       </ListItem>
                     );
                   })}
