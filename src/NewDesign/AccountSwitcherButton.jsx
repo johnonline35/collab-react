@@ -11,7 +11,11 @@ import { useSession } from "../hooks/useSession";
 import { supabase } from "../supabase/clientapp";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { avatarState } from "../atoms/avatarAtom";
+import {
+  avatarState,
+  companyNameState,
+  userNameState,
+} from "../atoms/avatarAtom";
 
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
@@ -19,8 +23,8 @@ export const AccountSwitcherButton = (props) => {
 
   const session = useSession();
 
-  const [userName, setUserName] = useState("");
-  const [companyName, setCompanyName] = useState("");
+  const [userName, setUserName] = useRecoilState(userNameState);
+  const [companyName, setCompanyName] = useRecoilState(companyNameState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
