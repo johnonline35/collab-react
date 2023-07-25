@@ -9,6 +9,7 @@ import {
   ListItem,
   ListIcon,
   Container,
+  Text,
 } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
@@ -18,20 +19,23 @@ const PreviousMeetings = () => {
 
   useEffect(() => {
     const fetchMeetings = async () => {
-      let { data: meetings, error } = await supabase
-        .from("meetings")
-        .select("*")
-        .eq("workspace_id", params.workspace_id)
-        .order("start_dateTime", { ascending: false });
+      try {
+        let { data, error } = await supabase
+          .from("meetings")
+          .select("*")
+          .eq("workspace_id", params.workspace_id)
+          .order('"start_dateTime"', { ascending: false });
 
-      if (error) {
-        console.error("Error fetching meetings: ", error);
-        return;
+        if (error) {
+          console.error("Error fetching meetings: ", error);
+          return;
+        }
+
+        console.log("Fetched meetings: ", data);
+        setMeetings(data); // <-- Modify here to directly set the data without wrapping it in an additional array
+      } catch (error) {
+        console.error("Exception caught while fetching meetings: ", error);
       }
-
-      console.log("Fetched meetings: ", meetings);
-
-      setMeetings(meetings);
     };
 
     console.log("Workspace ID: ", params.workspace_id);
@@ -62,7 +66,9 @@ const PreviousMeetings = () => {
                   {meetings.map((meeting) => (
                     <ListItem key={meeting.id}>
                       <ListIcon as={MdCheckCircle} color='green.500' />
-                      {meeting.title}
+                      <Text>Start Time: {meeting.start_dateTime}</Text>
+                      <Text>End Time: {meeting.end_dateTime}</Text>
+                      <Text>Description: {meeting.description}</Text>
                     </ListItem>
                   ))}
                 </Flex>
