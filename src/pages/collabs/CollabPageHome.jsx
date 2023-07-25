@@ -64,9 +64,21 @@ export default function CollabPageHome() {
     });
   };
 
-  const handleCheckClick = () => {
+  const handleCheckClick = async () => {
     console.log("Tick icon pressed", isChecked);
-    // Here you can add your logic to interact with supabase
+    // Loop over the isChecked array and delete each entry
+    for (const id of isChecked) {
+      // Here you can add your logic to interact with supabase
+      const { error } = await supabase
+        .from("collab_users_next_steps")
+        .delete()
+        .match({ collab_user_next_steps_id: id });
+
+      if (error) {
+        console.log(error);
+        return;
+      }
+    }
     setIsChecked([]);
   };
 
