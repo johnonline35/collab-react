@@ -43,6 +43,7 @@ import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
 import { ToDoList } from "../../components/TodoList";
 import { Dropzone } from "../../components/Dropzone";
+import PreviousMeetings from "../../components/CollabPreviousMeetings";
 
 export default function CollabPageHome() {
   const params = useParams();
@@ -162,27 +163,7 @@ export default function CollabPageHome() {
                   </Flex>
                 </Flex>
               </ListItem>
-              <Box>
-                <Flex direction='column'>
-                  <ListItem>
-                    <ListIcon as={MdCheckCircle} color='green.500' />
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={MdCheckCircle} color='green.500' />
-                    Assumenda, quia temporibus eveniet a libero incidunt
-                    suscipit
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={MdCheckCircle} color='green.500' />
-                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={MdSettings} color='green.500' />
-                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-                  </ListItem>
-                </Flex>
-              </Box>
+              <PreviousMeetings />
 
               {/* <ListItem mt='20px'>
                 <Alert
