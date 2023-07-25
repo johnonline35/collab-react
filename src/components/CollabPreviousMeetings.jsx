@@ -18,6 +18,15 @@ const PreviousMeetings = () => {
   const params = useParams();
   const [meetings, setMeetings] = useState([]);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      day: "2-digit",
+      year: "numeric",
+    }).format(date);
+  };
+
   useEffect(() => {
     const fetchMeetings = async () => {
       try {
@@ -33,7 +42,7 @@ const PreviousMeetings = () => {
         }
 
         console.log("Fetched meetings: ", data);
-        setMeetings(data); // <-- Modify here to directly set the data without wrapping it in an additional array
+        setMeetings(data);
       } catch (error) {
         console.error("Exception caught while fetching meetings: ", error);
       }
@@ -68,9 +77,8 @@ const PreviousMeetings = () => {
                     const startDate = new Date(meeting.start_dateTime);
                     const endDate = new Date(meeting.end_dateTime);
 
-                    const formattedStartDate = format(
-                      startDate,
-                      "eeee, MM/dd/yyyy"
+                    const formattedStartDate = formatDate(
+                      meeting.start_dateTime
                     );
                     const duration = formatDistanceStrict(endDate, startDate);
 
