@@ -162,23 +162,28 @@ export default function CollabPageHome() {
                   </Flex>
                 </Flex>
               </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
-                Assumenda, quia temporibus eveniet a libero incidunt suscipit
-              </ListItem>
-              <ListItem>
-                <ListIcon as={MdCheckCircle} color='green.500' />
-                Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-              </ListItem>
-              {/* You can also use custom icons from react-icons */}
-              <ListItem>
-                <ListIcon as={MdSettings} color='green.500' />
-                Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-              </ListItem>
+              <Box>
+                <Flex direction='column'>
+                  <ListItem>
+                    <ListIcon as={MdCheckCircle} color='green.500' />
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={MdCheckCircle} color='green.500' />
+                    Assumenda, quia temporibus eveniet a libero incidunt
+                    suscipit
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={MdCheckCircle} color='green.500' />
+                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
+                  </ListItem>
+                  <ListItem>
+                    <ListIcon as={MdSettings} color='green.500' />
+                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
+                  </ListItem>
+                </Flex>
+              </Box>
+
               {/* <ListItem mt='20px'>
                 <Alert
                   status='success'
