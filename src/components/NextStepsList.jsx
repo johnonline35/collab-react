@@ -105,7 +105,7 @@ export const NextStepsList = ({
                 onChange={() =>
                   handleCheckboxChange(step.collab_user_next_steps_id)
                 }
-                mr={3} // Add some margin to the right of the checkbox
+                mr={5} // Add some margin to the right of the checkbox
               />
               <Stack w='100%'>
                 <Editable
