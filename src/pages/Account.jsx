@@ -39,7 +39,11 @@ import EditProfile from "../components/EditProfile";
 import { useSession } from "../hooks/useSession";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { avatarState } from "../atoms/avatarAtom";
+import {
+  avatarState,
+  userNameState,
+  companyNameState,
+} from "../atoms/avatarAtom";
 
 export default function Account() {
   const [avatar, setAvatar] = useRecoilState(avatarState); // Use Recoil state
@@ -48,9 +52,9 @@ export default function Account() {
   const session = useSession();
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useRecoilState(userNameState);
   const [email, setEmail] = useState(null);
-  const [companyname, setCompanyname] = useState(null);
+  const [companyname, setCompanyname] = useRecoilState(companyNameState);
   const [jobTitle, setJobTitle] = useState(null);
   const [socialUrl, setSocialUrl] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
@@ -163,7 +167,7 @@ export default function Account() {
           >
             <Box>
               <Text color='muted' fontSize='sm'>
-                This information is displayed on your 'Showpage'
+                This information is displayed on your Collab 'Share Page'
               </Text>
             </Box>
           </Stack>
