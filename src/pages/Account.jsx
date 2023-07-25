@@ -52,7 +52,6 @@ export default function Account() {
   const [email, setEmail] = useState(null);
   const [companyname, setCompanyname] = useState(null);
   const [jobTitle, setJobTitle] = useState(null);
-  const [avatarUrl, setAvatarUrl] = useState(null);
   const [socialUrl, setSocialUrl] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [bio, setBio] = useState(null);
@@ -117,7 +116,7 @@ export default function Account() {
         collab_user_name: username,
         company_name: companyname,
         collab_user_job_title: jobTitle,
-        collab_user_avatar_url: avatarUrl,
+        collab_user_avatar_url: avatar, // Use the avatar from the Recoil state
         collab_user_socials: socialUrl ? { linkedin: socialUrl } : null,
         phone_number: phoneNumber,
         bio: bio,
