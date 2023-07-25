@@ -12,6 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
+import { format, formatDistanceStrict } from "date-fns";
 
 const PreviousMeetings = () => {
   const params = useParams();
@@ -63,14 +64,25 @@ const PreviousMeetings = () => {
             <Stack spacing='1'>
               <Box>
                 <Flex direction='column'>
-                  {meetings.map((meeting) => (
-                    <ListItem key={meeting.id}>
-                      <ListIcon as={MdCheckCircle} color='green.500' />
-                      <Text>Start Time: {meeting.start_dateTime}</Text>
-                      <Text>End Time: {meeting.end_dateTime}</Text>
-                      <Text>Description: {meeting.description}</Text>
-                    </ListItem>
-                  ))}
+                  {meetings.map((meeting) => {
+                    const startDate = new Date(meeting.start_dateTime);
+                    const endDate = new Date(meeting.end_dateTime);
+
+                    const formattedStartDate = format(
+                      startDate,
+                      "eeee, MM/dd/yyyy"
+                    );
+                    const duration = formatDistanceStrict(endDate, startDate);
+
+                    return (
+                      <ListItem key={meeting.id}>
+                        <ListIcon as={MdCheckCircle} color='green.500' />
+                        <Text>Start Time: {formattedStartDate}</Text>
+                        <Text>Duration: {duration}</Text>
+                        <Text>Description: {meeting.description}</Text>
+                      </ListItem>
+                    );
+                  })}
                 </Flex>
               </Box>
             </Stack>
