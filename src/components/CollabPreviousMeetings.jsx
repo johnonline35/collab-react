@@ -79,7 +79,7 @@ const PreviousMeetings = () => {
                         <Flex align='center'>
                           <ListIcon as={MdCheckCircle} color='green.500' />
                           <Text ml={2}>
-                            Date: {formattedStartDate}, Duration: {duration}
+                            Date: {formattedStartDate}. Duration: {duration}
                           </Text>
                         </Flex>
                       </ListItem>
