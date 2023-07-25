@@ -8,9 +8,12 @@ import {
   Stack,
   StackDivider,
   Text,
+  Checkbox,
+  IconButton,
 } from "@chakra-ui/react";
 import { supabase } from "../supabase/clientapp";
 import { useParams } from "react-router-dom";
+import { FiCheck } from "react-icons/fi";
 
 const infoReducer = (state, action) => {
   switch (action.type) {
@@ -28,6 +31,23 @@ export const NextStepsList = () => {
   const [nextSteps, setNextSteps] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
   const { workspace_id } = useParams();
+  const [isChecked, setIsChecked] = useState([]);
+
+  const handleCheckboxChange = (id) => {
+    setIsChecked((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((e) => e !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
+
+  const handleCheckClick = () => {
+    console.log("Tick icon pressed", isChecked);
+    // Here you can add your logic to interact with supabase
+    setIsChecked([]);
+  };
 
   const fetchNextSteps = useCallback(async () => {
     console.log("fetchNextSteps called");
@@ -92,7 +112,12 @@ export const NextStepsList = () => {
               spacing='0.5'
               w='100%'
             >
-              <Box>
+              <Checkbox
+                isChecked={isChecked.includes(step.collab_user_next_steps_id)}
+                onChange={() =>
+                  handleCheckboxChange(step.collab_user_next_steps_id)
+                }
+              >
                 <Editable
                   fontSize='sm'
                   fontWeight='medium'
@@ -123,7 +148,7 @@ export const NextStepsList = () => {
                   <EditablePreview w='100%' />
                   <EditableTextarea w='100%' resize='none' />
                 </Editable>
-              </Box>
+              </Checkbox>
               <Text
                 color='subtle'
                 sx={{
@@ -140,10 +165,83 @@ export const NextStepsList = () => {
             </Stack>
           ))}
         </Stack>
+        <IconButton icon={<FiCheck />} onClick={handleCheckClick} />
       </Box>
     </Center>
   );
 };
+
+//   return (
+//     <Center
+//       maxW='sm'
+//       mx='auto'
+//       py={{
+//         base: "4",
+//         md: "8",
+//       }}
+//     >
+//       <Box bg='bg-surface' py='4' w='100%'>
+//         <Stack divider={<StackDivider />} spacing='4'>
+//           {nextSteps.map((step) => (
+//             <Stack
+//               key={step.collab_user_next_steps_id}
+//               fontSize='sm'
+//               px='4'
+//               spacing='0.5'
+//               w='100%'
+//             >
+//               <Box>
+//                 <Editable
+//                   fontSize='sm'
+//                   fontWeight='medium'
+//                   color='emphasized'
+//                   w='100%'
+//                   onChange={(value) =>
+//                     dispatch({
+//                       type: "updateInfo",
+//                       id: step.collab_user_next_steps_id,
+//                       update: { nextstep_content: value },
+//                     })
+//                   }
+//                   onSubmit={async (value) => {
+//                     await updateNextStep(step.collab_user_next_steps_id, {
+//                       nextstep_content: value,
+//                     });
+//                     setNextSteps(
+//                       nextSteps.map((s) =>
+//                         s.collab_user_next_steps_id ===
+//                         step.collab_user_next_steps_id
+//                           ? { ...s, nextstep_content: value }
+//                           : s
+//                       )
+//                     );
+//                   }}
+//                   defaultValue={step.nextstep_content}
+//                 >
+//                   <EditablePreview w='100%' />
+//                   <EditableTextarea w='100%' resize='none' />
+//                 </Editable>
+//               </Box>
+//               <Text
+//                 color='subtle'
+//                 sx={{
+//                   "-webkit-box-orient": "vertical",
+//                   "-webkit-line-clamp": "2",
+//                   overflow: "hidden",
+//                   display: "-webkit-box",
+//                 }}
+//               >
+//                 {step.collab_user_next_steps_id && (
+//                   <>Next step created {formatDate(step.created_at)}</>
+//                 )}
+//               </Text>
+//             </Stack>
+//           ))}
+//         </Stack>
+//       </Box>
+//     </Center>
+//   );
+// };
 
 // LATEST BEFORE CHANGE
 
