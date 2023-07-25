@@ -1,16 +1,36 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabase/clientapp";
 import {
   Stack,
   StackDivider,
-  Text,
   Box,
   Flex,
   ListItem,
   ListIcon,
   Container,
 } from "@chakra-ui/react";
-import { MdCheckCircle, MdSettings } from "react-icons/md";
+import { MdCheckCircle } from "react-icons/md";
 
 const PreviousMeetings = () => {
+  const params = useParams();
+  const [meetings, setMeetings] = useState([]);
+
+  useEffect(() => {
+    const fetchMeetings = async () => {
+      let { data: meetings, error } = await supabase
+        .from("meetings")
+        .select("*")
+        .eq("workspace_id", params.workspace_id)
+        .order("start_dateTime", { ascending: false });
+
+      if (error) console.error("Error fetching meetings: ", error);
+      else setMeetings(meetings);
+    };
+
+    fetchMeetings();
+  }, [params.workspace_id]);
+
   return (
     <Box
       as='section'
@@ -32,23 +52,12 @@ const PreviousMeetings = () => {
             <Stack spacing='1'>
               <Box>
                 <Flex direction='column'>
-                  <ListItem>
-                    <ListIcon as={MdCheckCircle} color='green.500' />
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={MdCheckCircle} color='green.500' />
-                    Assumenda, quia temporibus eveniet a libero incidunt
-                    suscipit
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={MdCheckCircle} color='green.500' />
-                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-                  </ListItem>
-                  <ListItem>
-                    <ListIcon as={MdSettings} color='green.500' />
-                    Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
-                  </ListItem>
+                  {meetings.map((meeting) => (
+                    <ListItem key={meeting.id}>
+                      <ListIcon as={MdCheckCircle} color='green.500' />
+                      {meeting.title}
+                    </ListItem>
+                  ))}
                 </Flex>
               </Box>
             </Stack>
