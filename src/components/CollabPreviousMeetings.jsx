@@ -77,8 +77,9 @@ const PreviousMeetings = () => {
                     return (
                       <ListItem key={meeting.id}>
                         <ListIcon as={MdCheckCircle} color='green.500' />
-                        <Text>Start Time: {formattedStartDate}</Text>
-                        <Text>Duration: {duration}</Text>
+                        <Text>
+                          Date: {formattedStartDate}, Duration: {duration}
+                        </Text>
                       </ListItem>
                     );
                   })}
