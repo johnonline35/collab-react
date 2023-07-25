@@ -98,7 +98,7 @@ export const NextStepsList = ({
               px='4'
               spacing='0.5'
               w='100%'
-              alignItems='start'
+              alignItems='center'
             >
               <Checkbox
                 isChecked={isChecked.includes(step.collab_user_next_steps_id)}
