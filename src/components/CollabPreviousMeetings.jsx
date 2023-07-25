@@ -32,7 +32,14 @@ const PreviousMeetings = () => {
     const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
     const hours = Math.floor(differenceInSeconds / 3600);
     const minutes = Math.floor((differenceInSeconds % 3600) / 60);
-    return `${hours} hour(s) ${minutes} minute(s)`;
+
+    if (hours === 0) {
+      return `${minutes} min${minutes > 1 ? "s" : ""}`;
+    } else {
+      return `${hours} hr${hours > 1 ? "s" : ""} ${minutes} min${
+        minutes > 1 ? "s" : ""
+      }`;
+    }
   };
 
   useEffect(() => {
