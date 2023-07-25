@@ -157,7 +157,7 @@ export default function CollabPageHome() {
                 <Flex direction='row' justify='space-between'>
                   <Flex>
                     <ListIcon as={FiDribbble} color='black' mt='5px' />
-                    TBD
+                    Previous Meetings
                   </Flex>
                   <CloseButton />
                 </Flex>
