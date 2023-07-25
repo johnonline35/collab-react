@@ -10,6 +10,7 @@ import {
   Text,
   Checkbox,
   IconButton,
+  Flex,
 } from "@chakra-ui/react";
 import { supabase } from "../supabase/clientapp";
 import { useParams } from "react-router-dom";
@@ -91,19 +92,22 @@ export const NextStepsList = ({
       <Box bg='bg-surface' py='4' w='100%'>
         <Stack divider={<StackDivider />} spacing='4'>
           {nextSteps.map((step) => (
-            <Stack
+            <Flex
               key={step.collab_user_next_steps_id}
               fontSize='sm'
               px='4'
               spacing='0.5'
               w='100%'
+              alignItems='start'
             >
               <Checkbox
                 isChecked={isChecked.includes(step.collab_user_next_steps_id)}
                 onChange={() =>
                   handleCheckboxChange(step.collab_user_next_steps_id)
                 }
-              >
+                mr={3} // Add some margin to the right of the checkbox
+              />
+              <Stack w='100%'>
                 <Editable
                   fontSize='sm'
                   fontWeight='medium'
@@ -134,21 +138,21 @@ export const NextStepsList = ({
                   <EditablePreview w='100%' />
                   <EditableTextarea w='100%' resize='none' />
                 </Editable>
-              </Checkbox>
-              <Text
-                color='subtle'
-                sx={{
-                  "-webkit-box-orient": "vertical",
-                  "-webkit-line-clamp": "2",
-                  overflow: "hidden",
-                  display: "-webkit-box",
-                }}
-              >
-                {step.collab_user_next_steps_id && (
-                  <>Next step created {formatDate(step.created_at)}</>
-                )}
-              </Text>
-            </Stack>
+                <Text
+                  color='subtle'
+                  sx={{
+                    "-webkit-box-orient": "vertical",
+                    "-webkit-line-clamp": "2",
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                  }}
+                >
+                  {step.collab_user_next_steps_id && (
+                    <>Next step created {formatDate(step.created_at)}</>
+                  )}
+                </Text>
+              </Stack>
+            </Flex>
           ))}
         </Stack>
       </Box>
