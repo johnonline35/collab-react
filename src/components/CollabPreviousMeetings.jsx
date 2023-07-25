@@ -30,9 +30,6 @@ const PreviousMeetings = () => {
         >
           <Stack spacing='5' divider={<StackDivider />}>
             <Stack spacing='1'>
-              <Text fontSize='md' fontWeight='medium'>
-                Previous Meetings
-              </Text>
               <Box>
                 <Flex direction='column'>
                   <ListItem>
