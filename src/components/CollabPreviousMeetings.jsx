@@ -76,10 +76,12 @@ const PreviousMeetings = () => {
 
                     return (
                       <ListItem key={meeting.id}>
-                        <ListIcon as={MdCheckCircle} color='green.500' />
-                        <Text>
-                          Date: {formattedStartDate}, Duration: {duration}
-                        </Text>
+                        <Flex align='center'>
+                          <ListIcon as={MdCheckCircle} color='green.500' />
+                          <Text ml={2}>
+                            Date: {formattedStartDate}, Duration: {duration}
+                          </Text>
+                        </Flex>
                       </ListItem>
                     );
                   })}
