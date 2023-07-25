@@ -216,6 +216,7 @@ export const useLexicalNodeParse = () => {
         );
       } else if (existingData.length === 0) {
         // If the UUID does not exist, create a new UUID for collab_user_next_steps_id
+        const newId = uuidv4();
 
         // Upsert the content using nextstep_uuid as a constraint
         const { data, error } = await supabase
@@ -223,6 +224,7 @@ export const useLexicalNodeParse = () => {
           .upsert(
             [
               {
+                collab_user_next_steps_id: newId,
                 workspace_id: params.workspace_id,
                 nextstep_content: nextStepContentWithUUID.content,
                 nextstep_uuid: nextStepContentWithUUID.uuid,
@@ -238,7 +240,7 @@ export const useLexicalNodeParse = () => {
           console.error("Error upserting next_step_content:", error);
         } else {
           console.log("Successfully upserted next_step_content:", data);
-          setNextSingleStepNoteId(nextStepContentWithUUID.uuid);
+          setNextSingleStepNoteId(newId);
         }
       } else {
         console.log("UUID already exists in the nextstep_uuid column");
