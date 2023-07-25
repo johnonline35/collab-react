@@ -27,27 +27,10 @@ const infoReducer = (state, action) => {
   }
 };
 
-export const NextStepsList = () => {
+export const NextStepsList = ({ isChecked, handleCheckboxChange }) => {
   const [nextSteps, setNextSteps] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
   const { workspace_id } = useParams();
-  const [isChecked, setIsChecked] = useState([]);
-
-  const handleCheckboxChange = (id) => {
-    setIsChecked((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((e) => e !== id);
-      } else {
-        return [...prev, id];
-      }
-    });
-  };
-
-  const handleCheckClick = () => {
-    console.log("Tick icon pressed", isChecked);
-    // Here you can add your logic to interact with supabase
-    setIsChecked([]);
-  };
 
   const fetchNextSteps = useCallback(async () => {
     console.log("fetchNextSteps called");
@@ -165,7 +148,6 @@ export const NextStepsList = () => {
             </Stack>
           ))}
         </Stack>
-        <IconButton icon={<FiCheck />} onClick={handleCheckClick} />
       </Box>
     </Center>
   );

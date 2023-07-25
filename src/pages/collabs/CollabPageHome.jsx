@@ -52,6 +52,23 @@ export default function CollabPageHome() {
   const [customerName, setCustomerName] = useState("");
   const { workspace_id } = useParams();
   const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
+  const [isChecked, setIsChecked] = useState([]);
+
+  const handleCheckboxChange = (id) => {
+    setIsChecked((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((e) => e !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
+  };
+
+  const handleCheckClick = () => {
+    console.log("Tick icon pressed", isChecked);
+    // Here you can add your logic to interact with supabase
+    setIsChecked([]);
+  };
 
   const getSupabaseData = async () => {
     const { data, error } = await supabase
@@ -227,6 +244,7 @@ export default function CollabPageHome() {
                     size='sm'
                     variant='secondary'
                     icon={<FiCheck />}
+                    onClick={handleCheckClick}
                   />
                 </Flex>
               </Flex>
