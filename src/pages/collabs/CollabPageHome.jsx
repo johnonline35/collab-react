@@ -35,6 +35,7 @@ import {
   FiUsers,
   FiArchive,
 } from "react-icons/fi";
+import { MdCheckCircle, MdSettings } from "react-icons/md";
 import { AiOutlineFolder } from "react-icons/ai";
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
@@ -159,10 +160,25 @@ export default function CollabPageHome() {
                     <ListIcon as={FiDribbble} color='black' mt='5px' />
                     Previous Meetings
                   </Flex>
-                  <CloseButton />
                 </Flex>
               </ListItem>
-
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit
+              </ListItem>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Assumenda, quia temporibus eveniet a libero incidunt suscipit
+              </ListItem>
+              <ListItem>
+                <ListIcon as={MdCheckCircle} color='green.500' />
+                Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
+              </ListItem>
+              {/* You can also use custom icons from react-icons */}
+              <ListItem>
+                <ListIcon as={MdSettings} color='green.500' />
+                Quidem, ipsam illum quis sed voluptatum quae eum fugit earum
+              </ListItem>
               {/* <ListItem mt='20px'>
                 <Alert
                   status='success'
