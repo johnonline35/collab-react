@@ -296,6 +296,7 @@ const TeamMemberStack = ({ workspace_id }) => {
                       fontSize='sm'
                       // onChange={handleEmailChange}
                       // onSubmit={handleEmailSubmit}
+                      isDisabled
                       defaultValue={member.attendee_email}
                     >
                       <EditablePreview />
