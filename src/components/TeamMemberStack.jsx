@@ -294,8 +294,8 @@ const TeamMemberStack = ({ workspace_id }) => {
                     {/* Email: {member.attendee_email} */}
                     <Editable
                       fontSize='sm'
-                      onChange={handleEmailChange}
-                      onSubmit={handleEmailSubmit}
+                      // onChange={handleEmailChange}
+                      // onSubmit={handleEmailSubmit}
                       defaultValue={member.attendee_email}
                     >
                       <EditablePreview />
