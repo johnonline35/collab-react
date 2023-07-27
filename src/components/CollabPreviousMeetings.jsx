@@ -35,6 +35,8 @@ const PreviousMeetings = () => {
 
     if (hours === 0) {
       return `${minutes} min${minutes > 1 ? "s" : ""}`;
+    } else if (minutes === 0) {
+      return `${hours} hr${hours > 1 ? "s" : ""}`;
     } else {
       return `${hours} hr${hours > 1 ? "s" : ""} ${minutes} min${
         minutes > 1 ? "s" : ""
