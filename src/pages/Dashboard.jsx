@@ -121,7 +121,6 @@ export default function Dashboard() {
 
       console.log("datanewtestdasboard:", data);
       setCompanyInfo(data);
-      setLoadingCards(false);
 
       // Update the Redis cache with the new company info
       // const response = await fetch("/api/redisSetCompanyInfo", {
@@ -137,6 +136,9 @@ export default function Dashboard() {
       // }
     } catch (error) {
       console.error("Error in test_dashboard:", error);
+    } finally {
+      // Always run this last after the async operation above finishes
+      setLoadingCards(false);
     }
   };
 
