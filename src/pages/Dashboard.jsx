@@ -75,39 +75,6 @@ export default function Dashboard() {
   };
 
   // Fetch Google Calendar via Server and process the response
-  const getMeetings = async (userId) => {
-    console.log("NEWuserId:", userId);
-    console.log("Starting getMeetings");
-    if (!userId) return; // Do not proceed if there's no user ID
-    console.log("Passed userId check");
-
-    // Fetch and load the local workspace data first, if any
-    let workspaceData = await getWorkspaceData(userId);
-    if (workspaceData) {
-      console.log("Loaded workspace data:", workspaceData);
-      // Call getCompanyTileInfo with userId when workspace data is present
-      getCompanyTileInfo(userId);
-    }
-
-    const response = await fetch(getMeetingsEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId }),
-    });
-    console.log("Sent fetch request");
-
-    if (response.ok) {
-      console.log("Got Meetings");
-      const meetingsData = await response.json();
-      console.log("meetingsData:", meetingsData);
-
-      getCompanyTileInfo(userId);
-    } else {
-      console.error("Error getting meetings:", response.status);
-    }
-  };
 
   const getCompanyTileInfo = async (userId) => {
     try {
@@ -138,13 +105,47 @@ export default function Dashboard() {
       console.error("Error in test_dashboard:", error);
     } finally {
       // Always run this last after the async operation above finishes
-      setLoadingCards(false);
+      // setLoadingCards(false);
     }
   };
 
   // Fetch user session and set the userId
   useEffect(() => {
     setLoadingCards(true);
+
+    const getMeetings = async (userId) => {
+      console.log("NEWuserId:", userId);
+      console.log("Starting getMeetings");
+      if (!userId) return; // Do not proceed if there's no user ID
+      console.log("Passed userId check");
+
+      // Fetch and load the local workspace data first, if any
+      // let workspaceData = await getWorkspaceData(userId);
+      // if (workspaceData) {
+      //   console.log("Loaded workspace data:", workspaceData);
+      //   // Call getCompanyTileInfo with userId when workspace data is present
+      //   getCompanyTileInfo(userId);
+      // }
+
+      const response = await fetch(getMeetingsEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      });
+      console.log("Sent fetch request");
+
+      if (response.ok) {
+        console.log("Got Meetings");
+        const meetingsData = await response.json();
+        console.log("meetingsData:", meetingsData);
+
+        getCompanyTileInfo(userId);
+      } else {
+        console.error("Error getting meetings:", response.status);
+      }
+    };
 
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
@@ -191,6 +192,12 @@ export default function Dashboard() {
 
     getSession();
   }, []);
+
+  useEffect(() => {
+    if (companyInfo !== null) {
+      setLoadingCards(false);
+    }
+  }, [companyInfo]);
 
   if (loadingCards) {
     return <DashboardLoader />;
