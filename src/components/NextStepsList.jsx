@@ -89,7 +89,7 @@ export const NextStepsList = ({
   };
 
   if (isLoading) {
-    return null; // render nothing while fetching data
+    return <div style={{ marginBottom: "200px" }}></div>;
   }
 
   if (nextSteps.length === 0) {
