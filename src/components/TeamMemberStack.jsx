@@ -31,15 +31,15 @@ const infoReducer = (state, action) => {
   }
 };
 
-const TeamMemberStack = ({ workspace_id }) => {
+const TeamMemberStack = (
+  isAttendeeChecked,
+  handleAttendeeCheckboxChange,
+  { workspace_id }
+) => {
   const [members, setMembers] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
   const [isChecked, setIsChecked] = useState([]);
   // const { workspace_id } = useParams();
-
-  const handleCheckboxChange = (id) => {
-    // implement your checkbox handler here
-  };
 
   useEffect(() => {
     if (!workspace_id) {
@@ -238,7 +238,9 @@ const TeamMemberStack = ({ workspace_id }) => {
               >
                 <Checkbox
                   isChecked={isChecked.includes(member.attendee_id)}
-                  onChange={() => handleCheckboxChange(member.attendee_id)}
+                  onChange={() =>
+                    handleAttendeeCheckboxChange(member.attendee_id)
+                  }
                   mr={5} // Add some margin to the right of the checkbox
                 />
                 <Stack w='100%'>
