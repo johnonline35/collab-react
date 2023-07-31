@@ -321,8 +321,8 @@ export default function Dashboard() {
                       info.banner_src
                         ? `url("${info.banner_src}")`
                         : info.image
-                        ? `url("/images/custom/collab_header2.jpeg")`
-                        : "blue.200"
+                        ? "blue.200"
+                        : `url("/images/custom/collab_header2.jpeg")`
                     }
                     bgPos='center'
                     bgRepeat='no-repeat'
