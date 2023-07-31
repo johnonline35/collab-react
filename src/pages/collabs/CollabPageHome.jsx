@@ -127,6 +127,9 @@ export default function CollabPageHome() {
         if (errorSetLead) throw errorSetLead;
 
         console.log("Successfully set the lead");
+
+        // Once operation is successful, uncheck the checkbox
+        setAttendeeIsChecked([]);
       } catch (error) {
         console.error("Error setting the lead:", error);
       }
