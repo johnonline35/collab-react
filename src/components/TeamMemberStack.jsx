@@ -34,6 +34,7 @@ const infoReducer = (state, action) => {
 const TeamMemberStack = ({
   isAttendeeChecked,
   handleAttendeeCheckboxChange,
+  attendeeIsChecked,
 }) => {
   const [members, setMembers] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
@@ -236,7 +237,7 @@ const TeamMemberStack = ({
                 alignItems='center'
               >
                 <Checkbox
-                  isChecked={isChecked.includes(member.attendee_id)}
+                  isChecked={attendeeIsChecked.includes(member.attendee_id)}
                   onChange={() =>
                     handleAttendeeCheckboxChange(member.attendee_id)
                   }
