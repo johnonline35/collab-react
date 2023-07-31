@@ -107,10 +107,10 @@ export const NextStepsList = ({
         >
           <AlertIcon boxSize='40px' mr={0} />
           <AlertTitle mt={4} mb={1} fontSize='lg'>
-            No Next Steps!
+            Nothing to see here!
           </AlertTitle>
           <AlertDescription maxWidth='sm'>
-            There are no Next Steps left to do. Keep up the good work!
+            There is nothing here to do. Keep up the good work!
           </AlertDescription>
         </Alert>
       </ListItem>
