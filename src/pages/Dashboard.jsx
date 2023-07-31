@@ -309,7 +309,7 @@ export default function Dashboard() {
                 <Card
                   key={info.workspace_id}
                   borderTop='2px'
-                  borderColor='gray.400'
+                  borderColor='gray.200'
                   bg='white'
                   loading={loadingCards}
                   minW='xs'
@@ -321,7 +321,7 @@ export default function Dashboard() {
                       info.banner_src
                         ? `url("${info.banner_src}")`
                         : info.image
-                        ? "blue.200"
+                        ? "blue.100"
                         : `url("/images/custom/collab_header2.jpeg")`
                     }
                     bgPos='center'
