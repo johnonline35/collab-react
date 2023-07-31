@@ -65,6 +65,16 @@ export default function CollabPageHome() {
     });
   };
 
+  const handleAttendeeCheckboxChange = (attendeeId) => {
+    if (attendeeIsChecked.includes(attendeeId)) {
+      // If the attendee is currently checked, remove them from the array
+      setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
+    } else {
+      // If the attendee is not currently checked, add them to the array
+      setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
+    }
+  };
+
   const handleCheckClick = async (type) => {
     console.log("Tick icon pressed", isChecked);
     // Loop over the isChecked array and update each entry
@@ -92,16 +102,6 @@ export default function CollabPageHome() {
       }
     }
     setIsChecked([]);
-  };
-
-  const handleAttendeeCheckboxChange = (attendeeId) => {
-    if (isChecked.includes(attendeeId)) {
-      // If the attendee is currently checked, remove them from the array
-      setIsChecked(isChecked.filter((id) => id !== attendeeId));
-    } else {
-      // If the attendee is not currently checked, add them to the array
-      setIsChecked([...isChecked, attendeeId]);
-    }
   };
 
   const handleSetLead = async () => {
