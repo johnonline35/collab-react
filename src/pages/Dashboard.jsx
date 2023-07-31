@@ -309,7 +309,7 @@ export default function Dashboard() {
                 <Card
                   key={info.workspace_id}
                   borderTop='2px'
-                  borderColor='blue.400'
+                  borderColor='gray.400'
                   bg='white'
                   loading={loadingCards}
                   minW='xs'
