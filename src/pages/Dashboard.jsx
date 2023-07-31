@@ -317,10 +317,12 @@ export default function Dashboard() {
                 >
                   <CardHeader
                     p='0'
-                    bgImage={
+                    bg={
                       info.banner_src
                         ? `url("${info.banner_src}")`
-                        : `url("/images/custom/collab_header2.jpeg")`
+                        : info.image
+                        ? `url("/images/custom/collab_header2.jpeg")`
+                        : "blue.200"
                     }
                     bgPos='center'
                     bgRepeat='no-repeat'
