@@ -234,9 +234,9 @@ export default function CollabPageHome() {
                   <ListIcon as={FiUsers} color='black' />
                   Team
                 </ListItem>
-                {/* <Flex pr='10px' gap='2'>
+                <Flex pr='10px' gap='2'>
                   <Button variant='secondary' size='sm'>
-                    Display on Dashboard
+                    Set Lead
                   </Button>
 
                   <Spacer />
@@ -245,7 +245,7 @@ export default function CollabPageHome() {
                     variant='secondary'
                     icon={<DeleteIcon />}
                   />
-                </Flex> */}
+                </Flex>
               </Flex>
               {workspace_id && <TeamMemberStack workspace_id={workspace_id} />}
               {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
