@@ -33,13 +33,13 @@ const infoReducer = (state, action) => {
 
 const TeamMemberStack = (
   isAttendeeChecked,
-  handleAttendeeCheckboxChange,
-  { workspace_id }
+  handleAttendeeCheckboxChange
+  // { workspace_id }
 ) => {
   const [members, setMembers] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
   const [isChecked, setIsChecked] = useState([]);
-  // const { workspace_id } = useParams();
+  const { workspace_id } = useParams();
 
   useEffect(() => {
     if (!workspace_id) {
