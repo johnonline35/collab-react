@@ -250,12 +250,14 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              {workspace_id && (
-                <TeamMemberStack
-                  workspace_id={workspace_id}
-                  handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
-                />
-              )}
+              {workspace_id &&
+                (console.log(typeof handleAttendeeCheckboxChange),
+                (
+                  <TeamMemberStack
+                    workspace_id={workspace_id}
+                    handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
+                  />
+                ))}
               {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
             </List>
           </Card>
