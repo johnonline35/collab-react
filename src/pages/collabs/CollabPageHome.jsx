@@ -105,8 +105,8 @@ export default function CollabPageHome() {
   };
 
   const handleSetLead = async () => {
-    if (isChecked.length === 1) {
-      console.log("Lead", isChecked[0]);
+    if (attendeeIsChecked.length === 1) {
+      console.log("Lead", attendeeIsChecked[0]);
       // Here you can add further actions you want to perform when setting the lead
       // For example, you may want to send a request to your backend here
     }
@@ -237,7 +237,7 @@ export default function CollabPageHome() {
                     variant='secondary'
                     size='sm'
                     onClick={() => handleSetLead()}
-                    disabled={isChecked.length !== 1}
+                    disabled={attendeeIsChecked.length !== 1}
                   >
                     Set Lead
                   </Button>

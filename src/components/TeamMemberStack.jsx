@@ -32,7 +32,6 @@ const infoReducer = (state, action) => {
 };
 
 const TeamMemberStack = ({
-  isAttendeeChecked,
   handleAttendeeCheckboxChange,
   attendeeIsChecked,
 }) => {
