@@ -320,7 +320,7 @@ export default function Dashboard() {
                     bgImage={
                       info.banner_src
                         ? `url("${info.banner_src}")`
-                        : `url("/images/custom/collab_header.jpeg")`
+                        : `url("/images/custom/collab_header2.jpeg")`
                     }
                     bgPos='center'
                     bgRepeat='no-repeat'
