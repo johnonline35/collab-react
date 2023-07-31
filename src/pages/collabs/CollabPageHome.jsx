@@ -276,7 +276,7 @@ export default function CollabPageHome() {
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
               />
-              <ListItem mt='20px'>
+              <ListItem mt='0px'>
                 <Alert
                   status='success'
                   variant='subtle'
@@ -288,11 +288,10 @@ export default function CollabPageHome() {
                 >
                   <AlertIcon boxSize='40px' mr={0} />
                   <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    Momentum is rolling!
+                    No Next Steps!
                   </AlertTitle>
                   <AlertDescription maxWidth='sm'>
-                    Momentum has been building with this customer recently. Keep
-                    up the good work!
+                    There are no Next Steps left to do. Keep up the good work!
                   </AlertDescription>
                 </Alert>
               </ListItem>
