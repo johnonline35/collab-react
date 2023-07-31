@@ -317,11 +317,14 @@ export default function Dashboard() {
                 >
                   <CardHeader
                     p='0'
-                    bg={
+                    bgImage={
                       info.banner_src
-                        ? "transparent"
-                        : "/images/custom/collab_header.jpeg"
+                        ? `url("${info.banner_src}")`
+                        : `url("/images/custom/collab_header.jpeg")`
                     }
+                    bgPos='center'
+                    bgRepeat='no-repeat'
+                    bgSize='cover'
                     style={{ height: "70px" }}
                   >
                     <Flex
