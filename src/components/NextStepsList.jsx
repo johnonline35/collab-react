@@ -46,8 +46,8 @@ export const NextStepsList = ({
     const { data, error } = await supabase
       .from("collab_users_next_steps")
       .select("*")
-      .eq("workspace_id", workspace_id);
-    // .neq("ignore", true);
+      .eq("workspace_id", workspace_id)
+      .neq("ignore", true);
 
     if (error) {
       console.error(error);
