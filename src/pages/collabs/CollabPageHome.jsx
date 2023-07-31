@@ -276,26 +276,7 @@ export default function CollabPageHome() {
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
               />
-              <ListItem mt='0px'>
-                <Alert
-                  status='success'
-                  variant='subtle'
-                  flexDirection='column'
-                  alignItems='center'
-                  justifyContent='center'
-                  textAlign='center'
-                  height='200px'
-                  bg='white'
-                >
-                  <AlertIcon boxSize='40px' mr={0} />
-                  <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    No Next Steps!
-                  </AlertTitle>
-                  <AlertDescription maxWidth='sm'>
-                    There are no Next Steps left to do. Keep up the good work!
-                  </AlertDescription>
-                </Alert>
-              </ListItem>
+
               <Flex direction='row' justify='space-between'>
                 <ListItem>
                   <ListIcon as={FiCheckCircle} color='black' />
