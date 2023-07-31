@@ -348,10 +348,8 @@ export default function Dashboard() {
                           transform='translateY(50%)'
                           src={
                             info.icon_src ||
-                            info.image || (
-                              <img src='/custom/blue-avatar.jpeg' alt='logo' />
-                            ) ||
-                            undefined
+                            info.image ||
+                            "/custom/blue-avatar.jpeg"
                           }
                           name={info.workspace_name}
                         />
