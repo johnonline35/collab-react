@@ -348,8 +348,9 @@ export default function Dashboard() {
                           transform='translateY(50%)'
                           src={
                             info.icon_src ||
-                            info.image ||
-                            "https://i.ibb.co/2662rGf/blue-avatar.jpg" ||
+                            info.image || (
+                              <img src='/custom/blue-avatar.jpeg' alt='logo' />
+                            ) ||
                             undefined
                           }
                           name={info.workspace_name}
