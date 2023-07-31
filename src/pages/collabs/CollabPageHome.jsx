@@ -64,15 +64,26 @@ export default function CollabPageHome() {
     });
   };
 
-  const handleCheckClick = async () => {
+  const handleCheckClick = async (type) => {
     console.log("Tick icon pressed", isChecked);
     // Loop over the isChecked array and delete each entry
     for (const id of isChecked) {
-      // Here you can add your logic to interact with supabase
+      let tableName;
+      let matchIdName;
+
+      if (type === "nextSteps") {
+        tableName = "collab_users_next_steps";
+        matchIdName = "collab_user_next_steps_id";
+      } else if (type === "todo") {
+        tableName = "collab_users_todos";
+        matchIdName = "collab_user_todo_id";
+      }
+
+      // Supabase deletion
       const { error } = await supabase
-        .from("collab_users_next_steps")
+        .from(tableName)
         .delete()
-        .match({ collab_user_next_steps_id: id });
+        .match({ [matchIdName]: id });
 
       if (error) {
         console.log(error);
@@ -256,7 +267,7 @@ export default function CollabPageHome() {
                     size='sm'
                     variant='secondary'
                     icon={<FiCheck />}
-                    onClick={handleCheckClick}
+                    onClick={() => handleCheckClick("nextSteps")}
                   />
                 </Flex>
               </Flex>
@@ -265,10 +276,25 @@ export default function CollabPageHome() {
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
               />
-              <ListItem>
-                <ListIcon as={FiCheckCircle} color='black' />
-                Todo List
-              </ListItem>
+              <Flex direction='row' justify='space-between'>
+                <ListItem>
+                  <ListIcon as={FiCheckCircle} color='black' />
+                  Todo List
+                </ListItem>
+                <Flex pr='10px' gap='2'>
+                  {/* <Button variant='secondary' size='sm'>
+                    Create Briefing Doc
+                  </Button> */}
+                  <Spacer />
+                  <IconButton
+                    size='sm'
+                    variant='secondary'
+                    icon={<FiCheck />}
+                    onClick={() => handleCheckClick("todo")}
+                  />
+                </Flex>
+              </Flex>
+
               <ToDoList
                 workspace_id={workspace_id}
                 isChecked={isChecked}
