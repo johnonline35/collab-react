@@ -277,7 +277,7 @@ export default function CollabPageHome() {
                 handleCheckboxChange={handleCheckboxChange}
               />
               <ListItem mt='0px'>
-                <Alert
+                {/* <Alert
                   status='success'
                   variant='subtle'
                   flexDirection='column'
@@ -285,15 +285,15 @@ export default function CollabPageHome() {
                   justifyContent='center'
                   textAlign='center'
                   height='200px'
-                >
-                  <AlertIcon boxSize='40px' mr={0} />
-                  <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    No Next Steps!
-                  </AlertTitle>
-                  <AlertDescription maxWidth='sm'>
-                    There are no Next Steps left to do. Keep up the good work!
-                  </AlertDescription>
-                </Alert>
+                > */}
+                <AlertIcon boxSize='40px' mr={0} />
+                <AlertTitle mt={4} mb={1} fontSize='lg'>
+                  No Next Steps!
+                </AlertTitle>
+                <AlertDescription maxWidth='sm'>
+                  There are no Next Steps left to do. Keep up the good work!
+                </AlertDescription>
+                {/* </Alert> */}
               </ListItem>
               <Flex direction='row' justify='space-between'>
                 <ListItem>
