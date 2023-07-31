@@ -540,7 +540,7 @@ export default function Dashboard() {
                             src={
                               info
                                 ? info.image
-                                : "https://i.ibb.co/2662rGf/blue-avatar.jpg"
+                                : "images/custom/blue-avatar.jpeg"
                             }
                             // src={info ? info.image : undefined}
                             boxSize='10'
