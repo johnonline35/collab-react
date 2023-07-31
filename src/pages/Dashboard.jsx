@@ -538,14 +538,14 @@ export default function Dashboard() {
                           {/* <Checkbox /> */}
                           <Avatar
                             src={
-                              info
+                              info.image
                                 ? info.image
-                                : "images/custom/blue-avatar.jpeg"
+                                : "/images/custom/blue-avatar.jpeg"
                             }
-                            // src={info ? info.image : undefined}
                             boxSize='10'
                             name={info.attendee_email}
                           />
+
                           {/* <AvatarBadge
                         boxSize='4'
                         bg={
