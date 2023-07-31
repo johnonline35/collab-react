@@ -39,9 +39,11 @@ export const NextStepsList = ({
   workspace_id,
 }) => {
   const [nextSteps, setNextSteps] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [info, dispatch] = useReducer(infoReducer, {});
 
   const fetchNextSteps = useCallback(async () => {
+    setIsLoading(true); // set loading state to true before fetching data
     console.log("fetchNextSteps called");
     if (!workspace_id) {
       console.error("Invalid or missing workspace_id'");
@@ -58,7 +60,7 @@ export const NextStepsList = ({
       console.error(error);
     } else {
       setNextSteps(data);
-      console.log(nextSteps);
+      setIsLoading(false); // set loading state to false after fetching data
     }
   }, [workspace_id]);
 
