@@ -19,6 +19,7 @@ import {
   EditablePreview,
   EditableInput,
   Text,
+  useToast,
   Container,
   FormControl,
   FormLabel,
@@ -54,6 +55,7 @@ export default function CollabPageHome() {
   const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
   const [isChecked, setIsChecked] = useState([]);
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
+  const toast = useToast();
 
   const handleCheckboxChange = (id) => {
     setIsChecked((prev) => {
@@ -126,12 +128,30 @@ export default function CollabPageHome() {
 
         if (errorSetLead) throw errorSetLead;
 
-        console.log("Successfully set the lead");
-
         // Once operation is successful, uncheck the checkbox
         setAttendeeIsChecked([]);
+
+        // Show a success toast
+        toast({
+          title: "Lead Set.",
+          description: "The workspace lead has been successfully set.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        console.log("Successfully set the lead");
       } catch (error) {
         console.error("Error setting the lead:", error);
+
+        // Show an error toast
+        toast({
+          title: "An error occurred.",
+          description: "Unable to set the workspace lead.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
       }
     }
   };
