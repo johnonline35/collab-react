@@ -110,7 +110,7 @@ export const NextStepsList = ({
             Nothing to see here!
           </AlertTitle>
           <AlertDescription maxWidth='sm'>
-            There is nothing here to do. Keep up the good work!
+            There are no tasks to do. Keep up the good work!
           </AlertDescription>
         </Alert>
       </ListItem>
