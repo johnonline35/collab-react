@@ -34,7 +34,12 @@ const infoReducer = (state, action) => {
 const TeamMemberStack = ({ workspace_id }) => {
   const [members, setMembers] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
+  const [isChecked, setIsChecked] = useState([]);
   // const { workspace_id } = useParams();
+
+  const handleCheckboxChange = (id) => {
+    // implement your checkbox handler here
+  };
 
   useEffect(() => {
     if (!workspace_id) {
@@ -223,91 +228,86 @@ const TeamMemberStack = ({ workspace_id }) => {
             const displayTitle = member.attendee_job_title || "Enter Title";
 
             return (
-              <HStack key={member.attendee_id} alignItems='flex-start'>
-                <Checkbox position='relative' left='-40px' />
-                <Stack fontSize='sm' px='4' spacing='4'>
-                  <Stack direction='row' justify='space-between' spacing='4'>
-                    <HStack spacing='3'>
-                      <Avatar
-                        src={
-                          member.attendee_avatar ||
-                          "/images/custom/blue-avatar.jpeg"
-                        }
-                        boxSize='10'
-                        // name={displayName}
+              <Flex
+                key={member.attendee_id}
+                fontSize='sm'
+                px='4'
+                spacing='0.5'
+                w='100%'
+                alignItems='center'
+              >
+                <Checkbox
+                  isChecked={isChecked.includes(member.attendee_id)}
+                  onChange={() => handleCheckboxChange(member.attendee_id)}
+                  mr={5} // Add some margin to the right of the checkbox
+                />
+                <Stack w='100%'>
+                  <HStack alignItems='flex-start'>
+                    <Stack fontSize='sm' px='4' spacing='4'>
+                      <Stack
+                        direction='row'
+                        justify='space-between'
+                        spacing='4'
                       >
-                        {/* <AvatarBadge
-                          boxSize='4'
-                          bg={
-                            member.workingHours === "yes"
-                              ? "green.500"
-                              : "red.500"
-                          }
-                        /> */}
-                      </Avatar>
-                      <Box>
-                        <Flex direction='row' justify='space-between'>
-                          <Editable
-                            fontSize='sm'
-                            onChange={handleNameChange}
-                            onSubmit={handleNameSubmit}
-                            defaultValue={capitalizeFirstLetterOfEachWord(
-                              displayName
-                            )}
-                          >
-                            <EditablePreview />
-                            <EditableInput />
-                          </Editable>
-                          {/* <Badge
-                            size='sm'
-                            colorScheme={
-                              member.status === "lead" ? "green" : null
+                        <HStack spacing='3'>
+                          <Avatar
+                            src={
+                              member.attendee_avatar ||
+                              "/images/custom/blue-avatar.jpeg"
                             }
-                          >
-                            {member.status}
-                          </Badge> */}
-                        </Flex>
-                        {/* <Text color='muted'>{member.attendee_job_title}</Text> */}
+                            boxSize='10'
+                          ></Avatar>
+                          <Box>
+                            <Flex direction='row' justify='space-between'>
+                              <Editable
+                                fontSize='sm'
+                                onChange={handleNameChange}
+                                onSubmit={handleNameSubmit}
+                                defaultValue={capitalizeFirstLetterOfEachWord(
+                                  displayName
+                                )}
+                              >
+                                <EditablePreview />
+                                <EditableInput />
+                              </Editable>
+                            </Flex>
+                            <Editable
+                              color='muted'
+                              fontSize='sm'
+                              onChange={handleJobTitleChange}
+                              onSubmit={handleJobTitleSubmit}
+                              defaultValue={capitalizeFirstLetterOfEachWord(
+                                displayTitle
+                              )}
+                            >
+                              <EditablePreview />
+                              <EditableInput />
+                            </Editable>
+                          </Box>
+                        </HStack>
+                      </Stack>
+                      <Text
+                        color='muted'
+                        sx={{
+                          "-webkit-box-orient": "vertical",
+                          "-webkit-line-clamp": "2",
+                          overflow: "hidden",
+                          display: "-webkit-box",
+                        }}
+                      >
                         <Editable
-                          color='muted'
                           fontSize='sm'
-                          onChange={handleJobTitleChange}
-                          onSubmit={handleJobTitleSubmit}
-                          defaultValue={capitalizeFirstLetterOfEachWord(
-                            displayTitle
-                          )}
+                          isDisabled
+                          defaultValue={member.attendee_email}
                         >
                           <EditablePreview />
                           <EditableInput />
                         </Editable>
-                      </Box>
-                    </HStack>
-                    {/* <Text color='muted'>{member.lastSeen}</Text> */}
-                  </Stack>
-                  <Text
-                    color='muted'
-                    sx={{
-                      "-webkit-box-orient": "vertical",
-                      "-webkit-line-clamp": "2",
-                      overflow: "hidden",
-                      display: "-webkit-box",
-                    }}
-                  >
-                    {/* Current Time: {time} {location} <br /> */}
-                    {/* Email: {member.attendee_email} */}
-                    <Editable
-                      fontSize='sm'
-                      // onChange={handleEmailChange}
-                      // onSubmit={handleEmailSubmit}
-                      isDisabled
-                      defaultValue={member.attendee_email}
-                    >
-                      <EditablePreview />
-                      <EditableInput />
-                    </Editable>
-                  </Text>
+                      </Text>
+                    </Stack>
+                  </HStack>
                 </Stack>
-              </HStack>
+              </Flex>
             );
           })}
         </Stack>
@@ -317,3 +317,97 @@ const TeamMemberStack = ({ workspace_id }) => {
 };
 
 export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
+
+//             return (
+//               <HStack key={member.attendee_id} alignItems='flex-start'>
+//                 {/* <Checkbox position='relative' left='-40px' /> */}
+//                 <Stack fontSize='sm' px='4' spacing='4'>
+//                   <Stack direction='row' justify='space-between' spacing='4'>
+//                     <HStack spacing='3'>
+//                       <Avatar
+//                         src={
+//                           member.attendee_avatar ||
+//                           "/images/custom/blue-avatar.jpeg"
+//                         }
+//                         boxSize='10'
+//                         // name={displayName}
+//                       >
+//                         {/* <AvatarBadge
+//                           boxSize='4'
+//                           bg={
+//                             member.workingHours === "yes"
+//                               ? "green.500"
+//                               : "red.500"
+//                           }
+//                         /> */}
+//                       </Avatar>
+//                       <Box>
+//                         <Flex direction='row' justify='space-between'>
+//                           <Editable
+//                             fontSize='sm'
+//                             onChange={handleNameChange}
+//                             onSubmit={handleNameSubmit}
+//                             defaultValue={capitalizeFirstLetterOfEachWord(
+//                               displayName
+//                             )}
+//                           >
+//                             <EditablePreview />
+//                             <EditableInput />
+//                           </Editable>
+//                           {/* <Badge
+//                             size='sm'
+//                             colorScheme={
+//                               member.status === "lead" ? "green" : null
+//                             }
+//                           >
+//                             {member.status}
+//                           </Badge> */}
+//                         </Flex>
+//                         {/* <Text color='muted'>{member.attendee_job_title}</Text> */}
+//                         <Editable
+//                           color='muted'
+//                           fontSize='sm'
+//                           onChange={handleJobTitleChange}
+//                           onSubmit={handleJobTitleSubmit}
+//                           defaultValue={capitalizeFirstLetterOfEachWord(
+//                             displayTitle
+//                           )}
+//                         >
+//                           <EditablePreview />
+//                           <EditableInput />
+//                         </Editable>
+//                       </Box>
+//                     </HStack>
+//                     {/* <Text color='muted'>{member.lastSeen}</Text> */}
+//                   </Stack>
+//                   <Text
+//                     color='muted'
+//                     sx={{
+//                       "-webkit-box-orient": "vertical",
+//                       "-webkit-line-clamp": "2",
+//                       overflow: "hidden",
+//                       display: "-webkit-box",
+//                     }}
+//                   >
+//                     {/* Current Time: {time} {location} <br /> */}
+//                     {/* Email: {member.attendee_email} */}
+//                     <Editable
+//                       fontSize='sm'
+//                       // onChange={handleEmailChange}
+//                       // onSubmit={handleEmailSubmit}
+//                       isDisabled
+//                       defaultValue={member.attendee_email}
+//                     >
+//                       <EditablePreview />
+//                       <EditableInput />
+//                     </Editable>
+//                   </Text>
+//                 </Stack>
+//               </HStack>
+//             );
+//           })}
+//         </Stack>
+//       </Box>
+//     </Center>
+//   );
+// };
