@@ -348,7 +348,7 @@ export default function Dashboard() {
                           transform='translateY(50%)'
                           src={
                             info.icon_src ||
-                            // info.image ||
+                            info.image ||
                             "https://api.instantcollab.co/storage/v1/object/public/avatars/public_images/blue-avatar.jpeg?t=2023-07-30T23%3A57%3A39.959Z" ||
                             undefined
                           }
@@ -538,7 +538,12 @@ export default function Dashboard() {
                         <HStack spacing='3'>
                           {/* <Checkbox /> */}
                           <Avatar
-                            src={info ? info.image : undefined}
+                            src={
+                              info
+                                ? info.image
+                                : "https://api.instantcollab.co/storage/v1/object/public/avatars/public_images/blue-avatar.jpeg?t=2023-07-30T23%3A57%3A39.959Z"
+                            }
+                            // src={info ? info.image : undefined}
                             boxSize='10'
                             name={info.attendee_email}
                           />
