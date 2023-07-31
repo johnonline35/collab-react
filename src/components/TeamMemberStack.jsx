@@ -224,7 +224,7 @@ const TeamMemberStack = ({ workspace_id }) => {
 
             return (
               <HStack key={member.attendee_id} alignItems='flex-start'>
-                {/* <Checkbox position='relative' left='-40px' /> */}
+                <Checkbox position='relative' left='-40px' />
                 <Stack fontSize='sm' px='4' spacing='4'>
                   <Stack direction='row' justify='space-between' spacing='4'>
                     <HStack spacing='3'>
