@@ -40,7 +40,8 @@ export const ToDoList = ({ workspace_id, isChecked, handleCheckboxChange }) => {
     const { data, error } = await supabase
       .from("collab_users_todos")
       .select("*")
-      .eq("workspace_id", workspace_id);
+      .eq("workspace_id", workspace_id)
+      .neq("ignore", true);
 
     if (error) {
       console.error(error);
