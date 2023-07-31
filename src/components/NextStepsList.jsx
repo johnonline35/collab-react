@@ -10,6 +10,11 @@ import {
   Text,
   Checkbox,
   IconButton,
+  ListItem,
+  Alert,
+  AlertIcon,
+  AlertDescription,
+  AlertTitle,
   Flex,
 } from "@chakra-ui/react";
 import { supabase } from "../supabase/clientapp";
@@ -80,6 +85,31 @@ export const NextStepsList = ({
       console.error("Error updating next step info:", error);
     }
   };
+
+  if (nextSteps.length === 0) {
+    return (
+      <ListItem mt='0px'>
+        <Alert
+          status='success'
+          variant='subtle'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          textAlign='center'
+          height='200px'
+          bg='white'
+        >
+          <AlertIcon boxSize='40px' mr={0} />
+          <AlertTitle mt={4} mb={1} fontSize='lg'>
+            No Next Steps!
+          </AlertTitle>
+          <AlertDescription maxWidth='sm'>
+            There are no Next Steps left to do. Keep up the good work!
+          </AlertDescription>
+        </Alert>
+      </ListItem>
+    );
+  }
 
   return (
     <Center
