@@ -88,6 +88,10 @@ export const NextStepsList = ({
     }
   };
 
+  if (isLoading) {
+    return null; // render nothing while fetching data
+  }
+
   if (nextSteps.length === 0) {
     return (
       <ListItem mt='0px'>
