@@ -66,7 +66,7 @@ export default function CollabPageHome() {
 
   const handleCheckClick = async (type) => {
     console.log("Tick icon pressed", isChecked);
-    // Loop over the isChecked array and delete each entry
+    // Loop over the isChecked array and update each entry
     for (const id of isChecked) {
       let tableName;
       let matchIdName;
@@ -79,10 +79,10 @@ export default function CollabPageHome() {
         matchIdName = "collab_user_todo_id";
       }
 
-      // Supabase deletion
+      // Supabase update
       const { error } = await supabase
         .from(tableName)
-        .delete()
+        .update({ ignore: true })
         .match({ [matchIdName]: id });
 
       if (error) {
