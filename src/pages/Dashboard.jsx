@@ -349,7 +349,7 @@ export default function Dashboard() {
                           src={
                             info.icon_src ||
                             info.image ||
-                            "/custom/blue-avatar.jpeg"
+                            "images/custom/blue-avatar.jpeg"
                           }
                           name={info.workspace_name}
                         />
