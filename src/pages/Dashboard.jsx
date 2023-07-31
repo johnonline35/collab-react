@@ -349,7 +349,7 @@ export default function Dashboard() {
                           src={
                             info.icon_src ||
                             info.image ||
-                            "https://api.instantcollab.co/storage/v1/object/public/avatars/public_images/blue-avatar.jpeg?t=2023-07-30T23%3A57%3A39.959Z" ||
+                            "https://i.ibb.co/2662rGf/blue-avatar.jpg" ||
                             undefined
                           }
                           name={info.workspace_name}
@@ -541,7 +541,7 @@ export default function Dashboard() {
                             src={
                               info
                                 ? info.image
-                                : "https://api.instantcollab.co/storage/v1/object/public/avatars/public_images/blue-avatar.jpeg?t=2023-07-30T23%3A57%3A39.959Z"
+                                : "https://i.ibb.co/2662rGf/blue-avatar.jpg"
                             }
                             // src={info ? info.image : undefined}
                             boxSize='10'
