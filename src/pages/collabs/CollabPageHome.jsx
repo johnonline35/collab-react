@@ -53,6 +53,7 @@ export default function CollabPageHome() {
   const { workspace_id } = useParams();
   const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
   const [isChecked, setIsChecked] = useState([]);
+  const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
 
   const handleCheckboxChange = (id) => {
     setIsChecked((prev) => {
@@ -91,6 +92,24 @@ export default function CollabPageHome() {
       }
     }
     setIsChecked([]);
+  };
+
+  const handleAttendeeCheckboxChange = (attendeeId) => {
+    if (isChecked.includes(attendeeId)) {
+      // If the attendee is currently checked, remove them from the array
+      setIsChecked(isChecked.filter((id) => id !== attendeeId));
+    } else {
+      // If the attendee is not currently checked, add them to the array
+      setIsChecked([...isChecked, attendeeId]);
+    }
+  };
+
+  const handleSetLead = async () => {
+    if (isChecked.length === 1) {
+      console.log("Lead", isChecked[0]);
+      // Here you can add further actions you want to perform when setting the lead
+      // For example, you may want to send a request to your backend here
+    }
   };
 
   const getSupabaseData = async () => {
@@ -204,27 +223,6 @@ export default function CollabPageHome() {
                 </Flex>
               </ListItem>
               <PreviousMeetings />
-
-              {/* <ListItem mt='20px'>
-                <Alert
-                  status='success'
-                  variant='subtle'
-                  flexDirection='column'
-                  alignItems='center'
-                  justifyContent='center'
-                  textAlign='center'
-                  height='200px'
-                >
-                  <AlertIcon boxSize='40px' mr={0} />
-                  <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    Momentum is rolling!
-                  </AlertTitle>
-                  <AlertDescription maxWidth='sm'>
-                    Momentum has been building with this customer recently. Keep
-                    up the good work!
-                  </AlertDescription>
-                </Alert>
-              </ListItem> */}
             </List>
           </Card>
           <Card p='12px'>
@@ -235,7 +233,12 @@ export default function CollabPageHome() {
                   Team
                 </ListItem>
                 <Flex pr='10px' gap='2'>
-                  <Button variant='secondary' size='sm'>
+                  <Button
+                    variant='secondary'
+                    size='sm'
+                    onClick={() => handleSetLead()}
+                    disabled={isChecked.length !== 1}
+                  >
                     Set Lead
                   </Button>
 
@@ -247,7 +250,12 @@ export default function CollabPageHome() {
                   />
                 </Flex>
               </Flex>
-              {workspace_id && <TeamMemberStack workspace_id={workspace_id} />}
+              {workspace_id && (
+                <TeamMemberStack
+                  workspace_id={workspace_id}
+                  handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
+                />
+              )}
               {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
             </List>
           </Card>
@@ -327,4 +335,26 @@ export default function CollabPageHome() {
       </Card> */}
     </Stack>
   );
+}
+{
+  /* <ListItem mt='20px'>
+                <Alert
+                  status='success'
+                  variant='subtle'
+                  flexDirection='column'
+                  alignItems='center'
+                  justifyContent='center'
+                  textAlign='center'
+                  height='200px'
+                >
+                  <AlertIcon boxSize='40px' mr={0} />
+                  <AlertTitle mt={4} mb={1} fontSize='lg'>
+                    Momentum is rolling!
+                  </AlertTitle>
+                  <AlertDescription maxWidth='sm'>
+                    Momentum has been building with this customer recently. Keep
+                    up the good work!
+                  </AlertDescription>
+                </Alert>
+              </ListItem> */
 }
