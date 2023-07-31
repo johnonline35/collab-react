@@ -107,8 +107,29 @@ export default function CollabPageHome() {
   const handleSetLead = async () => {
     if (attendeeIsChecked.length === 1) {
       console.log("Lead", attendeeIsChecked[0]);
-      // Here you can add further actions you want to perform when setting the lead
-      // For example, you may want to send a request to your backend here
+
+      try {
+        // First, set all attendees for this workspace to not be the lead
+        const { error: errorRemoveLead } = await supabase
+          .from("attendees")
+          .update({ attendee_is_workspace_lead: false })
+          .match({ workspace_id: workspace_id });
+
+        if (errorRemoveLead) throw errorRemoveLead;
+
+        // Then set the selected attendee to be the lead
+        const { error: errorSetLead } = await supabase
+          .from("attendees")
+          .update({ attendee_is_workspace_lead: true })
+          .eq("attendee_id", attendeeIsChecked[0])
+          .match({ workspace_id: workspace_id });
+
+        if (errorSetLead) throw errorSetLead;
+
+        console.log("Successfully set the lead");
+      } catch (error) {
+        console.error("Error setting the lead:", error);
+      }
     }
   };
 
