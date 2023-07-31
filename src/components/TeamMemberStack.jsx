@@ -229,7 +229,11 @@ const TeamMemberStack = ({ workspace_id }) => {
                   <Stack direction='row' justify='space-between' spacing='4'>
                     <HStack spacing='3'>
                       <Avatar
-                        src={member.attendee_avatar || undefined}
+                        src={
+                          member.attendee_avatar ||
+                          "images/custom/blue-avatar.jpeg" ||
+                          undefined
+                        }
                         boxSize='10'
                         name={displayName}
                       >
