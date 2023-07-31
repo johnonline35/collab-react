@@ -234,7 +234,7 @@ const TeamMemberStack = ({ workspace_id }) => {
                           "/images/custom/blue-avatar.jpeg"
                         }
                         boxSize='10'
-                        name={displayName}
+                        // name={displayName}
                       >
                         {/* <AvatarBadge
                           boxSize='4'
