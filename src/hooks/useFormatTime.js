@@ -13,12 +13,12 @@ export function formatTime(timeString) {
   const currentYear = new Date().getFullYear();
   const meetingYear = localDate.getFullYear();
 
-  const options = { month: "long", day: "numeric", year: "numeric" };
-  const dayMonthYear = new Intl.DateTimeFormat("en-US", options).format(
-    localDate
-  );
-
   if (currentYear === meetingYear) {
+    const options = { month: "long", day: "numeric" };
+    const dayMonth = new Intl.DateTimeFormat("en-US", options).format(
+      localDate
+    );
+
     const timeOptions = {
       hour: "numeric",
       minute: "2-digit",
@@ -29,8 +29,13 @@ export function formatTime(timeString) {
       localDate
     );
 
-    return `${dayMonthYear} at ${time}`;
+    return `${dayMonth} at ${time}`;
   } else {
+    const options = { month: "long", day: "numeric", year: "numeric" };
+    const dayMonthYear = new Intl.DateTimeFormat("en-US", options).format(
+      localDate
+    );
+
     return dayMonthYear;
   }
 }
