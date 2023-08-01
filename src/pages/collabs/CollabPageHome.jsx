@@ -182,11 +182,33 @@ export default function CollabPageHome() {
       return; // stop execution in case of error
     }
 
-    if (data.length === attendeeIsChecked.length) {
+    // if (data.length === attendeeIsChecked.length) {
+    //   // Show an error toast
+    //   toast({
+    //     title: "Cannot delete all attendees.",
+    //     description: "A workspace must have at least one attendee.",
+    //     status: "error",
+    //     position: "top",
+    //     duration: 5000,
+    //     isClosable: true,
+    //   });
+
+    //   return; // stop execution
+    // }
+
+    // Check if any of the selected attendees for deletion is a workspace lead
+    const leadToBeDeleted = attendeeIsChecked.find((id) =>
+      data.some(
+        (attendee) => attendee.id === id && attendee.attendee_is_workspace_lead
+      )
+    );
+
+    if (leadToBeDeleted) {
       // Show an error toast
       toast({
-        title: "Cannot delete all attendees.",
-        description: "A workspace must have at least one attendee.",
+        title: "Cannot delete workspace lead.",
+        description:
+          "Please assign a new workspace lead before deleting attendee.",
         status: "error",
         position: "top",
         duration: 5000,
@@ -195,6 +217,7 @@ export default function CollabPageHome() {
 
       return; // stop execution
     }
+
     // Loop over each checked attendee
     for (const attendeeId of attendeeIsChecked) {
       // Perform the updates for each attendee
