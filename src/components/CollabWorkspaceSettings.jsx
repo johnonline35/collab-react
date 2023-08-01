@@ -91,7 +91,7 @@ export const CollabWorkspaceSettings = ({
                 </Text>
                 <Text color='muted'>
                   Automatically add a collab space link into your calendar
-                  invitations with your partner(s) from this workspace
+                  invitations with the team from this workspace
                 </Text>
               </Stack>
               {loadingToggle ? ( // Add this conditional rendering block
