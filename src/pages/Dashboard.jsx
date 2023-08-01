@@ -485,7 +485,7 @@ export default function Dashboard() {
                               }}
                               as={IoMdPeople}
                             />
-                            <Text>1</Text>
+                            <Text>{info.num_attendees}</Text>
                           </>
                         )}
                       </Flex>
