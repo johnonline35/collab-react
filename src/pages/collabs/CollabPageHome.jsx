@@ -57,6 +57,7 @@ export default function CollabPageHome() {
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
   const toast = useToast();
 
+  // These functions are used by the Next Steps List and Todo List components:
   const handleCheckboxChange = (id) => {
     setIsChecked((prev) => {
       if (prev.includes(id)) {
@@ -65,16 +66,6 @@ export default function CollabPageHome() {
         return [...prev, id];
       }
     });
-  };
-
-  const handleAttendeeCheckboxChange = (attendeeId) => {
-    if (attendeeIsChecked.includes(attendeeId)) {
-      // If the attendee is currently checked, remove them from the array
-      setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
-    } else {
-      // If the attendee is not currently checked, add them to the array
-      setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
-    }
   };
 
   const handleCheckClick = async (type) => {
@@ -104,6 +95,17 @@ export default function CollabPageHome() {
       }
     }
     setIsChecked([]);
+  };
+
+  // These functions are used by the TeamMemberStack:
+  const handleAttendeeCheckboxChange = (attendeeId) => {
+    if (attendeeIsChecked.includes(attendeeId)) {
+      // If the attendee is currently checked, remove them from the array
+      setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
+    } else {
+      // If the attendee is not currently checked, add them to the array
+      setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
+    }
   };
 
   const handleSetLead = async () => {
