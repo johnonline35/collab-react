@@ -136,6 +136,7 @@ export default function CollabPageHome() {
           title: "Lead Set.",
           description: "The workspace lead has been successfully set.",
           status: "success",
+          position: "top",
           duration: 5000,
           isClosable: true,
         });
@@ -149,6 +150,7 @@ export default function CollabPageHome() {
           title: "An error occurred.",
           description: "Unable to set the workspace lead.",
           status: "error",
+          position: "top",
           duration: 5000,
           isClosable: true,
         });
