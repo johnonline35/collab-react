@@ -134,6 +134,10 @@ export default function CollabPageHome() {
         const attendee = attendees.find(
           (a) => a.attendee_id === attendeeIsChecked[0]
         );
+        console.log(
+          "attendees.find(a => a.attendee_id === attendeeIsChecked[0]):",
+          attendee
+        );
 
         // Fetch the list of public domains
         const publicEmailDomains = await fetchPublicEmailDomains();
