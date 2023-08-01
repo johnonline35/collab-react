@@ -186,7 +186,7 @@ export default function CollabPageHome() {
     console.log("data", data);
 
     const leadToBeDeleted = attendeeIsChecked.find((id) =>
-      data.some((attendee) => {
+      data[0].some((attendee) => {
         const isLead =
           attendee.id === id && attendee.attendee_is_workspace_lead;
         if (isLead) {
@@ -212,7 +212,7 @@ export default function CollabPageHome() {
       return; // stop execution
     }
 
-    if (data.length === attendeeIsChecked.length) {
+    if (data[0].length === attendeeIsChecked.length) {
       // Show an error toast
       toast({
         title: "Cannot delete all attendees.",
