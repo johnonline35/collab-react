@@ -132,7 +132,7 @@ export default function CollabPageHome() {
 
         console.log(
           "attendees.find(a => a.attendee_id === attendeeIsChecked[0]):",
-          attendee
+          attendees
         );
 
         // Fetch the updated attendee data
