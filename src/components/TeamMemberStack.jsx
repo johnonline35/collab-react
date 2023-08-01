@@ -271,6 +271,16 @@ const TeamMemberStack = ({
                                 <EditablePreview />
                                 <EditableInput />
                               </Editable>
+                              <Badge
+                                size='sm'
+                                colorScheme={
+                                  member.attendee_is_workspace_lead === true
+                                    ? "green"
+                                    : null
+                                }
+                              >
+                                {member.attendee_is_workspace_lead}
+                              </Badge>
                             </Flex>
                             <Editable
                               color='muted'
@@ -317,7 +327,7 @@ const TeamMemberStack = ({
   );
 };
 
-export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
+// export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
 
 //             return (
 //               <HStack key={member.attendee_id} alignItems='flex-start'>
@@ -355,14 +365,14 @@ export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
 //                             <EditablePreview />
 //                             <EditableInput />
 //                           </Editable>
-//                           {/* <Badge
+//                           <Badge
 //                             size='sm'
 //                             colorScheme={
 //                               member.status === "lead" ? "green" : null
 //                             }
 //                           >
 //                             {member.status}
-//                           </Badge> */}
+//                           </Badge>
 //                         </Flex>
 //                         {/* <Text color='muted'>{member.attendee_job_title}</Text> */}
 //                         <Editable
