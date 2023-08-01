@@ -202,6 +202,11 @@ export default function CollabPageHome() {
         isClosable: true,
       });
 
+      // Uncheck the lead by removing them from the attendeeIsChecked array
+      setAttendeeIsChecked(
+        attendeeIsChecked.filter((attendeeId) => attendeeId !== leadToBeDeleted)
+      );
+
       return; // stop execution
     }
 
