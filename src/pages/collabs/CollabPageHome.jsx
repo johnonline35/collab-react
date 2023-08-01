@@ -159,7 +159,7 @@ export default function CollabPageHome() {
         const { error: errorUpdateWorkspace } = await supabase
           .from("workspaces")
           .update(updateData)
-          .eq("id", workspace_id);
+          .eq("workspace_id", workspace_id);
 
         if (errorUpdateWorkspace) throw errorUpdateWorkspace;
 
