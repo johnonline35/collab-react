@@ -117,28 +117,23 @@ export default function CollabPageHome() {
         const { data: attendees, error: errorRemoveLead } = await supabase
           .from("attendees")
           .update({ attendee_is_workspace_lead: false })
-          .match({ workspace_id: workspace_id });
+          .match({ workspace_id: workspace_id })
+          .returning("*");
 
         if (errorRemoveLead) throw errorRemoveLead;
 
         // Then set the selected attendee to be the lead
-        const { error: errorSetLead } = await supabase
+        const { data: leadAttendee, error: errorSetLead } = await supabase
           .from("attendees")
           .update({ attendee_is_workspace_lead: true })
           .eq("attendee_id", attendeeIsChecked[0])
-          .match({ workspace_id: workspace_id });
+          .match({ workspace_id: workspace_id })
+          .returning("*");
 
         if (errorSetLead) throw errorSetLead;
 
-        console.log(
-          "attendees.find(a => a.attendee_id === attendeeIsChecked[0]):",
-          attendees
-        );
-
         // Fetch the updated attendee data
-        const attendee = attendees.find(
-          (a) => a.attendee_id === attendeeIsChecked[0]
-        );
+        const attendee = leadAttendee[0];
 
         // Fetch the list of public domains
         const publicEmailDomains = await fetchPublicEmailDomains();
