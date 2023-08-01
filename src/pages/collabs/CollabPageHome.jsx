@@ -172,7 +172,7 @@ export default function CollabPageHome() {
             workspace_id: "3adb5ebd-7bd6-4e56-ada1-bd18dba3b749",
           })
           .eq("workspace_id", workspace_id)
-          .eq("id", attendeeId);
+          .eq("attendee_id", attendeeId);
 
         if (error) {
           throw error;
@@ -185,7 +185,7 @@ export default function CollabPageHome() {
         // Show an error toast
         toast({
           title: "An error occurred.",
-          description: "Unable to delete the attendee(s).",
+          description: `Unable to delete the attendee(s). Error: ${error.message}`,
           status: "error",
           position: "top",
           duration: 5000,
