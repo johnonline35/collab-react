@@ -182,14 +182,22 @@ export default function CollabPageHome() {
       return; // stop execution in case of error
     }
 
-    // Check if any of the selected attendees for deletion is a workspace lead
+    console.log("attendeeIsChecked", attendeeIsChecked);
+    console.log("data", data);
+
     const leadToBeDeleted = attendeeIsChecked.find((id) =>
-      data.some(
-        (attendee) => attendee.id === id && attendee.attendee_is_workspace_lead
-      )
+      data.some((attendee) => {
+        const isLead =
+          attendee.id === id && attendee.attendee_is_workspace_lead;
+        if (isLead) {
+          console.log("Found lead to be deleted:", id);
+        }
+        return isLead;
+      })
     );
 
     if (leadToBeDeleted) {
+      console.log("Lead to be deleted:", leadToBeDeleted);
       // Show an error toast
       toast({
         title: "Cannot delete workspace lead.",
