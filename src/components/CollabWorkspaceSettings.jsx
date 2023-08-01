@@ -100,7 +100,7 @@ export const CollabWorkspaceSettings = ({
                 <Switch isChecked={emailLink} onChange={updateEmailToggle} />
               )}
             </Stack>
-            <Stack justify='space-between' direction='row' spacing='4'>
+            {/* <Stack justify='space-between' direction='row' spacing='4'>
               <Stack spacing='0.5' fontSize='sm'>
                 <Text color='emphasized' fontWeight='medium'>
                   Your team
@@ -108,7 +108,7 @@ export const CollabWorkspaceSettings = ({
                 <Text color='muted'>Add your team to this workspace</Text>
               </Stack>
               <Switch defaultChecked={true} />
-            </Stack>
+            </Stack> */}
           </Stack>
         </Box>
       </Container>
