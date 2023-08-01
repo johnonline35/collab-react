@@ -114,7 +114,7 @@ export default function CollabPageHome() {
 
       try {
         // First, set all attendees for this workspace to not be the lead
-        const { error: errorRemoveLead } = await supabase
+        const { data: attendees, error: errorRemoveLead } = await supabase
           .from("attendees")
           .update({ attendee_is_workspace_lead: false })
           .match({ workspace_id: workspace_id });
@@ -129,6 +129,34 @@ export default function CollabPageHome() {
           .match({ workspace_id: workspace_id });
 
         if (errorSetLead) throw errorSetLead;
+
+        // Fetch the updated attendee data
+        const attendee = attendees.find(
+          (a) => a.attendee_id === attendeeIsChecked[0]
+        );
+
+        // Fetch the list of public domains
+        const publicEmailDomains = await fetchPublicEmailDomains();
+
+        // Check if the domain of attendee's email is public
+        const isPublicDomain = publicEmailDomains.includes(
+          attendee.attendee_email.split("@")[1]
+        );
+
+        // Depending on whether the domain is public, update the workspace accordingly
+        const updateData = isPublicDomain
+          ? { domain: null, meeting_attendee_email: attendee.attendee_email }
+          : {
+              domain: attendee.attendee_email.split("@")[1],
+              meeting_attendee_email: null,
+            };
+
+        const { error: errorUpdateWorkspace } = await supabase
+          .from("workspaces")
+          .update(updateData)
+          .eq("id", workspace_id);
+
+        if (errorUpdateWorkspace) throw errorUpdateWorkspace;
 
         // Once operation is successful, uncheck the checkbox
         setAttendeeIsChecked([]);
@@ -284,6 +312,22 @@ export default function CollabPageHome() {
     }
 
     console.log("Different log:", data);
+  };
+
+  const fetchPublicEmailDomains = async () => {
+    const { data, error } = await supabase
+      .from("public_email_domains")
+      .select("domain");
+
+    if (error) {
+      console.error("Error fetching domains: ", error);
+      return [];
+    }
+
+    // Assuming 'domain' is a column in your table
+    const publicEmailDomains = data.map((row) => row.domain);
+
+    return publicEmailDomains;
   };
 
   const getEmailLinkStateAndName = async () => {
