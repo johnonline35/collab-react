@@ -271,16 +271,11 @@ const TeamMemberStack = ({
                                 <EditablePreview />
                                 <EditableInput />
                               </Editable>
-                              <Badge
-                                size='sm'
-                                colorScheme={
-                                  member.attendee_is_workspace_lead === true
-                                    ? "green"
-                                    : null
-                                }
-                              >
-                                {member.attendee_is_workspace_lead}
-                              </Badge>
+                              {member.attendee_is_workspace_lead === true && (
+                                <Badge size='sm' colorScheme='green'>
+                                  Lead
+                                </Badge>
+                              )}
                             </Flex>
                             <Editable
                               color='muted'
