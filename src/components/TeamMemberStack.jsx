@@ -272,7 +272,13 @@ const TeamMemberStack = ({
                                 <EditableInput />
                               </Editable>
                               {member.attendee_is_workspace_lead === true && (
-                                <Badge size='sm'>Lead</Badge>
+                                <Badge
+                                  size='sm'
+                                  // fontSize='0.4em'
+                                  colorScheme='green'
+                                >
+                                  Lead
+                                </Badge>
                               )}
                             </Flex>
                             <Editable
