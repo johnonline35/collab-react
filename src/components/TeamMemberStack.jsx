@@ -322,7 +322,7 @@ const TeamMemberStack = ({
   );
 };
 
-// export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
+export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
 
 //             return (
 //               <HStack key={member.attendee_id} alignItems='flex-start'>
