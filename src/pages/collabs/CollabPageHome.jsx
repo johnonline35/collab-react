@@ -161,6 +161,40 @@ export default function CollabPageHome() {
   };
 
   const handleDeleteAttendees = async () => {
+    // First check if there is only one attendee in the workspace
+    const { data, error } = await supabase
+      .from("attendees")
+      .select("*")
+      .eq("workspace_id", workspace_id);
+
+    if (error) {
+      console.log("Error fetching attendees: ", error);
+      // Show an error toast
+      toast({
+        title: "An error occurred.",
+        description: `Unable to fetch the attendee(s). Error: ${error.message}`, // including error message in the description
+        status: "error",
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+      });
+
+      return; // stop execution in case of error
+    }
+
+    if (data.length === attendeeIsChecked.length) {
+      // Show an error toast
+      toast({
+        title: "Cannot delete all attendees.",
+        description: "A workspace must have at least one attendee.",
+        status: "error",
+        position: "top",
+        duration: 5000,
+        isClosable: true,
+      });
+
+      return; // stop execution
+    }
     // Loop over each checked attendee
     for (const attendeeId of attendeeIsChecked) {
       // Perform the updates for each attendee
