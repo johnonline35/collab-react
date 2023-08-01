@@ -114,25 +114,30 @@ export default function CollabPageHome() {
 
       try {
         // First, set all attendees for this workspace to not be the lead
-        const { data: attendees, error: errorRemoveLead } = await supabase
+        const { error: errorRemoveLead } = await supabase
           .from("attendees")
           .update({ attendee_is_workspace_lead: false })
-          .match({ workspace_id: workspace_id })
-          .returning("*");
+          .match({ workspace_id: workspace_id });
 
         if (errorRemoveLead) throw errorRemoveLead;
 
         // Then set the selected attendee to be the lead
-        const { data: leadAttendee, error: errorSetLead } = await supabase
+        const { error: errorSetLead } = await supabase
           .from("attendees")
           .update({ attendee_is_workspace_lead: true })
           .eq("attendee_id", attendeeIsChecked[0])
-          .match({ workspace_id: workspace_id })
-          .returning("*");
+          .match({ workspace_id: workspace_id });
 
         if (errorSetLead) throw errorSetLead;
 
         // Fetch the updated attendee data
+        const { data: leadAttendee, error: errorFetchAttendee } = await supabase
+          .from("attendees")
+          .select("*")
+          .eq("attendee_id", attendeeIsChecked[0]);
+
+        if (errorFetchAttendee) throw errorFetchAttendee;
+
         const attendee = leadAttendee[0];
 
         // Fetch the list of public domains
