@@ -232,7 +232,7 @@ export default function CollabPageHome() {
           .from("attendees")
           .update({
             ignore: true,
-            workspace_id: "3adb5ebd-7bd6-4e56-ada1-bd18dba3b749",
+            workspace_id: null,
             attendee_is_workspace_lead: false,
           })
           .eq("workspace_id", workspace_id)
