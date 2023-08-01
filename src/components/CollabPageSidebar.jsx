@@ -91,16 +91,16 @@ export default function Sidebar() {
           Realtime Q&A
         </NavLink>
       </ListItem> */}
-      <ListItem>
+      {/* <ListItem>
         <NavLink to={`/collabs/${params.workspace_id}/files`}>
           <ListIcon as={SlFolderAlt} color='white' />
           Files
         </NavLink>
-      </ListItem>
+      </ListItem> */}
       <ListItem>
         <NavLink to={`/collabs/${params.workspace_id}/share`}>
           <ListIcon as={CgWebsite} color='white' />
-          Collab Share Page
+          Collab Space
         </NavLink>
       </ListItem>
     </List>
