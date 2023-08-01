@@ -175,17 +175,39 @@ export default function CollabPageHome() {
           .eq("id", attendeeId);
 
         if (error) {
-          console.log("Error updating attendee: ", error);
+          throw error;
         } else {
           console.log("Successfully updated attendee ", attendeeId);
         }
       } catch (error) {
         console.log("Error updating attendee: ", error);
+
+        // Show an error toast
+        toast({
+          title: "An error occurred.",
+          description: "Unable to delete the attendee(s).",
+          status: "error",
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+        });
+
+        return; // stop execution in case of error
       }
     }
 
     // Clear the checked attendees state
     setAttendeeIsChecked([]);
+
+    // Show a success toast
+    toast({
+      title: "Deletion Successful.",
+      description: "The attendee(s) were successfully deleted",
+      status: "success",
+      position: "top",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   const getSupabaseData = async () => {
