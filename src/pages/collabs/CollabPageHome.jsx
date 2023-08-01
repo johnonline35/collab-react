@@ -160,6 +160,34 @@ export default function CollabPageHome() {
     }
   };
 
+  const handleDeleteAttendees = async () => {
+    // Loop over each checked attendee
+    for (const attendeeId of attendeeIsChecked) {
+      // Perform the updates for each attendee
+      try {
+        const { data, error } = await supabase
+          .from("attendees")
+          .update({
+            ignore: true,
+            workspace_id: "3adb5ebd-7bd6-4e56-ada1-bd18dba3b749",
+          })
+          .eq("workspace_id", workspace_id)
+          .eq("id", attendeeId);
+
+        if (error) {
+          console.log("Error updating attendee: ", error);
+        } else {
+          console.log("Successfully updated attendee ", attendeeId);
+        }
+      } catch (error) {
+        console.log("Error updating attendee: ", error);
+      }
+    }
+
+    // Clear the checked attendees state
+    setAttendeeIsChecked([]);
+  };
+
   const getSupabaseData = async () => {
     const { data, error } = await supabase
       .from("collab_users")
@@ -295,6 +323,7 @@ export default function CollabPageHome() {
                     size='sm'
                     variant='secondary'
                     icon={<DeleteIcon />}
+                    onClick={handleDeleteAttendees}
                   />
                 </Flex>
               </Flex>
