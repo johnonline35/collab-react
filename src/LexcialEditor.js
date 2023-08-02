@@ -199,6 +199,16 @@ export default function LexicalEditor() {
     ],
   };
 
+  function onChange(editorState) {
+    editorState.read((state) => {
+      // Read the contents of the EditorState here.
+      const root = state.getRoot();
+      const selection = state.getSelection();
+
+      console.log(root, selection);
+    });
+  }
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className='editor-container'>
@@ -219,7 +229,7 @@ export default function LexicalEditor() {
           <HashtagPlugin />
           <NewMentionsPlugin />
           <ListPlugin />
-          <OnChangePlugin onChange={handleEditorChange} />
+          <OnChangePlugin onChange={onChange} />
           {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
