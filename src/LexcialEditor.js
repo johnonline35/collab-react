@@ -226,7 +226,7 @@ export default function LexicalEditor() {
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
           <LocalStoragePlugin namespace='myNamespace' />
-          <EmoticonPlugin />
+          {/* <EmoticonPlugin /> */}
           {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
