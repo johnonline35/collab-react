@@ -36,8 +36,8 @@ import { useEffect, useState } from "react";
 
 import { useLexicalNodeParse } from "./hooks/useLexicalNodeParse";
 import Placeholder from "./hooks/useLexcialPlaceholder";
-import { CustomParagraphNode } from "./LexicalEditor/nodes/CustomParagraphNode";
 
+import { LocalStoragePlugin } from "./LexicalEditor/plugins/LocalStoragePlugin";
 import ListMaxIndentLevelPlugin from "./LexicalEditor/plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./LexicalEditor/plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./LexicalEditor/plugins/AutoLinkPlugin";
@@ -48,7 +48,7 @@ import { supabase } from "./supabase/clientapp";
 import { Skeleton, Stack } from "@chakra-ui/react";
 
 import { v4 as uuidv4 } from "uuid";
-import { CustomTextNode } from "./LexicalEditor/nodes/CustomTextNode";
+
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 import { useCallback } from "react";
 import { debounce } from "lodash";
@@ -165,14 +165,6 @@ export default function LexicalEditor() {
   }
 
   const editorConfig = {
-    // editorState: () => {
-    //   // Read the contents of the EditorState here.
-    //   const root = $getRoot();
-    //   const selection = $getSelection();
-
-    //   console.log(root, selection);
-    // },
-    // initialNoteJson,
     namespace: "collabEditor",
     // The editor theme
     theme: LexicalEditorTheme,
@@ -230,6 +222,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
+          <LocalStoragePlugin namespace='myNamespace' />
           {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
