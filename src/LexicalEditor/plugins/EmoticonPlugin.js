@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { $createEmoticonNode } from "./EmoticonNode";
+import { $createEmoticonNode } from "../nodes/EmoticonNode";
 import { TextNode } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
