@@ -54,6 +54,7 @@ import { useCallback } from "react";
 
 import EmoticonPlugin from "./LexicalEditor/plugins/EmoticonPlugin";
 import { MeetingNode } from "./LexicalEditor/nodes/CollabMeetingNode";
+import { EmoticonNode } from "./LexicalEditor/nodes/EmoticonNode";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -189,6 +190,7 @@ export default function LexicalEditor() {
       TableRowNode,
       AutoLinkNode,
       LinkNode,
+      [EmoticonNode],
     ],
   };
 
