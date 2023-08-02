@@ -52,9 +52,9 @@ import { debounce } from "lodash";
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 import { useCallback } from "react";
 
+import { EmoticonNode } from "./LexicalEditor/nodes/EmoticonNode";
 import EmoticonPlugin from "./LexicalEditor/plugins/EmoticonPlugin";
 import { MeetingNode } from "./LexicalEditor/nodes/CollabMeetingNode";
-import { EmoticonNode } from "./LexicalEditor/nodes/EmoticonNode";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -190,7 +190,7 @@ export default function LexicalEditor() {
       TableRowNode,
       AutoLinkNode,
       LinkNode,
-      [EmoticonNode],
+      EmoticonNode,
     ],
   };
 
@@ -226,7 +226,7 @@ export default function LexicalEditor() {
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
           <LocalStoragePlugin namespace='myNamespace' />
-          {/* <EmoticonPlugin /> */}
+          <EmoticonPlugin />
           {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
