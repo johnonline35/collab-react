@@ -165,13 +165,13 @@ export default function LexicalEditor() {
   }
 
   const editorConfig = {
-    editorState: () => {
-      // Read the contents of the EditorState here.
-      const root = $getRoot();
-      const selection = $getSelection();
+    // editorState: () => {
+    //   // Read the contents of the EditorState here.
+    //   const root = $getRoot();
+    //   const selection = $getSelection();
 
-      console.log(root, selection);
-    },
+    //   console.log(root, selection);
+    // },
     // initialNoteJson,
     namespace: "collabEditor",
     // The editor theme
@@ -200,10 +200,10 @@ export default function LexicalEditor() {
   };
 
   function onChange(editorState) {
-    editorState.read((state) => {
+    editorState.read(() => {
       // Read the contents of the EditorState here.
-      const root = state.getRoot();
-      const selection = state.getSelection();
+      const root = $getRoot();
+      const selection = $getSelection();
 
       console.log(root, selection);
     });
