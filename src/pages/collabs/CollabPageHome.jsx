@@ -5,24 +5,12 @@ import {
   ListIcon,
   ListItem,
   List,
-  Alert,
-  AlertIcon,
-  AlertTitle,
   IconButton,
-  AlertDescription,
-  CloseButton,
   Button,
   Flex,
   Spacer,
-  Select,
-  Editable,
-  EditablePreview,
-  EditableInput,
   Text,
   useToast,
-  Container,
-  FormControl,
-  FormLabel,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -34,16 +22,14 @@ import {
   FiDribbble,
   FiSettings,
   FiUsers,
-  FiArchive,
 } from "react-icons/fi";
-import { MdCheckCircle, MdSettings } from "react-icons/md";
-import { AiOutlineFolder } from "react-icons/ai";
+
 import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
-import { ArrowRightIcon, AttachmentIcon, DeleteIcon } from "@chakra-ui/icons";
+import { ArrowRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
 import { ToDoList } from "../../components/TodoList";
-import { Dropzone } from "../../components/Dropzone";
+
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 
 export default function CollabPageHome() {
@@ -52,7 +38,6 @@ export default function CollabPageHome() {
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
   const { workspace_id } = useParams();
-  const workspace_id_memo = useMemo(() => workspace_id, [workspace_id]);
   const [isChecked, setIsChecked] = useState([]);
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
   const toast = useToast();
