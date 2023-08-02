@@ -21,6 +21,15 @@ export class EmoticonNode extends TextNode {
     dom.className = this.__className;
     return dom;
   }
+
+  exportJSON() {
+    return {
+      type: EmoticonNode.getType(),
+      className: this.__className,
+      text: this.__text,
+      key: this.__key,
+    };
+  }
 }
 
 export function $isEmoticonNode(node) {
