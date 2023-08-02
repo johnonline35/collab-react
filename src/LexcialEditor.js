@@ -48,7 +48,7 @@ import { supabase } from "./supabase/clientapp";
 import { Skeleton, Stack } from "@chakra-ui/react";
 
 import { v4 as uuidv4 } from "uuid";
-
+import { debounce } from "lodash";
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 import { useCallback } from "react";
 
