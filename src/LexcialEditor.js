@@ -52,6 +52,7 @@ import { debounce } from "lodash";
 import { useFetchSavedNotes } from "./hooks/useLexicalFetchSavedNotes";
 import { useCallback } from "react";
 
+import EmoticonPlugin from "./LexicalEditor/plugins/EmoticonPlugin";
 import { MeetingNode } from "./LexicalEditor/nodes/CollabMeetingNode";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
@@ -223,6 +224,7 @@ export default function LexicalEditor() {
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
           <LocalStoragePlugin namespace='myNamespace' />
+          <EmoticonPlugin />
           {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
