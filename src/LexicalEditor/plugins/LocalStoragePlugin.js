@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 
-import { debounce } from "../../util/debounce";
+import { debounce } from "lodash";
 
 export function LocalStoragePlugin(props) {
   const namespace = props.namespace;
