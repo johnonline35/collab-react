@@ -14,7 +14,10 @@ function emoticonTransform(node) {
 
 function useEmoticons(editor) {
   useEffect(() => {
-    const removeTransform = editor.addTransform(TextNode, emoticonTransform);
+    const removeTransform = editor.registerNodeTransform(
+      TextNode,
+      emoticonTransform
+    );
     return () => {
       removeTransform();
     };
