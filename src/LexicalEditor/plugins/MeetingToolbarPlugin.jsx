@@ -12,7 +12,7 @@ export default function MeetingToolbarPlugin() {
         }}
         className={"toolbar-item spaced "}
       >
-        <span className='text'>Insert Meeting</span>
+        <span className='text'>Meeting</span>
       </button>
     </div>
   );
