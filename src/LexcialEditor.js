@@ -115,7 +115,9 @@ export default function LexicalEditor() {
     return <div>Error!</div>;
   }
 
+  // LexicalComposer initialConfig={editorConfig}
   const editorConfig = {
+    // Adding meeting data to editor state
     editorState: () => {
       const root = $getRoot();
 
@@ -125,6 +127,7 @@ export default function LexicalEditor() {
         root.append(gmdNode);
       });
     },
+
     namespace: "collabEditor",
     // The editor theme
     theme: LexicalEditorTheme,
@@ -183,7 +186,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
-          <LocalStoragePlugin namespace='myNamespace' />
+          {/* <LocalStoragePlugin namespace='myNamespace' /> */}
           <EmoticonPlugin />
           {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
