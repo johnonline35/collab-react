@@ -55,11 +55,34 @@ import { useCallback } from "react";
 import { EmoticonNode } from "./LexicalEditor/nodes/EmoticonNode";
 import EmoticonPlugin from "./LexicalEditor/plugins/EmoticonPlugin";
 import { MeetingNode } from "./LexicalEditor/nodes/CollabMeetingNode";
+import { $createMeetingDetailsNode } from "./LexicalEditor/nodes/GetMeetingDetailsNode";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
 export default function LexicalEditor() {
   const params = useParams();
+  const [meetingData, setMeetingData] = useState([]);
+
+  useEffect(() => {
+    setMeetingData([
+      {
+        companyName: "Zipper Meeting",
+        attendees: ["Kerry Ritter", "Chris Alto"],
+      },
+      {
+        companyName: "Zipper Meeting",
+        attendees: ["Kerry Ritter", "Chris Alto"],
+      },
+      {
+        companyName: "Zipper Meeting",
+        attendees: ["Kerry Ritter", "Chris Alto"],
+      },
+      {
+        companyName: "Zipper Meeting",
+        attendees: ["Kerry Ritter", "Chris Alto"],
+      },
+    ]);
+  }, []);
   // const [initialNoteJson, setInitialNoteJson] = useState();
   // const [loadingState, setLoadingState] = useState("loading");
   // const [collabUserNoteId, setCollabUserNoteId] = useState(null);
@@ -68,37 +91,6 @@ export default function LexicalEditor() {
 
   useLexicalNodeParse();
 
-  const handleEditorChange = useCallback(
-    debounce(async (EditorState) => {
-      const jsonString = JSON.stringify(EditorState);
-
-      try {
-        if (collabUserNoteId) {
-          // Update existing record
-          const { data, error } = await supabase
-            .from("collab_users_notes")
-            .update({
-              note_content: jsonString,
-            })
-            .eq("collab_user_note_id", collabUserNoteId);
-
-          if (error) {
-            throw error;
-          } else {
-            console.log("handleEditorChange data", data);
-          }
-        }
-      } catch (error) {
-        console.error("Error updating note:", error.message);
-      }
-    }, 500), // This is the delay time in milliseconds
-    [collabUserNoteId]
-  );
-
-  // useEffect(() => {
-  //   useFetchSavedNotes();
-  // }, []);
-
   useEffect(() => {
     if (loadingState === "loaded") {
       setTimeout(() => {
@@ -106,49 +98,6 @@ export default function LexicalEditor() {
       }, 0);
     }
   }, [loadingState]);
-
-  // const fetchSavedNote = async () => {
-  //   try {
-  //     const { data, error } = await supabase
-  //       .from("collab_users_notes")
-  //       .select("note_content, collab_user_note_id")
-  //       .eq("workspace_id", params.workspace_id);
-
-  //     if (error) {
-  //       throw error;
-  //     }
-
-  //     if (data && data.length > 0) {
-  //       setInitialNoteJson(data[0].note_content);
-  //       setCollabUserNoteId(data[0].collab_user_note_id); // Store the collab_user_note_id
-  //       console.log("data.note_content", data[0].note_content);
-  //       setLoadingState("loaded");
-  //     } else {
-  //       const newUuid = uuidv4();
-  //       const { data: newData, error: newError } = await supabase
-  //         .from("collab_users_notes")
-  //         .insert([
-  //           {
-  //             collab_user_note_id: newUuid,
-  //             workspace_id: params.workspace_id,
-  //             note_content: defaultState,
-  //           },
-  //         ]);
-
-  //       if (newError) {
-  //         throw newError;
-  //       }
-
-  //       setInitialNoteJson(defaultState);
-  //       setCollabUserNoteId(newUuid); // Store the new collab_user_note_id
-  //       setLoadingState("loaded");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching or creating saved note:", error.message);
-  //     setInitialNoteJson(defaultState);
-  //     setLoadingState("error");
-  //   }
-  // };
 
   if (loadingState === "loading") {
     return (
@@ -167,6 +116,15 @@ export default function LexicalEditor() {
   }
 
   const editorConfig = {
+    editorState: () => {
+      const root = $getRoot();
+
+      meetingData.forEach((m) => {
+        const gmdNode = $createMeetingDetailsNode(m);
+
+        root.append(gmdNode);
+      });
+    },
     namespace: "collabEditor",
     // The editor theme
     theme: LexicalEditorTheme,
