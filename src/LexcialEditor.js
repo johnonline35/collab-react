@@ -54,8 +54,8 @@ import { useCallback } from "react";
 
 import { EmoticonNode } from "./LexicalEditor/nodes/EmoticonNode";
 import EmoticonPlugin from "./LexicalEditor/plugins/EmoticonPlugin";
-import { MeetingNode } from "./LexicalEditor/nodes/CollabMeetingNode";
-import { $createMeetingDetailsNode } from "./LexicalEditor/nodes/GetMeetingDetailsNode";
+
+import MeetingToolbarPlugin from "./LexicalEditor/plugins/MeetingToolbarButton";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -118,15 +118,15 @@ export default function LexicalEditor() {
   // LexicalComposer initialConfig={editorConfig}
   const editorConfig = {
     // Adding meeting data to editor state
-    editorState: () => {
-      const root = $getRoot();
+    // editorState: () => {
+    //   const root = $getRoot();
 
-      meetingData.forEach((m) => {
-        const gmdNode = $createMeetingDetailsNode(m);
+    //   meetingData.forEach((m) => {
+    //     const gmdNode = $createMeetingDetailsNode(m);
 
-        root.append(gmdNode);
-      });
-    },
+    //     root.append(gmdNode);
+    //   });
+    // },
 
     namespace: "collabEditor",
     // The editor theme
@@ -186,6 +186,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
+          <MeetingToolbarPlugin meetingData={meetingData} />
           {/* <LocalStoragePlugin namespace='myNamespace' /> */}
           <EmoticonPlugin />
           {/* <MeetingNode /> */}
