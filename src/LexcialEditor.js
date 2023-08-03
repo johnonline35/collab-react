@@ -66,7 +66,7 @@ export default function LexicalEditor() {
   useEffect(() => {
     setMeetingData([
       {
-        companyName: "Zipper Meeting",
+        companyName: "THIS Meeting",
         attendees: ["Kerry Ritter", "Chris Alto"],
       },
       {
