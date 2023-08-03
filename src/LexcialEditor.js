@@ -55,7 +55,7 @@ import { useCallback } from "react";
 import { EmoticonNode } from "./LexicalEditor/nodes/EmoticonNode";
 import EmoticonPlugin from "./LexicalEditor/plugins/EmoticonPlugin";
 
-import MeetingToolbarPlugin from "./LexicalEditor/plugins/MeetingToolbarButton";
+import MeetingDetailsPlugin from "./LexicalEditor/plugins/MeetingDetailsPlugin";
 
 // import ExcalidrawPlugin from "./LexicalEditor/plugins/ExcalidrawPlugin";
 
@@ -186,7 +186,7 @@ export default function LexicalEditor() {
           <NewMentionsPlugin />
           <ListPlugin />
           <OnChangePlugin onChange={onChange} />
-          <MeetingToolbarPlugin meetingData={meetingData} />
+          <MeetingDetailsPlugin />
           {/* <LocalStoragePlugin namespace='myNamespace' /> */}
           <EmoticonPlugin />
           {/* <MeetingNode /> */}
