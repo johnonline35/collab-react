@@ -26,6 +26,9 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
 
   const nextMeeting = meetings[0];
 
+  // Extract the next meeting date
+  const nextMeetingDate = nextMeeting.start_dateTime;
+
   // Fetch meeting attendees using meetings.id
   let { data: attendees } = await supabase
     .from("meeting_attendees")
@@ -49,6 +52,7 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
   // Construct meeting data object
   const meetingDetails = {
     workspaceName: workspaceName,
+    nextMeetingDate: nextMeetingDate,
     attendees: detailedAttendees,
   };
 
