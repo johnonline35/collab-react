@@ -19,7 +19,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     new Date(meetingDetails.nextMeetingDate),
     timeZone
   );
-  let formattedNextMeetingDate = format(zonedDate, "MMMM d, h:mma", {
+  let formattedNextMeetingDate = format(zonedDate, "EEEE, MMMM d, h:mma", {
     timeZone,
   })
     .replace("AM", "am")
@@ -36,7 +36,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
   // Append the next meeting date
   gmdNode.append(
     $createHeadingNode("h2")
-      .append($createTextNode("Meeting Date: " + formattedNextMeetingDate))
+      .append($createTextNode("Date: " + formattedNextMeetingDate))
       .append($createParagraphNode())
   );
 
