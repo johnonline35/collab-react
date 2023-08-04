@@ -13,12 +13,18 @@ export default function MeetingDetailsPlugin() {
   const [meetingData, setMeetingData] = useState([]);
   const { workspace_id } = useParams();
 
+  // Fetch the meeting data only when workspace_id changes
   useEffect(() => {
     fetchLexicalMeetingData(workspace_id).then((data) => {
       setMeetingData(data);
     });
+  }, [workspace_id]); // Only workspace_id in the dependencies
 
-    return editor.registerCommand(
+  // Register the command, depending on editor and meetingData
+  useEffect(() => {
+    if (!meetingData || meetingData.length === 0) return;
+
+    const unregister = editor.registerCommand(
       INSERT_MEETING_DETAILS_COMMAND,
       () => {
         editor.update(() => {
@@ -32,7 +38,14 @@ export default function MeetingDetailsPlugin() {
       },
       COMMAND_PRIORITY_EDITOR
     );
-  }, [editor, meetingData, workspace_id]);
+
+    // If the registerCommand method returns a function to unregister the command, you can call it in the cleanup
+    return () => {
+      if (typeof unregister === "function") {
+        unregister();
+      }
+    };
+  }, [editor, meetingData]); // Only editor and meetingData in the dependencies
 
   return null;
 }
