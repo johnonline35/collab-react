@@ -7,7 +7,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
   // Use workspaceName as the heading
   gmdNode.append(
-    $createHeadingNode("h1").append(
+    $createHeadingNode("h1", { format: "center" }).append(
       $createTextNode(meetingDetails.workspaceName)
     )
   );
