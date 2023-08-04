@@ -1,56 +1,50 @@
 import { supabase } from "../supabase/clientapp";
-import { FetchWrapper } from "./helper";
 
 // Define an async function to fetch data from Supabase
 export const fetchLexicalMeetingData = async (workspace_id) => {
   const now = new Date().toISOString(); // Get current time in ISO format
 
   const { data, error } = await supabase.auth.getSession();
+  console.log("session:", data.session);
 
   if (error) {
     console.error("Error getting session:", error);
     return;
   }
 
-  // Define promises to fetch required data
-  const promises = [
-    supabase
-      .from("collab_users")
-      .select("collab_user_timezone")
-      .eq("collab_user_email", data.session.user.email)
-      .single(),
+  // Fetch user id from the collab_users table
+  let { data: collabUser, error: userError } = await supabase
+    .from("collab_users")
+    .select("collab_user_timezone")
+    .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
+    .single();
 
-    supabase
-      .from("workspaces")
-      .select("workspace_name")
-      .eq("workspace_id", workspace_id),
-
-    supabase
-      .from("meetings")
-      .select("*")
-      .eq("workspace_id", workspace_id)
-      .gte("start_dateTime", now)
-      .order("start_dateTime", { ascending: true }),
-  ];
-
-  // Fetch all required data in parallel
-  const [collabUserResult, workspacesResult, meetingsResult] =
-    await FetchWrapper(promises);
-
-  // Unpack the data
-  const collabUser = collabUserResult.data;
-  const workspaces = workspacesResult.data;
-  const meetings = meetingsResult.data;
+  // Fetch workspace name using workspace_id
+  let { data: workspaces } = await supabase
+    .from("workspaces")
+    .select("workspace_name")
+    .eq("workspace_id", workspace_id);
 
   const workspaceName = workspaces[0].workspace_name;
+  // Fetch meetings data using workspace_id
+  let { data: meetings } = await supabase
+    .from("meetings")
+    .select("*")
+    .eq("workspace_id", workspace_id)
+    .gte("start_dateTime", now)
+    .order("start_dateTime", { ascending: true });
+
+  console.log("meetings:", meetings); // Log meetings to see what's returned
 
   // Check if meetings is empty or undefined
-  if (!meetings.data || meetings.data.length === 0) {
+  if (!meetings || meetings.length === 0) {
     console.log("No meetings found for workspace_id:", workspace_id);
     return; // or handle this situation as needed
   }
 
-  const nextMeeting = meetings.data[0];
+  const nextMeeting = meetings[0];
+
+  // Extract the next meeting date
   const nextMeetingDate = nextMeeting.start_dateTime;
 
   // Fetch meeting attendees using meetings.id
@@ -78,7 +72,7 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
     workspaceName: workspaceName,
     nextMeetingDate: nextMeetingDate,
     attendees: detailedAttendees,
-    user_timezone: collabUser.data.collab_user_timezone,
+    user_timezone: collabUser.collab_user_timezone,
   };
 
   console.log("meetingDetails:", meetingDetails);
