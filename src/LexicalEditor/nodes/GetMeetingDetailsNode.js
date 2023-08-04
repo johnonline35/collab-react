@@ -11,6 +11,15 @@ export function $createMeetingDetailsNode(meetingDetails) {
       .append($createParagraphNode())
   );
 
+  // Here we need to append the meetingDails.nextMeetingDate
+  gmdNode.append(
+    $createHeadingNode("h2")
+      .append(
+        $createTextNode("Next Meeting: " + meetingDetails.nextMeetingDate)
+      )
+      .append($createParagraphNode())
+  );
+
   // Use attendees' names as the content
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
