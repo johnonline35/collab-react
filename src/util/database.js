@@ -16,7 +16,14 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
     .eq("workspace_id", workspace_id)
     .order("time", { ascending: true });
 
-  // Assuming meetings are sorted by time and you need the next upcoming meeting
+  console.log("meetings:", meetings); // Log meetings to see what's returned
+
+  // Check if meetings is empty or undefined
+  if (!meetings || meetings.length === 0) {
+    console.log("No meetings found for workspace_id:", workspace_id);
+    return; // or handle this situation as needed
+  }
+
   const nextMeeting = meetings[0];
 
   // Fetch meeting attendees using meetings.id
