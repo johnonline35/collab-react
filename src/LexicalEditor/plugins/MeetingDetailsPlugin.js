@@ -1,34 +1,22 @@
+import { useParams } from "react-router-dom";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $createMeetingDetailsNode } from "../nodes/GetMeetingDetailsNode";
 import { $getRoot } from "lexical";
 import { useEffect, useState } from "react";
+import { fetchLexicalMeetingData } from "../../util/database";
 
 export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
 
 export default function MeetingDetailsPlugin() {
   const [editor] = useLexicalComposerContext();
   const [meetingData, setMeetingData] = useState([]);
+  const { workspace_id } = useParams();
 
   useEffect(() => {
-    setMeetingData([
-      {
-        companyName: "THIS Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-      {
-        companyName: "Zipper Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-      {
-        companyName: "Zipper Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-      {
-        companyName: "Zipper Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-    ]);
+    fetchLexicalMeetingData(workspace_id).then((data) => {
+      setMeetingData(data);
+    });
 
     return editor.registerCommand(
       INSERT_MEETING_DETAILS_COMMAND,
@@ -42,9 +30,9 @@ export default function MeetingDetailsPlugin() {
         });
         return true;
       },
-      COMMAND_PRIORITY_EDITOR // Using the predefined constant
+      COMMAND_PRIORITY_EDITOR
     );
-  }, [editor, meetingData]);
+  }, [editor, meetingData, workspace_id]);
 
   return null;
 }
