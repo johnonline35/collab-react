@@ -4,19 +4,20 @@ import { supabase } from "../supabase/clientapp";
 export const fetchLexicalMeetingData = async (workspace_id) => {
   const now = new Date().toISOString(); // Get current time in ISO format
 
-  const session = await supabase.auth.getSession();
-  if (!session || !session.user) {
-    console.error("No active session or user info found");
+  const { data, error } = await supabase.auth.getSession();
+  console.log("session:", data.session);
+
+  if (error) {
+    console.error("Error getting session:", error);
     return;
   }
-  const userEmail = session.user.email;
 
-  // Query the collab_users table using userEmail to get the timezone
-  let { data: collabUser } = await supabase
+  // Fetch user id from the collab_users table
+  let { data: collabUser, error: userError } = await supabase
     .from("collab_users")
-    .select("collab_user_timezone") // Add other columns as needed
-    .eq("email", userEmail)
-    .single(); // Assuming there is only one matching record
+    .select("id")
+    .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
+    .single();
 
   // Fetch workspace name using workspace_id
   let { data: workspaces } = await supabase
