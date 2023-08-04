@@ -2,6 +2,8 @@ import { supabase } from "../supabase/clientapp";
 
 // Define an async function to fetch data from Supabase
 export const fetchLexicalMeetingData = async (workspace_id) => {
+  const now = new Date().toISOString(); // Get current time in ISO format
+
   // Fetch workspace name using workspace_id
   let { data: workspaces } = await supabase
     .from("workspaces")
@@ -14,6 +16,7 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
     .from("meetings")
     .select("*")
     .eq("workspace_id", workspace_id)
+    .gte("start_dateTime", now)
     .order("start_dateTime", { ascending: true });
 
   console.log("meetings:", meetings); // Log meetings to see what's returned
