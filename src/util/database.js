@@ -52,6 +52,8 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
     attendees: detailedAttendees,
   };
 
+  console.log("meetingDetails:", meetingDetails);
+
   return [meetingDetails]; // Assuming you want an array containing the next meeting details
 };
 
