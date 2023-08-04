@@ -4,16 +4,9 @@ export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = [];
 
   // Create and append the centered h1 heading
+  const headingText = new TextNode(meetingDetails.workspaceName);
   const headingNode = new ElementNode("h1");
-  headingNode.append(new TextNode(meetingDetails.workspaceName));
-
-  // Apply center styling. Note: This assumes Lexical accepts custom CSS for the nodes.
-  headingNode.createDOM = () => {
-    const dom = document.createElement("h1");
-    dom.style.textAlign = "center";
-    return dom;
-  };
-
+  headingNode.append(headingText);
   gmdNode.push(headingNode);
 
   // Append a blank line (empty paragraph)
