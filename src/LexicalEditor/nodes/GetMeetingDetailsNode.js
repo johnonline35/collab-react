@@ -1,6 +1,6 @@
 import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
-import { capitalizeFirstLetterOfEachWord } from "path-to-your-function"; // Import the function
+import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
 
 export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = $createParagraphNode();
@@ -30,7 +30,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
       attendee.attendee_job_title
     ); // Capitalize the job title
-    const attendeeText = attendeeName + " " + attendeeJobTitle;
+    const attendeeText = attendeeName + ", " + attendeeJobTitle;
     attendeesContainer.append(
       $createParagraphNode().append($createTextNode(attendeeText))
     );
