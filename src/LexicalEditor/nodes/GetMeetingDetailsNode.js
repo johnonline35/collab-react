@@ -1,7 +1,7 @@
 import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
-import { formatTime } from "../../hooks/useFormatTime";
+import { utcToZonedTime, format } from "date-fns-tz";
 
 export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = $createParagraphNode();
@@ -14,7 +14,14 @@ export function $createMeetingDetailsNode(meetingDetails) {
   );
 
   // Format the next meeting date using the formatTime function
-  const formattedNextMeetingDate = formatTime(meetingDetails.nextMeetingDate);
+  const timeZone = meetingDetails.user_timezone; // Assuming you have this property
+  const zonedDate = utcToZonedTime(
+    new Date(meetingDetails.nextMeetingDate),
+    timeZone
+  );
+  const formattedNextMeetingDate = format(zonedDate, "yyyy-MM-dd HH:mm:ssXXX", {
+    timeZone,
+  });
 
   // Append the next meeting date
   gmdNode.append(
