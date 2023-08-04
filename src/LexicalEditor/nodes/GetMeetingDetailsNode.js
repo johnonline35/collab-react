@@ -1,6 +1,7 @@
 import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
+import { formatTime } from "../../hooks/useFormatTime";
 
 export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = $createParagraphNode();
@@ -12,12 +13,13 @@ export function $createMeetingDetailsNode(meetingDetails) {
       .append($createParagraphNode())
   );
 
+  // Format the next meeting date using the formatTime function
+  const formattedNextMeetingDate = formatTime(meetingDetails.nextMeetingDate);
+
   // Append the next meeting date
   gmdNode.append(
     $createHeadingNode("h2")
-      .append(
-        $createTextNode("Next Meeting: " + meetingDetails.nextMeetingDate)
-      )
+      .append($createTextNode("Next Meeting: " + formattedNextMeetingDate))
       .append($createParagraphNode())
   );
 
@@ -26,10 +28,10 @@ export function $createMeetingDetailsNode(meetingDetails) {
   meetingDetails.attendees.forEach((attendee) => {
     const attendeeName = capitalizeFirstLetterOfEachWord(
       attendee.attendee_name
-    ); // Capitalize the name
+    );
     const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
       attendee.attendee_job_title
-    ); // Capitalize the job title
+    );
     const attendeeText = attendeeName + ", " + attendeeJobTitle;
     attendeesContainer.append(
       $createParagraphNode().append($createTextNode(attendeeText))
