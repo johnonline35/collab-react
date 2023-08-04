@@ -15,7 +15,13 @@ export function $createMeetingDetailsNode(meetingDetails) {
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
     attendeesContainer.append(
-      $createParagraphNode().append($createTextNode(attendee.attendee_name)) // assuming attendee_name is a property of attendee object
+      $createParagraphNode().append(
+        $createTextNode(
+          attendee.attendee_name,
+          +" ",
+          attendee.attendee_job_title
+        )
+      )
     );
   });
   gmdNode.append(attendeesContainer);
