@@ -4,7 +4,7 @@ import { supabase } from "../supabase/clientapp";
 export const fetchLexicalMeetingData = async (workspace_id) => {
   const now = new Date().toISOString(); // Get current time in ISO format
 
-  const session = await supabase.auth.session();
+  const session = await supabase.auth.getSession();
   if (!session || !session.user) {
     console.error("No active session or user info found");
     return;
