@@ -26,17 +26,45 @@ export function $createMeetingDetailsNode(meetingDetails) {
   // Use attendees' names and job titles as the content
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
-    const attendeeName = capitalizeFirstLetterOfEachWord(
-      attendee.attendee_name
-    );
-    const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
-      attendee.attendee_job_title
-    );
-    const attendeeText = attendeeName + ", " + attendeeJobTitle;
-    attendeesContainer.append(
-      $createParagraphNode().append($createTextNode(attendeeText))
-    );
+    let attendeeText = "";
+
+    if (attendee.attendee_name) {
+      const attendeeName = capitalizeFirstLetterOfEachWord(
+        attendee.attendee_name
+      );
+      attendeeText += attendeeName;
+    }
+
+    if (attendee.attendee_job_title) {
+      const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
+        attendee.attendee_job_title
+      );
+      attendeeText += attendeeText ? ", " + attendeeJobTitle : attendeeJobTitle;
+    }
+
+    if (attendeeText) {
+      attendeesContainer.append(
+        $createParagraphNode().append($createTextNode(attendeeText))
+      );
+    }
+
+    if (attendee.attendee_linkedin) {
+      attendeesContainer.append(
+        $createParagraphNode().append(
+          $createTextNode("LinkedIn Profile: " + attendee.attendee_linkedin)
+        )
+      );
+    }
+
+    if (attendee.attendee_twitter) {
+      attendeesContainer.append(
+        $createParagraphNode().append(
+          $createTextNode("Twitter: " + attendee.attendee_twitter)
+        )
+      );
+    }
   });
+
   gmdNode.append(attendeesContainer);
 
   return gmdNode;
