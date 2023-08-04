@@ -1,12 +1,13 @@
 import {
-  $createParagraphNode,
+  $createElementNode,
   $createTextNode,
   $createHeadingNode,
   $createQuoteNode,
+  $createParagraphNode,
 } from "@lexical/rich-text";
 
 export function $createMeetingDetailsNode(meetingDetails) {
-  const gmdNode = $createParagraphNode();
+  const gmdNode = $createElementNode();
 
   // Create and append the centered h1 heading
   gmdNode.append(
