@@ -1,22 +1,28 @@
-import { $createParagraphNode, ElementNode } from "lexical";
-import { $createTextNode } from "lexical";
-import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
+import {
+  $createParagraphNode,
+  $createTextNode,
+  $createHeadingNode,
+  $createQuoteNode,
+} from "@lexical/rich-text";
 
 export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = $createParagraphNode();
 
-  // Use workspaceName as the heading
+  // Create and append the centered h1 heading
   gmdNode.append(
-    $createHeadingNode("h1").append(
+    $createHeadingNode("h1", { format: "center" }).append(
       $createTextNode(meetingDetails.workspaceName)
     )
   );
 
-  // Use attendees' names as the content
+  // Append a blank line (empty paragraph)
+  gmdNode.append($createParagraphNode());
+
+  // Create and append the attendees
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
     attendeesContainer.append(
-      $createParagraphNode().append($createTextNode(attendee.attendee_name)) // assuming attendee_name is a property of attendee object
+      $createParagraphNode().append($createTextNode(attendee.attendee_name))
     );
   });
   gmdNode.append(attendeesContainer);
