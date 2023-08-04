@@ -19,7 +19,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
   // Append the next meeting date
   gmdNode.append(
     $createHeadingNode("h2")
-      .append($createTextNode("Next Meeting: " + formattedNextMeetingDate))
+      .append($createTextNode("Meeting Date: " + formattedNextMeetingDate))
       .append($createParagraphNode())
   );
 
