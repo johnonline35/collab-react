@@ -15,7 +15,7 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
   // Fetch user id from the collab_users table
   let { data: collabUser, error: userError } = await supabase
     .from("collab_users")
-    .select("id")
+    .select("collab_user_timezone")
     .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
     .single();
 
