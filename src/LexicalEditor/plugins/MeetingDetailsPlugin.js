@@ -1,17 +1,31 @@
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
+import {
+  createCommand,
+  COMMAND_PRIORITY_EDITOR,
+  setElementProperties,
+} from "lexical";
 import { $createMeetingDetailsNode } from "../nodes/GetMeetingDetailsNode";
 import { $getRoot } from "lexical";
-import { useEffect, useState } from "react";
 import { fetchLexicalMeetingData } from "../../util/database";
-
-export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
 
 export default function MeetingDetailsPlugin() {
   const [editor] = useLexicalComposerContext();
   const [meetingData, setMeetingData] = useState([]);
   const { workspace_id } = useParams();
+
+  // Custom command to insert meeting details with formatting options
+  const INSERT_MEETING_DETAILS_COMMAND = createCommand((formattingOptions) => {
+    editor.update(() => {
+      const root = $getRoot();
+      meetingData.forEach((m) => {
+        const gmdNode = $createMeetingDetailsNode(m, formattingOptions);
+        root.append(gmdNode);
+      });
+    });
+    return true;
+  }, COMMAND_PRIORITY_EDITOR);
 
   // Fetch the meeting data only when workspace_id changes
   useEffect(() => {
@@ -26,11 +40,11 @@ export default function MeetingDetailsPlugin() {
 
     const unregister = editor.registerCommand(
       INSERT_MEETING_DETAILS_COMMAND,
-      () => {
+      (formattingOptions) => {
         editor.update(() => {
           const root = $getRoot();
           meetingData.forEach((m) => {
-            const gmdNode = $createMeetingDetailsNode(m);
+            const gmdNode = $createMeetingDetailsNode(m, formattingOptions);
             root.append(gmdNode);
           });
         });
@@ -49,3 +63,54 @@ export default function MeetingDetailsPlugin() {
 
   return null;
 }
+
+// import { useParams } from "react-router-dom";
+// import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+// import { $getRoot, createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
+// import { $createMeetingDetailsNode } from "../nodes/GetMeetingDetailsNode";
+// import { useEffect, useState } from "react";
+// import { fetchLexicalMeetingData } from "../../util/database";
+
+// export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
+
+// export default function MeetingDetailsPlugin() {
+//   const [editor] = useLexicalComposerContext();
+//   const [meetingData, setMeetingData] = useState([]);
+//   const { workspace_id } = useParams();
+
+//   // Fetch the meeting data only when workspace_id changes
+//   useEffect(() => {
+//     fetchLexicalMeetingData(workspace_id).then((data) => {
+//       setMeetingData(data);
+//     });
+//   }, [workspace_id]); // Only workspace_id in the dependencies
+
+//   // Register the command, depending on editor and meetingData
+//   useEffect(() => {
+//     if (!meetingData || meetingData.length === 0) return;
+
+//     const unregister = editor.registerCommand(
+//       INSERT_MEETING_DETAILS_COMMAND,
+//       () => {
+//         editor.update(() => {
+//           const root = $getRoot();
+//           meetingData.forEach((m) => {
+//             const gmdNode = $createMeetingDetailsNode(m);
+//             root.append(gmdNode);
+//           });
+//         });
+//         return true;
+//       },
+//       COMMAND_PRIORITY_EDITOR
+//     );
+
+//     // If the registerCommand method returns a function to unregister the command, you can call it in the cleanup
+//     return () => {
+//       if (typeof unregister === "function") {
+//         unregister();
+//       }
+//     };
+//   }, [editor, meetingData]); // Only editor and meetingData in the dependencies
+
+//   return null;
+// }
