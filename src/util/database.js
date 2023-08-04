@@ -2,6 +2,7 @@ import { supabase } from "../supabase/clientapp";
 
 // Define an async function to fetch data from Supabase
 export const fetchLexicalMeetingData = async (workspace_id) => {
+  console.log("lexical params worksapce id:", workspace_id);
   // Fetch workspace name using workspace_id
   let { data: workspaces } = await supabase
     .from("workspaces")
