@@ -1,5 +1,4 @@
 import {
-  $createElementNode,
   $createTextNode,
   $createHeadingNode,
   $createQuoteNode,
@@ -7,17 +6,17 @@ import {
 } from "@lexical/rich-text";
 
 export function $createMeetingDetailsNode(meetingDetails) {
-  const gmdNode = $createElementNode();
+  const gmdNode = [];
 
   // Create and append the centered h1 heading
-  gmdNode.append(
+  gmdNode.push(
     $createHeadingNode("h1", { format: "center" }).append(
       $createTextNode(meetingDetails.workspaceName)
     )
   );
 
   // Append a blank line (empty paragraph)
-  gmdNode.append($createParagraphNode());
+  gmdNode.push($createParagraphNode());
 
   // Create and append the attendees
   const attendeesContainer = $createQuoteNode();
@@ -26,7 +25,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
       $createParagraphNode().append($createTextNode(attendee.attendee_name))
     );
   });
-  gmdNode.append(attendeesContainer);
+  gmdNode.push(attendeesContainer);
 
   return gmdNode;
 }
