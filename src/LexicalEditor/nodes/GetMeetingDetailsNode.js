@@ -1,25 +1,17 @@
-import {
-  $createParagraphNode,
-  $getRoot,
-  $createTextNode,
-  FORMAT_ELEMENT_COMMAND,
-} from "lexical";
+import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
 
-export function $createMeetingDetailsNode(editor, meetingDetails) {
+export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = $createParagraphNode();
 
   // Use workspaceName as the heading
-  const h1Node = $createHeadingNode("h1")
-    .append($createTextNode(meetingDetails.workspaceName + " Notes"))
-    .append($createParagraphNode());
-
-  // Center align the H1 element
-  editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, h1Node, "center");
-
-  gmdNode.append(h1Node);
+  gmdNode.append(
+    $createHeadingNode("h1", { style: "text-align: center;" })
+      .append($createTextNode(meetingDetails.workspaceName + " Notes"))
+      .append($createParagraphNode())
+  );
 
   // Format the next meeting date using the formatTime function
   const timeZone = meetingDetails.user_timezone; // Assuming you have this property
