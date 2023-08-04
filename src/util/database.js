@@ -34,7 +34,13 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
   ];
 
   // Fetch all required data in parallel
-  const [collabUser, workspaces, meetings] = await FetchWrapper(promises);
+  const [collabUserResult, workspacesResult, meetingsResult] =
+    await FetchWrapper(promises);
+
+  // Unpack the data
+  const collabUser = collabUserResult.data;
+  const workspaces = workspacesResult.data;
+  const meetings = meetingsResult.data;
 
   const workspaceName = workspaces[0].workspace_name;
 
