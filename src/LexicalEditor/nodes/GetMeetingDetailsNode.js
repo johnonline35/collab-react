@@ -1,31 +1,30 @@
-import {
-  $createTextNode,
-  $createHeadingNode,
-  $createQuoteNode,
-  $createParagraphNode,
-} from "@lexical/rich-text";
+import { ParagraphNode, ElementNode, TextNode } from "lexical";
 
 export function $createMeetingDetailsNode(meetingDetails) {
   const gmdNode = [];
 
   // Create and append the centered h1 heading
-  gmdNode.push(
-    $createHeadingNode("h1", { format: "center" }).append(
-      $createTextNode(meetingDetails.workspaceName)
-    )
-  );
+  const headingNode = new ElementNode("h1");
+  headingNode.append(new TextNode(meetingDetails.workspaceName));
+
+  // Apply center styling. Note: This assumes Lexical accepts custom CSS for the nodes.
+  headingNode.createDOM = () => {
+    const dom = document.createElement("h1");
+    dom.style.textAlign = "center";
+    return dom;
+  };
+
+  gmdNode.push(headingNode);
 
   // Append a blank line (empty paragraph)
-  gmdNode.push($createParagraphNode());
+  gmdNode.push(new ParagraphNode());
 
   // Create and append the attendees
-  const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
-    attendeesContainer.append(
-      $createParagraphNode().append($createTextNode(attendee.attendee_name))
-    );
+    const attendeeParagraph = new ParagraphNode();
+    attendeeParagraph.append(new TextNode(attendee.attendee_name));
+    gmdNode.push(attendeeParagraph);
   });
-  gmdNode.push(attendeesContainer);
 
   return gmdNode;
 }
