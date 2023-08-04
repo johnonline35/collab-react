@@ -42,25 +42,21 @@ export function $createMeetingDetailsNode(meetingDetails) {
       attendeeText += attendeeText ? ", " + attendeeJobTitle : attendeeJobTitle;
     }
 
-    if (attendeeText) {
-      attendeesContainer.append(
-        $createParagraphNode().append($createTextNode(attendeeText))
-      );
-    }
-
     if (attendee.attendee_linkedin) {
-      attendeesContainer.append(
-        $createParagraphNode().append(
-          $createTextNode("LinkedIn Profile: " + attendee.attendee_linkedin)
-        )
-      );
+      attendeeText += attendeeText
+        ? " | LinkedIn Profile: " + attendee.attendee_linkedin
+        : "LinkedIn Profile: " + attendee.attendee_linkedin;
     }
 
     if (attendee.attendee_twitter) {
+      attendeeText += attendeeText
+        ? " | Twitter: " + attendee.attendee_twitter
+        : "Twitter: " + attendee.attendee_twitter;
+    }
+
+    if (attendeeText) {
       attendeesContainer.append(
-        $createParagraphNode().append(
-          $createTextNode("Twitter: " + attendee.attendee_twitter)
-        )
+        $createParagraphNode().append($createTextNode(attendeeText))
       );
     }
   });
