@@ -13,8 +13,8 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
   let { data: meetings } = await supabase
     .from("meetings")
     .select("*")
-    .eq("workspace_id", workspace_id)
-    .order("time", { ascending: true });
+    .eq("workspace_id", workspace_id);
+  // .order("time", { ascending: true });
 
   console.log("meetings:", meetings); // Log meetings to see what's returned
 
