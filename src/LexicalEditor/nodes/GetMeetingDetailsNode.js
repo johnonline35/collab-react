@@ -6,21 +6,19 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
   // Use workspaceName as the heading
   gmdNode.append(
-    $createHeadingNode("h1").append(
-      $createTextNode(meetingDetails.workspaceName + " Notes")
-    )
+    $createHeadingNode("h1")
+      .append($createTextNode(meetingDetails.workspaceName + " Notes"))
+      .append($createParagraphNode())
   );
 
   // Use attendees' names as the content
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
+    const attendeeText =
+      attendee.attendee_name + " " + attendee.attendee_job_title; // Concatenate name and job title
     attendeesContainer.append(
       $createParagraphNode().append(
-        $createTextNode(
-          attendee.attendee_name,
-          +" ",
-          attendee.attendee_job_title
-        )
+        $createTextNode(attendeeText) // Pass the concatenated string as a single argument
       )
     );
   });
