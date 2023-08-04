@@ -2,7 +2,6 @@ import { supabase } from "../supabase/clientapp";
 
 // Define an async function to fetch data from Supabase
 export const fetchLexicalMeetingData = async (workspace_id) => {
-  console.log("lexical params worksapce id:", workspace_id);
   // Fetch workspace name using workspace_id
   let { data: workspaces } = await supabase
     .from("workspaces")
@@ -14,8 +13,8 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
   let { data: meetings } = await supabase
     .from("meetings")
     .select("*")
-    .eq("workspace_id", workspace_id);
-  // .order("time", { ascending: true });
+    .eq("workspace_id", workspace_id)
+    .order("time", { ascending: true });
 
   console.log("meetings:", meetings); // Log meetings to see what's returned
 
