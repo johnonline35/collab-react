@@ -19,11 +19,19 @@ export function $createMeetingDetailsNode(meetingDetails) {
     new Date(meetingDetails.nextMeetingDate),
     timeZone
   );
-  const formattedNextMeetingDate = format(zonedDate, "MMMM d, h:mma", {
+  let formattedNextMeetingDate = format(zonedDate, "MMMM d, h:mma", {
     timeZone,
   })
     .replace("AM", "am")
     .replace("PM", "pm");
+
+  // If the minutes are "00", remove them
+  if (
+    formattedNextMeetingDate.endsWith(":00am") ||
+    formattedNextMeetingDate.endsWith(":00pm")
+  ) {
+    formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
+  }
 
   // Append the next meeting date
   gmdNode.append(
