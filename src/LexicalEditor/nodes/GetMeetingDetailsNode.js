@@ -2,12 +2,12 @@ import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 
 export function $createMeetingDetailsNode(meetingDetails) {
-  const gmdNode = $getRoot;
+  const gmdNode = $getRoot();
 
   // Use workspaceName as the heading
   gmdNode.append(
     $createHeadingNode("h1").append(
-      $createTextNode(meetingDetails.workspaceName)
+      $createTextNode(meetingDetails.workspaceName + " Notes")
     )
   );
 
