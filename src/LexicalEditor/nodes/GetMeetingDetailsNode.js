@@ -11,7 +11,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     $createHeadingNode("h1")
       .append($createTextNode(meetingDetails.workspaceName + " Notes"))
       .setFormat("center")
-      .setStyle("bold")
+      .setStyle("font-weight: bold")
       .append($createParagraphNode())
   );
 
