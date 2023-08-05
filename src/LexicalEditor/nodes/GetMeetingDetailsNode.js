@@ -9,8 +9,12 @@ export function $createMeetingDetailsNode(meetingDetails) {
   // Use workspaceName as the heading
   gmdNode.append(
     $createHeadingNode("h1")
-      .append($createTextNode(meetingDetails.workspaceName + " Notes"))
-      .setFormat("center")
+      .append(
+        $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
+          "font-weight: bold"
+        )
+      )
+
       .append($createParagraphNode())
   );
 
