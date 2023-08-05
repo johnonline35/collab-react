@@ -10,8 +10,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
   gmdNode.append(
     $createHeadingNode("h1")
       .append($createTextNode(meetingDetails.workspaceName + " Notes"))
-      .setFormat("center")
-      .setStyle("font-weight: bold")
+      .setStyle("text-align: center")
       .append($createParagraphNode())
   );
 
