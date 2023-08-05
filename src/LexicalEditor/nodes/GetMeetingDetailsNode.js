@@ -1,4 +1,9 @@
-import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
+import {
+  $createParagraphNode,
+  $getRoot,
+  $createTextNode,
+  $createLinkNode,
+} from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
@@ -15,7 +20,6 @@ export function $createMeetingDetailsNode(meetingDetails) {
         )
       )
       .setFormat("center")
-
       .append($createParagraphNode())
   );
 
@@ -49,38 +53,40 @@ export function $createMeetingDetailsNode(meetingDetails) {
   // Use attendees' names and job titles as the content
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
-    let attendeeText = "";
+    const textNodes = [];
 
     if (attendee.attendee_name) {
       const attendeeName = capitalizeFirstLetterOfEachWord(
         attendee.attendee_name
       );
-      attendeeText += attendeeName;
+      textNodes.push($createTextNode(attendeeName));
     }
 
     if (attendee.attendee_job_title) {
       const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
         attendee.attendee_job_title
       );
-      attendeeText += attendeeText ? ", " + attendeeJobTitle : attendeeJobTitle;
+      textNodes.push($createTextNode(attendeeJobTitle));
     }
 
     if (attendee.attendee_linkedin) {
-      attendeeText += attendeeText
-        ? " | LinkedIn Profile: " + attendee.attendee_linkedin
-        : "LinkedIn Profile: " + attendee.attendee_linkedin;
+      const linkedinLink = $createLinkNode({
+        url: attendee.attendee_linkedin,
+        title: "LinkedIn Profile",
+      });
+      textNodes.push(linkedinLink);
     }
 
     if (attendee.attendee_twitter) {
-      attendeeText += attendeeText
-        ? " | Twitter: " + attendee.attendee_twitter
-        : "Twitter: " + attendee.attendee_twitter;
+      const twitterLink = $createLinkNode({
+        url: attendee.attendee_twitter,
+        title: "Twitter",
+      });
+      textNodes.push(twitterLink);
     }
 
-    if (attendeeText) {
-      attendeesContainer.append(
-        $createParagraphNode().append($createTextNode(attendeeText))
-      );
+    if (textNodes.length > 0) {
+      attendeesContainer.append($createParagraphNode().append(...textNodes));
     }
   });
 
