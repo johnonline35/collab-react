@@ -23,6 +23,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
           title: "test",
         })
       )
+      .append($createParagraphNode())
   );
 
   // Format the next meeting date using the formatTime function
