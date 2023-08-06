@@ -1,10 +1,6 @@
-import {
-  $createParagraphNode,
-  $getRoot,
-  $createTextNode,
-  $createAutoLinkNode,
-} from "lexical";
+import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
+import { $createAutoLinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
 
