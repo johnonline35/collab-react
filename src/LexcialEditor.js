@@ -172,7 +172,7 @@ export default function LexicalEditor() {
         <div className='editor-inner'>
           <RichTextPlugin
             contentEditable={<ContentEditable className='editor-input' />}
-            placeholder={<Placeholder />}
+            // placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
           <HistoryPlugin />
