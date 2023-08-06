@@ -17,13 +17,6 @@ export function $createMeetingDetailsNode(meetingDetails) {
       )
       .setFormat("center")
       .append($createParagraphNode())
-      .append(
-        $createLinkNode("http://test.com", {
-          target: "_blank",
-          title: "test",
-        })
-      )
-      .append($createParagraphNode())
   );
 
   // Format the next meeting date using the formatTime function
@@ -73,15 +66,51 @@ export function $createMeetingDetailsNode(meetingDetails) {
     }
 
     if (attendee.attendee_linkedin) {
-      attendeeText += attendeeText
-        ? " | LinkedIn Profile: " + attendee.attendee_linkedin
-        : "LinkedIn Profile: " + attendee.attendee_linkedin;
+      // If there is already content in the attendeeText, append a separator to it.
+      if (attendeeText) {
+        attendeesContainer.append(
+          $createParagraphNode().append($createTextNode(attendeeText + " | "))
+        );
+        attendeeText = ""; // Reset attendeeText
+      }
+
+      // Create the LinkedIn link and append to the container.
+      attendeesContainer.append(
+        $createParagraphNode()
+          .append($createTextNode("LinkedIn Profile: "))
+          .append(
+            $createLinkNode(attendee.attendee_linkedin, {
+              target: "_blank",
+              title: "LinkedIn Profile",
+            })
+          )
+      );
     }
 
     if (attendee.attendee_twitter) {
-      attendeeText += attendeeText
-        ? " | Twitter: " + attendee.attendee_twitter
-        : "Twitter: " + attendee.attendee_twitter;
+      // If there is already content in the attendeeText or a LinkedIn link was added, append a separator.
+      if (attendeeText || attendee.attendee_linkedin) {
+        attendeesContainer.append(
+          $createParagraphNode().append($createTextNode(" | "))
+        );
+      }
+
+      // Create the Twitter link and append to the container.
+      attendeesContainer.append(
+        $createParagraphNode()
+          .append($createTextNode("Twitter: "))
+          .append(
+            $createLinkNode(attendee.attendee_twitter, {
+              target: "_blank",
+              title: "Twitter Profile",
+            })
+          )
+      );
+    } else if (attendeeText) {
+      attendeesContainer.append(
+        $createParagraphNode().append($createTextNode(attendeeText))
+      );
+      attendeeText = ""; // Reset attendeeText
     }
 
     if (attendeeText) {
