@@ -19,7 +19,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
       .append($createParagraphNode())
   );
 
-  // Format the next meeting date using the formatTime function
+  // Format the next meeting date
   const timeZone = meetingDetails.user_timezone;
   const zonedDate = utcToZonedTime(
     new Date(meetingDetails.nextMeetingDate),
@@ -49,13 +49,11 @@ export function $createMeetingDetailsNode(meetingDetails) {
   // Use attendees' names and job titles as the content
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
+    const attendeeParagraph = $createParagraphNode();
     let attendeeText = "";
 
     if (attendee.attendee_name) {
-      const attendeeName = capitalizeFirstLetterOfEachWord(
-        attendee.attendee_name
-      );
-      attendeeText += attendeeName;
+      attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
     }
 
     if (attendee.attendee_job_title) {
@@ -65,49 +63,31 @@ export function $createMeetingDetailsNode(meetingDetails) {
       attendeeText += attendeeText ? ", " + attendeeJobTitle : attendeeJobTitle;
     }
 
+    if (attendeeText) {
+      attendeeParagraph.append($createTextNode(attendeeText));
+    }
+
     if (attendee.attendee_linkedin) {
-      if (attendeeText) {
-        attendeesContainer.append(
-          $createParagraphNode().append($createTextNode(attendeeText + " | "))
-        );
-        attendeeText = ""; // Reset attendeeText
-      }
-      attendeesContainer.append(
-        $createParagraphNode()
-          .append($createTextNode("LinkedIn Profile: "))
-          .append(
-            $createLinkNode(attendee.attendee_linkedin, {
-              target: "_blank",
-              title: "LinkedIn Profile",
-            })
-          )
+      attendeeParagraph.append($createTextNode(" | LinkedIn Profile: "));
+      attendeeParagraph.append(
+        $createLinkNode(attendee.attendee_linkedin, {
+          target: "_blank",
+          title: "LinkedIn Profile",
+        })
       );
     }
 
     if (attendee.attendee_twitter) {
-      if (attendeeText || attendee.attendee_linkedin) {
-        attendeesContainer.append(
-          $createParagraphNode().append($createTextNode(" | "))
-        );
-      }
-      attendeesContainer.append(
-        $createParagraphNode()
-          .append($createTextNode("Twitter: "))
-          .append(
-            $createLinkNode(attendee.attendee_twitter, {
-              target: "_blank",
-              title: "Twitter Profile",
-            })
-          )
+      attendeeParagraph.append($createTextNode(" | Twitter: "));
+      attendeeParagraph.append(
+        $createLinkNode(attendee.attendee_twitter, {
+          target: "_blank",
+          title: "Twitter Profile",
+        })
       );
-      attendeeText = ""; // Reset attendeeText
     }
 
-    if (attendeeText) {
-      attendeesContainer.append(
-        $createParagraphNode().append($createTextNode(attendeeText))
-      );
-    }
+    attendeesContainer.append(attendeeParagraph);
   });
 
   gmdNode.append(attendeesContainer);
