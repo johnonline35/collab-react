@@ -1,6 +1,6 @@
 import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
-import { $createAutoLinkNode } from "@lexical/link";
+import { $createAutoLinkNode, $createLinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
 
@@ -18,7 +18,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
       .setFormat("center")
       .append($createParagraphNode())
       .append(
-        $createAutoLinkNode("http://test.com", {
+        $createLinkNode("http://test.com", {
           target: "_blank",
           title: "test",
         })
