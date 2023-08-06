@@ -29,7 +29,7 @@ export default function MeetingDetailsPlugin() {
         editor.update(() => {
           const root = $getRoot();
           meetingData.forEach((m) => {
-            const gmdNode = $createMeetingDetailsNode(m); // Pass editor as a parameter
+            const gmdNode = $createMeetingDetailsNode(m);
             root.append(gmdNode);
           });
         });
