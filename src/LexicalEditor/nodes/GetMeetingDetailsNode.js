@@ -18,10 +18,10 @@ export function $createMeetingDetailsNode(meetingDetails) {
       .setFormat("center")
       .append($createParagraphNode())
       .append(
-        $createAutoLinkNode("http://test.com", {
-          target: "_blank",
-          title: "test",
-        })
+        $createAutoLinkNode()
+          .setTarget("_blank")
+          .setTitle("Test")
+          .setURL("https://www.test.com")
       )
   );
 
