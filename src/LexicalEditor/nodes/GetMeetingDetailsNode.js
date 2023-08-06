@@ -3,7 +3,6 @@ import {
   $getRoot,
   $createTextNode,
   $createAutoLinkNode,
-  $createLinkNode,
 } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
