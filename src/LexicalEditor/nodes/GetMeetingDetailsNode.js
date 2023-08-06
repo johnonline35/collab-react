@@ -89,8 +89,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
     attendeesContainer.append(attendeeParagraph);
   });
-
-  gmdNode.append(attendeesContainer);
+  gmdNode.append(attendeesContainer).append($createParagraphNode());
 
   return gmdNode;
 }
