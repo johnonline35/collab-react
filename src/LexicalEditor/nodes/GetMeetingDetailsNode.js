@@ -68,7 +68,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     }
 
     if (attendee.attendee_linkedin) {
-      attendeeParagraph.append($createTextNode(" | LinkedIn Profile: "));
+      attendeeParagraph.append($createTextNode(" | "));
       attendeeParagraph.append(
         $createLinkNode(attendee.attendee_linkedin, {
           target: "_blank",
@@ -78,7 +78,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     }
 
     if (attendee.attendee_twitter) {
-      attendeeParagraph.append($createTextNode(" | Twitter: "));
+      attendeeParagraph.append($createTextNode(" | "));
       attendeeParagraph.append(
         $createLinkNode(attendee.attendee_twitter, {
           target: "_blank",
