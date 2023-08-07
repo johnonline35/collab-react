@@ -71,28 +71,29 @@ export function $createMeetingDetailsNode(meetingDetails) {
       companyParagraph.append(
         $createTextNode(meetingDetails.workspaceName + " Company Information: ")
       );
+
+      let companyLinks = [];
+
       if (attendee.attendee_domain) {
-        companyParagraph.append(
+        companyLinks.push(
           createLinkNodeWithText(
             attendee.attendee_domain,
             "Website",
             "Company Website"
           )
         );
-        companyParagraph.append($createTextNode(" | "));
       }
       if (attendee.job_company_linkedin_url) {
-        companyParagraph.append(
+        companyLinks.push(
           createLinkNodeWithText(
             attendee.job_company_linkedin_url,
             "LinkedIn",
             "Company LinkedIn"
           )
         );
-        companyParagraph.append($createTextNode(" | "));
       }
       if (attendee.job_company_twitter_url) {
-        companyParagraph.append(
+        companyLinks.push(
           createLinkNodeWithText(
             attendee.job_company_twitter_url,
             "Twitter",
@@ -100,6 +101,16 @@ export function $createMeetingDetailsNode(meetingDetails) {
           )
         );
       }
+
+      // Join links with ' | ' separator
+      for (let i = 0; i < companyLinks.length; i++) {
+        companyParagraph.append(companyLinks[i]);
+        if (i !== companyLinks.length - 1) {
+          // Not the last item
+          companyParagraph.append($createTextNode(" | "));
+        }
+      }
+
       attendeesContainer.append(companyParagraph);
     }
 
