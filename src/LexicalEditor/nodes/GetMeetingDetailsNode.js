@@ -69,12 +69,12 @@ export function $createMeetingDetailsNode(meetingDetails) {
     ) {
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
-        $createTextNode(attendee.attendee_domain + " Company Information: ")
+        $createTextNode(meetingDetails.workspaceName + " Company Information: ")
       );
-      if (attendee.job_company_linkedin_url) {
+      if (attendee.attendee_domain) {
         companyParagraph.append(
           createLinkNodeWithText(
-            attendee.job_company_linkedin_url,
+            attendee.attendee_domain,
             "Website",
             "Company Website"
           )
