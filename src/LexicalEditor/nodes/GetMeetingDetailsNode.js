@@ -69,7 +69,11 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
     if (attendee.attendee_linkedin) {
       attendeeParagraph.append($createTextNode(" | "));
-      const linkedinLinkNode = $createLinkNode(attendee.attendee_linkedin, {
+      const linkedinURL = attendee.attendee_linkedin.startsWith("http")
+        ? attendee.attendee_linkedin
+        : "https://" + attendee.attendee_linkedin;
+
+      const linkedinLinkNode = $createLinkNode(linkedinURL, {
         target: "_blank",
         title: "LinkedIn Profile",
       });
@@ -79,7 +83,11 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
     if (attendee.attendee_twitter) {
       attendeeParagraph.append($createTextNode(" | "));
-      const twitterLinkNode = $createLinkNode(attendee.attendee_twitter, {
+      const twitterURL = attendee.attendee_twitter.startsWith("http")
+        ? attendee.attendee_twitter
+        : "https://" + attendee.attendee_twitter;
+
+      const twitterLinkNode = $createLinkNode(twitterURL, {
         target: "_blank",
         title: "Twitter Profile",
       });
