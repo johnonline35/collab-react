@@ -1,6 +1,6 @@
 import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
-import { $createAutoLinkNode, $createLinkNode } from "@lexical/link";
+import { $createAutoLinkNode, $createLinkNode, LinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
 
@@ -70,7 +70,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     if (attendee.attendee_linkedin) {
       attendeeParagraph.append($createTextNode(" | "));
       attendeeParagraph.append(
-        $createLinkNode(attendee.attendee_linkedin, {
+        new LinkNode(attendee.attendee_linkedin, {
           target: "_blank",
           title: "LinkedIn Profile",
         })
