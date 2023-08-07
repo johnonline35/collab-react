@@ -62,7 +62,6 @@ export function $createMeetingDetailsNode(meetingDetails) {
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
     // Company Information
-    // Company Information
     if (
       attendee.attendee_domain ||
       attendee.job_company_linkedin_url ||
@@ -70,28 +69,19 @@ export function $createMeetingDetailsNode(meetingDetails) {
     ) {
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
-        $createTextNode(attendee.attendee_domain + " Company Information: ")
+        $createTextNode(meetingDetails.workspaceName + " Company Information: ")
       );
-
-      let companyDetailsAdded = false; // This flag will track whether we've added any company details
-
-      if (attendee.job_company_linkedin_url) {
-        if (companyDetailsAdded) {
-          companyParagraph.append($createTextNode(" | "));
-        }
+      if (attendee.attendee_domain) {
         companyParagraph.append(
           createLinkNodeWithText(
-            attendee.job_company_linkedin_url,
+            attendee.attendee_domain,
             "Website",
             "Company Website"
           )
         );
-        companyDetailsAdded = true;
+        companyParagraph.append($createTextNode(" | "));
       }
       if (attendee.job_company_linkedin_url) {
-        if (companyDetailsAdded) {
-          companyParagraph.append($createTextNode(" | "));
-        }
         companyParagraph.append(
           createLinkNodeWithText(
             attendee.job_company_linkedin_url,
@@ -99,12 +89,9 @@ export function $createMeetingDetailsNode(meetingDetails) {
             "Company LinkedIn"
           )
         );
-        companyDetailsAdded = true;
+        companyParagraph.append($createTextNode(" | "));
       }
       if (attendee.job_company_twitter_url) {
-        if (companyDetailsAdded) {
-          companyParagraph.append($createTextNode(" | "));
-        }
         companyParagraph.append(
           createLinkNodeWithText(
             attendee.job_company_twitter_url,
@@ -112,9 +99,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
             "Company Twitter"
           )
         );
-        companyDetailsAdded = true;
       }
-
       attendeesContainer.append(companyParagraph);
     }
 
