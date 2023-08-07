@@ -69,7 +69,9 @@ export function $createMeetingDetailsNode(meetingDetails) {
     ) {
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
-        $createTextNode(meetingDetails.workspaceName + " Company Information: ")
+        $createTextNode(
+          meetingDetails.workspaceName + " Company Information | "
+        )
       );
 
       let companyLinks = [];
