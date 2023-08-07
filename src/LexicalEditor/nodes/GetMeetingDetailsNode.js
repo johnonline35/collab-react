@@ -101,7 +101,6 @@ export function $createMeetingDetailsNode(meetingDetails) {
         );
       }
       attendeesContainer.append(companyParagraph);
-      attendeesContainer.append($createParagraphNode());
     }
 
     // Attendee Information
