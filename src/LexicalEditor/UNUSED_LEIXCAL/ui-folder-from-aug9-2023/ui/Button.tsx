@@ -3,9 +3,7 @@ import "./Button.css";
 import * as React from "react";
 import { ReactNode } from "react";
 
-function joinClasses(...args) {
-  return args.filter(Boolean).join(" ");
-}
+import joinClasses from "../../../utils/joinClasses";
 
 export default function Button({
   "data-test-id": dataTestId,
@@ -15,7 +13,15 @@ export default function Button({
   disabled,
   small,
   title,
-}) {
+}: {
+  "data-test-id"?: string;
+  children: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  onClick: () => void;
+  small?: boolean;
+  title?: string;
+}): JSX.Element {
   return (
     <button
       disabled={disabled}

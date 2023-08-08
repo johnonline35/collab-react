@@ -61,28 +61,7 @@ import MeetingDetailsPlugin from "./LexicalEditor/plugins/MeetingDetailsPlugin";
 
 export default function LexicalEditor() {
   const params = useParams();
-  const [meetingData, setMeetingData] = useState([]);
 
-  useEffect(() => {
-    setMeetingData([
-      {
-        companyName: "THIS Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-      {
-        companyName: "Zipper Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-      {
-        companyName: "Zipper Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-      {
-        companyName: "Zipper Meeting",
-        attendees: ["Kerry Ritter", "Chris Alto"],
-      },
-    ]);
-  }, []);
   // const [initialNoteJson, setInitialNoteJson] = useState();
   // const [loadingState, setLoadingState] = useState("loading");
   // const [collabUserNoteId, setCollabUserNoteId] = useState(null);
@@ -189,7 +168,6 @@ export default function LexicalEditor() {
           <MeetingDetailsPlugin />
           {/* <LocalStoragePlugin namespace='myNamespace' /> */}
           <EmoticonPlugin />
-          {/* <MeetingNode /> */}
           {/* <ExcalidrawPlugin /> */}
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />

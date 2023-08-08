@@ -1,7 +1,15 @@
-import type { LexicalEditor } from "lexical";
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
 
-import * as React from "react";
-import { useRef } from "react";
+import type {LexicalEditor} from 'lexical';
+
+import * as React from 'react';
+import {useRef} from 'react';
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -26,10 +34,10 @@ export default function ImageResizer({
   captionsEnabled,
 }: {
   editor: LexicalEditor;
-  buttonRef: { current: null | HTMLButtonElement };
-  imageRef: { current: null | HTMLElement };
+  buttonRef: {current: null | HTMLButtonElement};
+  imageRef: {current: null | HTMLElement};
   maxWidth?: number;
-  onResizeEnd: (width: "inherit" | number, height: "inherit" | number) => void;
+  onResizeEnd: (width: 'inherit' | number, height: 'inherit' | number) => void;
   onResizeStart: () => void;
   setShowCaption: (show: boolean) => void;
   showCaption: boolean;
@@ -37,12 +45,12 @@ export default function ImageResizer({
 }): JSX.Element {
   const controlWrapperRef = useRef<HTMLDivElement>(null);
   const userSelect = useRef({
-    priority: "",
-    value: "default",
+    priority: '',
+    value: 'default',
   });
   const positioningRef = useRef<{
-    currentHeight: "inherit" | number;
-    currentWidth: "inherit" | number;
+    currentHeight: 'inherit' | number;
+    currentWidth: 'inherit' | number;
     direction: number;
     isResizing: boolean;
     ratio: number;
@@ -83,52 +91,52 @@ export default function ImageResizer({
       (direction & Direction.north && direction & Direction.west) ||
       (direction & Direction.south && direction & Direction.east);
 
-    const cursorDir = ew ? "ew" : ns ? "ns" : nwse ? "nwse" : "nesw";
+    const cursorDir = ew ? 'ew' : ns ? 'ns' : nwse ? 'nwse' : 'nesw';
 
     if (editorRootElement !== null) {
       editorRootElement.style.setProperty(
-        "cursor",
+        'cursor',
         `${cursorDir}-resize`,
-        "important"
+        'important',
       );
     }
     if (document.body !== null) {
       document.body.style.setProperty(
-        "cursor",
+        'cursor',
         `${cursorDir}-resize`,
-        "important"
+        'important',
       );
       userSelect.current.value = document.body.style.getPropertyValue(
-        "-webkit-user-select"
+        '-webkit-user-select',
       );
       userSelect.current.priority = document.body.style.getPropertyPriority(
-        "-webkit-user-select"
+        '-webkit-user-select',
       );
       document.body.style.setProperty(
-        "-webkit-user-select",
+        '-webkit-user-select',
         `none`,
-        "important"
+        'important',
       );
     }
   };
 
   const setEndCursor = () => {
     if (editorRootElement !== null) {
-      editorRootElement.style.setProperty("cursor", "default");
+      editorRootElement.style.setProperty('cursor', 'text');
     }
     if (document.body !== null) {
-      document.body.style.setProperty("cursor", "default");
+      document.body.style.setProperty('cursor', 'default');
       document.body.style.setProperty(
-        "-webkit-user-select",
+        '-webkit-user-select',
         userSelect.current.value,
-        userSelect.current.priority
+        userSelect.current.priority,
       );
     }
   };
 
   const handlePointerDown = (
     event: React.PointerEvent<HTMLDivElement>,
-    direction: number
+    direction: number,
   ) => {
     if (!editor.isEditable()) {
       return;
@@ -138,7 +146,8 @@ export default function ImageResizer({
     const controlWrapper = controlWrapperRef.current;
 
     if (image !== null && controlWrapper !== null) {
-      const { width, height } = image.getBoundingClientRect();
+      event.preventDefault();
+      const {width, height} = image.getBoundingClientRect();
       const positioning = positioningRef.current;
       positioning.startWidth = width;
       positioning.startHeight = height;
@@ -153,12 +162,12 @@ export default function ImageResizer({
       setStartCursor(direction);
       onResizeStart();
 
-      controlWrapper.classList.add("image-control-wrapper--resizing");
+      controlWrapper.classList.add('image-control-wrapper--resizing');
       image.style.height = `${height}px`;
       image.style.width = `${width}px`;
 
-      document.addEventListener("pointermove", handlePointerMove);
-      document.addEventListener("pointerup", handlePointerUp);
+      document.addEventListener('pointermove', handlePointerMove);
+      document.addEventListener('pointerup', handlePointerUp);
     }
   };
   const handlePointerMove = (event: PointerEvent) => {
@@ -179,7 +188,7 @@ export default function ImageResizer({
         const width = clamp(
           positioning.startWidth + diff,
           minWidth,
-          maxWidthContainer
+          maxWidthContainer,
         );
 
         const height = width / positioning.ratio;
@@ -194,7 +203,7 @@ export default function ImageResizer({
         const height = clamp(
           positioning.startHeight + diff,
           minHeight,
-          maxHeightContainer
+          maxHeightContainer,
         );
 
         image.style.height = `${height}px`;
@@ -206,7 +215,7 @@ export default function ImageResizer({
         const width = clamp(
           positioning.startWidth + diff,
           minWidth,
-          maxWidthContainer
+          maxWidthContainer,
         );
 
         image.style.width = `${width}px`;
@@ -230,72 +239,71 @@ export default function ImageResizer({
       positioning.currentHeight = 0;
       positioning.isResizing = false;
 
-      controlWrapper.classList.remove("image-control-wrapper--resizing");
+      controlWrapper.classList.remove('image-control-wrapper--resizing');
 
       setEndCursor();
       onResizeEnd(width, height);
 
-      document.removeEventListener("pointermove", handlePointerMove);
-      document.removeEventListener("pointerup", handlePointerUp);
+      document.removeEventListener('pointermove', handlePointerMove);
+      document.removeEventListener('pointerup', handlePointerUp);
     }
   };
   return (
     <div ref={controlWrapperRef}>
       {!showCaption && captionsEnabled && (
         <button
-          className='image-caption-button'
+          className="image-caption-button"
           ref={buttonRef}
           onClick={() => {
             setShowCaption(!showCaption);
-          }}
-        >
+          }}>
           Add Caption
         </button>
       )}
       <div
-        className='image-resizer image-resizer-n'
+        className="image-resizer image-resizer-n"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north);
         }}
       />
       <div
-        className='image-resizer image-resizer-ne'
+        className="image-resizer image-resizer-ne"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north | Direction.east);
         }}
       />
       <div
-        className='image-resizer image-resizer-e'
+        className="image-resizer image-resizer-e"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.east);
         }}
       />
       <div
-        className='image-resizer image-resizer-se'
+        className="image-resizer image-resizer-se"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south | Direction.east);
         }}
       />
       <div
-        className='image-resizer image-resizer-s'
+        className="image-resizer image-resizer-s"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south);
         }}
       />
       <div
-        className='image-resizer image-resizer-sw'
+        className="image-resizer image-resizer-sw"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.south | Direction.west);
         }}
       />
       <div
-        className='image-resizer image-resizer-w'
+        className="image-resizer image-resizer-w"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.west);
         }}
       />
       <div
-        className='image-resizer image-resizer-nw'
+        className="image-resizer image-resizer-nw"
         onPointerDown={(event) => {
           handlePointerDown(event, Direction.north | Direction.west);
         }}
