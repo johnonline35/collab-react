@@ -14,7 +14,7 @@ export function LocalStoragePlugin(props) {
     [namespace]
   );
 
-  const debouncedSaveContent = debounce(saveContent, 500);
+  const debouncedSaveContent = debounce(saveContent, 150); // 150ms debounce rate
 
   useEffect(() => {
     // Load the state from local storage when the component first mounts
