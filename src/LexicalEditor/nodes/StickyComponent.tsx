@@ -16,8 +16,8 @@ import { useEffect, useRef, useLayoutEffect } from "react";
 import { createWebsocketProvider } from "../collaboration";
 import { useSharedHistoryContext } from "../context/SharedHistoryContext";
 import StickyEditorTheme from "../themes/StickyEditorTheme";
-import ContentEditable from "../UNUSED_LEIXCAL/ui-folder-from-aug9-2023/ui/ContentEditable";
-import Placeholder from "../UNUSED_LEIXCAL/ui-folder-from-aug9-2023/ui/Placeholder";
+import ContentEditable from "../ui/ContentEditable";
+import Placeholder from "../ui/Placeholder";
 import { $isStickyNode } from "./StickyNode";
 
 type Positioning = {
