@@ -7,6 +7,7 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import TreeViewPlugin from "./LexicalEditor/plugins/TreeViewPlugin";
 import ToolbarPlugin from "./LexicalEditor/plugins/ToolbarPlugin";
+// import ToolbarPlugin from "./lexical-playground/plugins/ToolbarPlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { ListItemNode, ListNode } from "@lexical/list";
