@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "downlevelIteration": true, // added this in for swipe.is line 46: for (const listener of listeners)
     "target": "es5",
     "lib": [
       "dom",
