@@ -13,7 +13,7 @@ const LazyLoadDashboard = React.lazy(() => import("./Dashboard"));
 export function DashboardLoader() {
   const noOfCards = Array(20).fill(0);
 
-  // Some comment for saving
+  // Some comment
 
   return (
     <>
