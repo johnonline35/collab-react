@@ -8,7 +8,7 @@
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@excalidraw/excalidraw": "^0.14.2",
+    "@excalidraw/excalidraw": "^0.15.2",
     "@lexical/clipboard": "^0.12.0",
     "@lexical/code": "^0.12.0",
     "@lexical/file": "^0.12.0",
@@ -30,7 +30,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^29.5.0",
-    "@types/node": "^18.15.10",
     "@types/react": "^18.0.30",
     "@types/react-dom": "^18.0.11",
     "@upstash/redis": "^1.22.0",
@@ -38,8 +37,10 @@
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "framer-motion": "^9.0.4",
+    "katex": "^0.16.8",
     "lexical": "^0.12.0",
     "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "peopledatalabs": "^5.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -57,14 +58,17 @@
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
+    "@craco/craco": "^7.1.0",
+    "@types/katex": "^0.16.2",
     "@types/lodash-es": "^4.14.182",
+    "@types/node": "^20.5.0",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-attributes": "^0.0.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
