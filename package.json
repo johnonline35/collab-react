@@ -13,6 +13,7 @@
     "@lexical/code": "^0.12.0",
     "@lexical/file": "^0.12.0",
     "@lexical/hashtag": "^0.12.0",
+    "@lexical/headless": "^0.12.0",
     "@lexical/link": "^0.12.0",
     "@lexical/list": "^0.12.0",
     "@lexical/mark": "^0.12.0",

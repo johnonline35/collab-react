@@ -178,8 +178,6 @@ function getPossibleQueryMatch(text) {
   return match === null ? checkForCapitalizedNameMentions(text, 3) : match;
 }
 
-console.log("MenuOption:", MenuOption);
-
 class MentionTypeaheadOption extends MenuOption {
   constructor(name, picture) {
     super(name);
