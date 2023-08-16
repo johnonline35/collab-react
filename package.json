@@ -59,7 +59,9 @@
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
-    "@types/lodash-es": "^4.14.182"
+    "@types/lodash-es": "^4.14.182",
+    "prettier": "^2.8.8",
+    "prettier-plugin-organize-attributes": "^0.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
