@@ -178,6 +178,8 @@ function getPossibleQueryMatch(text) {
   return match === null ? checkForCapitalizedNameMentions(text, 3) : match;
 }
 
+console.log("TypeaheadOption:", TypeaheadOption);
+
 class MentionTypeaheadOption extends TypeaheadOption {
   constructor(name, picture) {
     super(name);
