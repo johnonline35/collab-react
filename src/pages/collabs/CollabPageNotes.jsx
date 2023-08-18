@@ -12,12 +12,7 @@ export default function CollabPageNotes() {
 
   return (
     <>
-      <Flex minW='800px' mt='0px' justify='center'>
-        <Flex mt='0px' justify='center' align='center' width='960px'>
-          {/* <LexicalEditor /> */}
-          <PlaygroundApp />
-        </Flex>
-      </Flex>
+      <PlaygroundApp />
     </>
   );
 }

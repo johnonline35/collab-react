@@ -362,6 +362,7 @@ function FontDropDown({
       disabled={disabled}
       buttonClassName={"toolbar-item " + style}
       buttonLabel={value}
+      // buttonIconClassName={""}
       buttonIconClassName={
         style === "font-family" ? "icon block-type font-family" : ""
       }
@@ -685,6 +686,23 @@ export default function ToolbarPlugin(): JSX.Element {
         <i className='format redo' />
       </button>
       <Divider />
+      <DropDown
+        disabled={!isEditable}
+        buttonClassName='toolbar-item spaced'
+        buttonLabel='AI Tools'
+        buttonAriaLabel='Insert specialized editor node'
+        buttonIconClassName='icon hubot'
+      >
+        <DropDownItem
+          onClick={() => {
+            /**/
+          }}
+          className='item'
+        >
+          <span className='text'>TODO</span>
+        </DropDownItem>
+      </DropDown>
+      <Divider />
       {blockType in blockTypeToBlockName && activeEditor === editor && (
         <>
           <BlockFormatDropDown
@@ -934,7 +952,7 @@ export default function ToolbarPlugin(): JSX.Element {
               <i className='icon image' />
               <span className='text'>Image</span>
             </DropDownItem>
-            <DropDownItem
+            {/* <DropDownItem
               onClick={() => {
                 showModal("Insert Inline Image", (onClose) => (
                   <InsertInlineImageDialog
@@ -947,7 +965,7 @@ export default function ToolbarPlugin(): JSX.Element {
             >
               <i className='icon image' />
               <span className='text'>Inline Image</span>
-            </DropDownItem>
+            </DropDownItem> */}
             <DropDownItem
               onClick={() =>
                 insertGifOnClick({

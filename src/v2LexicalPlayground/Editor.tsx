@@ -98,7 +98,7 @@ export default function Editor(): JSX.Element {
   const text = isCollab
     ? "Enter some collaborative rich text..."
     : isRichText
-    ? "Enter some rich text..."
+    ? ""
     : "Enter some plain text...";
   const placeholder = <Placeholder>{text}</Placeholder>;
   const [floatingAnchorElem, setFloatingAnchorElem] =
@@ -140,7 +140,7 @@ export default function Editor(): JSX.Element {
 
   return (
     <>
-      <ToolbarPlugin />
+      {/* <ToolbarPlugin /> */}
       <div className={"editor-container"}>
         {/* <div
         className={`editor-container ${showTreeView ? "tree-view" : ""} ${
