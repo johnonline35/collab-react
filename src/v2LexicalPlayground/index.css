@@ -1,10 +1,4 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
+
 
 @import 'https://fonts.googleapis.com/css?family=Reenie+Beanie';
 
@@ -15,7 +9,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #eee;
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 
 header {
@@ -59,8 +53,13 @@ header h1 {
   background: #fff;
   position: relative;
   display: block;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  /* border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; */
+  width: 816px;
+  min-height: 1056px;
+  padding: 96px;
+  margin: 1rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
 .editor-shell .editor-container.tree-view {
@@ -68,8 +67,8 @@ header h1 {
 }
 
 .editor-shell .editor-container.plain-text {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 .editor-scroller {
@@ -414,6 +413,10 @@ i.horizontal-rule {
   background-image: url(images/icons/horizontal-rule.svg);
 }
 
+.icon.hubot {
+  background-image: url(images/icons/ai-svgrepo-com.svg);
+}
+
 .icon.plus {
   background-image: url(images/icons/plus.svg);
 }
@@ -427,7 +430,7 @@ i.horizontal-rule {
 }
 
 .icon.font-color {
-  background-image: url(images/icons/font-color.svg);
+  background-image: url(images/icons/text-color-svgrepo-com.svg);
 }
 
 .icon.font-family {
@@ -435,7 +438,7 @@ i.horizontal-rule {
 }
 
 .icon.bg-color {
-  background-image: url(images/icons/bg-color.svg);
+  background-image: url(images/icons/marker-solid-svgrepo-com.svg);
 }
 
 .icon.table {
@@ -506,11 +509,11 @@ i.outdent {
 }
 
 i.undo {
-  background-image: url(images/icons/arrow-counterclockwise.svg);
+  background-image: url(images/icons/undo-left-round-svgrepo-com.svg);
 }
 
 i.redo {
-  background-image: url(images/icons/arrow-clockwise.svg);
+  background-image: url(images/icons/undo-right-round-svgrepo-com.svg);
 }
 
 i.sticky {
@@ -1294,11 +1297,13 @@ i.page-break,
 
 i.chevron-down {
   background-color: transparent;
-  background-size: contain;
+  background-size: 8px;
   display: inline-block;
   height: 8px;
   width: 8px;
-  background-image: url(images/icons/chevron-down.svg);
+  background-image: url(images/icons/down-arrow-svgrepo-com.svg);
+  background-repeat: no-repeat;
+  background-position: center 20%;
 }
 
 .action-button {
@@ -1428,7 +1433,7 @@ button.action-button:disabled {
   border-top-right-radius: 10px;
   vertical-align: middle;
   overflow: auto;
-  height: 36px;
+  height: 40px;
   position: sticky;
   top: 0;
   z-index: 2;

@@ -28,6 +28,7 @@ import TestRecorderPlugin from "./plugins/TestRecorderPlugin";
 import TypingPerfPlugin from "./plugins/TypingPerfPlugin";
 import Settings from "./Settings";
 import PlaygroundEditorTheme from "./themes/PlaygroundEditorTheme";
+import ToolbarPlugin from "./plugins/ToolbarPlugin";
 
 function prepopulatedRichText() {
   const root = $getRoot();
@@ -133,6 +134,9 @@ function App(): JSX.Element {
       <SharedHistoryContext>
         <TableContext>
           <SharedAutocompleteContext>
+            <div className='collab-toolbar'>
+              <ToolbarPlugin />
+            </div>
             <div className='editor-shell'>
               <Editor />
             </div>
