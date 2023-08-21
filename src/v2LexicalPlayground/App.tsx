@@ -29,6 +29,7 @@ import TypingPerfPlugin from "./plugins/TypingPerfPlugin";
 import Settings from "./Settings";
 import PlaygroundEditorTheme from "./themes/PlaygroundEditorTheme";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
+import { LocalStoragePlugin } from "./plugins/LocalStoragePlugin";
 
 function prepopulatedRichText() {
   const root = $getRoot();
@@ -139,6 +140,7 @@ function App(): JSX.Element {
             </div>
             <div className='editor-shell'>
               <Editor />
+              <LocalStoragePlugin />
             </div>
             {/* <Settings />
             {isDevPlayground ? <DocsPlugin /> : null}
