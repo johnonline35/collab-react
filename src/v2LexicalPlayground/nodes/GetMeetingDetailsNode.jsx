@@ -1,4 +1,4 @@
-import { $createParagraphNode, $createTextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { $createLinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../utils/timeAndCapitalize";
@@ -22,139 +22,272 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 export function $createMeetingDetailsNode(meetingDetails) {
-  const gmdNode = $createParagraphNode();
+  const root = $getRoot();
 
-  // Workspace Name Heading
-  gmdNode.append(
-    $createHeadingNode("h1")
+  if (root.getFirstChild() === null) {
+    // Workspace Name Heading
+    const headingNode = $createHeadingNode("h1")
       .append(
         $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
           "font-weight: bold"
         )
       )
-      .setFormat("center")
-      .append($createParagraphNode())
-  );
+      .setFormat("center");
+    root.append(headingNode);
 
-  // Next Meeting Date
-  const timeZone = meetingDetails.user_timezone;
-  const zonedDate = utcToZonedTime(
-    new Date(meetingDetails.nextMeetingDate),
-    timeZone
-  );
-  let formattedNextMeetingDate = format(zonedDate, "EEEE, MMMM d, h:mma", {
-    timeZone,
-  })
-    .replace("AM", "am")
-    .replace("PM", "pm");
-  if (
-    formattedNextMeetingDate.endsWith(":00am") ||
-    formattedNextMeetingDate.endsWith(":00pm")
-  ) {
-    formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
-  }
-  gmdNode.append(
-    $createHeadingNode("h2")
-      .append($createTextNode(formattedNextMeetingDate))
-      .append($createParagraphNode())
-  );
-
-  const attendeesContainer = $createQuoteNode();
-  meetingDetails.attendees.forEach((attendee) => {
-    // Company Information
+    // Next Meeting Date
+    const timeZone = meetingDetails.user_timezone;
+    const zonedDate = utcToZonedTime(
+      new Date(meetingDetails.nextMeetingDate),
+      timeZone
+    );
+    let formattedNextMeetingDate = format(zonedDate, "EEEE, MMMM d, h:mma", {
+      timeZone,
+    })
+      .replace("AM", "am")
+      .replace("PM", "pm");
     if (
-      attendee.attendee_domain ||
-      attendee.job_company_linkedin_url ||
-      attendee.job_company_twitter_url
+      formattedNextMeetingDate.endsWith(":00am") ||
+      formattedNextMeetingDate.endsWith(":00pm")
     ) {
-      const companyParagraph = $createParagraphNode();
-      companyParagraph.append(
-        $createTextNode(
-          meetingDetails.workspaceName + " Company Information | "
-        )
-      );
+      formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
+    }
+    const nextMeetingDateNode = $createHeadingNode("h2").append(
+      $createTextNode(formattedNextMeetingDate)
+    );
+    root.append(nextMeetingDateNode);
 
-      let companyLinks = [];
-
-      if (attendee.attendee_domain) {
-        companyLinks.push(
-          createLinkNodeWithText(
-            attendee.attendee_domain,
-            "Website",
-            "Company Website"
+    const attendeesContainer = $createQuoteNode();
+    meetingDetails.attendees.forEach((attendee) => {
+      // Company Information
+      if (
+        attendee.attendee_domain ||
+        attendee.job_company_linkedin_url ||
+        attendee.job_company_twitter_url
+      ) {
+        const companyParagraph = $createParagraphNode();
+        companyParagraph.append(
+          $createTextNode(
+            meetingDetails.workspaceName + " Company Information | "
           )
         );
-      }
-      if (attendee.job_company_linkedin_url) {
-        companyLinks.push(
-          createLinkNodeWithText(
-            attendee.job_company_linkedin_url,
-            "LinkedIn",
-            "Company LinkedIn"
-          )
-        );
-      }
-      if (attendee.job_company_twitter_url) {
-        companyLinks.push(
-          createLinkNodeWithText(
-            attendee.job_company_twitter_url,
-            "Twitter",
-            "Company Twitter"
-          )
-        );
-      }
-
-      // Join links with ' | ' separator
-      for (let i = 0; i < companyLinks.length; i++) {
-        companyParagraph.append(companyLinks[i]);
-        if (i !== companyLinks.length - 1) {
-          // Not the last item
-          companyParagraph.append($createTextNode(" | "));
+        let companyLinks = [];
+        if (attendee.attendee_domain) {
+          companyLinks.push(
+            createLinkNodeWithText(
+              attendee.attendee_domain,
+              "Website",
+              "Company Website"
+            )
+          );
         }
+        if (attendee.job_company_linkedin_url) {
+          companyLinks.push(
+            createLinkNodeWithText(
+              attendee.job_company_linkedin_url,
+              "LinkedIn",
+              "Company LinkedIn"
+            )
+          );
+        }
+        if (attendee.job_company_twitter_url) {
+          companyLinks.push(
+            createLinkNodeWithText(
+              attendee.job_company_twitter_url,
+              "Twitter",
+              "Company Twitter"
+            )
+          );
+        }
+        // Join links with ' | ' separator
+        for (let i = 0; i < companyLinks.length; i++) {
+          companyParagraph.append(companyLinks[i]);
+          if (i !== companyLinks.length - 1) {
+            // Not the last item
+            companyParagraph.append($createTextNode(" | "));
+          }
+        }
+        attendeesContainer.append(companyParagraph);
       }
 
-      attendeesContainer.append(companyParagraph);
-    }
+      // Attendee Information
+      const attendeeParagraph = $createParagraphNode();
+      let attendeeText = "";
+      if (attendee.attendee_name) {
+        attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
+      }
+      if (attendee.attendee_job_title) {
+        const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
+          attendee.attendee_job_title
+        );
+        attendeeText += attendeeText
+          ? ", " + attendeeJobTitle
+          : attendeeJobTitle;
+      }
+      if (attendeeText) {
+        attendeeParagraph.append($createTextNode(attendeeText));
+      }
+      if (attendee.attendee_linkedin) {
+        attendeeParagraph.append($createTextNode(" | "));
+        const linkedinLinkNode = createLinkNodeWithText(
+          attendee.attendee_linkedin,
+          "LinkedIn",
+          "LinkedIn Profile"
+        );
+        attendeeParagraph.append(linkedinLinkNode);
+      }
+      if (attendee.attendee_twitter) {
+        attendeeParagraph.append($createTextNode(" | "));
+        const twitterLinkNode = createLinkNodeWithText(
+          attendee.attendee_twitter,
+          "Twitter",
+          "Twitter Profile"
+        );
+        attendeeParagraph.append(twitterLinkNode);
+      }
+      attendeesContainer.append(attendeeParagraph);
+    });
+    root.append(attendeesContainer);
 
-    // Attendee Information
-    const attendeeParagraph = $createParagraphNode();
-    let attendeeText = "";
-    if (attendee.attendee_name) {
-      attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
-    }
-    if (attendee.attendee_job_title) {
-      const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
-        attendee.attendee_job_title
-      );
-      attendeeText += attendeeText ? ", " + attendeeJobTitle : attendeeJobTitle;
-    }
-    if (attendeeText) {
-      attendeeParagraph.append($createTextNode(attendeeText));
-    }
-    if (attendee.attendee_linkedin) {
-      attendeeParagraph.append($createTextNode(" | "));
-      const linkedinLinkNode = createLinkNodeWithText(
-        attendee.attendee_linkedin,
-        "LinkedIn",
-        "LinkedIn Profile"
-      );
-      attendeeParagraph.append(linkedinLinkNode);
-    }
-    if (attendee.attendee_twitter) {
-      attendeeParagraph.append($createTextNode(" | "));
-      const twitterLinkNode = createLinkNodeWithText(
-        attendee.attendee_twitter,
-        "Twitter",
-        "Twitter Profile"
-      );
-      attendeeParagraph.append(twitterLinkNode);
-    }
-    attendeesContainer.append(attendeeParagraph);
-  });
-  gmdNode
-    .append(attendeesContainer)
-    .append($createParagraphNode())
-    .append($createParagraphNode());
-
-  return gmdNode;
+    root.append($createParagraphNode());
+    root.append($createParagraphNode());
+  }
 }
+
+// export function $createMeetingDetailsNode(meetingDetails) {
+//   const gmdNode = $createParagraphNode();
+
+//   // Workspace Name Heading
+//   gmdNode.append(
+//     $createHeadingNode("h1")
+//       .append(
+//         $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
+//           "font-weight: bold"
+//         )
+//       )
+//       .setFormat("center")
+//       .append($createParagraphNode())
+//   );
+
+//   // Next Meeting Date
+//   const timeZone = meetingDetails.user_timezone;
+//   const zonedDate = utcToZonedTime(
+//     new Date(meetingDetails.nextMeetingDate),
+//     timeZone
+//   );
+//   let formattedNextMeetingDate = format(zonedDate, "EEEE, MMMM d, h:mma", {
+//     timeZone,
+//   })
+//     .replace("AM", "am")
+//     .replace("PM", "pm");
+//   if (
+//     formattedNextMeetingDate.endsWith(":00am") ||
+//     formattedNextMeetingDate.endsWith(":00pm")
+//   ) {
+//     formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
+//   }
+//   gmdNode.append(
+//     $createHeadingNode("h2")
+//       .append($createTextNode(formattedNextMeetingDate))
+//       .append($createParagraphNode())
+//   );
+
+//   const attendeesContainer = $createQuoteNode();
+//   meetingDetails.attendees.forEach((attendee) => {
+//     // Company Information
+//     if (
+//       attendee.attendee_domain ||
+//       attendee.job_company_linkedin_url ||
+//       attendee.job_company_twitter_url
+//     ) {
+//       const companyParagraph = $createParagraphNode();
+//       companyParagraph.append(
+//         $createTextNode(
+//           meetingDetails.workspaceName + " Company Information | "
+//         )
+//       );
+
+//       let companyLinks = [];
+
+//       if (attendee.attendee_domain) {
+//         companyLinks.push(
+//           createLinkNodeWithText(
+//             attendee.attendee_domain,
+//             "Website",
+//             "Company Website"
+//           )
+//         );
+//       }
+//       if (attendee.job_company_linkedin_url) {
+//         companyLinks.push(
+//           createLinkNodeWithText(
+//             attendee.job_company_linkedin_url,
+//             "LinkedIn",
+//             "Company LinkedIn"
+//           )
+//         );
+//       }
+//       if (attendee.job_company_twitter_url) {
+//         companyLinks.push(
+//           createLinkNodeWithText(
+//             attendee.job_company_twitter_url,
+//             "Twitter",
+//             "Company Twitter"
+//           )
+//         );
+//       }
+
+//       // Join links with ' | ' separator
+//       for (let i = 0; i < companyLinks.length; i++) {
+//         companyParagraph.append(companyLinks[i]);
+//         if (i !== companyLinks.length - 1) {
+//           // Not the last item
+//           companyParagraph.append($createTextNode(" | "));
+//         }
+//       }
+
+//       attendeesContainer.append(companyParagraph);
+//     }
+
+//     // Attendee Information
+//     const attendeeParagraph = $createParagraphNode();
+//     let attendeeText = "";
+//     if (attendee.attendee_name) {
+//       attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
+//     }
+//     if (attendee.attendee_job_title) {
+//       const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
+//         attendee.attendee_job_title
+//       );
+//       attendeeText += attendeeText ? ", " + attendeeJobTitle : attendeeJobTitle;
+//     }
+//     if (attendeeText) {
+//       attendeeParagraph.append($createTextNode(attendeeText));
+//     }
+//     if (attendee.attendee_linkedin) {
+//       attendeeParagraph.append($createTextNode(" | "));
+//       const linkedinLinkNode = createLinkNodeWithText(
+//         attendee.attendee_linkedin,
+//         "LinkedIn",
+//         "LinkedIn Profile"
+//       );
+//       attendeeParagraph.append(linkedinLinkNode);
+//     }
+//     if (attendee.attendee_twitter) {
+//       attendeeParagraph.append($createTextNode(" | "));
+//       const twitterLinkNode = createLinkNodeWithText(
+//         attendee.attendee_twitter,
+//         "Twitter",
+//         "Twitter Profile"
+//       );
+//       attendeeParagraph.append(twitterLinkNode);
+//     }
+//     attendeesContainer.append(attendeeParagraph);
+//   });
+//   gmdNode
+//     .append(attendeesContainer)
+//     .append($createParagraphNode())
+//     .append($createParagraphNode());
+
+//   return gmdNode;
+// }
