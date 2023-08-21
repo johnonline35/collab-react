@@ -26,6 +26,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
   // Workspace Name Heading
   if (root.getFirstChild() === null) {
+    const headingContainer = $createParagraphNode(); // Create a container node
     const heading = $createHeadingNode("h1");
     heading
       .append(
@@ -36,7 +37,8 @@ export function $createMeetingDetailsNode(meetingDetails) {
       .setFormat("center")
       .append($createParagraphNode());
 
-    root.append(heading);
+    headingContainer.append(heading); // Add the heading to the container
+    root.append(headingContainer); // Append the container to the root
   }
   // Next Meeting Date
   // const timeZone = meetingDetails.user_timezone;
