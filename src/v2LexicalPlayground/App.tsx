@@ -12,7 +12,13 @@ import { $createLinkNode } from "@lexical/link";
 import { $createListItemNode, $createListNode } from "@lexical/list";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
-import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
+import {
+  $createParagraphNode,
+  $createTextNode,
+  $getRoot,
+  $getSelection,
+} from "lexical";
 import * as React from "react";
 
 import { isDevPlayground } from "./appSettings";
@@ -110,17 +116,27 @@ function prepopulatedRichText() {
   }
 }
 
+function onChange(editorState: any) {
+  editorState.read(() => {
+    // Read the contents of the EditorState here.
+    const root = $getRoot();
+    const selection = $getSelection();
+
+    console.log(root, selection);
+  });
+}
+
 function App(): JSX.Element {
   const {
     settings: { isCollab, emptyEditor, measureTypingPerf },
   } = useSettings();
 
   const initialConfig = {
-    editorState: isCollab
-      ? null
-      : emptyEditor
-      ? undefined
-      : prepopulatedRichText,
+    // editorState: isCollab
+    //   ? null
+    //   : emptyEditor
+    //   ? undefined
+    //   : prepopulatedRichText,
     namespace: "Playground",
     nodes: [...PlaygroundNodes],
     onError: (error: Error) => {
@@ -134,6 +150,7 @@ function App(): JSX.Element {
       <SharedHistoryContext>
         <TableContext>
           <SharedAutocompleteContext>
+            <OnChangePlugin onChange={onChange} />
             <div className='collab-toolbar'>
               <ToolbarPlugin />
             </div>
