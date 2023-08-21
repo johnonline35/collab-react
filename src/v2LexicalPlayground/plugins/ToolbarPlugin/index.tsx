@@ -696,8 +696,6 @@ export default function ToolbarPlugin(): JSX.Element {
       >
         <DropDownItem
           onClick={() => {
-            console.log("DropDownItem clicked!");
-            console.log("Command to dispatch:", INSERT_MEETING_DETAILS_COMMAND); // Logging the command
             editor.dispatchCommand(INSERT_MEETING_DETAILS_COMMAND, undefined);
           }}
           className='item'
