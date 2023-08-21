@@ -426,7 +426,7 @@ i.superscript {
 }
 
 i.link {
-  background-image: url(images/icons/link.svg);
+  background-image: url(images/icons/link-svgrepo-com.svg);
 }
 
 i.horizontal-rule {
@@ -492,11 +492,11 @@ i.poll {
 }
 
 i.tweet {
-  background-image: url(images/icons/tweet.svg);
+  background-image: url(images/icons/twitter-logo-svgrepo-com.svg);
 }
 
 i.youtube {
-  background-image: url(images/icons/youtube.svg);
+  background-image: url(images/icons/youtube-svgrepo-com.svg);
 }
 
 .icon.left-align,
