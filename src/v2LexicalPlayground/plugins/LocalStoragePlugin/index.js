@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { useParams } from "react-router-dom"; // assuming you're using react-router
+import { useParams } from "react-router-dom";
 import { debounce } from "lodash";
 
 export function LocalStoragePlugin() {
