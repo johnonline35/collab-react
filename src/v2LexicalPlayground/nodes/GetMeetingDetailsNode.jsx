@@ -149,8 +149,13 @@ export function $createMeetingDetailsNode(meetingDetails) {
     });
     root.append(attendeesContainer);
 
-    root.append($createParagraphNode());
-    root.append($createParagraphNode());
+    const spacingParagraph1 = $createParagraphNode();
+    spacingParagraph1.append($createTextNode(" "));
+    root.append(spacingParagraph1);
+
+    const spacingParagraph2 = $createParagraphNode();
+    spacingParagraph2.append($createTextNode(" "));
+    root.append(spacingParagraph2);
   }
 }
 
