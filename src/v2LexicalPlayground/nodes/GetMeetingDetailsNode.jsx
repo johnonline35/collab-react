@@ -25,18 +25,19 @@ export function $createMeetingDetailsNode(meetingDetails) {
   const root = $getRoot();
 
   // Workspace Name Heading
-  const heading = $createHeadingNode("h1");
-  heading
-    .append(
-      $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
-        "font-weight: bold"
+  if (root.getFirstChild() === null) {
+    const heading = $createHeadingNode("h1");
+    heading
+      .append(
+        $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
+          "font-weight: bold"
+        )
       )
-    )
-    .setFormat("center")
-    .append($createParagraphNode());
+      .setFormat("center")
+      .append($createParagraphNode());
 
-  root.append(heading);
-
+    root.append(heading);
+  }
   // Next Meeting Date
   // const timeZone = meetingDetails.user_timezone;
   // const zonedDate = utcToZonedTime(
