@@ -1,24 +1,24 @@
 import { useCallback, useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-
+import { useParams } from "react-router-dom"; // assuming you're using react-router
 import { debounce } from "lodash";
 
-export function LocalStoragePlugin(props) {
-  const namespace = props.namespace;
+export function LocalStoragePlugin() {
   const [editor] = useLexicalComposerContext();
+  const { workspace_id } = useParams();
 
   const saveContent = useCallback(
     function (content) {
-      localStorage.setItem(namespace, content);
+      localStorage.setItem(workspace_id, content);
     },
-    [namespace]
+    [workspace_id]
   );
 
-  const debouncedSaveContent = debounce(saveContent, 500);
+  const debouncedSaveContent = debounce(saveContent, 100);
 
   useEffect(() => {
     // Load the state from local storage when the component first mounts
-    const savedContent = localStorage.getItem(namespace);
+    const savedContent = localStorage.getItem(workspace_id);
     if (savedContent) {
       const savedStateJSON = JSON.parse(savedContent);
       const savedState = editor.parseEditorState(savedStateJSON);
@@ -34,7 +34,7 @@ export function LocalStoragePlugin(props) {
         debouncedSaveContent(serializedState);
       }
     );
-  }, [debouncedSaveContent, editor, namespace]);
+  }, [debouncedSaveContent, editor, workspace_id]);
 
   return null;
 }
