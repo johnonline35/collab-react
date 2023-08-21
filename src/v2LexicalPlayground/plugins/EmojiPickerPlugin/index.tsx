@@ -6,21 +6,21 @@
  *
  */
 
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   LexicalTypeaheadMenuPlugin,
   MenuOption,
   useBasicTypeaheadTriggerMatch,
-} from '@lexical/react/LexicalTypeaheadMenuPlugin';
+} from "@lexical/react/LexicalTypeaheadMenuPlugin";
 import {
   $createTextNode,
   $getSelection,
   $isRangeSelection,
   TextNode,
-} from 'lexical';
-import * as React from 'react';
-import {useCallback, useEffect, useMemo, useState} from 'react';
-import * as ReactDOM from 'react-dom';
+} from "lexical";
+import * as React from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import * as ReactDOM from "react-dom";
 
 class EmojiOption extends MenuOption {
   title: string;
@@ -32,7 +32,7 @@ class EmojiOption extends MenuOption {
     emoji: string,
     options: {
       keywords?: Array<string>;
-    },
+    }
   ) {
     super(title);
     this.title = title;
@@ -53,9 +53,9 @@ function EmojiMenuItem({
   onMouseEnter: () => void;
   option: EmojiOption;
 }) {
-  let className = 'item';
+  let className = "item";
   if (isSelected) {
-    className += ' selected';
+    className += " selected";
   }
   return (
     <li
@@ -63,12 +63,13 @@ function EmojiMenuItem({
       tabIndex={-1}
       className={className}
       ref={option.setRefElement}
-      role="option"
+      role='option'
       aria-selected={isSelected}
-      id={'typeahead-item-' + index}
+      id={"typeahead-item-" + index}
       onMouseEnter={onMouseEnter}
-      onClick={onClick}>
-      <span className="text">
+      onClick={onClick}
+    >
+      <span className='text'>
         {option.emoji} {option.title}
       </span>
     </li>
@@ -95,23 +96,23 @@ export default function EmojiPickerPlugin() {
 
   useEffect(() => {
     // @ts-ignore
-    import('../../utils/emoji-list.ts').then((file) => setEmojis(file.default));
+    import("../../utils/emoji-list").then((file) => setEmojis(file.default));
   }, []);
 
   const emojiOptions = useMemo(
     () =>
       emojis != null
         ? emojis.map(
-            ({emoji, aliases, tags}) =>
+            ({ emoji, aliases, tags }) =>
               new EmojiOption(aliases[0], emoji, {
                 keywords: [...aliases, ...tags],
-              }),
+              })
           )
         : [],
-    [emojis],
+    [emojis]
   );
 
-  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch(':', {
+  const checkForTriggerMatch = useBasicTypeaheadTriggerMatch(":", {
     minLength: 0,
   });
 
@@ -119,10 +120,10 @@ export default function EmojiPickerPlugin() {
     return emojiOptions
       .filter((option: EmojiOption) => {
         return queryString != null
-          ? new RegExp(queryString, 'gi').exec(option.title) ||
+          ? new RegExp(queryString, "gi").exec(option.title) ||
             option.keywords != null
             ? option.keywords.some((keyword: string) =>
-                new RegExp(queryString, 'gi').exec(keyword),
+                new RegExp(queryString, "gi").exec(keyword)
               )
             : false
           : emojiOptions;
@@ -134,7 +135,7 @@ export default function EmojiPickerPlugin() {
     (
       selectedOption: EmojiOption,
       nodeToRemove: TextNode | null,
-      closeMenu: () => void,
+      closeMenu: () => void
     ) => {
       editor.update(() => {
         const selection = $getSelection();
@@ -152,7 +153,7 @@ export default function EmojiPickerPlugin() {
         closeMenu();
       });
     },
-    [editor],
+    [editor]
   );
 
   return (
@@ -163,7 +164,7 @@ export default function EmojiPickerPlugin() {
       options={options}
       menuRenderFn={(
         anchorElementRef,
-        {selectedIndex, selectOptionAndCleanUp, setHighlightedIndex},
+        { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
       ) => {
         if (anchorElementRef.current == null || options.length === 0) {
           return null;
@@ -171,7 +172,7 @@ export default function EmojiPickerPlugin() {
 
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
-              <div className="typeahead-popover emoji-menu">
+              <div className='typeahead-popover emoji-menu'>
                 <ul>
                   {options.map((option: EmojiOption, index) => (
                     <div key={option.key}>
@@ -191,7 +192,7 @@ export default function EmojiPickerPlugin() {
                   ))}
                 </ul>
               </div>,
-              anchorElementRef.current,
+              anchorElementRef.current
             )
           : null;
       }}

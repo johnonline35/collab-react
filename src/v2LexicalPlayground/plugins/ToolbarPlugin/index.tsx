@@ -77,6 +77,7 @@ import { EmbedConfigs } from "../AutoEmbedPlugin";
 import { INSERT_COLLAPSIBLE_COMMAND } from "../CollapsiblePlugin";
 import { InsertEquationDialog } from "../EquationsPlugin";
 import { INSERT_EXCALIDRAW_COMMAND } from "../ExcalidrawPlugin";
+import { INSERT_MEETING_DETAILS_COMMAND } from "../MeetingDetailsPlugin"; // Adjust the path as needed
 import {
   INSERT_IMAGE_COMMAND,
   InsertImageDialog,
@@ -695,11 +696,63 @@ export default function ToolbarPlugin(): JSX.Element {
       >
         <DropDownItem
           onClick={() => {
-            /**/
+            console.log("DropDownItem clicked!");
+            console.log("Command to dispatch:", INSERT_MEETING_DETAILS_COMMAND); // Logging the command
+            editor.dispatchCommand(INSERT_MEETING_DETAILS_COMMAND, undefined);
           }}
           className='item'
         >
-          <span className='text'>TODO</span>
+          <i className='icon calendar' />
+          <span className='text'>Insert Meeting</span>
+        </DropDownItem>
+
+        <DropDownItem
+          onClick={() => {
+            activeEditor.dispatchCommand(
+              INSERT_MEETING_DETAILS_COMMAND,
+              undefined
+            );
+          }}
+          className='item'
+        >
+          <i className='icon rapport' />
+          <span className='text'>Build Rapport</span>
+        </DropDownItem>
+        <DropDownItem
+          onClick={() => {
+            activeEditor.dispatchCommand(
+              INSERT_MEETING_DETAILS_COMMAND,
+              undefined
+            );
+          }}
+          className='item'
+        >
+          <i className='icon structure' />
+          <span className='text'>Create Structure</span>
+        </DropDownItem>
+        <DropDownItem
+          onClick={() => {
+            activeEditor.dispatchCommand(
+              INSERT_MEETING_DETAILS_COMMAND,
+              undefined
+            );
+          }}
+          className='item'
+        >
+          <i className='icon question' />
+          <span className='text'>Discovery Questions</span>
+        </DropDownItem>
+        <DropDownItem
+          onClick={() => {
+            activeEditor.dispatchCommand(
+              INSERT_MEETING_DETAILS_COMMAND,
+              undefined
+            );
+          }}
+          className='item'
+        >
+          <i className='icon summary' />
+          <span className='text'>Summarize for Email</span>
         </DropDownItem>
       </DropDown>
       <Divider />
