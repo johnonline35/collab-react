@@ -22,6 +22,7 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 export function $createMeetingDetailsNode(meetingDetails) {
+  console.log("$createMeetingDetailsNode called");
   const gmdNode = $createParagraphNode();
 
   // Workspace Name Heading

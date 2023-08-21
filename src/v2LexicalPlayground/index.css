@@ -393,6 +393,26 @@ i.underline {
   background-image: url(images/icons/type-underline.svg);
 }
 
+i.calendar {
+  background-image: url(images/icons/calendar-alt-svgrepo-com.svg);
+}
+
+i.rapport {
+  background-image: url(images/icons/talk-bubbles-svgrepo-com.svg);
+}
+
+i.structure {
+  background-image: url(images/icons/structure-svgrepo-com.svg);
+}
+
+i.question {
+  background-image: url(images/icons/question-svgrepo-com.svg);
+}
+
+i.summary {
+  background-image: url(images/icons/upload-document-note-svgrepo-com.svg);
+}
+
 i.strikethrough {
   background-image: url(images/icons/type-strikethrough.svg);
 }
@@ -1688,6 +1708,25 @@ button.action-button:disabled {
   .github-corner .octo-arm {
     animation: octocat-wave 560ms ease-in-out;
   }
+}
+
+@page {
+  margin: 1in;
+}
+
+@media print {
+  .body {
+    background: none;
+  }
+    .editor-shell .editor-container {
+      background: #fff;
+      width: 624px;
+      min-height: 864px;
+      padding: 0;
+      margin: 0;
+      box-shadow: none;
+      align-self: flex-start;
+    }
 }
 
 .spacer {

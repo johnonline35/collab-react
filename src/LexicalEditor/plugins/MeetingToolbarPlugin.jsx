@@ -8,6 +8,7 @@ export default function MeetingToolbarPlugin() {
     <div className='toolbar'>
       <button
         onClick={() => {
+          console.log("Command to dispatch:", INSERT_MEETING_DETAILS_COMMAND);
           editor.dispatchCommand(INSERT_MEETING_DETAILS_COMMAND, undefined);
         }}
         className={"toolbar-item spaced "}
