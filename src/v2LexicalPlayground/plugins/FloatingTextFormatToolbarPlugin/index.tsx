@@ -238,7 +238,7 @@ function TextFormatFloatingToolbar({
           >
             <i className='format superscript' />
           </button>
-          <button
+          {/* <button
             type='button'
             onClick={() => {
               editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
@@ -247,7 +247,7 @@ function TextFormatFloatingToolbar({
             aria-label='Insert code block'
           >
             <i className='format code' />
-          </button>
+          </button> */}
           <button
             type='button'
             onClick={insertLink}
