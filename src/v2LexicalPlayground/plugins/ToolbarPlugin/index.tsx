@@ -857,7 +857,34 @@ export default function ToolbarPlugin(): JSX.Element {
           >
             <i className='format code' />
           </button> */}
-
+          <button
+            disabled={!isEditable}
+            onClick={insertLink}
+            className={"toolbar-item spaced " + (isLink ? "active" : "")}
+            aria-label='Insert link'
+            title='Insert link'
+            type='button'
+          >
+            <i className='format link' />
+          </button>
+          <button
+            disabled={!isEditable}
+            onClick={() => {
+              showModal("Insert Image", (onClose) => (
+                <InsertImageDialog
+                  activeEditor={activeEditor}
+                  onClose={onClose}
+                />
+              ));
+            }}
+            className={"toolbar-item spaced " + (isLink ? "active" : "")}
+            aria-label='Insert link'
+            title='Insert image'
+            type='button'
+          >
+            <i className='icon image' />
+          </button>
+          <Divider />
           <DropdownColorPicker
             disabled={!isEditable}
             buttonClassName='toolbar-item color-picker'
@@ -876,17 +903,6 @@ export default function ToolbarPlugin(): JSX.Element {
             onChange={onBgColorSelect}
             title='bg color'
           />
-          <button
-            disabled={!isEditable}
-            onClick={insertLink}
-            className={"toolbar-item spaced " + (isLink ? "active" : "")}
-            aria-label='Insert link'
-            title='Insert link'
-            type='button'
-          >
-            <i className='format link' />
-          </button>
-          <Divider />
           <DropDown
             disabled={!isEditable}
             buttonClassName='toolbar-item spaced'
@@ -993,7 +1009,7 @@ export default function ToolbarPlugin(): JSX.Element {
               <i className='icon page-break' />
               <span className='text'>Page Break</span>
             </DropDownItem> */}
-            <DropDownItem
+            {/* <DropDownItem
               onClick={() => {
                 showModal("Insert Image", (onClose) => (
                   <InsertImageDialog
@@ -1006,7 +1022,7 @@ export default function ToolbarPlugin(): JSX.Element {
             >
               <i className='icon image' />
               <span className='text'>Image</span>
-            </DropDownItem>
+            </DropDownItem> */}
             {/* <DropDownItem
               onClick={() => {
                 showModal("Insert Inline Image", (onClose) => (
@@ -1021,7 +1037,7 @@ export default function ToolbarPlugin(): JSX.Element {
               <i className='icon image' />
               <span className='text'>Inline Image</span>
             </DropDownItem> */}
-            <DropDownItem
+            {/* <DropDownItem
               onClick={() =>
                 insertGifOnClick({
                   altText: "Cat typing on a laptop",
@@ -1032,7 +1048,7 @@ export default function ToolbarPlugin(): JSX.Element {
             >
               <i className='icon gif' />
               <span className='text'>GIF</span>
-            </DropDownItem>
+            </DropDownItem> */}
             <DropDownItem
               onClick={() => {
                 activeEditor.dispatchCommand(
