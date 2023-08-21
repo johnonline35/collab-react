@@ -72,6 +72,7 @@ import YouTubePlugin from "./plugins/YouTubePlugin";
 import PlaygroundEditorTheme from "./themes/PlaygroundEditorTheme";
 import ContentEditable from "./ui/ContentEditable";
 import Placeholder from "./ui/Placeholder";
+import MeetingDetailsPlugin from "./plugins/MeetingDetailsPlugin";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -154,7 +155,7 @@ export default function Editor(): JSX.Element {
         <ComponentPickerPlugin />
         <EmojiPickerPlugin />
         <AutoEmbedPlugin />
-
+        <MeetingDetailsPlugin />
         <MentionsPlugin />
         <EmojisPlugin />
         <HashtagPlugin />

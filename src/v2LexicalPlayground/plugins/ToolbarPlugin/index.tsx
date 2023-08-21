@@ -727,6 +727,7 @@ export default function ToolbarPlugin(): JSX.Element {
           }}
           className='item'
         >
+          trying_v2LexicalPlayground_again
           <i className='icon structure' />
           <span className='text'>Create Structure</span>
         </DropDownItem>
