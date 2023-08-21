@@ -845,7 +845,7 @@ export default function ToolbarPlugin(): JSX.Element {
           >
             <i className='format underline' />
           </button>
-          <button
+          {/* <button
             disabled={!isEditable}
             onClick={() => {
               activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
@@ -856,17 +856,8 @@ export default function ToolbarPlugin(): JSX.Element {
             aria-label='Insert code block'
           >
             <i className='format code' />
-          </button>
-          <button
-            disabled={!isEditable}
-            onClick={insertLink}
-            className={"toolbar-item spaced " + (isLink ? "active" : "")}
-            aria-label='Insert link'
-            title='Insert link'
-            type='button'
-          >
-            <i className='format link' />
-          </button>
+          </button> */}
+
           <DropdownColorPicker
             disabled={!isEditable}
             buttonClassName='toolbar-item color-picker'
@@ -885,6 +876,17 @@ export default function ToolbarPlugin(): JSX.Element {
             onChange={onBgColorSelect}
             title='bg color'
           />
+          <button
+            disabled={!isEditable}
+            onClick={insertLink}
+            className={"toolbar-item spaced " + (isLink ? "active" : "")}
+            aria-label='Insert link'
+            title='Insert link'
+            type='button'
+          >
+            <i className='format link' />
+          </button>
+          <Divider />
           <DropDown
             disabled={!isEditable}
             buttonClassName='toolbar-item spaced'
