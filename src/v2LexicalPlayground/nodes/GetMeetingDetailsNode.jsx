@@ -25,14 +25,11 @@ export function $createMeetingDetailsNode(meetingDetails) {
   const root = $getRoot();
 
   // Workspace Name Heading
-  const workspaceNameHeading = $createHeadingNode("h1")
-    .append(
-      $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
-        "font-weight: bold"
-      )
-    )
-    .setFormat("center");
-  root.append(workspaceNameHeading);
+  if (root.getFirstChild() === null) {
+    const heading = $createHeadingNode("h1");
+    heading.append($createTextNode("Welcome to the playground"));
+    root.append(heading);
+  }
 
   // if (root.getFirstChild() === null) {
   //   // Workspace Name Heading
