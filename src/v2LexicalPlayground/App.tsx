@@ -117,11 +117,7 @@ function App(): JSX.Element {
   } = useSettings();
 
   const initialConfig = {
-    // editorState: isCollab
-    //   ? null
-    //   : emptyEditor
-    //   ? undefined
-    //   : prepopulatedRichText,
+    editorState: prepopulatedRichText,
     namespace: "Playground",
     nodes: [...PlaygroundNodes],
     onError: (error: Error) => {
