@@ -159,7 +159,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
 
   if (root.getFirstChild() !== null) {
     let firstChild = root.getFirstChild();
-    for (let node of nodesToAdd.reverse()) {
+    for (let node of nodesToAdd) {
       firstChild.insertBefore(node);
     }
   } else {
