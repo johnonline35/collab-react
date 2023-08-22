@@ -157,9 +157,9 @@ export function $createMeetingDetailsNode(meetingDetails) {
   nodesToAdd.push($createParagraphNode());
   nodesToAdd.push($createParagraphNode());
 
-  if (root.firstChild) {
+  if (root.firstChild()) {
     for (let node of nodesToAdd.reverse()) {
-      root.insertBefore(node, root.firstChild);
+      root.insertBefore(node, root.firstChild());
     }
   } else {
     for (let node of nodesToAdd) {
