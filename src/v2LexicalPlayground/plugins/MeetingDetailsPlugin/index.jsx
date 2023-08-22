@@ -73,144 +73,144 @@ export default function MeetingDetailsPlugin() {
           );
 
           // Next Meeting Date
-          const timeZone = meeting.user_timezone;
-          const zonedDate = utcToZonedTime(
-            new Date(meeting.nextMeetingDate),
-            timeZone
-          );
-          let formattedNextMeetingDate = format(
-            zonedDate,
-            "EEEE, MMMM d, h:mma",
-            {
-              timeZone,
-            }
-          )
-            .replace("AM", "am")
-            .replace("PM", "pm");
-          if (
-            formattedNextMeetingDate.endsWith(":00am") ||
-            formattedNextMeetingDate.endsWith(":00pm")
-          ) {
-            formattedNextMeetingDate = formattedNextMeetingDate.replace(
-              ":00",
-              ""
-            );
-          }
-          root.append(
-            $createHeadingNode("h2").append(
-              $createTextNode(formattedNextMeetingDate)
-            )
-          );
+          // const timeZone = meeting.user_timezone;
+          // const zonedDate = utcToZonedTime(
+          //   new Date(meeting.nextMeetingDate),
+          //   timeZone
+          // );
+          // let formattedNextMeetingDate = format(
+          //   zonedDate,
+          //   "EEEE, MMMM d, h:mma",
+          //   {
+          //     timeZone,
+          //   }
+          // )
+          //   .replace("AM", "am")
+          //   .replace("PM", "pm");
+          // if (
+          //   formattedNextMeetingDate.endsWith(":00am") ||
+          //   formattedNextMeetingDate.endsWith(":00pm")
+          // ) {
+          //   formattedNextMeetingDate = formattedNextMeetingDate.replace(
+          //     ":00",
+          //     ""
+          //   );
+          // }
+          // root.append(
+          //   $createHeadingNode("h2").append(
+          //     $createTextNode(formattedNextMeetingDate)
+          //   )
+          // );
 
-          const attendeesContainer = $createQuoteNode();
-          meeting.attendees.forEach((attendee) => {
-            // Company Information
-            if (
-              attendee.attendee_domain ||
-              attendee.job_company_linkedin_url ||
-              attendee.job_company_twitter_url
-            ) {
-              const companyParagraph = $createParagraphNode();
-              companyParagraph.append(
-                $createTextNode(
-                  meeting.workspaceName + " Company Information | "
-                )
-              );
+          // const attendeesContainer = $createQuoteNode();
+          // meeting.attendees.forEach((attendee) => {
+          //   // Company Information
+          //   if (
+          //     attendee.attendee_domain ||
+          //     attendee.job_company_linkedin_url ||
+          //     attendee.job_company_twitter_url
+          //   ) {
+          //     const companyParagraph = $createParagraphNode();
+          //     companyParagraph.append(
+          //       $createTextNode(
+          //         meeting.workspaceName + " Company Information | "
+          //       )
+          //     );
 
-              let companyLinks = [];
+          //     let companyLinks = [];
 
-              if (attendee.attendee_domain) {
-                companyLinks.push(
-                  createLinkNodeWithText(
-                    attendee.attendee_domain,
-                    "Website",
-                    "Company Website"
-                  )
-                );
-              }
-              if (attendee.job_company_linkedin_url) {
-                companyLinks.push(
-                  createLinkNodeWithText(
-                    attendee.job_company_linkedin_url,
-                    "LinkedIn",
-                    "Company LinkedIn"
-                  )
-                );
-              }
-              if (attendee.job_company_twitter_url) {
-                companyLinks.push(
-                  createLinkNodeWithText(
-                    attendee.job_company_twitter_url,
-                    "Twitter",
-                    "Company Twitter"
-                  )
-                );
-              }
+          //     if (attendee.attendee_domain) {
+          //       companyLinks.push(
+          //         createLinkNodeWithText(
+          //           attendee.attendee_domain,
+          //           "Website",
+          //           "Company Website"
+          //         )
+          //       );
+          //     }
+          //     if (attendee.job_company_linkedin_url) {
+          //       companyLinks.push(
+          //         createLinkNodeWithText(
+          //           attendee.job_company_linkedin_url,
+          //           "LinkedIn",
+          //           "Company LinkedIn"
+          //         )
+          //       );
+          //     }
+          //     if (attendee.job_company_twitter_url) {
+          //       companyLinks.push(
+          //         createLinkNodeWithText(
+          //           attendee.job_company_twitter_url,
+          //           "Twitter",
+          //           "Company Twitter"
+          //         )
+          //       );
+          //     }
 
-              for (let i = 0; i < companyLinks.length; i++) {
-                companyParagraph.append(companyLinks[i]);
-                if (i !== companyLinks.length - 1) {
-                  companyParagraph.append($createTextNode(" | "));
-                }
-              }
+          //     for (let i = 0; i < companyLinks.length; i++) {
+          //       companyParagraph.append(companyLinks[i]);
+          //       if (i !== companyLinks.length - 1) {
+          //         companyParagraph.append($createTextNode(" | "));
+          //       }
+          //     }
 
-              attendeesContainer.append(companyParagraph);
-            }
+          //     attendeesContainer.append(companyParagraph);
+          //   }
 
-            // Attendee Information
-            const attendeeParagraph = $createParagraphNode();
-            let attendeeText = "";
-            if (attendee.attendee_name) {
-              attendeeText = capitalizeFirstLetterOfEachWord(
-                attendee.attendee_name
-              );
-            }
-            if (attendee.attendee_job_title) {
-              const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
-                attendee.attendee_job_title
-              );
-              attendeeText += attendeeText
-                ? ", " + attendeeJobTitle
-                : attendeeJobTitle;
-            }
-            if (attendeeText) {
-              attendeeParagraph.append($createTextNode(attendeeText));
-            }
+          //   // Attendee Information
+          //   const attendeeParagraph = $createParagraphNode();
+          //   let attendeeText = "";
+          //   if (attendee.attendee_name) {
+          //     attendeeText = capitalizeFirstLetterOfEachWord(
+          //       attendee.attendee_name
+          //     );
+          //   }
+          //   if (attendee.attendee_job_title) {
+          //     const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
+          //       attendee.attendee_job_title
+          //     );
+          //     attendeeText += attendeeText
+          //       ? ", " + attendeeJobTitle
+          //       : attendeeJobTitle;
+          //   }
+          //   if (attendeeText) {
+          //     attendeeParagraph.append($createTextNode(attendeeText));
+          //   }
 
-            // Attendee Social Media Links
-            let socialLinks = [];
+          //   // Attendee Social Media Links
+          //   let socialLinks = [];
 
-            if (attendee.attendee_linkedin_url) {
-              socialLinks.push(
-                createLinkNodeWithText(
-                  attendee.attendee_linkedin_url,
-                  "LinkedIn",
-                  "Attendee LinkedIn"
-                )
-              );
-            }
-            if (attendee.attendee_twitter_url) {
-              socialLinks.push(
-                createLinkNodeWithText(
-                  attendee.attendee_twitter_url,
-                  "Twitter",
-                  "Attendee Twitter"
-                )
-              );
-            }
+          //   if (attendee.attendee_linkedin_url) {
+          //     socialLinks.push(
+          //       createLinkNodeWithText(
+          //         attendee.attendee_linkedin_url,
+          //         "LinkedIn",
+          //         "Attendee LinkedIn"
+          //       )
+          //     );
+          //   }
+          //   if (attendee.attendee_twitter_url) {
+          //     socialLinks.push(
+          //       createLinkNodeWithText(
+          //         attendee.attendee_twitter_url,
+          //         "Twitter",
+          //         "Attendee Twitter"
+          //       )
+          //     );
+          //   }
 
-            for (let i = 0; i < socialLinks.length; i++) {
-              attendeeParagraph.append($createTextNode(" ("));
-              attendeeParagraph.append(socialLinks[i]);
-              attendeeParagraph.append($createTextNode(")"));
-              if (i !== socialLinks.length - 1) {
-                attendeeParagraph.append($createTextNode(", "));
-              }
-            }
+          //   for (let i = 0; i < socialLinks.length; i++) {
+          //     attendeeParagraph.append($createTextNode(" ("));
+          //     attendeeParagraph.append(socialLinks[i]);
+          //     attendeeParagraph.append($createTextNode(")"));
+          //     if (i !== socialLinks.length - 1) {
+          //       attendeeParagraph.append($createTextNode(", "));
+          //     }
+          //   }
 
-            attendeesContainer.append(attendeeParagraph);
-          });
-          root.append(attendeesContainer);
+          //   attendeesContainer.append(attendeeParagraph);
+          // });
+          // root.append(attendeesContainer);
         });
         return true;
       },
