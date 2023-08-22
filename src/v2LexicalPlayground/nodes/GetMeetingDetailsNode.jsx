@@ -24,8 +24,6 @@ function createLinkNodeWithText(url, text, title) {
 export function $createMeetingDetailsNode(meetingDetails) {
   const root = $getRoot();
 
-  let nodesToAdd = [];
-
   // Workspace Name Heading
   const workspaceNameNode = $createHeadingNode("h1")
     .append(
@@ -34,8 +32,8 @@ export function $createMeetingDetailsNode(meetingDetails) {
       )
     )
     .setFormat("center");
-  nodesToAdd.push(workspaceNameNode);
-  nodesToAdd.push($createParagraphNode()); // An empty line after heading
+  root.append(workspaceNameNode);
+  root.append($createParagraphNode()); // An empty line after heading
 
   // Next Meeting Date
   const timeZone = meetingDetails.user_timezone;
@@ -58,8 +56,8 @@ export function $createMeetingDetailsNode(meetingDetails) {
   const meetingDateNode = $createHeadingNode("h2").append(
     $createTextNode(formattedNextMeetingDate)
   );
-  nodesToAdd.push(meetingDateNode);
-  nodesToAdd.push($createParagraphNode());
+  root.append(meetingDateNode);
+  root.append($createParagraphNode()); // An empty line after date
 
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
@@ -153,18 +151,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     }
     attendeesContainer.append(attendeeParagraph);
   });
-  nodesToAdd.push(attendeesContainer);
-  nodesToAdd.push($createParagraphNode());
-  nodesToAdd.push($createParagraphNode());
-
-  if (root.firstChild) {
-    for (let node of nodesToAdd.reverse()) {
-      // Reverse the order to maintain the order in the list.
-      root.insertBefore(node, root.firstChild);
-    }
-  } else {
-    for (let node of nodesToAdd) {
-      root.append(node);
-    }
-  }
+  root.append(attendeesContainer);
+  root.append($createParagraphNode());
+  root.append($createParagraphNode());
 }
