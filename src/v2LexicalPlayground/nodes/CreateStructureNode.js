@@ -68,37 +68,37 @@ export function $createStructureNode() {
   const notesHeading = $createHeadingNode("h3").append(
     $createTextNode("Notes:").setStyle("font-weight: bold")
   );
-  root.append(notesHeading);
+  root.insertBefore(notesHeading);
 
   // Empty Paragraph
   const paragraph1 = $createParagraphNode();
-  root.append(paragraph1);
+  root.insertBefore(paragraph1);
 
   // Bullet list with a single bullet
   const list1 = $createListNode("bullet");
   list1.append($createListItemNode().append($createTextNode("")));
-  root.append(list1);
+  root.insertBefore(list1);
 
   // Empty Paragraph
   const paragraph2 = $createParagraphNode();
-  root.append(paragraph2);
+  root.insertBefore(paragraph2);
 
   // "Follow up:" Heading
   const followUpHeading = $createHeadingNode("h3").append(
     $createTextNode("Action items:").setStyle("font-weight: bold")
   );
-  root.append(followUpHeading);
+  root.insertBefore(followUpHeading);
 
   // Empty Paragraph
   const paragraph3 = $createParagraphNode();
-  root.append(paragraph3);
+  root.insertBefore(paragraph3);
 
   // Another bullet list with a single bullet
   const list2 = $createListNode("bullet");
   list2.append($createListItemNode().append($createTextNode("")));
-  root.append(list2);
+  root.insertBefore(list2);
 
   // Empty Paragraph
   const paragraph4 = $createParagraphNode();
-  root.append(paragraph4);
+  root.insertBefore(paragraph4);
 }
