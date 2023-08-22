@@ -5,36 +5,41 @@ import { $createListItemNode, $createListNode } from "@lexical/list";
 export function $createStructureNode() {
   const root = $getRoot();
 
-  // Create an h3 heading node with the text "Notes:"
-  const heading = $createHeadingNode("h3").append($createTextNode("Notes:"));
-  root.append(heading);
+  // "Notes:" Heading
+  const notesHeading = $createHeadingNode("h3").append(
+    $createTextNode("Notes:")
+  );
+  root.append(notesHeading);
 
-  // Create an empty paragraph node and append it
-  const paragraph = $createParagraphNode();
-  root.append(paragraph);
+  // Empty Paragraph
+  const paragraph1 = $createParagraphNode();
+  root.append(paragraph1);
 
-  // Create an empty bullet list and append it
-  const list = $createListNode("bullet");
-  list.append($createListItemNode().append($createTextNode("")));
-  root.append(list);
+  // Bullet list with a single bullet
+  const list1 = $createListNode("bullet");
+  list1.append($createListItemNode().append($createTextNode("")));
+  root.append(list1);
 
-  // Create another empty paragraph node and append it
+  // Empty Paragraph
+  const paragraph2 = $createParagraphNode();
+  root.append(paragraph2);
 
-  root.append(paragraph);
-
-  const heading2 = $createHeadingNode("h3").append(
+  // "Follow up:" Heading
+  const followUpHeading = $createHeadingNode("h3").append(
     $createTextNode("Follow up:")
   );
-  root.append(heading2);
+  root.append(followUpHeading);
 
-  // Create an empty paragraph node and append it
+  // Empty Paragraph
+  const paragraph3 = $createParagraphNode();
+  root.append(paragraph3);
 
-  root.append(paragraph);
+  // Another bullet list with a single bullet
+  const list2 = $createListNode("bullet");
+  list2.append($createListItemNode().append($createTextNode("")));
+  root.append(list2);
 
-  // Create an empty bullet list and append it
-  list.append($createListItemNode().append($createTextNode("")));
-  root.append(list);
-
-  // Create another empty paragraph node and append it
-  root.append(paragraph);
+  // Empty Paragraph
+  const paragraph4 = $createParagraphNode();
+  root.append(paragraph4);
 }
