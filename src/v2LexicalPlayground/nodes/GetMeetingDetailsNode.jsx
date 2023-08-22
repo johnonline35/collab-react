@@ -155,7 +155,6 @@ export function $createMeetingDetailsNode(meetingDetails) {
   });
   nodesToAdd.push(attendeesContainer);
   nodesToAdd.push($createParagraphNode());
-  nodesToAdd.push($createParagraphNode());
 
   if (root.getFirstChild() !== null) {
     let firstChild = root.getFirstChild();
