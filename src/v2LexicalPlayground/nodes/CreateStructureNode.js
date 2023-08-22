@@ -42,14 +42,11 @@ export function $createStructureNode() {
   // Empty Paragraph
   nodesToAdd.push($createParagraphNode());
 
-  if (root.getFirstChild() !== null) {
-    let firstChild = root.getFirstChild();
+  const lastChild = root.getLastChild();
+
+  if (lastChild) {
     for (let node of nodesToAdd) {
-      firstChild.insertBefore(node);
-    }
-  } else {
-    for (let node of nodesToAdd) {
-      root.append(node);
+      lastChild.insertBefore(node);
     }
   }
 }
