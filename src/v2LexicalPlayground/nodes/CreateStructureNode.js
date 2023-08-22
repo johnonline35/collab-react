@@ -7,7 +7,7 @@ export function $createStructureNode() {
 
   // "Notes:" Heading
   const notesHeading = $createHeadingNode("h3").append(
-    $createTextNode("Notes:")
+    $createTextNode("Notes:").setStyle("font-weight: bold")
   );
   root.append(notesHeading);
 
@@ -26,7 +26,7 @@ export function $createStructureNode() {
 
   // "Follow up:" Heading
   const followUpHeading = $createHeadingNode("h3").append(
-    $createTextNode("Follow up:")
+    $createTextNode("Action items:").setStyle("font-weight: bold")
   );
   root.append(followUpHeading);
 
