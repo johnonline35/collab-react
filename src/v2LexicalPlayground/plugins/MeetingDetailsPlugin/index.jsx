@@ -35,10 +35,8 @@ export default function MeetingDetailsPlugin() {
       INSERT_MEETING_DETAILS_COMMAND,
       () => {
         editor.update(() => {
-          const root = $getRoot();
           meetingData.forEach((m) => {
-            const gmdNode = $createMeetingDetailsNode(m);
-            root.append(gmdNode);
+            $createMeetingDetailsNode(m);
           });
         });
         return true;
@@ -53,6 +51,4 @@ export default function MeetingDetailsPlugin() {
       }
     };
   }, [editor, meetingData]); // Only editor and meetingData in the dependencies
-
-  return null;
 }
