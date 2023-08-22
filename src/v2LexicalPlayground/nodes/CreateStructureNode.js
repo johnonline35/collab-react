@@ -15,6 +15,7 @@ export function $createStructureNode() {
 
   // Create an empty bullet list and append it
   const list = $createListNode("bullet");
+  list.append($createListItemNode().append($createTextNode("")));
   root.append(list);
 
   // Create another empty paragraph node and append it
