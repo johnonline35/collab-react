@@ -51,4 +51,6 @@ export default function MeetingDetailsPlugin() {
       }
     };
   }, [editor, meetingData]); // Only editor and meetingData in the dependencies
+
+  return null;
 }
