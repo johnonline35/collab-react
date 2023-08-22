@@ -19,6 +19,22 @@ export function $createStructureNode() {
   root.append(list);
 
   // Create another empty paragraph node and append it
-  const paragraph2 = $createParagraphNode();
-  root.append(paragraph2);
+
+  root.append(paragraph);
+
+  const heading2 = $createHeadingNode("h3").append(
+    $createTextNode("Follow up:")
+  );
+  root.append(heading2);
+
+  // Create an empty paragraph node and append it
+
+  root.append(paragraph);
+
+  // Create an empty bullet list and append it
+  list.append($createListItemNode().append($createTextNode("")));
+  root.append(list);
+
+  // Create another empty paragraph node and append it
+  root.append(paragraph);
 }
