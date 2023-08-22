@@ -157,13 +157,15 @@ export function $createMeetingDetailsNode(meetingDetails) {
   nodesToAdd.push($createParagraphNode());
   nodesToAdd.push($createParagraphNode());
 
-  if (root.firstChild()) {
-    for (let node of nodesToAdd.reverse()) {
-      root.insertBefore(node, root.firstChild());
+  // get previous sibling
+
+  if (root.getPreviousSibling()) {
+    for (let node of nodesToAdd) {
+      root.insertBefore(node);
     }
   } else {
     for (let node of nodesToAdd) {
-      root.append(node);
+      root.insertAfter(node);
     }
   }
 }
