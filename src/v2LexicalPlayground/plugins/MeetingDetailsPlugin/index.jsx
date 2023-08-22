@@ -10,7 +10,7 @@ import {
   $createLinkNode,
   $createQuoteNode,
 } from "lexical";
-import { capitalizeFirstLetterOfEachWord } from "../utils/timeAndCapitalize";
+import { capitalizeFirstLetterOfEachWord } from "../../utils/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
 
 export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
