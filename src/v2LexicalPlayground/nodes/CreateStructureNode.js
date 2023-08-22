@@ -1,10 +1,6 @@
-import {
-  $createParagraphNode,
-  $createListNode,
-  $getRoot,
-  $createTextNode,
-} from "lexical";
+import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 import { $createHeadingNode } from "@lexical/rich-text";
+import { $createListItemNode, $createListNode } from "@lexical/list";
 
 export function $createStructureNode() {
   const root = $getRoot();
