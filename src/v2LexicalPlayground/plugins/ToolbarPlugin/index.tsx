@@ -87,6 +87,7 @@ import { InsertInlineImageDialog } from "../InlineImagePlugin";
 import { INSERT_PAGE_BREAK } from "../PageBreakPlugin";
 import { InsertPollDialog } from "../PollPlugin";
 import { InsertNewTableDialog, InsertTableDialog } from "../TablePlugin";
+import { INSERT_STRUCTURE_COMMAND } from "../CreateStructurePlugin";
 
 const blockTypeToBlockName = {
   bullet: "Bulleted List",
@@ -725,21 +726,19 @@ export default function ToolbarPlugin(): JSX.Element {
           }}
           className='item'
         >
-          <i className='icon structure' />
-          <span className='text'>Create Structure</span>
-        </DropDownItem>
-        <DropDownItem
-          onClick={() => {
-            activeEditor.dispatchCommand(
-              INSERT_MEETING_DETAILS_COMMAND,
-              undefined
-            );
-          }}
-          className='item'
-        >
           <i className='icon question' />
           <span className='text'>Discovery Questions</span>
         </DropDownItem>
+        <DropDownItem
+          onClick={() => {
+            activeEditor.dispatchCommand(INSERT_STRUCTURE_COMMAND, undefined);
+          }}
+          className='item'
+        >
+          <i className='icon structure' />
+          <span className='text'>Create Structure</span>
+        </DropDownItem>
+
         <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(
