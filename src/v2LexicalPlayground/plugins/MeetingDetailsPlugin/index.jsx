@@ -61,16 +61,19 @@ export default function MeetingDetailsPlugin() {
           const root = $getRoot();
           const meeting = meetingData[0];
 
+          const heading = $createHeadingNode("h1");
+          heading.append($createTextNode(meeting.workspaceName + " Notes"));
+          root.append(heading);
           // Workspace Name Heading
-          root.append(
-            $createHeadingNode("h1")
-              .append(
-                $createTextNode(meeting.workspaceName + " Notes").setStyle(
-                  "font-weight: bold"
-                )
-              )
-              .setFormat("center")
-          );
+          // root.append(
+          //   $createHeadingNode("h1")
+          //     .append(
+          //       $createTextNode(meeting.workspaceName + " Notes").setStyle(
+          //         "font-weight: bold"
+          //       )
+          //     )
+          //     .setFormat("center")
+          // );
 
           // Next Meeting Date
           // const timeZone = meeting.user_timezone;
