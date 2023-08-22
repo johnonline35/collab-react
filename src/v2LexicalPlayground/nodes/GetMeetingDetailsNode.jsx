@@ -1,4 +1,4 @@
-import { $createParagraphNode, $createTextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { $createLinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../utils/timeAndCapitalize";
@@ -22,19 +22,18 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 export function $createMeetingDetailsNode(meetingDetails) {
-  const gmdNode = $createParagraphNode();
+  const root = $getRoot();
 
   // Workspace Name Heading
-  gmdNode.append(
-    $createHeadingNode("h1")
-      .append(
-        $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
-          "font-weight: bold"
-        )
+  const workspaceNameNode = $createHeadingNode("h1")
+    .append(
+      $createTextNode(meetingDetails.workspaceName + " Notes").setStyle(
+        "font-weight: bold"
       )
-      .setFormat("center")
-      .append($createParagraphNode())
-  );
+    )
+    .setFormat("center");
+  root.append(workspaceNameNode);
+  root.append($createParagraphNode()); // An empty line after heading
 
   // Next Meeting Date
   const timeZone = meetingDetails.user_timezone;
@@ -53,11 +52,12 @@ export function $createMeetingDetailsNode(meetingDetails) {
   ) {
     formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
   }
-  gmdNode.append(
-    $createHeadingNode("h2")
-      .append($createTextNode(formattedNextMeetingDate))
-      .append($createParagraphNode())
+
+  const meetingDateNode = $createHeadingNode("h2").append(
+    $createTextNode(formattedNextMeetingDate)
   );
+  root.append(meetingDateNode);
+  root.append($createParagraphNode()); // An empty line after date
 
   const attendeesContainer = $createQuoteNode();
   meetingDetails.attendees.forEach((attendee) => {
@@ -151,10 +151,7 @@ export function $createMeetingDetailsNode(meetingDetails) {
     }
     attendeesContainer.append(attendeeParagraph);
   });
-  gmdNode
-    .append(attendeesContainer)
-    .append($createParagraphNode())
-    .append($createParagraphNode());
-
-  return gmdNode;
+  root.append(attendeesContainer);
+  root.append($createParagraphNode()); // An empty line after attendees
+  root.append($createParagraphNode());
 }
