@@ -46,7 +46,7 @@ export function $createStructureNode() {
   if (root.getLastChild() !== null) {
     let lastChild = root.getLastChild();
     for (let node of nodesToAdd) {
-      lastChild.insertAfter(node);
+      lastChild.insertBefore(node);
       lastChild = node; // Move the pointer to the last added node
     }
   } else {
