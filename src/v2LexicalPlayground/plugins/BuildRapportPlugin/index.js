@@ -47,6 +47,7 @@ export default function BuildRapportPlugin({ meetingData }) {
 
   useEffect(() => {
     if (!summary) {
+      console.log("No summary data");
       return;
     }
 
