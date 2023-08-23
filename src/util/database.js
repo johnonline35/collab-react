@@ -58,7 +58,7 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
       let { data: detailedInfo } = await supabase
         .from("attendees")
         .select(
-          "attendee_name, attendee_job_title, attendee_linkedin, attendee_twitter, job_company_linkedin_url, job_company_twitter_url, attendee_domain, attendee_is_workspace_lead"
+          "attendee_name, attendee_email, attendee_job_title, attendee_linkedin, attendee_twitter, job_company_linkedin_url, job_company_twitter_url, attendee_domain, attendee_is_workspace_lead"
         )
         .eq("attendee_email", attendee.email);
 
