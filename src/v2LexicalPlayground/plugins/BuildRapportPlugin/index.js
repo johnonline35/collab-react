@@ -24,6 +24,10 @@ export default function BuildRapportPlugin({ meetingData }) {
           }
         );
 
+        if (!response.ok) {
+          throw new Error(`Server responded with a ${response.status} status.`);
+        }
+
         const data = await response.json();
         console.log("data:", data);
         setSummary(data.content);
