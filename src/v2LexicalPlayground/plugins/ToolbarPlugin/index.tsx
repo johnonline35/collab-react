@@ -721,7 +721,7 @@ export default function ToolbarPlugin(): JSX.Element {
           <i className='icon rapport' />
           <span className='text'>Build Rapport</span>
         </DropDownItem>
-        <DropDownItem
+        {/* <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(
               INSERT_MEETING_DETAILS_COMMAND,
@@ -732,7 +732,7 @@ export default function ToolbarPlugin(): JSX.Element {
         >
           <i className='icon question' />
           <span className='text'>Discovery Questions</span>
-        </DropDownItem>
+        </DropDownItem> */}
         <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(INSERT_STRUCTURE_COMMAND, undefined);
@@ -743,7 +743,7 @@ export default function ToolbarPlugin(): JSX.Element {
           <span className='text'>Create Structure</span>
         </DropDownItem>
 
-        <DropDownItem
+        {/* <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(
               INSERT_MEETING_DETAILS_COMMAND,
@@ -754,7 +754,7 @@ export default function ToolbarPlugin(): JSX.Element {
         >
           <i className='icon summary' />
           <span className='text'>Summarize for Email</span>
-        </DropDownItem>
+        </DropDownItem> */}
       </DropDown>
       <Divider />
       {blockType in blockTypeToBlockName && activeEditor === editor && (
