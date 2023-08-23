@@ -18,6 +18,7 @@ export default function BuildRapportPlugin({ meetingData }) {
     console.log("Use effect called, about to call backend endpoint next.");
     async function fetchSummary() {
       try {
+        console.log("fetch called");
         const response = await fetch(
           "https://collab-express-production.up.railway.app/summarize-career-education",
           {
