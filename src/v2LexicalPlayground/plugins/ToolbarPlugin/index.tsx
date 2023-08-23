@@ -88,6 +88,7 @@ import { INSERT_PAGE_BREAK } from "../PageBreakPlugin";
 import { InsertPollDialog } from "../PollPlugin";
 import { InsertNewTableDialog, InsertTableDialog } from "../TablePlugin";
 import { INSERT_STRUCTURE_COMMAND } from "../CreateStructurePlugin";
+import { INSERT_BUILD_RAPPORT_COMMAND } from "../BuildRapportPlugin";
 
 const blockTypeToBlockName = {
   bullet: "Bulleted List",
@@ -697,7 +698,10 @@ export default function ToolbarPlugin(): JSX.Element {
       >
         <DropDownItem
           onClick={() => {
-            editor.dispatchCommand(INSERT_MEETING_DETAILS_COMMAND, undefined);
+            activeEditor.dispatchCommand(
+              INSERT_MEETING_DETAILS_COMMAND,
+              undefined
+            );
           }}
           className='item'
         >
@@ -708,7 +712,7 @@ export default function ToolbarPlugin(): JSX.Element {
         <DropDownItem
           onClick={() => {
             activeEditor.dispatchCommand(
-              INSERT_MEETING_DETAILS_COMMAND,
+              INSERT_BUILD_RAPPORT_COMMAND,
               undefined
             );
           }}

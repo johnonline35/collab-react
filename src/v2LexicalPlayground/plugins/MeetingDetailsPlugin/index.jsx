@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $createMeetingDetailsNode } from "../../nodes/GetMeetingDetailsNode";
-import { useEffect, useState } from "react";
-import { fetchLexicalMeetingData } from "../../../util/database";
+import { useEffect } from "react";
 
 export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
 

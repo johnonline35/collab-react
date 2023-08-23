@@ -1,48 +1,60 @@
-import { useParams } from "react-router-dom";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
 import { useEffect, useState } from "react";
-import { fetchLexicalMeetingData } from "../../../util/database";
 
-export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
+export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
-export default function BuildRapportPlugin() {
+export default function BuildRapportPlugin({ meetingData }) {
   const [editor] = useLexicalComposerContext();
-  const { workspace_id } = useParams();
+  const [summary, setSummary] = useState("");
 
-  // Fetch the meeting data only when workspace_id changes
   useEffect(() => {
-    fetchOpenAI();
-  }, [workspace_id]); // Only workspace_id in the dependencies
+    async function fetchSummary() {
+      try {
+        const response = await fetch(
+          "https://collab-express-production.up.railway.app/summarize-career-education",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(meetingData),
+          }
+        );
 
-  // Register the command, depending on editor and meetingData
+        const data = await response.json();
+        setSummary(data.content);
+      } catch (error) {
+        console.error("There was an error fetching the summary!", error);
+      }
+    }
+
+    fetchSummary();
+  }, [meetingData]);
+
   useEffect(() => {
-    if (!openAiResponse || openAiResponse.length === 0) {
-      console.log("No openAiResponse data");
+    if (!summary) {
       return;
     }
 
     const unregister = editor.registerCommand(
-      INSERT_MEETING_DETAILS_COMMAND,
+      INSERT_BUILD_RAPPORT_COMMAND,
       () => {
         editor.update(() => {
-          meetingData.forEach((m) => {
-            $buildRapportNode(m);
-          });
+          $buildRapportNode(summary); // This is an example, adjust as needed
         });
         return true;
       },
       COMMAND_PRIORITY_EDITOR
     );
 
-    // If the registerCommand method returns a function to unregister the command, you can call it in the cleanup
     return () => {
       if (typeof unregister === "function") {
         unregister();
       }
     };
-  }, [editor, meetingData]); // Only editor and meetingData in the dependencies
+  }, [editor, summary]); // Added summary to dependencies
 
   return null;
 }
