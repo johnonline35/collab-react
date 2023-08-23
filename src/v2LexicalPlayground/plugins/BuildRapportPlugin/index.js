@@ -10,6 +10,7 @@ export default function BuildRapportPlugin({ meetingData }) {
   const [summary, setSummary] = useState("");
 
   useEffect(() => {
+    console.log("Use effect called, about to call backend endpoint next.");
     async function fetchSummary() {
       try {
         const response = await fetch(
