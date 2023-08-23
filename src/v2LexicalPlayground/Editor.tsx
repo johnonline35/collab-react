@@ -74,12 +74,16 @@ import ContentEditable from "./ui/ContentEditable";
 import Placeholder from "./ui/Placeholder";
 import MeetingDetailsPlugin from "./plugins/MeetingDetailsPlugin";
 import CreateStructurePlugin from "./plugins/CreateStructurePlugin";
+import { useMeetingData } from "./hooks/useMeetingData";
+import { useParams } from "react-router-dom";
 
 const skipCollaborationInit =
   // @ts-ignore
   window.parent != null && window.parent.frames.right === window;
 
 export default function Editor(): JSX.Element {
+  const { workspace_id } = useParams();
+  const meetingData = useMeetingData(workspace_id);
   const { historyState } = useSharedHistoryContext();
   const {
     settings: {
@@ -156,7 +160,7 @@ export default function Editor(): JSX.Element {
         <ComponentPickerPlugin />
         <EmojiPickerPlugin />
         <AutoEmbedPlugin />
-        <MeetingDetailsPlugin />
+        <MeetingDetailsPlugin meetingData={meetingData} />
         <CreateStructurePlugin />
         <MentionsPlugin />
         <EmojisPlugin />
