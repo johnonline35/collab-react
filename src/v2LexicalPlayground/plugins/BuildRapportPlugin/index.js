@@ -10,7 +10,7 @@ export default function BuildRapportPlugin({ meetingData }) {
   const [summary, setSummary] = useState("");
 
   useEffect(() => {
-    if (!meetingData) {
+    if (!meetingData || meetingData.length === 0) {
       console.log("No meeting data");
       return;
     }
