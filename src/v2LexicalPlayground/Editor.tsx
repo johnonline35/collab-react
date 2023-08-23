@@ -76,6 +76,7 @@ import MeetingDetailsPlugin from "./plugins/MeetingDetailsPlugin";
 import CreateStructurePlugin from "./plugins/CreateStructurePlugin";
 import { useMeetingData } from "./hooks/useMeetingData";
 import { useParams } from "react-router-dom";
+import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -161,6 +162,7 @@ export default function Editor(): JSX.Element {
         <EmojiPickerPlugin />
         <AutoEmbedPlugin />
         <MeetingDetailsPlugin meetingData={meetingData} />
+        <BuildRapportPlugin meetingData={meetingData} />
         <CreateStructurePlugin />
         <MentionsPlugin />
         <EmojisPlugin />
