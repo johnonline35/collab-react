@@ -10,8 +10,7 @@ export function $buildRapportNode(responseContent) {
   );
   insertBeforeLastChild(notesHeading);
 
-  // Create a list for bullets
-  const bulletList = $createListNode("bullet");
+  // Split the response content by lines
   const lines = responseContent.split("\n");
 
   for (const line of lines) {
@@ -21,24 +20,18 @@ export function $buildRapportNode(responseContent) {
       const bullet = $createListItemNode().append(
         $createTextNode(bulletContent)
       );
-      bulletList.append(bullet);
 
-      // Add an empty line between each bullet
-      bulletList.append($createListItemNode().append($createTextNode("")));
+      // Add bullet to the document
+      insertBeforeLastChild(bullet);
+
+      // Add an empty line between each bullet (without a bullet)
+      insertBeforeLastChild($createParagraphNode());
     } else if (line.trim() !== "") {
       // This is a plain text
       const text = $createParagraphNode().append($createTextNode(line));
       insertBeforeLastChild(text);
     }
-    // For new lines
-    insertBeforeLastChild($createParagraphNode());
   }
-
-  // Add the bullet list to the document
-  insertBeforeLastChild(bulletList);
-
-  // Empty Paragraph
-  insertBeforeLastChild($createParagraphNode());
 }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
