@@ -13,16 +13,19 @@ export function $buildRapportNode(responseContent) {
   // Split the response content by lines
   const lines = responseContent.split("\n");
 
-  const bulletList = $createListNode("bullet");
   for (const line of lines) {
     if (line.startsWith("- ")) {
       // This is a bullet point
       const bulletContent = line.substring(2); // Remove "- " from the start
-      bulletList.append(
+
+      // Create a single bullet list with the current bullet
+      const singleBulletList = $createListNode("bullet");
+      singleBulletList.append(
         $createListItemNode().append($createTextNode(bulletContent))
       );
+      insertBeforeLastChild(singleBulletList);
 
-      // Add an empty line after the bullet, without a bullet
+      // Add an empty line after the bullet
       insertBeforeLastChild($createParagraphNode());
     } else if (line.trim() !== "") {
       // This is a plain text
@@ -31,8 +34,6 @@ export function $buildRapportNode(responseContent) {
       );
     }
   }
-  // Insert the entire bullet list
-  insertBeforeLastChild(bulletList);
 }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
