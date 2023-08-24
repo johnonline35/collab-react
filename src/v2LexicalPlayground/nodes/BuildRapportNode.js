@@ -4,7 +4,7 @@ import { $createListItemNode, $createListNode } from "@lexical/list";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
-  // "Notes:" Heading
+  // "Rapport Building Topics:" Heading
   const notesHeading = $createHeadingNode("h3").append(
     $createTextNode("Rapport Building Topics:").setStyle("font-weight: bold")
   );
@@ -15,25 +15,26 @@ export function $buildRapportNode(responseContent) {
   // Split the response content by lines
   const lines = responseContent.split("\n");
 
+  const bulletList = $createListNode("bullet");
   for (const line of lines) {
     if (line.startsWith("- ")) {
       // This is a bullet point
       const bulletContent = line.substring(2); // Remove "- " from the start
-      const bullet = $createListItemNode().append(
-        $createTextNode(bulletContent)
+      bulletList.append(
+        $createListItemNode().append($createTextNode(bulletContent))
       );
 
-      // Add bullet to the document
-      insertBeforeLastChild(bullet);
-
-      // Add an empty line between each bullet (without a bullet)
+      // Add an empty line after the bullet, without a bullet
       insertBeforeLastChild($createParagraphNode());
     } else if (line.trim() !== "") {
       // This is a plain text
-      const text = $createParagraphNode().append($createTextNode(line));
-      insertBeforeLastChild(text);
+      insertBeforeLastChild(
+        $createParagraphNode().append($createTextNode(line))
+      );
     }
   }
+  // Insert the entire bullet list
+  insertBeforeLastChild(bulletList);
 }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
