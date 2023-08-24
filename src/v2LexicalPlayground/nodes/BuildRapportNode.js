@@ -6,9 +6,7 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 export function $buildRapportNode() {
   // "Notes:" Heading
   const notesHeading = $createHeadingNode("h3").append(
-    $createTextNode("Facts to help Build Rapport:").setStyle(
-      "font-weight: bold"
-    )
+    $createTextNode("Rapport Building Topics:").setStyle("font-weight: bold")
   );
   insertBeforeLastChild(notesHeading);
 
