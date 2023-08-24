@@ -10,9 +10,6 @@ export function $buildRapportNode(responseContent) {
   );
   insertBeforeLastChild(notesHeading);
 
-  // Empty Paragraph
-  insertBeforeLastChild($createParagraphNode());
-
   // Create a list for bullets
   const bulletList = $createListNode("bullet");
   const lines = responseContent.split("\n");
@@ -25,6 +22,9 @@ export function $buildRapportNode(responseContent) {
         $createTextNode(bulletContent)
       );
       bulletList.append(bullet);
+
+      // Add an empty line between each bullet
+      bulletList.append($createListItemNode().append($createTextNode("")));
     } else if (line.trim() !== "") {
       // This is a plain text
       const text = $createParagraphNode().append($createTextNode(line));
