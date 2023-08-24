@@ -10,6 +10,8 @@ export function $buildRapportNode(responseContent) {
   );
   insertBeforeLastChild(notesHeading);
 
+  insertBeforeLastChild($createParagraphNode());
+
   // Split the response content by lines
   const lines = responseContent.split("\n");
 
