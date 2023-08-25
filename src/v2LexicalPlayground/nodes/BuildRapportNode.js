@@ -16,9 +16,11 @@ export function $buildRapportNode(responseContent) {
   const lines = responseContent.split("\n");
 
   for (const line of lines) {
-    if (line.startsWith("- ")) {
+    const cleanedLine = line.replace("undefined", "").trim();
+
+    if (cleanedLine.startsWith("- ")) {
       // This is a bullet point
-      const bulletContent = line.substring(2); // Remove "- " from the start
+      const bulletContent = cleanedLine.substring(2); // Remove "- " from the start
 
       // Create a single bullet list with the current bullet
       const singleBulletList = $createListNode("bullet");
@@ -29,10 +31,10 @@ export function $buildRapportNode(responseContent) {
 
       // Add an empty line after the bullet
       insertBeforeLastChild($createParagraphNode());
-    } else if (line.trim() !== "") {
+    } else if (cleanedLine !== "") {
       // This is a plain text
       insertBeforeLastChild(
-        $createParagraphNode().append($createTextNode(line))
+        $createParagraphNode().append($createTextNode(cleanedLine))
       );
     }
   }
