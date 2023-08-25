@@ -3,6 +3,22 @@ import { $createHeadingNode } from "@lexical/rich-text";
 import { $createListItemNode, $createListNode } from "@lexical/list";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
+function simulateTyping(content, callback) {
+  let currentText = "";
+  let index = 0;
+
+  function typeCharacter() {
+    if (index < content.length) {
+      currentText += content[index];
+      index++;
+      callback(currentText);
+      setTimeout(typeCharacter, 50); // 50ms delay to simulate typing
+    }
+  }
+
+  typeCharacter();
+}
+
 export function $buildRapportNode(responseContent) {
   // "Rapport Building Topics:" Heading
   const notesHeading = $createHeadingNode("h3").append(
@@ -19,23 +35,25 @@ export function $buildRapportNode(responseContent) {
     const cleanedLine = line.replace("undefined", "").trim();
 
     if (cleanedLine.startsWith("- ")) {
-      // This is a bullet point
       const bulletContent = cleanedLine.substring(2); // Remove "- " from the start
-
-      // Create a single bullet list with the current bullet
       const singleBulletList = $createListNode("bullet");
-      singleBulletList.append(
-        $createListItemNode().append($createTextNode(bulletContent))
-      );
-      insertBeforeLastChild(singleBulletList);
 
-      // Add an empty line after the bullet
+      // Simulate typing for the bullet point
+      simulateTyping(bulletContent, (typedContent) => {
+        singleBulletList.append(
+          $createListItemNode().append($createTextNode(typedContent))
+        );
+      });
+
+      insertBeforeLastChild(singleBulletList);
       insertBeforeLastChild($createParagraphNode());
     } else if (cleanedLine !== "") {
-      // This is a plain text
-      insertBeforeLastChild(
-        $createParagraphNode().append($createTextNode(cleanedLine))
-      );
+      // Simulate typing for plain text
+      simulateTyping(cleanedLine, (typedContent) => {
+        insertBeforeLastChild(
+          $createParagraphNode().append($createTextNode(typedContent))
+        );
+      });
     }
   }
 }
