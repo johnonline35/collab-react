@@ -2,6 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
 import { useEffect, useState } from "react";
+import socket from "../../../util/socket";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
@@ -16,6 +17,7 @@ export default function BuildRapportPlugin({ meetingData }) {
     }
 
     console.log("Use effect called, about to call backend endpoint next.");
+
     async function fetchSummary() {
       try {
         console.log("fetch called");
@@ -42,7 +44,24 @@ export default function BuildRapportPlugin({ meetingData }) {
       }
     }
 
-    fetchSummary();
+    // Establish a connection and listen for events from the backend
+    socket.on("connect", () => {
+      console.log("Connected to backend");
+    });
+
+    socket.on("responseChunk", (data) => {
+      console.log(data);
+      // Appending real-time content to the summary
+      setSummary((prev) => prev + data.content);
+    });
+
+    fetchSummary(); // fetch initial data
+
+    // Clean up listeners and disconnect on component unmount or if meetingData changes
+    return () => {
+      socket.off("responseChunk");
+      socket.disconnect();
+    };
   }, [meetingData]);
 
   useEffect(() => {
