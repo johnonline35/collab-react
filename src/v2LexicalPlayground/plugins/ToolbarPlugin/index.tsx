@@ -706,7 +706,7 @@ export default function ToolbarPlugin(): JSX.Element {
           className='item'
         >
           <i className='icon calendar' />
-          <span className='text'>Insert Meeting</span>
+          <span className='text'>Insert Next Meeting</span>
         </DropDownItem>
 
         <DropDownItem
@@ -718,8 +718,8 @@ export default function ToolbarPlugin(): JSX.Element {
           }}
           className='item'
         >
-          <i className='icon rapport' />
-          <span className='text'>Build Rapport</span>
+          <i className='icon search' />
+          <span className='text'>Pre Meeting Research</span>
         </DropDownItem>
         {/* <DropDownItem
           onClick={() => {
