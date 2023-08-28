@@ -51,10 +51,10 @@ export default function BuildRapportPlugin({ meetingData }) {
 
     socket.on("responseChunk", (data) => {
       console.log("chunk data:", data);
-      // Appending real-time content to the summary
-      setSummary((prev) => prev + data.content);
+
+      // Append the new chunk of content to the editor
       editor.update(() => {
-        $buildRapportNode(summary); // This is an example, adjust as needed
+        $buildRapportNode(data.content);
       });
     });
 
