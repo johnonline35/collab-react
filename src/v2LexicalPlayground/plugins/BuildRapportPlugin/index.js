@@ -7,13 +7,13 @@ import socket from "../../../util/socket";
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
 export default function BuildRapportPlugin({ meetingData }) {
+  console.log("BuildRapportPlugin rendered"); // Checking re-renders
+
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
 
-  // 1. Introduce a ref to hold the current value of summary
   const summaryRef = useRef(summary);
 
-  // 2. Update this ref every time the summary state changes
   useEffect(() => {
     summaryRef.current = summary;
   }, [summary]);
@@ -52,20 +52,27 @@ export default function BuildRapportPlugin({ meetingData }) {
       }
     }
 
-    // Establish a connection and listen for events from the backend
     socket.on("connect", () => {
       console.log("Connected to backend");
     });
 
     socket.on("responseChunk", (data) => {
       console.log("chunk data:", data);
-      // Appending real-time content to the summary
-      setSummary((prev) => prev + data.content);
+
+      if (data && data.content) {
+        // Safeguard against empty data
+        setSummary((prev) => {
+          const updatedSummary = prev + data.content;
+          console.log("Updated summary:", updatedSummary); // Logging updated summary
+          return updatedSummary;
+        });
+      } else {
+        console.warn("Received empty data chunk from socket.");
+      }
     });
 
-    fetchSummary(); // fetch initial data
+    fetchSummary();
 
-    // Clean up listeners and disconnect on component unmount or if meetingData changes
     return () => {
       socket.off("responseChunk");
       socket.disconnect();
@@ -81,10 +88,10 @@ export default function BuildRapportPlugin({ meetingData }) {
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
-        // 3. Use the ref inside your registerCommand callback to get the latest value
         editor.update(() => {
           $buildRapportNode(summaryRef.current);
         });
+        console.log("Editor updated with:", summaryRef.current); // Logging after editor update
         return true;
       },
       COMMAND_PRIORITY_EDITOR
@@ -95,7 +102,7 @@ export default function BuildRapportPlugin({ meetingData }) {
         unregister();
       }
     };
-  }, [editor]); // You don't need summary in dependencies now since you're using a ref
+  }, [editor]);
 
   return null;
 }
