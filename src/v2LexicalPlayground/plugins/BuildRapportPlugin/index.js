@@ -77,7 +77,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
         editor.update(() => {
-          $buildRapportNode(summary); // This is an example, adjust as needed
+          $buildRapportNode(summary);
         });
         return true;
       },
@@ -89,7 +89,7 @@ export default function BuildRapportPlugin({ meetingData }) {
         unregister();
       }
     };
-  }, [editor, summary]); // Added summary to dependencies
+  }, [editor, summary]);
 
   return null;
 }
