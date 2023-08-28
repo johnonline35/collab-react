@@ -38,7 +38,7 @@ export default function BuildRapportPlugin({ meetingData }) {
 
         const data = await response.json();
         console.log("streaming data:", data);
-        setSummary(data.content);
+        // setSummary(data.content);
       } catch (error) {
         console.error("There was an error fetching the summary!", error);
       }
