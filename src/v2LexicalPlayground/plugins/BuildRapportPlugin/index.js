@@ -1,7 +1,7 @@
+import { useRef, useEffect, useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
-import { useEffect, useState } from "react";
 import socket from "../../../util/socket";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
@@ -9,6 +9,14 @@ export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 export default function BuildRapportPlugin({ meetingData }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
+
+  // 1. Introduce a ref to hold the current value of summary
+  const summaryRef = useRef(summary);
+
+  // 2. Update this ref every time the summary state changes
+  useEffect(() => {
+    summaryRef.current = summary;
+  }, [summary]);
 
   useEffect(() => {
     if (!meetingData || meetingData.length === 0) {
@@ -38,7 +46,7 @@ export default function BuildRapportPlugin({ meetingData }) {
 
         const data = await response.json();
         console.log("streaming data:", data);
-        // setSummary(data.content);
+        setSummary(data.content);
       } catch (error) {
         console.error("There was an error fetching the summary!", error);
       }
@@ -73,8 +81,9 @@ export default function BuildRapportPlugin({ meetingData }) {
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
+        // 3. Use the ref inside your registerCommand callback to get the latest value
         editor.update(() => {
-          $buildRapportNode(summary); // This is an example, adjust as needed
+          $buildRapportNode(summaryRef.current);
         });
         return true;
       },
@@ -86,7 +95,7 @@ export default function BuildRapportPlugin({ meetingData }) {
         unregister();
       }
     };
-  }, [editor, summary]); // Added summary to dependencies
+  }, [editor]); // You don't need summary in dependencies now since you're using a ref
 
   return null;
 }
