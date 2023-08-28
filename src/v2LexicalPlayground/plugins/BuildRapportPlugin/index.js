@@ -44,7 +44,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       }
     }
 
-    // Establish a connection and listen for events from the backend.
+    // Establish a connection and listen for events from the backend
     socket.on("connect", () => {
       console.log("Connected to backend");
     });
