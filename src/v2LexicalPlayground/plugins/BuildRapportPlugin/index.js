@@ -10,13 +10,6 @@ export default function BuildRapportPlugin({ meetingData }) {
   console.log("BuildRapportPlugin rendered"); // Checking re-renders
 
   const [editor] = useLexicalComposerContext();
-  const [summary, setSummary] = useState("");
-
-  const summaryRef = useRef(summary);
-
-  useEffect(() => {
-    summaryRef.current = summary;
-  }, [summary]);
 
   useEffect(() => {
     if (!meetingData || meetingData.length === 0) {
@@ -26,32 +19,6 @@ export default function BuildRapportPlugin({ meetingData }) {
 
     console.log("Use effect called, about to call backend endpoint next.");
 
-    async function fetchSummary() {
-      try {
-        console.log("fetch called");
-        const response = await fetch(
-          "https://collab-express-production.up.railway.app/summarize-career-education",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(meetingData),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Server responded with a ${response.status} status.`);
-        }
-
-        const data = await response.json();
-        console.log("streaming data:", data);
-        setSummary(data.content);
-      } catch (error) {
-        console.error("There was an error fetching the summary!", error);
-      }
-    }
-
     socket.on("connect", () => {
       console.log("Connected to backend");
     });
@@ -60,38 +27,28 @@ export default function BuildRapportPlugin({ meetingData }) {
       console.log("chunk data:", data);
 
       if (data && data.content) {
-        // Safeguard against empty data
-        setSummary((prev) => {
-          const updatedSummary = prev + data.content;
-          console.log("Updated summary:", updatedSummary); // Logging updated summary
-          return updatedSummary;
+        editor.update(() => {
+          $buildRapportNode(data.content);
         });
       } else {
         console.warn("Received empty data chunk from socket.");
       }
     });
 
-    fetchSummary();
-
     return () => {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [meetingData]);
+  }, [meetingData, editor]);
 
   useEffect(() => {
-    if (!summary) {
-      console.log("No summary data");
-      return;
-    }
-
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
-        editor.update(() => {
-          $buildRapportNode(summaryRef.current);
-        });
-        console.log("Editor updated with:", summaryRef.current); // Logging after editor update
+        console.log("Editor was requested to update with command");
+        // Since we're directly appending data to the editor state on every socket event,
+        // there's no need to do anything additional here.
+        // However, the command is registered if you need it for other purposes.
         return true;
       },
       COMMAND_PRIORITY_EDITOR
