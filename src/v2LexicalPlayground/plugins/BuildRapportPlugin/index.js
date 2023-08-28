@@ -1,69 +1,3 @@
-// import { useRef, useEffect, useState } from "react";
-// import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-// import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
-// import { $buildRapportNode } from "../../nodes/BuildRapportNode";
-// import socket from "../../../util/socket";
-
-// export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
-
-// export default function BuildRapportPlugin({ meetingData }) {
-//   console.log("BuildRapportPlugin rendered"); // Checking re-renders
-
-//   const [editor] = useLexicalComposerContext();
-
-//   useEffect(() => {
-//     if (!meetingData || meetingData.length === 0) {
-//       console.log("No meeting data");
-//       return;
-//     }
-
-//     console.log("Use effect called, about to call backend endpoint next.");
-
-//     socket.on("connect", () => {
-//       console.log("Connected to backend");
-//     });
-
-//     socket.on("responseChunk", (data) => {
-//       console.log("chunk data:", data);
-
-//       if (data && data.content) {
-//         editor.update(() => {
-//           $buildRapportNode(data.content);
-//         });
-//       } else {
-//         console.warn("Received empty data chunk from socket.");
-//       }
-//     });
-
-//     return () => {
-//       socket.off("responseChunk");
-//       socket.disconnect();
-//     };
-//   }, [meetingData, editor]);
-
-//   useEffect(() => {
-//     const unregister = editor.registerCommand(
-//       INSERT_BUILD_RAPPORT_COMMAND,
-//       () => {
-//         console.log("Editor was requested to update with command");
-//         // Since we're directly appending data to the editor state on every socket event,
-//         // there's no need to do anything additional here.
-//         // However, the command is registered if you need it for other purposes.
-//         return true;
-//       },
-//       COMMAND_PRIORITY_EDITOR
-//     );
-
-//     return () => {
-//       if (typeof unregister === "function") {
-//         unregister();
-//       }
-//     };
-//   }, [editor]);
-
-//   return null;
-// }
-
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
@@ -119,6 +53,9 @@ export default function BuildRapportPlugin({ meetingData }) {
       console.log("chunk data:", data);
       // Appending real-time content to the summary
       setSummary((prev) => prev + data.content);
+      editor.update(() => {
+        $buildRapportNode(summary); // This is an example, adjust as needed
+      });
     });
 
     fetchSummary(); // fetch initial data
