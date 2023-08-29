@@ -1,8 +1,27 @@
 import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
+import { $createHeadingNode } from "@lexical/rich-text";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
+
+  // Check if the heading already exists
+  const hasHeading = root
+    .getChildren()
+    .some(
+      (child) =>
+        child.__type === "heading" &&
+        child.getTextContent() === "Pre-Meeting Research:"
+    );
+
+  // If the heading doesn't exist, create and insert it
+  if (!hasHeading) {
+    const notesHeading = $createHeadingNode("h3").append(
+      $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
+    );
+    insertBeforeLastChild(notesHeading);
+    insertBeforeLastChild($createParagraphNode()); // Create an empty paragraph after the heading
+  }
 
   if (responseContent !== "") {
     const lastChild = root.getLastChild();
@@ -19,6 +38,25 @@ export function $buildRapportNode(responseContent) {
     }
   }
 }
+
+// export function $buildRapportNode(responseContent) {
+//   const root = $getRoot();
+
+//   if (responseContent !== "") {
+//     const lastChild = root.getLastChild();
+
+//     // If the last child is a paragraph, append text to it
+//     if (lastChild && lastChild.__type === "paragraph") {
+//       lastChild.append($createTextNode(responseContent));
+//     } else {
+//       // If the last child isn't a paragraph, create a new one and append the text
+//       const paragraph = $createParagraphNode().append(
+//         $createTextNode(responseContent)
+//       );
+//       insertBeforeLastChild(paragraph);
+//     }
+//   }
+// }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 // import { $createHeadingNode } from "@lexical/rich-text";
