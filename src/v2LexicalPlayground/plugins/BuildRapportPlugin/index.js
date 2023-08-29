@@ -25,7 +25,6 @@ export default function BuildRapportPlugin({ meetingData }) {
       return;
     }
 
-    // Add the heading at the beginning of this session
     if (!hasInsertedHeading) {
       editor.update(() => {
         const notesHeading = $createHeadingNode("h3").append(
