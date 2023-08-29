@@ -1,19 +1,40 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
+import {
+  createCommand,
+  COMMAND_PRIORITY_EDITOR,
+  $createParagraphNode,
+  $createTextNode,
+  $getRoot,
+} from "lexical";
+import { $createHeadingNode } from "@lexical/rich-text";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
 import { useEffect, useState } from "react";
 import socket from "../../../util/socket";
+import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
 export default function BuildRapportPlugin({ meetingData }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
+  const [hasInsertedHeading, setHasInsertedHeading] = useState(false);
 
   useEffect(() => {
     if (!meetingData || meetingData.length === 0) {
       console.log("No meeting data");
       return;
+    }
+
+    // Add the heading at the beginning of this session
+    if (!hasInsertedHeading) {
+      editor.update(() => {
+        const notesHeading = $createHeadingNode("h3").append(
+          $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
+        );
+        insertBeforeLastChild(notesHeading);
+        insertBeforeLastChild($createParagraphNode());
+      });
+      setHasInsertedHeading(true); // Update the flag to ensure the heading isn't inserted again
     }
 
     console.log("Use effect called, about to call backend endpoint next.");
@@ -65,7 +86,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [meetingData, editor]);
+  }, [meetingData, editor, hasInsertedHeading]);
 
   useEffect(() => {
     if (!summary) {
