@@ -1,7 +1,11 @@
-import { $createParagraphNode, $createTextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
+  const root = $getRoot();
+  const lastChild = root.getLastChild();
+  console.log("last child:", lastChild);
+
   if (responseContent !== "") {
     // Add this as plain text
     insertBeforeLastChild(
