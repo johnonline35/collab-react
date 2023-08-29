@@ -1,5 +1,5 @@
 import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
-import { $createHeadingNode } from "@lexical/rich-text";
+
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
