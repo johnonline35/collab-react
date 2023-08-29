@@ -9,11 +9,8 @@ export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 export default function BuildRapportPlugin({ meetingData }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
-  const [shouldRunLogic, setShouldRunLogic] = useState(false);
 
   useEffect(() => {
-    if (!shouldRunLogic) return;
-
     if (!meetingData || meetingData.length === 0) {
       console.log("No meeting data");
       return;
@@ -68,7 +65,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [shouldRunLogic, meetingData, editor]);
+  }, [meetingData]);
 
   useEffect(() => {
     if (!summary) {
@@ -79,7 +76,7 @@ export default function BuildRapportPlugin({ meetingData }) {
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
-        setShouldRunLogic(true); // Trigger the fetching logic when this command is dispatched
+        console.log("command set");
         return true;
       },
       COMMAND_PRIORITY_EDITOR
