@@ -77,16 +77,6 @@ export default function BuildRapportPlugin({ meetingData }) {
 
       // Append the new chunk of content to the editor
       editor.update(() => {
-        // if (!hasInsertedHeading) {
-        //   const notesHeading = $createHeadingNode("h3").append(
-        //     $createTextNode("Pre-Meeting Research:").setStyle(
-        //       "font-weight: bold"
-        //     )
-        //   );
-        //   insertBeforeLastChild(notesHeading);
-        //   insertBeforeLastChild($createParagraphNode());
-        // }
-        // setHasInsertedHeading(true);
         $buildRapportNode(data.content);
       });
     });
@@ -98,7 +88,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [meetingData, editor]);
+  }, [meetingData, editor]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!summary) {

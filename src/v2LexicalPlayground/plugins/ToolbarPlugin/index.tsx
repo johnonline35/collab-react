@@ -740,7 +740,7 @@ export default function ToolbarPlugin(): JSX.Element {
           className='item'
         >
           <i className='icon structure' />
-          <span className='text'>Create Structure</span>
+          <span className='text'>Insert Note Structure</span>
         </DropDownItem>
 
         {/* <DropDownItem
