@@ -72,11 +72,16 @@ export default function BuildRapportPlugin({ meetingData }) {
 
       // Append the new chunk of content to the editor
       editor.update(() => {
-        const notesHeading = $createHeadingNode("h3").append(
-          $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
-        );
-        insertBeforeLastChild(notesHeading);
-        insertBeforeLastChild($createParagraphNode());
+        if (!hasInsertedHeading) {
+          const notesHeading = $createHeadingNode("h3").append(
+            $createTextNode("Pre-Meeting Research:").setStyle(
+              "font-weight: bold"
+            )
+          );
+          insertBeforeLastChild(notesHeading);
+          insertBeforeLastChild($createParagraphNode());
+        }
+        setHasInsertedHeading(true);
         $buildRapportNode(data.content);
       });
     });
