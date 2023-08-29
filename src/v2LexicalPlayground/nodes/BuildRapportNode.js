@@ -1,19 +1,42 @@
 import { $createParagraphNode, $createTextNode } from "lexical";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
+let currentParagraphNode = null;
+let buffer = "";
+
 export function $buildRapportNode(responseContent) {
-  // Split the response content by lines
-  const lines = responseContent.split("\n");
+  buffer += responseContent;
+  const lines = buffer.split("\n");
 
-  for (const line of lines) {
-    const cleanedLine = line.trim();
+  for (let i = 0; i < lines.length; i++) {
+    const cleanedLine = lines[i].trim();
 
-    if (cleanedLine !== "") {
-      // Add this as plain text
-      insertBeforeLastChild(
-        $createParagraphNode().append($createTextNode(cleanedLine))
-      );
+    if (!currentParagraphNode) {
+      currentParagraphNode = $createParagraphNode();
+      insertBeforeLastChild(currentParagraphNode);
     }
+
+    if (i === lines.length - 1 && cleanedLine === "") {
+      // If the last line is empty, it means we've encountered a newline at the end.
+      currentParagraphNode = null; // Ready to start a new paragraph on next iteration
+    } else {
+      if (currentParagraphNode.childNodes.length === 0) {
+        // If current paragraph is empty, create a new text node
+        const textNode = $createTextNode(cleanedLine);
+        currentParagraphNode.append(textNode);
+      } else {
+        // Otherwise, append to the existing text node
+        const existingTextNode = currentParagraphNode.childNodes[0];
+        existingTextNode.textContent += cleanedLine;
+      }
+    }
+  }
+
+  // If the last line did not end with a newline, keep it in the buffer for next iteration
+  if (!buffer.endsWith("\n")) {
+    buffer = lines[lines.length - 1];
+  } else {
+    buffer = "";
   }
 }
 
