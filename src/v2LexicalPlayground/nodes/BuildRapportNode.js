@@ -4,8 +4,11 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
   const lastChild = root.getLastChild();
-  console.log("last child:", lastChild);
+  //   console.log("last child:", lastChild);
 
+  if (lastChild.__type === "paragraph") {
+    console.log("paragraph node");
+  }
   if (responseContent !== "") {
     // Add this as plain text
     insertBeforeLastChild(
