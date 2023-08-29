@@ -3,22 +3,20 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
-  const lastChild = root.getChildren();
-  console.log("getChildren", lastChild);
-  //   console.log("last child:", lastChild);
-
-  //   if (lastChild.__type === "paragraph") {
-  //     const currentParagraph = lastChild;
-  //     console.log("currentParagraph", currentParagraph.__type);
-  //     const lastParaChild = currentParagraph.getLastChild();
-  //     console.log("lastParaChild", lastParaChild);
-  //   }
 
   if (responseContent !== "") {
-    // Add this as plain text
-    insertBeforeLastChild(
-      $createParagraphNode().append($createTextNode(responseContent))
-    );
+    const lastChild = root.getLastChild();
+
+    // If the last child is a paragraph, append text to it
+    if (lastChild && lastChild.__type === "paragraph") {
+      lastChild.append($createTextNode(responseContent));
+    } else {
+      // If the last child isn't a paragraph, create a new one and append the text
+      const paragraph = $createParagraphNode().append(
+        $createTextNode(responseContent)
+      );
+      insertBeforeLastChild(paragraph);
+    }
   }
 }
 
