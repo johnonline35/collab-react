@@ -27,16 +27,16 @@ export default function BuildRapportPlugin({ meetingData }) {
     console.log("Use effect called, about to call backend endpoint next.");
 
     // Insert the heading here, right after the initial checks.
-    if (!hasInsertedHeading) {
-      editor.update(() => {
-        const notesHeading = $createHeadingNode("h3").append(
-          $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
-        );
-        insertBeforeLastChild(notesHeading);
-        insertBeforeLastChild($createParagraphNode());
-      });
-      setHasInsertedHeading(true); // Update the flag to ensure the heading isn't inserted again
-    }
+    // if (!hasInsertedHeading) {
+    //   editor.update(() => {
+    //     const notesHeading = $createHeadingNode("h3").append(
+    //       $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
+    //     );
+    //     insertBeforeLastChild(notesHeading);
+    //     insertBeforeLastChild($createParagraphNode());
+    //   });
+    //   setHasInsertedHeading(true); // Update the flag to ensure the heading isn't inserted again
+    // }
 
     async function fetchSummary() {
       try {
