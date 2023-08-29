@@ -8,6 +8,7 @@ export function $buildRapportNode(responseContent) {
 
   if (lastChild.__type === "paragraph") {
     const currentParagraph = lastChild;
+    console.log("currentParagraph", currentParagraph);
     const lastParaChild = currentParagraph.getLastChild();
     console.log("lastParaChild", lastParaChild);
   }
