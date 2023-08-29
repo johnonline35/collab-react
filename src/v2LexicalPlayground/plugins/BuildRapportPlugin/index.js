@@ -70,6 +70,19 @@ export default function BuildRapportPlugin({ meetingData }) {
     socket.on("responseChunk", (data) => {
       console.log("chunk data:", data);
 
+      if (!hasInsertedHeading) {
+        editor.update(() => {
+          const notesHeading = $createHeadingNode("h3").append(
+            $createTextNode("Pre-Meeting Research:").setStyle(
+              "font-weight: bold"
+            )
+          );
+          insertBeforeLastChild(notesHeading);
+          insertBeforeLastChild($createParagraphNode());
+        });
+        setHasInsertedHeading(true); // Update the flag to ensure the heading isn't inserted again
+      }
+
       // Append the new chunk of content to the editor
       editor.update(() => {
         $buildRapportNode(data.content);
