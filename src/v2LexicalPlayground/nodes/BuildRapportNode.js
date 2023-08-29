@@ -8,8 +8,8 @@ export function $buildRapportNode(responseContent) {
   buffer += responseContent;
   const lines = buffer.split("\n");
 
-  if (!lines) {
-    console.error("lines is undefined!");
+  if (lines) {
+    console.log("lines length:", lines.length);
     return;
   }
 
