@@ -7,8 +7,11 @@ export function $buildRapportNode(responseContent) {
   //   console.log("last child:", lastChild);
 
   if (lastChild.__type === "paragraph") {
-    console.log("paragraph node");
+    const currentParagraph = lastChild;
+    const lastParaChild = currentParagraph.getLastChild();
+    console.log("lastParaChild", lastParaChild);
   }
+
   if (responseContent !== "") {
     // Add this as plain text
     insertBeforeLastChild(
