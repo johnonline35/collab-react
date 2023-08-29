@@ -1,33 +1,49 @@
-import { $createParagraphNode, $createTextNode } from "lexical";
-import { $getRoot } from "lexical";
+import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 
 export function $buildRapportNode(responseContent) {
-  const lines = responseContent.split("\n");
   const root = $getRoot();
+  const lines = responseContent.split("\n");
 
-  if (lines.length === 0) return; // nothing to process
+  let lastChild = root.getLastChild();
 
-  // Handle the first line which should be appended to the current last node
-  const firstLine = lines[0].trim();
-  if (firstLine) {
-    const lastChild = root.getLastChild();
-    if (lastChild && lastChild.isTextNode) {
-      // Append to existing text node
-      lastChild.append($createTextNode(firstLine));
-    } else {
-      // Otherwise create a new paragraph node and append it
-      root.append($createParagraphNode().append($createTextNode(firstLine)));
-    }
-  }
-
-  // Handle any subsequent lines (after the first)
-  for (let i = 1; i < lines.length; i++) {
+  for (let i = 0; i < lines.length; i++) {
     const cleanedLine = lines[i].trim();
-    if (cleanedLine) {
-      root.append($createParagraphNode().append($createTextNode(cleanedLine)));
+
+    if (cleanedLine !== "") {
+      if (i === 0 && lastChild && lastChild.isTextNode) {
+        // If there's an existing text node, append to it
+        lastChild.append(cleanedLine);
+      } else {
+        // If it's a new line or there's no existing text node, create a new paragraph and text node
+        const pNode = $createParagraphNode().append(
+          $createTextNode(cleanedLine)
+        );
+        root.append(pNode);
+        lastChild = pNode.getLastChild();
+      }
     }
   }
 }
+
+// import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
+// import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
+
+// export function $buildRapportNode(responseContent) {
+//   const root = $getRoot();
+//   // Split the response content by lines
+//   const lines = responseContent.split("\n");
+
+//   for (const line of lines) {
+//     const cleanedLine = line.trim();
+
+//     if (cleanedLine !== "") {
+//       // Add this as plain text
+//       insertBeforeLastChild(
+//         $createParagraphNode().append($createTextNode(cleanedLine))
+//       );
+//     }
+//   }
+// }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 // import { $createHeadingNode } from "@lexical/rich-text";
