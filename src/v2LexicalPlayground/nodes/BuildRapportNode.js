@@ -1,28 +1,22 @@
-import {
-  $createParagraphNode,
-  $createTextNode,
-  $getRoot,
-  getLastChild,
-} from "lexical";
-import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
+import { $createParagraphNode, $createTextNode } from "lexical";
+import { $getRoot } from "lexical";
 
 export function $buildRapportNode(responseContent) {
   const lines = responseContent.split("\n");
+  const root = $getRoot();
 
   if (lines.length === 0) return; // nothing to process
 
   // Handle the first line which should be appended to the current last node
   const firstLine = lines[0].trim();
   if (firstLine) {
-    const lastChild = $getRoot().getLastChild();
+    const lastChild = root.getLastChild();
     if (lastChild && lastChild.isTextNode) {
-      // Append to existing text
+      // Append to existing text node
       lastChild.append($createTextNode(firstLine));
     } else {
-      // Otherwise create a new paragraph
-      insertBeforeLastChild(
-        $createParagraphNode().append($createTextNode(firstLine))
-      );
+      // Otherwise create a new paragraph node and append it
+      root.append($createParagraphNode().append($createTextNode(firstLine)));
     }
   }
 
@@ -30,9 +24,7 @@ export function $buildRapportNode(responseContent) {
   for (let i = 1; i < lines.length; i++) {
     const cleanedLine = lines[i].trim();
     if (cleanedLine) {
-      insertBeforeLastChild(
-        $createParagraphNode().append($createTextNode(cleanedLine))
-      );
+      root.append($createParagraphNode().append($createTextNode(cleanedLine)));
     }
   }
 }
