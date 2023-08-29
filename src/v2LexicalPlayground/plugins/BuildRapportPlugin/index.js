@@ -6,7 +6,7 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { insertBeforeLastChild } from "../../utils/insertBeforeLastChild";
@@ -16,7 +16,17 @@ export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 export default function BuildRapportPlugin({ meetingData }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
-  const [hasInsertedHeading, setHasInsertedHeading] = useState(false);
+  const hasInsertedHeadingRef = useRef(false); // using ref to avoid re-renders
+
+  const insertHeading = () => {
+    editor.update(() => {
+      const notesHeading = $createHeadingNode("h3").append(
+        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
+      );
+      insertBeforeLastChild(notesHeading);
+      insertBeforeLastChild($createParagraphNode());
+    });
+  };
 
   useEffect(() => {
     if (!meetingData || meetingData.length === 0) {
@@ -27,16 +37,10 @@ export default function BuildRapportPlugin({ meetingData }) {
     console.log("Use effect called, about to call backend endpoint next.");
 
     // Insert the heading here, right after the initial checks.
-    // if (!hasInsertedHeading) {
-    //   editor.update(() => {
-    //     const notesHeading = $createHeadingNode("h3").append(
-    //       $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
-    //     );
-    //     insertBeforeLastChild(notesHeading);
-    //     insertBeforeLastChild($createParagraphNode());
-    //   });
-    //   setHasInsertedHeading(true); // Update the flag to ensure the heading isn't inserted again
-    // }
+    if (!hasInsertedHeadingRef.current) {
+      insertHeading();
+      hasInsertedHeadingRef.current = true; // Update the flag to ensure the heading isn't inserted again
+    }
 
     async function fetchSummary() {
       try {
@@ -94,7 +98,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [meetingData, editor, hasInsertedHeading]);
+  }, [meetingData, editor]);
 
   useEffect(() => {
     if (!summary) {
