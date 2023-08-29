@@ -7,6 +7,7 @@ let buffer = "";
 export function $buildRapportNode(responseContent) {
   buffer += responseContent;
   const lines = buffer.split("\n");
+  console.log("buffer:", buffer);
 
   if (lines) {
     console.log("lines length:", lines.length);
