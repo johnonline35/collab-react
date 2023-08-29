@@ -8,6 +8,11 @@ export function $buildRapportNode(responseContent) {
   buffer += responseContent;
   const lines = buffer.split("\n");
 
+  if (!lines) {
+    console.error("lines is undefined!");
+    return;
+  }
+
   for (let i = 0; i < lines.length; i++) {
     const cleanedLine = lines[i].trim();
 
