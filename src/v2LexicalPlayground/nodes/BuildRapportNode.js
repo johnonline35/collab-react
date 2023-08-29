@@ -1,8 +1,7 @@
-import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
+import { $createParagraphNode, $createTextNode } from "lexical";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
-  const root = $getRoot();
   // Split the response content by lines
   const lines = responseContent.split("\n");
 
