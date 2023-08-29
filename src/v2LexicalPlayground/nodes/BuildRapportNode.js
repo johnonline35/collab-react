@@ -1,4 +1,4 @@
-import { $createParagraphNode, $createTextNode } from "lexical";
+import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 let currentParagraphNode = null;
