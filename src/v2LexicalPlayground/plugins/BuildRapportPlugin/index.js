@@ -21,9 +21,7 @@ export default function BuildRapportPlugin({ meetingData }) {
   const insertHeading = () => {
     editor.update(() => {
       const notesHeading = $createHeadingNode("h3").append(
-        $createTextNode("Meeting Research & Ice Breaker Topics:").setStyle(
-          "font-weight: bold"
-        )
+        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
       );
       insertBeforeLastChild(notesHeading);
       insertBeforeLastChild($createParagraphNode());
