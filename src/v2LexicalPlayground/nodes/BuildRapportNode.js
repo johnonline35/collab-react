@@ -1,49 +1,22 @@
 import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
+import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
+  // Split the response content by lines
   const lines = responseContent.split("\n");
 
-  let lastChild = root.getLastChild();
-
-  for (let i = 0; i < lines.length; i++) {
-    const cleanedLine = lines[i].trim();
+  for (const line of lines) {
+    const cleanedLine = line.trim();
 
     if (cleanedLine !== "") {
-      if (i === 0 && lastChild && lastChild.isTextNode) {
-        // If there's an existing text node, append to it
-        lastChild.append(cleanedLine);
-      } else {
-        // If it's a new line or there's no existing text node, create a new paragraph and text node
-        const pNode = $createParagraphNode().append(
-          $createTextNode(cleanedLine)
-        );
-        root.append(pNode);
-        lastChild = pNode.getLastChild();
-      }
+      // Add this as plain text
+      insertBeforeLastChild(
+        $createParagraphNode().append($createTextNode(cleanedLine))
+      );
     }
   }
 }
-
-// import { $createParagraphNode, $createTextNode, $getRoot } from "lexical";
-// import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
-
-// export function $buildRapportNode(responseContent) {
-//   const root = $getRoot();
-//   // Split the response content by lines
-//   const lines = responseContent.split("\n");
-
-//   for (const line of lines) {
-//     const cleanedLine = line.trim();
-
-//     if (cleanedLine !== "") {
-//       // Add this as plain text
-//       insertBeforeLastChild(
-//         $createParagraphNode().append($createTextNode(cleanedLine))
-//       );
-//     }
-//   }
-// }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 // import { $createHeadingNode } from "@lexical/rich-text";
