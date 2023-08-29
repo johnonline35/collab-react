@@ -719,7 +719,7 @@ export default function ToolbarPlugin(): JSX.Element {
           className='item'
         >
           <i className='icon search' />
-          <span className='text'>Pre-Meeting Research</span>
+          <span className='text'>Insert Background Research</span>
         </DropDownItem>
         {/* <DropDownItem
           onClick={() => {
