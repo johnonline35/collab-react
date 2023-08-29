@@ -1,7 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
@@ -9,6 +9,7 @@ export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 export default function BuildRapportPlugin({ meetingData }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
+  const summaryRef = useRef("");
 
   useEffect(() => {
     if (!meetingData || meetingData.length === 0) {
@@ -45,16 +46,15 @@ export default function BuildRapportPlugin({ meetingData }) {
     }
 
     // Establish a connection and listen for events from the backend
-    socket.on("connect", () => {
-      console.log("Connected to backend");
-    });
-
     socket.on("responseChunk", (data) => {
       console.log("chunk data:", data);
 
-      // Append the new chunk of content to the editor
+      // Append the new chunk of content to the ref's current value
+      summaryRef.current += data.content;
+
+      // Update the editor with the entire content
       editor.update(() => {
-        $buildRapportNode(data.content);
+        $buildRapportNode(summaryRef.current);
       });
     });
 
