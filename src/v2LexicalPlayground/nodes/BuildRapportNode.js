@@ -1,20 +1,12 @@
 import { $createParagraphNode, $createTextNode } from "lexical";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
-let buffer = "";
-
 export function $buildRapportNode(responseContent) {
-  buffer += responseContent;
-  // Split the response content by lines
-  const lines = responseContent.split("\n");
-
-  for (const line of lines) {
-    const cleanedLine = line.trim();
-
-    if (cleanedLine !== "") {
-      // Add this as plain text
-      insertBeforeLastChild($createTextNode(cleanedLine));
-    }
+  if (responseContent !== "") {
+    // Add this as plain text
+    insertBeforeLastChild(
+      $createParagraphNode().append($createTextNode(responseContent))
+    );
   }
 }
 
