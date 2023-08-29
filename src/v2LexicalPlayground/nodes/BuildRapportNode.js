@@ -3,15 +3,16 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
-  const lastChild = root.getLastChild();
+  const lastChild = root.getChildren();
+  console.log("getChildren", lastChild);
   //   console.log("last child:", lastChild);
 
-  if (lastChild.__type === "paragraph") {
-    const currentParagraph = lastChild;
-    console.log("currentParagraph", currentParagraph);
-    const lastParaChild = currentParagraph.getLastChild();
-    console.log("lastParaChild", lastParaChild);
-  }
+  //   if (lastChild.__type === "paragraph") {
+  //     const currentParagraph = lastChild;
+  //     console.log("currentParagraph", currentParagraph.__type);
+  //     const lastParaChild = currentParagraph.getLastChild();
+  //     console.log("lastParaChild", lastParaChild);
+  //   }
 
   if (responseContent !== "") {
     // Add this as plain text
