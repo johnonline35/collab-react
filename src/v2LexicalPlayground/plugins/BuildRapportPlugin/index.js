@@ -19,6 +19,13 @@ export default function BuildRapportPlugin({ meetingData }) {
   const [hasInsertedHeading, setHasInsertedHeading] = useState(false);
 
   useEffect(() => {
+    if (!meetingData || meetingData.length === 0) {
+      console.log("No meeting data");
+      return;
+    }
+
+    console.log("Use effect called, about to call backend endpoint next.");
+
     if (!hasInsertedHeading) {
       editor.update(() => {
         const notesHeading = $createHeadingNode("h3").append(
@@ -29,13 +36,6 @@ export default function BuildRapportPlugin({ meetingData }) {
       });
       setHasInsertedHeading(true); // Update the flag to ensure the heading isn't inserted again
     }
-
-    if (!meetingData || meetingData.length === 0) {
-      console.log("No meeting data");
-      return;
-    }
-
-    console.log("Use effect called, about to call backend endpoint next.");
 
     async function fetchSummary() {
       try {
