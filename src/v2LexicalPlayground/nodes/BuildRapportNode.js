@@ -25,7 +25,7 @@ export function $buildRapportNode(responseContent) {
       // If the last line is empty, it means we've encountered a newline at the end.
       currentParagraphNode = null; // Ready to start a new paragraph on next iteration
     } else {
-      if (currentParagraphNode.childNodes.length === 0) {
+      if (currentParagraphNode.getFirstChild() === null) {
         // If current paragraph is empty, create a new text node
         const textNode = $createTextNode(cleanedLine);
         currentParagraphNode.append(textNode);
