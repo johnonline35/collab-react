@@ -2,7 +2,6 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import {
   $createTextNode,
   $createParagraphNode,
-  $getRoot,
   createCommand,
   COMMAND_PRIORITY_EDITOR,
 } from "lexical";
@@ -23,22 +22,29 @@ export default function BuildRapportPlugin({
   const session = useSession();
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
-  const hasInsertedHeadingRef = useRef(false);
+  const [hasInsertedHeading, setHasInsertedHeading] = useState(false);
   const hasEffectRun = useRef(false);
 
   const insertHeading = () => {
     console.log("insertHeading called");
 
     editor.update(() => {
-      const root = $getRoot();
       console.log("editor.update called");
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
       );
-      root.append(notesHeading);
-      // insertBeforeLastChild($createParagraphNode());
+      insertBeforeLastChild(notesHeading);
+      insertBeforeLastChild($createParagraphNode());
     });
   };
+
+  useEffect(() => {
+    // Check if the trigger is active and the heading hasn't been inserted yet
+    if (triggerEffect && !hasInsertedHeading) {
+      insertHeading();
+      setHasInsertedHeading(true); // Mark the heading as inserted
+    }
+  }, [triggerEffect]);
 
   useEffect(() => {
     console.log("useEffect fired:", triggerEffect);
@@ -63,10 +69,10 @@ export default function BuildRapportPlugin({
     console.log("All checks passed and useEffect succesfully called.");
 
     // Insert the heading here, right after the initial checks.
-    if (!hasInsertedHeadingRef.current) {
-      insertHeading();
-      hasInsertedHeadingRef.current = true; // Update the flag to ensure the heading isn't inserted again
-    }
+    // if (!hasInsertedHeadingRef.current) {
+    //   insertHeading();
+    //   hasInsertedHeadingRef.current = true; // Update the flag to ensure the heading isn't inserted again
+    // }
 
     async function fetchSummary() {
       try {
@@ -111,7 +117,7 @@ export default function BuildRapportPlugin({
     fetchSummary(); // fetch initial data
 
     hasEffectRun.current = true;
-    hasInsertedHeadingRef.current = false;
+    // hasInsertedHeadingRef.current = false;
 
     // Clean up listeners and disconnect on component unmount or if meetingData changes
     return () => {
