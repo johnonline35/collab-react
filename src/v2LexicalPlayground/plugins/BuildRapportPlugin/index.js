@@ -92,6 +92,9 @@ export default function BuildRapportPlugin({
 
     fetchSummary(); // fetch initial data
 
+    hasEffectRun.current = true;
+    hasInsertedHeadingRef.current = false;
+
     // Clean up listeners and disconnect on component unmount or if meetingData changes
     return () => {
       socket.off("responseChunk");
