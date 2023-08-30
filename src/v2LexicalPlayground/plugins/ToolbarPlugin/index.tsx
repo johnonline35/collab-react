@@ -388,7 +388,13 @@ function FontDropDown({
   );
 }
 
-export default function ToolbarPlugin(): JSX.Element {
+type ToolbarPluginProps = {
+  setTriggerEffect: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function ToolbarPlugin({
+  setTriggerEffect,
+}: ToolbarPluginProps): JSX.Element {
   const [editor] = useLexicalComposerContext();
   const [activeEditor, setActiveEditor] = useState(editor);
   const [blockType, setBlockType] =
@@ -715,6 +721,7 @@ export default function ToolbarPlugin(): JSX.Element {
               INSERT_BUILD_RAPPORT_COMMAND,
               undefined
             );
+            setTriggerEffect((prev) => !prev);
           }}
           className='item'
         >

@@ -82,7 +82,13 @@ const skipCollaborationInit =
   // @ts-ignore
   window.parent != null && window.parent.frames.right === window;
 
-export default function Editor(): JSX.Element {
+type EditorPluginProps = {
+  setTriggerEffect: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function Editor({
+  setTriggerEffect,
+}: EditorPluginProps): JSX.Element {
   const { workspace_id } = useParams();
   const meetingData = useMeetingData(workspace_id);
   const { historyState } = useSharedHistoryContext();
@@ -162,7 +168,10 @@ export default function Editor(): JSX.Element {
         <EmojiPickerPlugin />
         <AutoEmbedPlugin />
         <MeetingDetailsPlugin meetingData={meetingData} />
-        <BuildRapportPlugin meetingData={meetingData} />
+        <BuildRapportPlugin
+          meetingData={meetingData}
+          setTriggerEffect={setTriggerEffect}
+        />
         <CreateStructurePlugin />
         <MentionsPlugin />
         <EmojisPlugin />

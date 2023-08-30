@@ -119,6 +119,8 @@ function App(): JSX.Element {
     settings: { isCollab, emptyEditor, measureTypingPerf },
   } = useSettings();
 
+  const [triggerEffect, setTriggerEffect] = useState(false);
+
   const initialConfig = {
     editorState: prepopulatedRichText,
     namespace: "Playground",
@@ -135,10 +137,10 @@ function App(): JSX.Element {
         <TableContext>
           <SharedAutocompleteContext>
             <div className='collab-toolbar'>
-              <ToolbarPlugin />
+              <ToolbarPlugin setTriggerEffect={setTriggerEffect} />
             </div>
             <div className='editor-shell'>
-              <Editor />
+              <Editor setTriggerEffect={setTriggerEffect} />
               <LocalStoragePlugin />
             </div>
             {/* <Settings />

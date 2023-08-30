@@ -13,7 +13,7 @@ import { insertBeforeLastChild } from "../../utils/insertBeforeLastChild";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
-export default function BuildRapportPlugin({ meetingData }) {
+export default function BuildRapportPlugin({ meetingData, setTriggerEffect }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
   const hasInsertedHeadingRef = useRef(false); // using ref to avoid re-renders
@@ -88,7 +88,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [meetingData, editor]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [meetingData, editor, setTriggerEffect]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!summary) {
