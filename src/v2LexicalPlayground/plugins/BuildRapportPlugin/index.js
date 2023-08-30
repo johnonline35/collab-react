@@ -2,6 +2,8 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import {
   $createTextNode,
   $createParagraphNode,
+  $getRoot,
+  $getSelection,
   createCommand,
   COMMAND_PRIORITY_EDITOR,
 } from "lexical";
@@ -29,12 +31,22 @@ export default function BuildRapportPlugin({
     console.log("insertHeading called");
 
     editor.update(() => {
-      console.log("editor.update(() =>  called");
-      const notesHeading = $createHeadingNode("h3").append(
-        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
-      );
-      insertBeforeLastChild(notesHeading);
-      insertBeforeLastChild($createParagraphNode());
+      const root = $getRoot();
+
+      // Get the selection from the EditorState
+      const selection = $getSelection();
+
+      // Create a new ParagraphNode
+      const paragraphNode = $createParagraphNode();
+
+      // Create a new TextNode
+      const textNode = $createTextNode("Hello world");
+
+      // Append the text node to the paragraph
+      paragraphNode.append(textNode);
+
+      // Finally, append the paragraph to the root
+      root.append(paragraphNode);
     });
   };
 
