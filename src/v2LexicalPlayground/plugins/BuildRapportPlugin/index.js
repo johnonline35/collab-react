@@ -2,6 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import {
   $createTextNode,
   $createParagraphNode,
+  $getRoot,
   createCommand,
   COMMAND_PRIORITY_EDITOR,
 } from "lexical";
@@ -29,12 +30,13 @@ export default function BuildRapportPlugin({
     console.log("insertHeading called");
 
     editor.update(() => {
+      const root = $getRoot();
       console.log("editor.update called");
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
       );
-      insertBeforeLastChild(notesHeading);
-      insertBeforeLastChild($createParagraphNode());
+      root.append(notesHeading);
+      // insertBeforeLastChild($createParagraphNode());
     });
   };
 
