@@ -20,13 +20,14 @@ export default function BuildRapportPlugin({
 }) {
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
-  const hasInsertedHeadingRef = useRef(false); // using ref to avoid re-renders
+  const hasInsertedHeadingRef = useRef(false);
   const hasEffectRun = useRef(false);
 
   const insertHeading = () => {
     console.log("insertHeading called");
 
     editor.update(() => {
+      console.log("editor.update called");
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
       );
@@ -37,6 +38,7 @@ export default function BuildRapportPlugin({
 
   useEffect(() => {
     console.log("useEffect fired:", triggerEffect);
+
     if (!hasEffectRun.current && !triggerEffect) {
       console.log("Effect early exit due to run check and trigger check.");
       return;
@@ -47,7 +49,7 @@ export default function BuildRapportPlugin({
       return;
     }
 
-    console.log("Use effect called, about to call backend endpoint next.");
+    console.log("All checks passed and useEffect succesfully called.");
 
     // Insert the heading here, right after the initial checks.
     if (!hasInsertedHeadingRef.current) {
