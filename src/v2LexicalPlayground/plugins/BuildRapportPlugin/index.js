@@ -29,7 +29,7 @@ export default function BuildRapportPlugin({
     console.log("insertHeading called");
 
     editor.update(() => {
-      console.log("editor.update called");
+      console.log("editor.update(() =>  called");
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
       );
@@ -67,36 +67,36 @@ export default function BuildRapportPlugin({
         hasInsertedHeadingRef.current
       );
       insertHeading();
-      hasInsertedHeadingRef.current = true; // Update the flag to ensure the heading isn't inserted again
+      hasInsertedHeadingRef.current = true;
+      console.log(
+        "hasInsertedHeadingRef.current:",
+        hasInsertedHeadingRef.current
+      );
     }
 
     async function fetchSummary() {
-      setTimeout(async () => {
-        try {
-          console.log("fetch called");
-          const response = await fetch(
-            "https://collab-express-production.up.railway.app/summarize-career-education",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(meetingData),
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error(
-              `Server responded with a ${response.status} status.`
-            );
+      try {
+        console.log("fetch called");
+        const response = await fetch(
+          "https://collab-express-production.up.railway.app/summarize-career-education",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(meetingData),
           }
+        );
 
-          const data = await response.json();
-          console.log("streaming data:", data);
-        } catch (error) {
-          console.error("There was an error fetching the summary!", error);
+        if (!response.ok) {
+          throw new Error(`Server responded with a ${response.status} status.`);
         }
-      }, 2000);
+
+        const data = await response.json();
+        console.log("streaming data:", data);
+      } catch (error) {
+        console.error("There was an error fetching the summary!", error);
+      }
     }
 
     // Establish a connection and listen for events from the backend
