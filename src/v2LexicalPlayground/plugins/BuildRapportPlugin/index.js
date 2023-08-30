@@ -24,6 +24,8 @@ export default function BuildRapportPlugin({
   const hasEffectRun = useRef(false);
 
   const insertHeading = () => {
+    console.log("insertHeading called");
+
     editor.update(() => {
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
@@ -34,12 +36,14 @@ export default function BuildRapportPlugin({
   };
 
   useEffect(() => {
+    console.log("useEffect fired:", triggerEffect);
     if (!hasEffectRun.current && !triggerEffect) {
+      console.log("Effect early exit due to run check and trigger check.");
       return;
     }
 
     if (!meetingData || meetingData.length === 0) {
-      console.log("No meeting data");
+      console.log("Effect early exit due to no meeting data.");
       return;
     }
 
