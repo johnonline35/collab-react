@@ -10,6 +10,7 @@ import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { insertBeforeLastChild } from "../../utils/insertBeforeLastChild";
+import { useSession } from "../../../hooks/useSession";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
@@ -18,6 +19,7 @@ export default function BuildRapportPlugin({
   setTriggerEffect,
   triggerEffect,
 }) {
+  const session = useSession();
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
   const hasInsertedHeadingRef = useRef(false);
@@ -37,16 +39,19 @@ export default function BuildRapportPlugin({
   };
 
   useEffect(() => {
-    insertHeading();
-  }, [triggerEffect]);
-
-  useEffect(() => {
     console.log("useEffect fired:", triggerEffect);
 
     if (!hasEffectRun.current && !triggerEffect) {
       console.log("Effect early exit due to run check and trigger check.");
       return;
     }
+
+    if (!session) {
+      console.error("User is not authenticated!");
+      return;
+    }
+
+    console.log("session user object:", session);
 
     if (!meetingData || meetingData.length === 0) {
       console.log("Effect early exit due to no meeting data.");
