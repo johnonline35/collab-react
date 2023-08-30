@@ -140,7 +140,10 @@ function App(): JSX.Element {
               <ToolbarPlugin setTriggerEffect={setTriggerEffect} />
             </div>
             <div className='editor-shell'>
-              <Editor setTriggerEffect={setTriggerEffect} />
+              <Editor
+                setTriggerEffect={setTriggerEffect}
+                triggerEffect={triggerEffect}
+              />
               <LocalStoragePlugin />
             </div>
             {/* <Settings />

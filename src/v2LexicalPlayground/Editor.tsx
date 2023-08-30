@@ -84,10 +84,12 @@ const skipCollaborationInit =
 
 type EditorPluginProps = {
   setTriggerEffect: React.Dispatch<React.SetStateAction<boolean>>;
+  triggerEffect: boolean;
 };
 
 export default function Editor({
   setTriggerEffect,
+  triggerEffect,
 }: EditorPluginProps): JSX.Element {
   const { workspace_id } = useParams();
   const meetingData = useMeetingData(workspace_id);
@@ -171,6 +173,7 @@ export default function Editor({
         <BuildRapportPlugin
           meetingData={meetingData}
           setTriggerEffect={setTriggerEffect}
+          triggerEffect={triggerEffect}
         />
         <CreateStructurePlugin />
         <MentionsPlugin />
