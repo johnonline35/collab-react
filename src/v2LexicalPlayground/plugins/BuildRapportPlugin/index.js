@@ -37,6 +37,10 @@ export default function BuildRapportPlugin({
   };
 
   useEffect(() => {
+    insertHeading();
+  }, [triggerEffect]);
+
+  useEffect(() => {
     console.log("useEffect fired:", triggerEffect);
 
     if (!hasEffectRun.current && !triggerEffect) {
