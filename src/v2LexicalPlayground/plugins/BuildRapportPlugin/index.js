@@ -62,6 +62,10 @@ export default function BuildRapportPlugin({
 
     // Insert the heading here, right after the initial checks.
     if (!hasInsertedHeadingRef.current) {
+      console.log(
+        "hasInsertedHeadingRef.current:",
+        hasInsertedHeadingRef.current
+      );
       insertHeading();
       hasInsertedHeadingRef.current = true; // Update the flag to ensure the heading isn't inserted again
     }
