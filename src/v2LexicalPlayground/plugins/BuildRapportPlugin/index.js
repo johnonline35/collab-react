@@ -21,6 +21,7 @@ export default function BuildRapportPlugin({
   const [editor] = useLexicalComposerContext();
   const [summary, setSummary] = useState("");
   const hasInsertedHeadingRef = useRef(false); // using ref to avoid re-renders
+  const hasEffectRun = useRef(false);
 
   const insertHeading = () => {
     editor.update(() => {
@@ -33,6 +34,10 @@ export default function BuildRapportPlugin({
   };
 
   useEffect(() => {
+    if (!hasEffectRun.current && !triggerEffect) {
+      return;
+    }
+
     if (!meetingData || meetingData.length === 0) {
       console.log("No meeting data");
       return;
