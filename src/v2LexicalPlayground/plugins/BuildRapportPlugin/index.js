@@ -94,6 +94,7 @@ export default function BuildRapportPlugin({
     // Establish a connection and listen for events from the backend
     socket.on("connect", () => {
       console.log("Connected to backend");
+      socket.emit("registerUser", session.user.id); // send the user's unique ID to the server
     });
 
     socket.on("responseChunk", (data) => {
