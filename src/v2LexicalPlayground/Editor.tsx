@@ -172,7 +172,6 @@ export default function Editor({
         <MeetingDetailsPlugin meetingData={meetingData} />
         <BuildRapportPlugin
           meetingData={meetingData}
-          setTriggerEffect={setTriggerEffect}
           triggerEffect={triggerEffect}
         />
         <CreateStructurePlugin />
