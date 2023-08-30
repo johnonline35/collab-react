@@ -25,26 +25,26 @@ export default function BuildRapportPlugin({
   const [hasInsertedHeading, setHasInsertedHeading] = useState(false);
   const hasEffectRun = useRef(false);
 
-  const insertHeading = () => {
-    console.log("insertHeading called");
+  // const insertHeading = () => {
+  //   console.log("insertHeading called");
 
-    editor.update(() => {
-      console.log("editor.update called");
-      const notesHeading = $createHeadingNode("h3").append(
-        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
-      );
-      insertBeforeLastChild(notesHeading);
-      insertBeforeLastChild($createParagraphNode());
-    });
-  };
+  //   editor.update(() => {
+  //     console.log("editor.update called");
+  //     const notesHeading = $createHeadingNode("h3").append(
+  //       $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
+  //     );
+  //     insertBeforeLastChild(notesHeading);
+  //     insertBeforeLastChild($createParagraphNode());
+  //   });
+  // };
 
-  useEffect(() => {
-    // Check if the trigger is active and the heading hasn't been inserted yet
-    if (triggerEffect && !hasInsertedHeading) {
-      insertHeading();
-      setHasInsertedHeading(true); // Mark the heading as inserted
-    }
-  }, [triggerEffect]);
+  // useEffect(() => {
+  //   // Check if the trigger is active and the heading hasn't been inserted yet
+  //   if (triggerEffect && !hasInsertedHeading) {
+  //     insertHeading();
+  //     setHasInsertedHeading(true); // Mark the heading as inserted
+  //   }
+  // }, [triggerEffect]);
 
   useEffect(() => {
     console.log("useEffect fired:", triggerEffect);
