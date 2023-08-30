@@ -135,7 +135,16 @@ export default function BuildRapportPlugin({
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
-        console.log("command set");
+        editor.update(() => {
+          console.log("editor.update called");
+          const notesHeading = $createHeadingNode("h3").append(
+            $createTextNode("Pre-Meeting Research:").setStyle(
+              "font-weight: bold"
+            )
+          );
+          insertBeforeLastChild(notesHeading);
+          insertBeforeLastChild($createParagraphNode());
+        });
         return true;
       },
       COMMAND_PRIORITY_EDITOR
