@@ -9,7 +9,6 @@ export default function MeetingDetailsPlugin({
   meetingData,
   publicEmailDomains,
 }) {
-  console.log("Public Email Domains:", publicEmailDomains);
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -23,7 +22,7 @@ export default function MeetingDetailsPlugin({
       () => {
         editor.update(() => {
           meetingData.forEach((m) => {
-            $createMeetingDetailsNode(m);
+            $createMeetingDetailsNode(m, publicEmailDomains);
           });
         });
         return true;
