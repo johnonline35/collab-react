@@ -1,56 +1,162 @@
-// Real time function that waits for the background jobs then calls getCompanyTileInfo(userId)
+// NODE CODE FOR INSERTING LINK FOR ROUTER AND GOOGLE API
 
-// const receivedUpdate = useRef(false);
-// const isSubscribed = useRef(false);
+// router.post("/insert-link-for-new-meeting", async (req, res) => {
+//   console.log("/insert-link-for-new-meeting req.body:", req.body);
+//   // Destructure information from the req.body
+//   const { id, collab_user_id, workspace_id } = req.body.record;
+//   console.log(
+//     "meetingId:",
+//     id,
+//     "collab_user_id:",
+//     collab_user_id,
+//     "workspace_id :",
+//     workspace_id
+//   );
 
-// useEffect(() => {
-//   if (!userId) {
-//     console.log("userId is not set, returning early");
-//     return; // Don't set up subscription if userId is not set yet
+//   try {
+//     await googleCalendarApiClient.enableCalendarLinkForNewMeeting(
+//       id,
+//       collab_user_id,
+//       workspace_id
+//     );
+
+//     res.status(200).send({ success: "Link inserted for new meeting." });
+//   } catch (error) {
+//     console.error("Error inserting link for new meeting:", error);
+//     res.status(500).send({ error: "Failed to insert link for new meeting." });
+//   }
+// });
+
+// const updateMeetingDescription = async (
+//   workspace_id,
+//   collab_user_id,
+//   workspace_attendee_enable_calendar_link
+// ) => {
+//   const workspaceLink = collabWorkspaceLinkToAppend + workspace_id;
+
+//   try {
+//     // Load the Google Calendar client
+//     const calendar = await loadClient(collab_user_id);
+
+//     // Fetch meeting data from the 'meetings' table
+//     const { data: meetingData } = await supabase
+//       .from("meetings")
+//       .select("*")
+//       .eq("workspace_id", workspace_id);
+
+//     // Loop through each meeting
+//     for (let meeting of meetingData) {
+//       // Fetch the Google Calendar event
+//       const event = await calendar.events.get({
+//         calendarId: "primary",
+//         eventId: meeting.id,
+//       });
+
+//       // Check if link needs to be added or removed
+//       if (workspace_attendee_enable_calendar_link) {
+//         // Create a hyperlink and prepend it to the existing description
+//         const hyperlink = `<a href="${workspaceLink}">Collab Space</a>`;
+//         const newDescription =
+//           hyperlink + "<br/><br/>" + (event.data.description || "");
+
+//         // Update the Google Calendar event
+//         event.data.description = newDescription;
+//       } else {
+//         // Remove the hyperlink from the description
+//         const hyperlinkRegEx = new RegExp(
+//           `<a href="${workspaceLink.replace(
+//             /[.*+\-?^${}()|[\]\\]/g,
+//             "\\$&"
+//           )}">Collab Space</a>`,
+//           "g"
+//         );
+//         event.data.description = event.data.description.replace(
+//           hyperlinkRegEx,
+//           ""
+//         );
+
+//         // Remove any remaining line breaks after a hyperlink
+//         const lineBreaksRegEx = new RegExp("<br/><br/>", "g");
+//         event.data.description = event.data.description.replace(
+//           lineBreaksRegEx,
+//           ""
+//         );
+//       }
+
+//       // Update the Google Calendar event
+//       const response = await calendar.events.update({
+//         calendarId: "primary",
+//         eventId: meeting.id,
+//         resource: event.data,
+//       });
+//     }
+//   } catch (error) {
+//     console.error("The API returned an error: ", error);
+//   }
+// };
+
+// const enableCalendarLinkForNewMeeting = async (
+//   id,
+//   collab_user_id,
+//   workspace_id
+// ) => {
+//   console.log(
+//     "enableCalendarLinkForNewMeeting Called Successfully",
+//     "id:",
+//     id,
+//     "collab_user_id:",
+//     collab_user_id,
+//     "workspace_id:",
+//     workspace_id
+//   );
+//   // Check if the workspace allows calendar links.
+//   const { data: workspace, error } = await supabase
+//     .from("workspaces")
+//     .select("workspace_attendee_enable_calendar_link")
+//     .eq("workspace_id", workspace_id)
+//     .single();
+
+//   if (error) {
+//     console.error("Error querying workspace:", error);
+//     return res.status(500).send({ error: "Error querying the workspace." });
 //   }
 
-//   console.log("Setting up subscription for userId:", userId);
+//   if (!workspace) {
+//     return res.status(400).send({ error: "No workspace found" });
+//   }
 
-//   // Set up a Realtime subscription
-//   const subscription = supabase
-//     .channel("job_queue:collab_user_id=eq." + userId)
-//     .on(
-//       "postgres_changes",
-//       { event: "UPDATE", schema: "public" },
-//       (payload) => {
-//         console.log("Received UPDATE event:", payload);
+//   if (workspace.workspace_attendee_enable_calendar_link !== true) {
+//     return res
+//       .status(400)
+//       .send({ error: "Enable Calendar Links set to false by user" });
+//   }
 
-//         // Check if the job status is "job_complete"
-//         if (payload.new.job_complete === true) {
-//           console.log("Job completed, jobId:", payload.new.job_id);
+//   const workspaceLink = collabWorkspaceLinkToAppend + workspace_id;
 
-//           // Mark that an update was received
-//           receivedUpdate.current = true;
+//   try {
+//     // Load the Google Calendar client
+//     const calendar = await loadClient(collab_user_id); // Using userId as per your extraction from req.body
 
-//           getCompanyTileInfo(userId);
+//     const event = await calendar.events.get({
+//       calendarId: "primary",
+//       eventId: id,
+//     });
 
-//           // Unsubscribe from the subscription as it's no longer needed
-//           console.log("Unsubscribing from subscription for userId:", userId);
-//           subscription.unsubscribe();
-//           isSubscribed.current = false;
-//         }
-//       }
-//     )
-//     .subscribe();
+//     // Create a hyperlink and prepend it to the existing description
+//     const hyperlink = `<a href="${workspaceLink}">Collab Space</a>`;
+//     const newDescription =
+//       hyperlink + "<br/><br/>" + (event.data.description || "");
 
-//   console.log("Subscription LIVE:", subscription);
-//   isSubscribed.current = true;
+//     // Update the Google Calendar event
+//     event.data.description = newDescription;
 
-//   // Check shortly after subscribing if an update was received
-//   setTimeout(() => {
-//     if (isSubscribed.current && !receivedUpdate.current) {
-//       console.log("No update received, calling getCompanyTileInfo.");
-//       getCompanyTileInfo(userId);
-
-//       // Unsubscribe as it's no longer needed
-//       console.log("Unsubscribing from subscription for userId:", userId);
-//       subscription.unsubscribe();
-//       isSubscribed.current = false;
-//     }
-//   }, 5000); // Check after 5 seconds for example, can be adjusted
-// }, [userId]); // Rerun this hook whenever userId changes
+//     const response = await calendar.events.update({
+//       calendarId: "primary",
+//       eventId: id,
+//       resource: event.data,
+//     });
+//   } catch (error) {
+//     console.error("The API returned an error: ", error);
+//     res.status(500).send({ error: "Failed to update the calendar event." });
+//   }
+// };
