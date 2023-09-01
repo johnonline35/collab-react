@@ -89,3 +89,15 @@ export const updateAttendee = async (id, updates) => {
     console.error("Error updating attendee info:", error);
   }
 };
+
+export const publicEmailDomainsList = async () => {
+  let { data: publicDomains, error } = await supabase
+    .from("public_email_domains")
+    .select("*");
+
+  if (error) {
+    console.error("Error updating attendee info:", error);
+  }
+
+  return publicDomains[0];
+};

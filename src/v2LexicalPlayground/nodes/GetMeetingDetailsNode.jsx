@@ -3,6 +3,7 @@ import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { $createLinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../utils/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
+import { publicEmailDomainsList } from "../../util/database";
 
 function formatURL(url) {
   if (!url.startsWith("http")) {
@@ -22,6 +23,7 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 export function $createMeetingDetailsNode(meetingDetails) {
+  console.log("publicEmailDomainsList:", publicEmailDomainsList);
   const root = $getRoot();
 
   let nodesToAdd = [];
