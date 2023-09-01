@@ -91,14 +91,17 @@ export const updateAttendee = async (id, updates) => {
 };
 
 export const publicEmailDomainsList = async () => {
-  let { data: publicDomains, error } = await supabase
+  const { data, error } = await supabase
     .from("public_email_domains")
-    .select("*");
+    .select("domain");
 
   if (error) {
-    console.error("Error updating attendee info:", error);
-    return [];
+    console.error("Error fetching domains: ", error);
+    return;
   }
 
-  return publicDomains;
+  // Assuming 'domain' is a column in your table
+  const publicEmailDomains = data.map((row) => row.domain);
+
+  return publicEmailDomains;
 };
