@@ -62,14 +62,19 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
   nodesToAdd.push($createParagraphNode());
 
   const attendeesContainer = $createQuoteNode();
+
+  // This flag will track if we've processed any valid attendees
+  let hasValidAttendees = false;
+
   meetingDetails.attendees.forEach((attendee) => {
-    // Company Information
     if (
       !publicEmailDomains.includes(attendee.attendee_domain) &&
       (attendee.attendee_domain ||
         attendee.job_company_linkedin_url ||
         attendee.job_company_twitter_url)
     ) {
+      hasValidAttendees = true; // We've found a valid attendee, so we'll set our flag to true
+
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
         $createTextNode(
@@ -78,7 +83,6 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
       );
 
       let companyLinks = [];
-
       if (attendee.attendee_domain) {
         companyLinks.push(
           createLinkNodeWithText(
@@ -107,11 +111,9 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
         );
       }
 
-      // Join links with ' | ' separator
       for (let i = 0; i < companyLinks.length; i++) {
         companyParagraph.append(companyLinks[i]);
         if (i !== companyLinks.length - 1) {
-          // Not the last item
           companyParagraph.append($createTextNode(" | "));
         }
       }
@@ -119,7 +121,8 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
       attendeesContainer.append(companyParagraph);
     }
 
-    // Attendee Information
+    // Your Attendee Information processing can remain as is, since it's independent of the publicEmailDomains check
+
     const attendeeParagraph = $createParagraphNode();
     let attendeeText = "";
     if (attendee.attendee_name) {
@@ -154,7 +157,12 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
     }
     attendeesContainer.append(attendeeParagraph);
   });
-  nodesToAdd.push(attendeesContainer);
+
+  // Here we check if we've processed any valid attendees. If we have, we append the attendeesContainer to nodesToAdd.
+  if (hasValidAttendees) {
+    nodesToAdd.push(attendeesContainer);
+  }
+
   nodesToAdd.push($createParagraphNode());
 
   if (root.getFirstChild() !== null) {
