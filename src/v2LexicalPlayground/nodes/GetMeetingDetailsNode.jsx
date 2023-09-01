@@ -3,7 +3,6 @@ import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { $createLinkNode } from "@lexical/link";
 import { capitalizeFirstLetterOfEachWord } from "../utils/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
-import { publicEmailDomainsList } from "../../util/database";
 
 function formatURL(url) {
   if (!url.startsWith("http")) {
@@ -22,13 +21,10 @@ function createLinkNodeWithText(url, text, title) {
   return linkNode;
 }
 
-export async function $createMeetingDetailsNode(meetingDetails) {
+export function $createMeetingDetailsNode(meetingDetails) {
   const root = $getRoot();
 
   let nodesToAdd = [];
-
-  // Fetch the public email domains list
-  const publicDomains = await publicEmailDomainsList();
 
   // Workspace Name Heading
   const workspaceNameNode = $createHeadingNode("h1")
@@ -69,10 +65,9 @@ export async function $createMeetingDetailsNode(meetingDetails) {
   meetingDetails.attendees.forEach((attendee) => {
     // Company Information
     if (
-      !publicDomains.includes(attendee.attendee_domain) &&
-      (attendee.attendee_domain ||
-        attendee.job_company_linkedin_url ||
-        attendee.job_company_twitter_url)
+      attendee.attendee_domain ||
+      attendee.job_company_linkedin_url ||
+      attendee.job_company_twitter_url
     ) {
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
