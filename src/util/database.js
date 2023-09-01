@@ -97,7 +97,8 @@ export const publicEmailDomainsList = async () => {
 
   if (error) {
     console.error("Error updating attendee info:", error);
+    return [];
   }
 
-  return publicDomains[0];
+  return publicDomains;
 };
