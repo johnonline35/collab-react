@@ -77,6 +77,7 @@ import CreateStructurePlugin from "./plugins/CreateStructurePlugin";
 import { useMeetingData } from "./hooks/useMeetingData";
 import { useParams } from "react-router-dom";
 import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
+import { publicEmailDomainsList } from "../util/database";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -136,6 +137,19 @@ export default function Editor({
     theme: PlaygroundEditorTheme,
   };
 
+  const [publicEmailDomains, setPublicEmailDomains] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchPublicEmailDomains = async () => {
+      const domains = await publicEmailDomainsList();
+      if (domains) {
+        setPublicEmailDomains(domains);
+      }
+    };
+
+    fetchPublicEmailDomains();
+  }, []);
+
   useEffect(() => {
     const updateViewPortWidth = () => {
       const isNextSmallWidthViewport =
@@ -169,7 +183,10 @@ export default function Editor({
         <ComponentPickerPlugin />
         <EmojiPickerPlugin />
         <AutoEmbedPlugin />
-        <MeetingDetailsPlugin meetingData={meetingData} />
+        <MeetingDetailsPlugin
+          meetingData={meetingData}
+          publicEmailDomains={publicEmailDomains}
+        />
         <BuildRapportPlugin
           meetingData={meetingData}
           triggerEffect={triggerEffect}

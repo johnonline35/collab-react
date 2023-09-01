@@ -5,7 +5,11 @@ import { useEffect } from "react";
 
 export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
 
-export default function MeetingDetailsPlugin({ meetingData }) {
+export default function MeetingDetailsPlugin({
+  meetingData,
+  publicEmailDomains,
+}) {
+  console.log("Public Email Domains:", publicEmailDomains);
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
