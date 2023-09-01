@@ -22,7 +22,6 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
-  console.log("Public Email Domains from Node:", publicEmailDomains);
   const root = $getRoot();
 
   let nodesToAdd = [];
@@ -66,9 +65,10 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
   meetingDetails.attendees.forEach((attendee) => {
     // Company Information
     if (
-      attendee.attendee_domain ||
-      attendee.job_company_linkedin_url ||
-      attendee.job_company_twitter_url
+      !publicEmailDomains.includes(attendee.attendee_domain) &&
+      (attendee.attendee_domain ||
+        attendee.job_company_linkedin_url ||
+        attendee.job_company_twitter_url)
     ) {
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
