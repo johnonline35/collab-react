@@ -23,7 +23,9 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 export function $createMeetingDetailsNode(meetingDetails) {
-  console.log("publicEmailDomainsList:", publicEmailDomainsList);
+  publicEmailDomainsList().then((result) => {
+    console.log("publicEmailDomainsList:", result);
+  });
   const root = $getRoot();
 
   let nodesToAdd = [];
