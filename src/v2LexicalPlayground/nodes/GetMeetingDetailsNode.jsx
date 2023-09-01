@@ -23,9 +23,7 @@ function createLinkNodeWithText(url, text, title) {
 }
 
 const domains = await publicEmailDomainsList();
-domains.forEach((domainObj) => {
-  console.log(domainObj.domain);
-});
+console.log("domains:", domains);
 
 export function $createMeetingDetailsNode(meetingDetails) {
   const root = $getRoot();
