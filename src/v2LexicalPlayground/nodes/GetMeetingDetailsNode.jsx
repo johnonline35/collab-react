@@ -22,9 +22,6 @@ function createLinkNodeWithText(url, text, title) {
   return linkNode;
 }
 
-const domains = await publicEmailDomainsList();
-console.log("domains:", domains);
-
 export function $createMeetingDetailsNode(meetingDetails) {
   const root = $getRoot();
 
