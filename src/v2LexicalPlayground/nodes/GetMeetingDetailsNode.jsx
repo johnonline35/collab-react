@@ -22,10 +22,12 @@ function createLinkNodeWithText(url, text, title) {
   return linkNode;
 }
 
+const domains = await publicEmailDomainsList();
+domains.forEach((domainObj) => {
+  console.log(domainObj.domain);
+});
+
 export function $createMeetingDetailsNode(meetingDetails) {
-  publicEmailDomainsList().then((result) => {
-    console.log("publicEmailDomainsList:", result);
-  });
   const root = $getRoot();
 
   let nodesToAdd = [];
