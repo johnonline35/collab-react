@@ -57,6 +57,7 @@ export default function Navbar() {
             }
 
             const userId = session.user.id; // Access user id from the session.
+            console.log("userId:", userId);
 
             // First, stop the Google Calendar watch.
             fetch("/stop-google-calendar-watch", {
