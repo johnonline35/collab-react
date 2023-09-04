@@ -121,8 +121,6 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
       attendeesContainer.append(companyParagraph);
     }
 
-    // Your Attendee Information processing can remain as is, since it's independent of the publicEmailDomains check
-
     const attendeeParagraph = $createParagraphNode();
     let attendeeText = "";
     if (attendee.attendee_name) {
