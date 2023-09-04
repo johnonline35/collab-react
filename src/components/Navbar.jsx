@@ -57,18 +57,20 @@ export default function Navbar() {
             }
 
             const userId = session.user.id; // Access user id from the session.
-            console.log("userId:", userId);
 
             // First, stop the Google Calendar watch.
-            fetch("/stop-google-calendar-watch", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                userId: userId,
-              }),
-            })
+            fetch(
+              "https://collab-express-production.up.railway.app/stop-google-calendar-watch",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  userId: userId,
+                }),
+              }
+            )
               .then((response) => {
                 if (!response.ok) {
                   throw new Error("Failed to stop Google Calendar watch.");
