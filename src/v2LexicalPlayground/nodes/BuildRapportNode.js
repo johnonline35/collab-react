@@ -10,6 +10,7 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const selection = $getSelection();
+  console.log("Selection Value:", selection);
 
   // Check if the selection is not null and is of the expected type
   if (selection && selection instanceof ElementNode) {
