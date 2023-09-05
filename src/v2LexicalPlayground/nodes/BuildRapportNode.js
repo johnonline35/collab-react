@@ -3,6 +3,7 @@ import {
   $createTextNode,
   $getRoot,
   $getSelection,
+  ElementNode,
 } from "lexical";
 
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
@@ -10,20 +11,25 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 export function $buildRapportNode(responseContent) {
   const selection = $getSelection();
 
-  if (responseContent !== "") {
-    const lastChild = selection.getLastChild();
+  // Check if the selection is not null and is of the expected type
+  if (selection && selection instanceof ElementNode) {
+    if (responseContent !== "") {
+      const lastChild = selection.getLastChild();
 
-    // If the last child is a paragraph, append text to it
-    if (lastChild && lastChild.__type === "paragraph") {
-      lastChild.append($createTextNode(responseContent));
-    } else {
-      // If the last child isn't a paragraph, create a new one and append the text
-      const paragraph = $createParagraphNode().append(
-        $createTextNode(responseContent)
-      );
-      insertBeforeLastChild(paragraph);
-      insertBeforeLastChild(paragraph);
+      // If the last child is a paragraph, append text to it
+      if (lastChild && lastChild.__type === "paragraph") {
+        lastChild.append($createTextNode(responseContent));
+      } else {
+        // If the last child isn't a paragraph, create a new one and append the text
+        const paragraph = $createParagraphNode().append(
+          $createTextNode(responseContent)
+        );
+        // Assuming insertBeforeLastChild() is a function that inserts the paragraph before the last child.
+        insertBeforeLastChild(paragraph);
+      }
     }
+  } else {
+    console.warn("Selection is either null or not of the expected type.");
   }
 }
 
