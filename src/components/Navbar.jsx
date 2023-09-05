@@ -56,7 +56,7 @@ export default function Navbar() {
               return;
             }
 
-            const userId = session.user.id; // Access user id from the session.
+            const userId = session.user.id;
 
             // First, stop the Google Calendar watch.
             fetch(
@@ -79,6 +79,7 @@ export default function Navbar() {
                 return signout();
               })
               .then(() => {
+                // Show toast.
                 toast({
                   position: "top",
                   title: "Log out successful.",
@@ -98,25 +99,6 @@ export default function Navbar() {
         >
           Logout
         </Button>
-        {/* <Button
-          colorScheme='blue'
-          onClick={() =>
-            signout()
-              .then(
-                toast({
-                  position: "top",
-                  title: "Log out successful.",
-                  description: "You have been logged out.",
-                  status: "success",
-                  duration: 5000,
-                  isClosable: true,
-                })
-              )
-              .then(() => navigate("/"))
-          }
-        >
-          Logout
-        </Button> */}
       </HStack>
     </Flex>
   );
