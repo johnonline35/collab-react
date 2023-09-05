@@ -17,6 +17,7 @@ export function $buildRapportNode(responseContent) {
         $createTextNode(responseContent)
       );
       insertBeforeLastChild(paragraph);
+      insertBeforeLastChild(paragraph);
     }
   }
 }
