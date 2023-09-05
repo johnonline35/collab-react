@@ -13,9 +13,10 @@ export function $buildRapportNode(responseContent) {
   console.log("Selection Value:", selection);
 
   // Check if the selection is not null and is of the expected type
-  if (selection && selection instanceof ElementNode) {
+  if (selection && selection.anchor.type === "element") {
     if (responseContent !== "") {
       const lastChild = selection.getLastChild();
+      console.log("lastChild Value:", lastChild);
 
       // If the last child is a paragraph, append text to it
       if (lastChild && lastChild.__type === "paragraph") {
