@@ -4,34 +4,45 @@ import {
   $getRoot,
   $getSelection,
   ElementNode,
+  $getNodeByKey,
+  $isNodeSelection,
 } from "lexical";
+import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection";
 
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const selection = $getSelection();
-  console.log("Selection Value:", selection);
 
-  // Check if the selection is not null and is of the expected type
-  if (selection && selection.anchor.type === "element") {
+  // Check if there is a valid selection
+  if ($isNodeSelection(selection)) {
+    const currentNode = $getNodeByKey(selection.anchor.key);
+
     if (responseContent !== "") {
-      const lastChild = selection.getLastChild();
-      console.log("lastChild Value:", lastChild);
-
-      // If the last child is a paragraph, append text to it
-      if (lastChild && lastChild.__type === "paragraph") {
-        lastChild.append($createTextNode(responseContent));
+      // If the selected node is a paragraph, append text to it
+      if (currentNode && currentNode.__type === "paragraph") {
+        currentNode.append($createTextNode(responseContent));
       } else {
-        // If the last child isn't a paragraph, create a new one and append the text
+        // If the selected node isn't a paragraph, create a new one and append the text
         const paragraph = $createParagraphNode().append(
           $createTextNode(responseContent)
         );
-        // Assuming insertBeforeLastChild() is a function that inserts the paragraph before the last child.
-        insertBeforeLastChild(paragraph);
+        currentNode.after(paragraph);
       }
     }
   } else {
-    console.warn("Selection is either null or not of the expected type.");
+    // If there's no selection, fall back to appending to root (or your desired behavior)
+    const root = $getRoot();
+    const lastChild = root.getLastChild();
+
+    if (lastChild && lastChild.__type === "paragraph") {
+      lastChild.append($createTextNode(responseContent));
+    } else {
+      const paragraph = $createParagraphNode().append(
+        $createTextNode(responseContent)
+      );
+      insertBeforeLastChild(paragraph);
+    }
   }
 }
 
