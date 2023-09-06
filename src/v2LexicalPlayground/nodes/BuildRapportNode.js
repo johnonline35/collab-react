@@ -12,64 +12,24 @@ import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
-  const selection = $getSelection();
-  let paragraph; // declare the paragraph variable outside the conditionals to ensure we can return it
+  const root = $getRoot();
 
-  // Check if there is a valid selection
-  if ($isNodeSelection(selection)) {
-    const currentNode = $getNodeByKey(selection.anchor.key);
-
-    if (responseContent !== "") {
-      // If the selected node is a paragraph, append text to it
-      if (currentNode && currentNode.__type === "paragraph") {
-        currentNode.append($createTextNode(responseContent));
-        paragraph = currentNode; // Set the modified paragraph node
-      } else {
-        // If the selected node isn't a paragraph, create a new one and append the text
-        paragraph = $createParagraphNode().append(
-          $createTextNode(responseContent)
-        );
-        currentNode.after(paragraph);
-      }
-    }
-  } else {
-    // If there's no selection, fall back to appending to root (or your desired behavior)
-    const root = $getRoot();
+  if (responseContent !== "") {
     const lastChild = root.getLastChild();
 
+    // If the last child is a paragraph, append text to it
     if (lastChild && lastChild.__type === "paragraph") {
       lastChild.append($createTextNode(responseContent));
-      paragraph = lastChild; // Set the modified paragraph node
     } else {
-      paragraph = $createParagraphNode().append(
+      // If the last child isn't a paragraph, create a new one and append the text
+      const paragraph = $createParagraphNode().append(
         $createTextNode(responseContent)
       );
       insertBeforeLastChild(paragraph);
+      insertBeforeLastChild(paragraph);
     }
   }
-
-  return paragraph; // Return the created or appended-to paragraph node.
 }
-
-// export function $buildRapportNode(responseContent) {
-//   const root = $getRoot();
-
-//   if (responseContent !== "") {
-//     const lastChild = root.getLastChild();
-
-//     // If the last child is a paragraph, append text to it
-//     if (lastChild && lastChild.__type === "paragraph") {
-//       lastChild.append($createTextNode(responseContent));
-//     } else {
-//       // If the last child isn't a paragraph, create a new one and append the text
-//       const paragraph = $createParagraphNode().append(
-//         $createTextNode(responseContent)
-//       );
-//       insertBeforeLastChild(paragraph);
-//       insertBeforeLastChild(paragraph);
-//     }
-//   }
-// }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 // import { $createHeadingNode } from "@lexical/rich-text";
