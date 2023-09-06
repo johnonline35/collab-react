@@ -12,12 +12,19 @@ import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
-  let rapportNode;
+  const rapportNode = $createParagraphNode();
+  const lastChild = rapportNode.getLastChild();
 
-  if (responseContent !== "") {
-    rapportNode = $createParagraphNode().append(
+  // If the last child is a paragraph, append text to it
+  if (lastChild && lastChild.__type === "paragraph") {
+    lastChild.append($createTextNode(responseContent));
+  } else {
+    // If the last child isn't a paragraph, create a new one and append the text
+    const paragraph = $createParagraphNode().append(
       $createTextNode(responseContent)
     );
+    insertBeforeLastChild(paragraph);
+    insertBeforeLastChild(paragraph);
   }
 
   return rapportNode;
