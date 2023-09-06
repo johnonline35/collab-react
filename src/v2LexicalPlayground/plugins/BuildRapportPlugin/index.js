@@ -120,7 +120,7 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       socket.off("responseChunk");
       socket.disconnect();
     };
-  }, [meetingData, editor, session]);
+  }, [meetingData, editor, triggerEffect, session]);
 
   useEffect(() => {
     if (!summary) {
