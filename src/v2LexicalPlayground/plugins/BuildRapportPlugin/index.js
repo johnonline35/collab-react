@@ -30,11 +30,9 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     console.log("insertHeading called");
     editor.update(() => {
       const root = $getRoot();
-      console.log("editor.update(() =>  called");
-      const notesHeading = $createHeadingNode("h3").append(
-        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
-      );
-      root.append(notesHeading);
+      const heading = $createHeadingNode("h1");
+      heading.append($createTextNode("Welcome to the playground"));
+      root.append(heading);
     });
   };
 
