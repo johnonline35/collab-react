@@ -18,6 +18,7 @@ import { insertBeforeLastChild } from "../../utils/insertBeforeLastChild";
 export const CONNECT_SOCKET_COMMAND = createCommand();
 export const APPEND_CHUNK_TO_EDITOR_COMMAND = createCommand();
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
+export const INSERT_HEADING_COMMAND = createCommand();
 
 export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
   const session = useSession();
@@ -30,9 +31,13 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     console.log("insertHeading called");
     editor.update(() => {
       const root = $getRoot();
-      const heading = $createHeadingNode("h1");
-      heading.append($createTextNode("Welcome to the playground"));
-      root.append(heading);
+      const paragraph = $createParagraphNode();
+      console.log("editor.update(() =>  called");
+      const notesHeading = $createHeadingNode("h3").append(
+        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
+      );
+      root.append(notesHeading);
+      root.append(paragraph);
     });
   };
 
@@ -52,8 +57,17 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       return;
     }
     console.log("All checks passed and useEffect succesfully called.");
+    const unregisterInsertHeading = editor.registerCommand(
+      INSERT_HEADING_COMMAND,
+      () => {
+        insertHeading();
+        return true;
+      },
+      COMMAND_PRIORITY_EDITOR
+    );
+
     if (!hasInsertedHeadingRef.current) {
-      insertHeading();
+      editor.dispatchCommand(INSERT_HEADING_COMMAND);
       hasInsertedHeadingRef.current = true;
     }
 
@@ -120,6 +134,7 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     return () => {
       unregisterConnect();
       unregisterAppendChunk();
+      unregisterInsertHeading();
       socket.off("responseChunk");
       socket.disconnect();
     };
