@@ -31,10 +31,11 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     editor.update(() => {
       console.log("editor.update(() =>  called");
       const root = $getRoot();
+      const notesHeading = $createHeadingNode("h3");
       const notesText = $createTextNode("Pre-Meeting Research:").setStyle(
         "font-weight: bold"
       );
-      const notesHeading = $createHeadingNode("h3").append(notesText);
+      notesHeading.append(notesText);
 
       root.append(notesHeading);
       insertBeforeLastChild(notesHeading);
