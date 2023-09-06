@@ -1,6 +1,5 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { createCommand, COMMAND_PRIORITY_EDITOR, $insertNodes } from "lexical";
-import { $insertNodeToNearestRoot } from "@lexical/utils";
 import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
 import { useSession } from "../../../hooks/useSession";
@@ -94,8 +93,7 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          const rapportNode = $buildRapportNode(data.content);
-          $insertNodeToNearestRoot(rapportNode);
+          $buildRapportNode(data.content);
         });
         return true;
       },
