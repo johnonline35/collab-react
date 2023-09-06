@@ -13,7 +13,7 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
-  let responseParagraph;
+  let response;
 
   if (responseContent !== "") {
     const lastChild = root.getLastChild();
@@ -23,35 +23,14 @@ export function $buildRapportNode(responseContent) {
       lastChild.append($createTextNode(responseContent));
     } else {
       // If the last child isn't a paragraph, create a new one and append the text
-      responseParagraph = $createParagraphNode().append(
+      const paragraph = $createParagraphNode().append(
         $createTextNode(responseContent)
       );
-      insertBeforeLastChild(responseParagraph);
+      insertBeforeLastChild(paragraph);
+      insertBeforeLastChild(paragraph);
     }
   }
-  return responseParagraph;
 }
-
-// export function $buildRapportNode(responseContent) {
-//   const root = $getRoot();
-//   let response;
-
-//   if (responseContent !== "") {
-//     const lastChild = root.getLastChild();
-
-//     // If the last child is a paragraph, append text to it
-//     if (lastChild && lastChild.__type === "paragraph") {
-//       lastChild.append($createTextNode(responseContent));
-//     } else {
-//       // If the last child isn't a paragraph, create a new one and append the text
-//       const paragraph = $createParagraphNode().append(
-//         $createTextNode(responseContent)
-//       );
-//       insertBeforeLastChild(paragraph);
-//       insertBeforeLastChild(paragraph);
-//     }
-//   }
-// }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
 // import { $createHeadingNode } from "@lexical/rich-text";
