@@ -177,6 +177,7 @@ export default function Editor({
         }`}
       > */}
         {isMaxLength && <MaxLengthPlugin maxLength={30} />}
+        <TreeViewPlugin />
         <DragDropPaste />
         <AutoFocusPlugin />
         <ClearEditorPlugin />
