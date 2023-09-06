@@ -4,10 +4,12 @@ import {
   COMMAND_PRIORITY_EDITOR,
   $insertNodes,
   $getRoot,
+  $isRootOrShadowRoot,
 } from "lexical";
 import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
 import { useSession } from "../../../hooks/useSession";
+import { $wrapNodeInElement, mergeRegister } from "@lexical/utils";
 
 import { $createTextNode, $createParagraphNode } from "lexical";
 import { $buildRapportNode } from "../../nodes/BuildRapportNode";
@@ -110,7 +112,14 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          $buildRapportNode(data.content);
+          const buildRapportNode = $buildRapportNode(data.content);
+          $insertNodes([buildRapportNode]);
+          if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
+            $wrapNodeInElement(
+              buildRapportNode,
+              $createParagraphNode
+            ).selectEnd();
+          }
         });
         return true;
       },
