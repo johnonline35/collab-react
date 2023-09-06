@@ -13,7 +13,6 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const root = $getRoot();
-  let response;
 
   if (responseContent !== "") {
     const lastChild = root.getLastChild();
