@@ -12,36 +12,24 @@ import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
-  console.log("Starting to build rapport node.");
-
   const root = $getRoot();
-  let responseNode;
+  let responseParagraph;
 
   if (responseContent !== "") {
-    console.log("Received non-empty content:", responseContent);
-
     const lastChild = root.getLastChild();
 
     // If the last child is a paragraph, append text to it
     if (lastChild && lastChild.__type === "paragraph") {
-      console.log("Appending content to the existing paragraph.");
       lastChild.append($createTextNode(responseContent));
-      responseNode = lastChild;
     } else {
       // If the last child isn't a paragraph, create a new one and append the text
-      console.log("Creating a new paragraph and inserting it.");
-      const paragraph = $createParagraphNode().append(
+      responseParagraph = $createParagraphNode().append(
         $createTextNode(responseContent)
       );
-      insertBeforeLastChild(paragraph);
-      responseNode = paragraph; // set the responseNode to the newly created paragraph
+      insertBeforeLastChild(responseParagraph);
     }
-  } else {
-    console.log("Received empty content. Skipping node creation.");
   }
-
-  console.log("Build rapport node complete.");
-  return responseNode; // return the node that was created or modified
+  return responseParagraph;
 }
 
 // export function $buildRapportNode(responseContent) {
