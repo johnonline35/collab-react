@@ -94,8 +94,8 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          $buildRapportNode(data.content);
-          $insertNodeToNearestRoot($buildRapportNode);
+          const rapportNode = $buildRapportNode(data.content);
+          $insertNodeToNearestRoot(rapportNode);
         });
         return true;
       },

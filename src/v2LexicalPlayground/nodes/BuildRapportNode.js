@@ -13,6 +13,7 @@ import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
   const selection = $getSelection();
+  let paragraph; // declare the paragraph variable outside the conditionals to ensure we can return it
 
   // Check if there is a valid selection
   if ($isNodeSelection(selection)) {
@@ -22,9 +23,10 @@ export function $buildRapportNode(responseContent) {
       // If the selected node is a paragraph, append text to it
       if (currentNode && currentNode.__type === "paragraph") {
         currentNode.append($createTextNode(responseContent));
+        paragraph = currentNode; // Set the modified paragraph node
       } else {
         // If the selected node isn't a paragraph, create a new one and append the text
-        const paragraph = $createParagraphNode().append(
+        paragraph = $createParagraphNode().append(
           $createTextNode(responseContent)
         );
         currentNode.after(paragraph);
@@ -37,13 +39,16 @@ export function $buildRapportNode(responseContent) {
 
     if (lastChild && lastChild.__type === "paragraph") {
       lastChild.append($createTextNode(responseContent));
+      paragraph = lastChild; // Set the modified paragraph node
     } else {
-      const paragraph = $createParagraphNode().append(
+      paragraph = $createParagraphNode().append(
         $createTextNode(responseContent)
       );
       insertBeforeLastChild(paragraph);
     }
   }
+
+  return paragraph; // Return the created or appended-to paragraph node.
 }
 
 // export function $buildRapportNode(responseContent) {
