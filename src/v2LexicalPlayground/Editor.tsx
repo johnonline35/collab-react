@@ -177,7 +177,7 @@ export default function Editor({
         }`}
       > */}
         {isMaxLength && <MaxLengthPlugin maxLength={30} />}
-        <TreeViewPlugin />
+
         <DragDropPaste />
         <AutoFocusPlugin />
         <ClearEditorPlugin />
@@ -289,6 +289,7 @@ export default function Editor({
         {shouldUseLexicalContextMenu && <ContextMenuPlugin />}
         {/* <ActionsPlugin isRichText={isRichText} /> */}
       </div>
+      <TreeViewPlugin />
       {/* {showTreeView && <TreeViewPlugin />} */}
     </>
   );
