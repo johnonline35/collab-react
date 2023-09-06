@@ -112,15 +112,19 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          const buildRapportNode = $buildRapportNode(data.content);
-          $insertNodes([buildRapportNode]);
-          if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
-            $wrapNodeInElement(
-              buildRapportNode,
-              $createParagraphNode
-            ).selectEnd();
+          if (data.content.trim()) {
+            // only proceed if content is not empty
+            const buildRapportNode = $buildRapportNode(data.content);
+            $insertNodes([buildRapportNode]);
+            if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
+              $wrapNodeInElement(
+                buildRapportNode,
+                $createParagraphNode
+              ).selectEnd();
+            }
           }
         });
+
         return true;
       },
       COMMAND_PRIORITY_EDITOR
@@ -132,6 +136,10 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     });
 
     socket.on("responseChunk", (data) => {
+      if (data.content.trim() === "") {
+        console.log("Received empty content, ignoring.");
+        return;
+      }
       editor.dispatchCommand(APPEND_CHUNK_TO_EDITOR_COMMAND, data);
     });
 
