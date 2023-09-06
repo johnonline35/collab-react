@@ -1,10 +1,5 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import {
-  createCommand,
-  COMMAND_PRIORITY_EDITOR,
-  $insertNodes,
-  $getRoot,
-} from "lexical";
+import { createCommand, COMMAND_PRIORITY_EDITOR, $insertNodes } from "lexical";
 import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
 import { useSession } from "../../../hooks/useSession";
@@ -30,14 +25,9 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     console.log("insertHeading called");
     editor.update(() => {
       console.log("editor.update(() =>  called");
-      const root = $getRoot();
-      const notesHeading = $createHeadingNode("h3");
-      const notesText = $createTextNode("Pre-Meeting Research:").setStyle(
-        "font-weight: bold"
+      const notesHeading = $createHeadingNode("h3").append(
+        $createTextNode("Pre-Meeting Research:").setStyle("font-weight: bold")
       );
-      notesHeading.append(notesText);
-
-      root.append(notesHeading);
       insertBeforeLastChild(notesHeading);
       insertBeforeLastChild($createParagraphNode());
     });
