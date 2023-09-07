@@ -414,7 +414,7 @@ export default function CollabPageHome() {
                 <Flex direction='row' justify='space-between'>
                   <Flex>
                     <ListIcon as={FiDribbble} color='black' mt='5px' />
-                    Previous Meetings
+                    All Meetings
                   </Flex>
                 </Flex>
               </ListItem>
