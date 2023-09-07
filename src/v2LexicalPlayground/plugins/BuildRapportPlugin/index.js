@@ -114,9 +114,9 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
         console.log("chunk data:", data);
         editor.update(() => {
           const WINDOW_KEY = `selection_${new Date().getTime()}`;
-          editor.update(() => {
-            window[WINDOW_KEY] = $getSelection().focus.key;
-          });
+
+          window[WINDOW_KEY] = $getSelection().focus.key;
+
           $getRoot()
             .getAllTextNodes()
             .forEach((n) => {
