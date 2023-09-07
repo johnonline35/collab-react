@@ -115,15 +115,17 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
         editor.update(() => {
           const WINDOW_KEY = `selection_${new Date().getTime()}`;
 
-          window[WINDOW_KEY] = $getSelection().focus.key;
+          window[WINDOW_KEY] = $getSelection().focus
+            ? $getSelection().focus.key
+            : $getRoot().getKey();
+
+          // window[WINDOW_KEY] = $getSelection().focus.key;
 
           $getRoot()
             .getAllTextNodes()
             .forEach((n) => {
               if (n.getKey() === window[WINDOW_KEY]) {
-                n.getParent().append(
-                  $createTextNode(new Date().getTime() + " | ")
-                );
+                n.getParent().append(data.content);
               }
             });
         });
