@@ -112,17 +112,18 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          if (data.content.trim()) {
-            // only proceed if content is not empty
-            const buildRapportNode = $buildRapportNode(data.content);
-            $insertNodes([buildRapportNode]);
-            if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
-              $wrapNodeInElement(
-                buildRapportNode,
-                $createParagraphNode
-              ).selectEnd();
-            }
-          }
+          $buildRapportNode(data.content);
+          // if (data.content.trim()) {
+          //   // only proceed if content is not empty
+          //   const buildRapportNode = $buildRapportNode(data.content);
+          //   $insertNodes([buildRapportNode]);
+          //   if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
+          //     $wrapNodeInElement(
+          //       buildRapportNode,
+          //       $createParagraphNode
+          //     ).selectEnd();
+          //   }
+          // }
         });
 
         return true;

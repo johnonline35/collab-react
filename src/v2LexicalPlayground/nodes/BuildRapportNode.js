@@ -48,7 +48,7 @@ export function $buildRapportNode(responseContent) {
       insertBeforeLastChild(paragraph);
     }
   }
-  return root;
+  // return root;
 }
 
 // import { $createParagraphNode, $getRoot, $createTextNode } from "lexical";
