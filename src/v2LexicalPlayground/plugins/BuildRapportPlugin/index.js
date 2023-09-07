@@ -45,11 +45,6 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
   };
 
   useEffect(() => {
-    const WINDOW_KEY = `selection_${new Date().getTime()}`;
-    editor.update(() => {
-      window[WINDOW_KEY] = $getSelection().focus.key;
-    });
-
     console.log("useEffect fired:", triggerEffect);
     if (!hasEffectRun.current && !triggerEffect) {
       console.log("Effect early exit due to run check and trigger check.");
@@ -118,6 +113,10 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
+          const WINDOW_KEY = `selection_${new Date().getTime()}`;
+          editor.update(() => {
+            window[WINDOW_KEY] = $getSelection().focus.key;
+          });
           $getRoot()
             .getAllTextNodes()
             .forEach((n) => {
