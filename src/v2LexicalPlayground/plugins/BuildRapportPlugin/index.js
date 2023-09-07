@@ -5,6 +5,7 @@ import {
   $insertNodes,
   $getRoot,
   $isRootOrShadowRoot,
+  $getSelection,
 } from "lexical";
 import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
@@ -112,23 +113,9 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          const root = $getRoot();
-
-          if (data.content !== "") {
-            const lastChild = root.getLastChild();
-
-            // If the last child is a paragraph, append text to it
-            if (lastChild && lastChild.__type === "paragraph") {
-              lastChild.append($createTextNode(data.content));
-            } else {
-              // If the last child isn't a paragraph, create a new one and append the text
-              const paragraph = $createParagraphNode().append(
-                $createTextNode(data.content)
-              );
-              insertBeforeLastChild(paragraph);
-              insertBeforeLastChild(paragraph);
-            }
-          }
+          const buildRapportNode = $buildRapportNode(data.content);
+          const selection = $getSelection();
+          selection?.insertNodes([buildRapportNode]);
           // if (data.content.trim()) {
           //   // only proceed if content is not empty
           //   const buildRapportNode = $buildRapportNode(data.content);
