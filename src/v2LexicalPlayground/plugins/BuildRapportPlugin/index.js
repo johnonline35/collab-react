@@ -116,12 +116,12 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
             // only proceed if content is not empty
             const buildRapportNode = $buildRapportNode(data.content);
             $insertNodes([buildRapportNode]);
-            // if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
-            //   $wrapNodeInElement(
-            //     buildRapportNode,
-            //     $createParagraphNode
-            //   ).selectEnd();
-            // }
+            if ($isRootOrShadowRoot(buildRapportNode.getParentOrThrow())) {
+              $wrapNodeInElement(
+                buildRapportNode,
+                $createParagraphNode
+              ).selectEnd();
+            }
           }
         });
 
