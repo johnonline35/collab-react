@@ -112,7 +112,23 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          $buildRapportNode(data.content);
+          const root = $getRoot();
+
+          if (data.content !== "") {
+            const lastChild = root.getLastChild();
+
+            // If the last child is a paragraph, append text to it
+            if (lastChild && lastChild.__type === "paragraph") {
+              lastChild.append($createTextNode(data.content));
+            } else {
+              // If the last child isn't a paragraph, create a new one and append the text
+              const paragraph = $createParagraphNode().append(
+                $createTextNode(data.content)
+              );
+              insertBeforeLastChild(paragraph);
+              insertBeforeLastChild(paragraph);
+            }
+          }
           // if (data.content.trim()) {
           //   // only proceed if content is not empty
           //   const buildRapportNode = $buildRapportNode(data.content);
