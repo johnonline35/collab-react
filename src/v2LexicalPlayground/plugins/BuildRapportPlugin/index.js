@@ -150,7 +150,7 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
 
           window[WINDOW_KEY] = $getSelection().focus
             ? $getSelection().focus.key
-            : $getRoot().getKey();
+            : $getRoot().__last;
 
           // window[WINDOW_KEY] = $getSelection().focus.key;
 
