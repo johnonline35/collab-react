@@ -108,35 +108,6 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       COMMAND_PRIORITY_EDITOR
     );
 
-    const unregisterAppendChunk = editor.registerCommand(
-      APPEND_CHUNK_TO_EDITOR_COMMAND,
-      (data) => {
-        console.log("chunk data:", data);
-        editor.update(() => {
-          const WINDOW_KEY = `selection_${new Date().getTime()}`;
-
-          const currentSelection = $getSelection();
-          const focusKey =
-            currentSelection && currentSelection.focus
-              ? currentSelection.focus.key
-              : $getRoot().getKey();
-
-          window[WINDOW_KEY] = focusKey;
-
-          $getRoot()
-            .getAllTextNodes()
-            .forEach((n) => {
-              if (n.getKey() === window[WINDOW_KEY]) {
-                n.getParent().append(data.content);
-              }
-            });
-        });
-
-        return true;
-      },
-      COMMAND_PRIORITY_EDITOR
-    );
-
     // const unregisterAppendChunk = editor.registerCommand(
     //   APPEND_CHUNK_TO_EDITOR_COMMAND,
     //   (data) => {
@@ -144,11 +115,13 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     //     editor.update(() => {
     //       const WINDOW_KEY = `selection_${new Date().getTime()}`;
 
-    //       window[WINDOW_KEY] = $getSelection().focus
-    //         ? $getSelection().focus.key
-    //         : $getRoot().getKey();
+    //       const currentSelection = $getSelection();
+    //       const focusKey =
+    //         currentSelection && currentSelection.focus
+    //           ? currentSelection.focus.key
+    //           : $getRoot().getKey();
 
-    //       // window[WINDOW_KEY] = $getSelection().focus.key;
+    //       window[WINDOW_KEY] = focusKey;
 
     //       $getRoot()
     //         .getAllTextNodes()
@@ -163,6 +136,33 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     //   },
     //   COMMAND_PRIORITY_EDITOR
     // );
+
+    const unregisterAppendChunk = editor.registerCommand(
+      APPEND_CHUNK_TO_EDITOR_COMMAND,
+      (data) => {
+        console.log("chunk data:", data);
+        editor.update(() => {
+          const WINDOW_KEY = `selection_${new Date().getTime()}`;
+
+          window[WINDOW_KEY] = $getSelection().focus
+            ? $getSelection().focus.key
+            : $getRoot().getKey();
+
+          // window[WINDOW_KEY] = $getSelection().focus.key;
+
+          $getRoot()
+            .getAllTextNodes()
+            .forEach((n) => {
+              if (n.getKey() === window[WINDOW_KEY]) {
+                n.getParent().append(data.content);
+              }
+            });
+        });
+
+        return true;
+      },
+      COMMAND_PRIORITY_EDITOR
+    );
 
     // Dispatching the commands
     socket.on("connect", () => {
