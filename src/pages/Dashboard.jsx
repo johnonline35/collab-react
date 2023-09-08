@@ -367,9 +367,7 @@ export default function Dashboard() {
                             {info.domain}
                           </Link>
                         ) : (
-                          <Text color='black'>
-                            Personal email account workspace
-                          </Text>
+                          <Text color='black'>Personal workspace</Text>
                         )}
 
                         {/* <Link
