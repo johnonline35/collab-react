@@ -144,7 +144,7 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
         editor.update(() => {
           const root = $getRoot();
           console.log("root:", root);
-          const rootKey = root.getKey();
+          const rootKey = root.__last;
           console.log("rootkey:", rootKey);
           const WINDOW_KEY = `selection_${new Date().getTime()}`;
 
