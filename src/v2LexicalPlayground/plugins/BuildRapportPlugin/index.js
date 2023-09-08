@@ -137,30 +137,40 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     //   COMMAND_PRIORITY_EDITOR
     // );
 
+    // const root = $getRoot();
+    // console.log("root:", root);
+    // const rootKey = root.__last;
+    // console.log("rootkey:", rootKey);
+
     const unregisterAppendChunk = editor.registerCommand(
       APPEND_CHUNK_TO_EDITOR_COMMAND,
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
           const root = $getRoot();
-          console.log("root:", root);
-          const rootKey = root.__last;
-          console.log("rootkey:", rootKey);
           const WINDOW_KEY = `selection_${new Date().getTime()}`;
 
-          window[WINDOW_KEY] = $getSelection().focus
+          window[WINDOW_KEY] = $getSelection()?.focus
             ? $getSelection().focus.key
             : $getRoot().__last;
 
           // window[WINDOW_KEY] = $getSelection().focus.key;
 
-          $getRoot()
-            .getAllTextNodes()
-            .forEach((n) => {
+          const textNodes = $getRoot().getAllTextNodes();
+          if (textNodes) {
+            textNodes.forEach((n) => {
               if (n.getKey() === window[WINDOW_KEY]) {
                 n.getParent().append(data.content);
+              } else {
+                const newTextNode = $createTextNode();
+                root.append(newTextNode);
+                const newTextNodeKey = newTextNode.getKey();
+                const textToAPpend = newTextNodeKey
+                  .getParent()
+                  .append(data.content);
               }
             });
+          }
         });
 
         return true;
@@ -174,6 +184,10 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     });
 
     socket.on("responseChunk", (data) => {
+      if (data.content === undefined) {
+        console.log("Received undefined content, ignoring.");
+        return;
+      }
       if (data.content.trim() === "") {
         console.log("Received empty content, ignoring.");
         return;

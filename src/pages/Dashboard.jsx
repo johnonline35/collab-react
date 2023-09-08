@@ -344,7 +344,35 @@ export default function Dashboard() {
                         </Heading>
                       </Link>
                       <Flex>
-                        <Link
+                        {info.domain ? (
+                          <Link
+                            href={
+                              info.domain.startsWith("http://") ||
+                              info.domain.startsWith("https://")
+                                ? info.domain
+                                : `https://${info.domain}`
+                            }
+                            isExternal
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            mr={2}
+                          >
+                            <Icon
+                              mr='3px'
+                              style={{
+                                transform: "translateY(2px)",
+                              }}
+                              as={FiLink}
+                            />
+                            {info.domain}
+                          </Link>
+                        ) : (
+                          <Text color='black'>
+                            Personal email account workspace
+                          </Text>
+                        )}
+
+                        {/* <Link
                           href={
                             info.domain
                               ? info.domain.startsWith("http://") ||
@@ -367,7 +395,7 @@ export default function Dashboard() {
                             as={FiLink}
                           />
                           {info.domain}
-                        </Link>
+                        </Link> */}
 
                         {info.linkedin_url && (
                           <Link
