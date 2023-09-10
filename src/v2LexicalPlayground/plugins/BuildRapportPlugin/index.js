@@ -143,31 +143,44 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
     // console.log("rootkey:", rootKey);
 
     const unregisterAppendChunk = editor.registerCommand(
+      // const WINDOW_KEY = `selection_${new Date().getTime()}`;
+
+      // window[WINDOW_KEY] = $getSelection()?.focus
+      //   ? $getSelection().focus.key
+      //   : $getRoot().__last;
+
+      // window[WINDOW_KEY] = $getSelection().focus.key;
       APPEND_CHUNK_TO_EDITOR_COMMAND,
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
           const root = $getRoot();
-          const WINDOW_KEY = `selection_${new Date().getTime()}`;
 
-          window[WINDOW_KEY] = $getSelection()?.focus
-            ? $getSelection().focus.key
-            : $getRoot().__last;
-
-          // window[WINDOW_KEY] = $getSelection().focus.key;
+          const selectionFocusKey = $getSelection()?.focus.key;
+          console.log("selectionFocusKey", selectionFocusKey);
 
           const textNodes = $getRoot().getAllTextNodes();
           if (textNodes) {
             textNodes.forEach((n) => {
-              if (n.getKey() === window[WINDOW_KEY]) {
+              console.log("textNode Found:", n);
+              if (n.getKey() === selectionFocusKey) {
                 n.getParent().append(data.content);
               } else {
-                const newTextNode = $createTextNode();
-                root.append(newTextNode);
-                const newTextNodeKey = newTextNode.getKey();
-                const textToAPpend = newTextNodeKey
-                  .getParent()
-                  .append(data.content);
+                if (data.content !== "") {
+                  const lastChild = root.getLastChild();
+
+                  // If the last child is a paragraph, append text to it
+                  if (lastChild && lastChild.__type === "paragraph") {
+                    lastChild.append($createTextNode(data.content));
+                  } else {
+                    // If the last child isn't a paragraph, create a new one and append the text
+                    const paragraph = $createParagraphNode().append(
+                      $createTextNode(data.content)
+                    );
+                    insertBeforeLastChild(paragraph);
+                    insertBeforeLastChild(paragraph);
+                  }
+                }
               }
             });
           }
