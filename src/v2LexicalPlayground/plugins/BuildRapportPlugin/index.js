@@ -155,45 +155,59 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          const node = $getNodeByKey();
-
-          const root = $getRoot();
           const selection = $getSelection();
           console.log("selection", selection);
-          const selectionFocusKey = $getSelection()?.focus.key;
+
+          if (!selection || !selection.focus) {
+            console.warn("No selection or selection focus.");
+            return;
+          }
+
+          const selectionFocusKey = selection.focus.key;
           console.log("selectionFocusKey", selectionFocusKey);
 
-          const textNodes = $getRoot().getAllTextNodes();
-          console.log("textNodes", textNodes);
-          if (textNodes) {
-            textNodes.forEach((n) => {
-              console.log("textNode Found:", n);
-              if (n.getKey() === selectionFocusKey) {
-                console.log(
-                  "n.getKey() === selectionFocusKey:",
-                  n.getKey(),
-                  data.content
-                );
-                n.getParent().append(data.content);
-              } else {
-                if (data.content !== "") {
-                  const lastChild = root.getLastChild();
+          const selectionFocusType = selection.focus.type;
 
-                  // If the last child is a paragraph, append text to it
-                  if (lastChild && lastChild.__type === "paragraph") {
-                    lastChild.append($createTextNode(data.content));
-                  } else {
-                    // If the last child isn't a paragraph, create a new one and append the text
-                    const paragraph = $createParagraphNode().append(
-                      $createTextNode(data.content)
-                    );
-                    insertBeforeLastChild(paragraph);
-                    insertBeforeLastChild(paragraph);
-                  }
-                }
-              }
-            });
+          if (selectionFocusType === "text") {
+            selection.append(data.content);
+          } else {
+            const paragraph = $createParagraphNode().append(
+              $createTextNode(data.content)
+            );
+            selection.append(paragraph);
           }
+
+          // const textNodes = $getRoot().getAllTextNodes();
+          // console.log("textNodes", textNodes);
+          // if (textNodes) {
+          //   textNodes.forEach((n) => {
+          //     console.log("textNode Found:", n);
+          //     if (n.getKey() === selectionFocusKey) {
+          //       console.log(
+          //         "n.getKey() === selectionFocusKey:",
+          //         n.getKey(),
+          //         data.content
+          //       );
+          //       n.getParent().append(data.content);
+          //     } else {
+          //       if (data.content !== "") {
+          //         const lastChild = root.getLastChild();
+
+          //         // If the last child is a paragraph, append text to it
+          //         if (lastChild && lastChild.__type === "paragraph") {
+          //           lastChild.append($createTextNode(data.content));
+          //         } else {
+          //           // If the last child isn't a paragraph, create a new one and append the text
+          //           const paragraph = $createParagraphNode().append(
+          //             $createTextNode(data.content)
+          //           );
+          //           insertBeforeLastChild(paragraph);
+          //           insertBeforeLastChild(paragraph);
+          //         }
+          //       }
+          //     }
+          //   });
+          // }
         });
 
         return true;
