@@ -6,6 +6,7 @@ import {
   $getRoot,
   $isRootOrShadowRoot,
   $getSelection,
+  $getNodeByKey,
 } from "lexical";
 import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
@@ -154,8 +155,11 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
       (data) => {
         console.log("chunk data:", data);
         editor.update(() => {
-          const root = $getRoot();
+          const node = $getNodeByKey();
 
+          const root = $getRoot();
+          const selection = $getSelection();
+          console.log("selection", selection);
           const selectionFocusKey = $getSelection()?.focus.key;
           console.log("selectionFocusKey", selectionFocusKey);
 
