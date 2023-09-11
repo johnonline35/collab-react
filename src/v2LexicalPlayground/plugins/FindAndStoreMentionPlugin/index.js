@@ -2,6 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { TextNode, $getRoot } from "lexical";
 
 export default function FindAndStoreMentionPlugin() {
+  console.log("FindAndStoreMentionPlugin Called.");
   const [editor] = useLexicalComposerContext();
 
   editor.registerUpdateListener(({ editorState }) => {
