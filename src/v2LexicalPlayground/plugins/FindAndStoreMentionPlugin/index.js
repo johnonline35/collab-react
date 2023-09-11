@@ -18,14 +18,12 @@ export default function FindAndStoreMentionPlugin() {
         const root = $getRoot();
         const allTextNodes = root.getAllTextNodes();
         allTextNodes.forEach((element) => {
-          if (element && element.__mention) {
-            if (
-              element.__mention === "Next Step:" ||
-              element.__mention === "Todo:"
-            ) {
-              console.log("Mention Node Type:", element.__mention);
-              console.log("Mention Node UUID:", element.__uuid);
-            }
+          if (element.__mention === "Next Step:") {
+            const nextStepNode = element;
+            const firstChild = nextStepNode.getFirstChild();
+            console.log("Mention Node Type:", element.__mention);
+            console.log("Mention Node UUID:", element.__uuid);
+            console.log("firstChild:", firstChild);
           }
         });
       });
