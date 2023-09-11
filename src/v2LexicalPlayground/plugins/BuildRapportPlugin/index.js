@@ -160,10 +160,16 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
           console.log("selectionFocusKey", selectionFocusKey);
 
           const textNodes = $getRoot().getAllTextNodes();
+          console.log("textNodes", textNodes);
           if (textNodes) {
             textNodes.forEach((n) => {
               console.log("textNode Found:", n);
               if (n.getKey() === selectionFocusKey) {
+                console.log(
+                  "n.getKey() === selectionFocusKey:",
+                  n.getKey(),
+                  data.content
+                );
                 n.getParent().append(data.content);
               } else {
                 if (data.content !== "") {
