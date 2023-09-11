@@ -230,23 +230,11 @@ export default function NewMentionUUIDPlugin() {
   const onSelectOption = useCallback(
     (selectedOption, nodeToReplace, closeMenu) => {
       editor.update(() => {
-        const root = $getRoot();
         const mentionNode = $createMentionNode(selectedOption.name);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
         mentionNode.select();
-        const allTextNodes = root.getAllTextNodes();
-        allTextNodes.forEach((element) => {
-          if (element.__mention === "Next Step:") {
-            console.log("Mention Node Type:", element.__mention);
-            console.log("Mention Node UUID:", element.__uuid);
-          }
-          if (element.__mention === "Todo:") {
-            console.log("Mention Node Type:", element.__mention);
-            console.log("Mention Node UUID:", element.__uuid);
-          }
-        });
 
         closeMenu();
       });
