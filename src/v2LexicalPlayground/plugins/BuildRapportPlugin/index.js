@@ -6,7 +6,6 @@ import {
   $getRoot,
   $isRootOrShadowRoot,
   $getSelection,
-  $isNodeSelection,
 } from "lexical";
 import { useEffect, useState, useRef } from "react";
 import socket from "../../../util/socket";
@@ -157,23 +156,14 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
         editor.update(() => {
           const root = $getRoot();
 
-          const selection = $getSelection();
-          if (!$isNodeSelection(selection)) {
-            return null;
-          }
-          const nodes = selection.getNodes();
-          const node = nodes[0];
-          console.log("Nodes:", nodes);
-          console.log("Node:", node);
-
-          const nodeKey = node.focus.key;
-          console.log("nodeKey", nodeKey);
+          const selectionFocusKey = $getSelection()?.focus.key;
+          console.log("selectionFocusKey", selectionFocusKey);
 
           const textNodes = $getRoot().getAllTextNodes();
           if (textNodes) {
             textNodes.forEach((n) => {
               console.log("textNode Found:", n);
-              if (n.getKey() === nodeKey) {
+              if (n.getKey() === selectionFocusKey) {
                 n.getParent().append(data.content);
               } else {
                 if (data.content !== "") {
