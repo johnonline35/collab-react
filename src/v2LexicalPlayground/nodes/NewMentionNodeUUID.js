@@ -5,8 +5,8 @@ export function $createMentionNode(mentionName) {
   const mentionNode = new MentionNode(mentionName);
   mentionNode.setMode("segmented").toggleDirectionless();
 
-  console.log("Created Mention Node:", mentionNode);
-  console.log("UUID of Created Mention Node:", mentionNode.__uuid);
+  //   console.log("Created Mention Node:", mentionNode);
+  //   console.log("UUID of Created Mention Node:", mentionNode.__uuid);
 
   return $applyNodeReplacement(mentionNode);
 }

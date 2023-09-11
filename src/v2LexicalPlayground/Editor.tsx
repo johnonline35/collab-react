@@ -79,6 +79,7 @@ import { useParams } from "react-router-dom";
 import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
 import { publicEmailDomainsList } from "../util/database";
 import NewMentionUUIDPlugin from "./plugins/NewMentionUUIDPlugin";
+import FindAndStoreMentionPlugin from "./plugins/FindAndStoreMentionPlugin";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -194,6 +195,7 @@ export default function Editor({
         />
         <CreateStructurePlugin />
         <NewMentionUUIDPlugin />
+        <FindAndStoreMentionPlugin />
         {/* <MentionsPlugin /> */}
         <EmojisPlugin />
         <HashtagPlugin />
