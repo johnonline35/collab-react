@@ -156,26 +156,7 @@ export default function BuildRapportPlugin({ meetingData, triggerEffect }) {
         console.log("chunk data:", data);
         editor.update(() => {
           const selection = $getSelection();
-          console.log("selection", selection);
-
-          if (!selection || !selection.focus) {
-            console.warn("No selection or selection focus.");
-            return;
-          }
-
-          const selectionFocusKey = selection.focus.key;
-          console.log("selectionFocusKey", selectionFocusKey);
-
-          const selectionFocusType = selection.focus.type;
-
-          if (selectionFocusType === "text") {
-            selection.append(data.content);
-          } else {
-            const paragraph = $createParagraphNode().append(
-              $createTextNode(data.content)
-            );
-            selection.append(paragraph);
-          }
+          selection?.insertNodes([$buildRapportNode]);
 
           // const textNodes = $getRoot().getAllTextNodes();
           // console.log("textNodes", textNodes);
