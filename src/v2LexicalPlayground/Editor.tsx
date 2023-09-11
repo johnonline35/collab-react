@@ -78,6 +78,7 @@ import { useMeetingData } from "./hooks/useMeetingData";
 import { useParams } from "react-router-dom";
 import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
 import { publicEmailDomainsList } from "../util/database";
+import NewMentionUUIDPlugin from "./plugins/NewMentionUUIDPlugin";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -177,7 +178,6 @@ export default function Editor({
         }`}
       > */}
         {isMaxLength && <MaxLengthPlugin maxLength={30} />}
-
         <DragDropPaste />
         <AutoFocusPlugin />
         <ClearEditorPlugin />
@@ -193,7 +193,8 @@ export default function Editor({
           triggerEffect={triggerEffect}
         />
         <CreateStructurePlugin />
-        <MentionsPlugin />
+        <NewMentionUUIDPlugin />
+        {/* <MentionsPlugin /> */}
         <EmojisPlugin />
         <HashtagPlugin />
         <KeywordsPlugin />
@@ -202,7 +203,6 @@ export default function Editor({
         {/* <CommentPlugin
           providerFactory={isCollab ? createWebsocketProvider : undefined}
         /> */}
-
         {/* {isCollab ? (
               <CollaborationPlugin
                 id='main'
@@ -243,7 +243,7 @@ export default function Editor({
             placeholder={null}
             ErrorBoundary={LexicalErrorBoundary}
           />
-          <MentionsPlugin />
+          {/* <MentionsPlugin /> */}
           <HistoryPlugin />
           <ImagesPlugin captionsEnabled={false} />
           <LinkPlugin />
@@ -277,7 +277,6 @@ export default function Editor({
             <FloatingTextFormatToolbarPlugin anchorElem={floatingAnchorElem} />
           </>
         )}
-
         {(isCharLimit || isCharLimitUtf8) && (
           <CharacterLimitPlugin
             charset={isCharLimit ? "UTF-16" : "UTF-8"}
