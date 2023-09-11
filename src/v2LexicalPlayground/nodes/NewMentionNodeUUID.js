@@ -2,14 +2,11 @@ import { $applyNodeReplacement, TextNode, $getroot } from "lexical";
 import { v4 as uuidv4 } from "uuid";
 
 export function $createMentionNode(mentionName) {
-  const root = $getroot();
   const mentionNode = new MentionNode(mentionName);
   mentionNode.setMode("segmented").toggleDirectionless();
 
   console.log("Created Mention Node:", mentionNode);
   console.log("UUID of Created Mention Node:", mentionNode.__uuid);
-  const allTextNodes = root.getAllTextNodes();
-  console.log("allTextNodes:", allTextNodes);
 
   return $applyNodeReplacement(mentionNode);
 }

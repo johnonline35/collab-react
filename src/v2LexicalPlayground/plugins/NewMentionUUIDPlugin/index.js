@@ -5,7 +5,7 @@ import {
   MenuOption,
   useBasicTypeaheadTriggerMatch,
 } from "@lexical/react/LexicalTypeaheadMenuPlugin";
-import { TextNode } from "lexical";
+import { TextNode, $getRoot } from "lexical";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -91,7 +91,7 @@ const dummyLookupService = {
         mention.toLowerCase().includes(string.toLowerCase())
       );
       callback(results);
-    }, 500);
+    }, 100);
   },
 };
 
@@ -230,11 +230,14 @@ export default function NewMentionUUIDPlugin() {
   const onSelectOption = useCallback(
     (selectedOption, nodeToReplace, closeMenu) => {
       editor.update(() => {
+        const root = $getRoot();
         const mentionNode = $createMentionNode(selectedOption.name);
         if (nodeToReplace) {
           nodeToReplace.replace(mentionNode);
         }
         mentionNode.select();
+        const allTextNodes = root.getAllTextNodes();
+        console.log("allTextNodes", allTextNodes);
         closeMenu();
       });
     },
