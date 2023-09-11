@@ -12,6 +12,8 @@ import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection"
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $buildRapportNode(responseContent) {
+  // const node = getSelectedNode(selection);
+  // const parent = node.getParent();
   const icNode = $createParagraphNode();
 
   if (responseContent !== "") {
