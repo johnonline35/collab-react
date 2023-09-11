@@ -21,10 +21,11 @@ export default function FindAndStoreMentionPlugin() {
           if (element.__mention === "Next Step:") {
             const nextStepNode = element;
             const siblingNode = nextStepNode.getNextSibling();
-            if (!siblingNode.getTextContent() === null) {
+            if (siblingNode && siblingNode.getTextContent() !== null) {
               const nextStepTextContent = siblingNode.getTextContent();
               console.log("nextStepTextContent:", nextStepTextContent);
             }
+
             console.log("Mention Node Type:", element.__mention);
             console.log("Mention Node UUID:", element.__uuid);
             console.log("siblingNode:", siblingNode);
