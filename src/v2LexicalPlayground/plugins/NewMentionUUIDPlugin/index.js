@@ -237,7 +237,11 @@ export default function NewMentionUUIDPlugin() {
         }
         mentionNode.select();
         const allTextNodes = root.getAllTextNodes();
-        console.log("allTextNodes", allTextNodes);
+        allTextNodes.forEach((element) => {
+          console.log("Mention Node Type:", element.__mention);
+          console.log("Mention Node UUID:", element.__uuid);
+        });
+
         closeMenu();
       });
     },
