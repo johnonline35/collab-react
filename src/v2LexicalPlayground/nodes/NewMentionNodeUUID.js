@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 // }
 
 export function $createMentionNode(mentionName, uuid) {
-  const mentionNode = new MentionNode(mentionName, undefined, undefined, uuid);
+  const mentionNode = new MentionNode(mentionName, null, null, uuid);
   return $applyNodeReplacement(mentionNode);
 }
 
