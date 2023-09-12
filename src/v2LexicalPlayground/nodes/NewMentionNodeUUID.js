@@ -1,13 +1,18 @@
 import { $applyNodeReplacement, TextNode, $getroot } from "lexical";
 import { v4 as uuidv4 } from "uuid";
 
-export function $createMentionNode(mentionName) {
-  const mentionNode = new MentionNode(mentionName);
-  mentionNode.setMode("segmented").toggleDirectionless();
+// export function $createMentionNode(mentionName) {
+//   const mentionNode = new MentionNode(mentionName);
+//   mentionNode.setMode("segmented").toggleDirectionless();
 
-  //   console.log("Created Mention Node:", mentionNode);
-  //   console.log("UUID of Created Mention Node:", mentionNode.__uuid);
+//   //   console.log("Created Mention Node:", mentionNode);
+//   //   console.log("UUID of Created Mention Node:", mentionNode.__uuid);
 
+//   return $applyNodeReplacement(mentionNode);
+// }
+
+export function $createMentionNode(mentionName, uuid) {
+  const mentionNode = new MentionNode(mentionName, undefined, undefined, uuid);
   return $applyNodeReplacement(mentionNode);
 }
 
@@ -20,7 +25,7 @@ function convertMentionElement(domNode) {
   const uuid = domNode.getAttribute("data-uuid");
 
   if (textContent !== null) {
-    const node = $createMentionNode(textContent, uuid);
+    const node = $createMentionNode(textContent, uuid); // Pass the UUID here
     return {
       node,
     };
@@ -28,6 +33,20 @@ function convertMentionElement(domNode) {
 
   return null;
 }
+
+// function convertMentionElement(domNode) {
+//   const textContent = domNode.textContent;
+//   const uuid = domNode.getAttribute("data-uuid");
+
+//   if (textContent !== null) {
+//     const node = $createMentionNode(textContent, uuid);
+//     return {
+//       node,
+//     };
+//   }
+
+//   return null;
+// }
 
 const mentionStyle = "background-color: rgba(24, 119, 232, 0.2)";
 export class MentionNode extends TextNode {
