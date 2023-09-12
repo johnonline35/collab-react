@@ -9,17 +9,18 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
   const [editor] = useLexicalComposerContext();
   const [uuidSet, setUuidSet] = useState(new Set());
+  const { userId } = session.user.id;
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedUuids = await fetchUUIDs(workspace_id, session);
+      const fetchedUuids = await fetchUUIDs(workspace_id, userId);
       if (fetchedUuids) {
         setUuidSet(new Set(fetchedUuids));
       }
     }
 
     fetchData();
-  }, [workspace_id, session]);
+  }, [workspace_id, userId]);
 
   useEffect(() => {
     if (!editor) {
@@ -32,15 +33,6 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     // use Set() to store them
     // whenever there is an enter keydown event, check the Set() with the UUID of the
     // THIS IS THE END  OF THE INSTRUCTIONS TO CHAT GPT 4
-
-    editor.registerCommand(
-      KEY_ENTER_COMMAND,
-      (event) => {
-        // Handle enter key presses here
-        return false;
-      },
-      COMMAND_PRIORITY_LOW
-    );
 
     const unregister = editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
@@ -55,14 +47,24 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               textContainerNode.getTextContent() !== null
             ) {
               const extractedTextContent = textContainerNode.getTextContent();
+              const extractedTextUUID = node.__uuid;
               console.log("Mention Node Type:", node.__mention);
-              console.log("Mention Node UUID:", node.__uuid);
+              console.log("Mention Node UUID:", extractedTextUUID);
               console.log("extractedTextContent:", extractedTextContent);
             }
           }
         });
       });
     });
+
+    editor.registerCommand(
+      KEY_ENTER_COMMAND,
+      (event) => {
+        // Handle enter key presses here
+        return false;
+      },
+      COMMAND_PRIORITY_LOW
+    );
 
     return () => {
       if (unregister && typeof unregister === "function") {

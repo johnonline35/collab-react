@@ -106,13 +106,13 @@ export const publicEmailDomainsList = async () => {
   return publicEmailDomains;
 };
 
-export const fetchUUIDs = async (workspace_id, session) => {
+export const fetchUUIDs = async (workspace_id, userId) => {
   try {
     const { data, error } = await supabase
       .from("collab_users_next_steps")
       .select("collab_user_next_steps_id")
       .eq("workspace_id", workspace_id)
-      .eq("collab_user_id", session.userId); // Adjust if session has a different structure
+      .eq("collab_user_id", userId); // Adjust if session has a different structure
 
     if (error) {
       console.error("Error fetching UUIDs:", error);
