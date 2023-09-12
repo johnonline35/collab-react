@@ -24,6 +24,8 @@ export default function FindAndStoreMentionPlugin() {
             if (siblingNode && siblingNode.getTextContent() !== null) {
               const nextStepTextContent = siblingNode.getTextContent();
               console.log("nextStepTextContent:", nextStepTextContent);
+              const nextSiblingNode = siblingNode.getNextSibling();
+              console.log("nextSiblingNode:", nextSiblingNode);
             }
 
             console.log("Mention Node Type:", element.__mention);
