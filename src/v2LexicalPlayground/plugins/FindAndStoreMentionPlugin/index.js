@@ -9,19 +9,23 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
   const [editor] = useLexicalComposerContext();
   const [uuidSet, setUuidSet] = useState(new Set());
+  const { userId } = session?.user?.id;
 
-  console.log(" FindAndStoreMentionPlugin UserID:", session?.user?.id);
+  useEffect(() => {
+    if (!userId || !workspace_id) {
+      console.log("No userId or WorkspaceId found");
+      return;
+    }
+    async function fetchData() {
+      console.log("fetchData called");
+      const fetchedUuids = await fetchUUIDs(workspace_id, userId);
+      if (fetchedUuids) {
+        setUuidSet(new Set(fetchedUuids));
+      }
+    }
 
-  //   useEffect(() => {
-  //     async function fetchData() {
-  //       const fetchedUuids = await fetchUUIDs(workspace_id, userId);
-  //       if (fetchedUuids) {
-  //         setUuidSet(new Set(fetchedUuids));
-  //       }
-  //     }
-
-  //     fetchData();
-  //   }, [workspace_id, userId]);
+    fetchData();
+  }, [workspace_id, userId]);
 
   useEffect(() => {
     if (!editor) {
