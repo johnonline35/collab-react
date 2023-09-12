@@ -10,7 +10,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
   const [uuidSet, setUuidSet] = useState(new Set());
 
-  console.log(" FindAndStoreMentionPlugin UserID:", session);
+  console.log(" FindAndStoreMentionPlugin UserID:", session.user.id);
 
   //   useEffect(() => {
   //     async function fetchData() {
