@@ -54,7 +54,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
             ) {
               const extractedTextContent = textContainerNode.getTextContent();
               const extractedTextUUID = node.__uuid;
-              console.log("Mention Node Type:", node.__mention);
+              console.log("Mention Node:", node);
               console.log("Mention Node UUID:", extractedTextUUID);
               console.log("extractedTextContent:", extractedTextContent);
             }
