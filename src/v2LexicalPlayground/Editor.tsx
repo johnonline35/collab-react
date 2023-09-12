@@ -80,6 +80,7 @@ import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
 import { publicEmailDomainsList } from "../util/database";
 import NewMentionUUIDPlugin from "./plugins/NewMentionUUIDPlugin";
 import FindAndStoreMentionPlugin from "./plugins/FindAndStoreMentionPlugin";
+import { useSession } from "../hooks/useSession";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -95,6 +96,7 @@ export default function Editor({
   triggerEffect,
 }: EditorPluginProps): JSX.Element {
   const { workspace_id } = useParams();
+  const session = useSession();
   const meetingData = useMeetingData(workspace_id);
   const { historyState } = useSharedHistoryContext();
   const {
@@ -195,7 +197,10 @@ export default function Editor({
         />
         <CreateStructurePlugin />
         <NewMentionUUIDPlugin />
-        <FindAndStoreMentionPlugin />
+        <FindAndStoreMentionPlugin
+          workspace_id={workspace_id}
+          session={session}
+        />
         {/* <MentionsPlugin /> */}
         <EmojisPlugin />
         <HashtagPlugin />
