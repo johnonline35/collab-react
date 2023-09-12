@@ -47,6 +47,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         allTextNodes.forEach((node) => {
           if (node.__mention === "Next Step:") {
             const targetMentionNode = node;
+            console.log("Mention Node:", node);
             const textContainerNode = targetMentionNode.getNextSibling();
             if (
               textContainerNode &&
@@ -54,7 +55,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
             ) {
               const extractedTextContent = textContainerNode.getTextContent();
               const extractedTextUUID = node.__uuid;
-              console.log("Mention Node:", node);
+              //   console.log("Mention Node:", node);
               console.log("Mention Node UUID:", extractedTextUUID);
               console.log("extractedTextContent:", extractedTextContent);
             }
