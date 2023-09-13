@@ -31,7 +31,7 @@ export function LocalStoragePlugin() {
         if (dirtyElements.size === 0 && dirtyLeaves.size === 0) return;
 
         const serializedState = JSON.stringify(editorState);
-        console.log("Serialized Editor State:", serializedState);
+        // console.log("Serialized Editor State:", serializedState);
 
         debouncedSaveContent(serializedState);
       }

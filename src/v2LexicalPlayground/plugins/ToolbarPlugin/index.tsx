@@ -721,7 +721,6 @@ export default function ToolbarPlugin({
               INSERT_BUILD_RAPPORT_COMMAND,
               undefined
             );
-            setTriggerEffect((prev) => !prev);
           }}
           className='item'
         >
