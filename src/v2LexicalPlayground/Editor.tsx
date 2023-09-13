@@ -191,7 +191,7 @@ export default function Editor({
           meetingData={meetingData}
           publicEmailDomains={publicEmailDomains}
         />
-        <BuildRapportPlugin meetingData={meetingData} />
+        <BuildRapportPlugin meetingData={meetingData} session={session} />
         <CreateStructurePlugin />
         <NewMentionUUIDPlugin />
         <FindAndStoreMentionPlugin
