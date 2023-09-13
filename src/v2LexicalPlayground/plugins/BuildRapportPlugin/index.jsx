@@ -76,30 +76,34 @@ export default function BuildRapportPlugin({ meetingData, session }) {
   const [editor] = useLexicalComposerContext();
   const userId = session?.user?.id;
 
-  async function fetchSummary() {
-    try {
-      console.log("fetch called");
-      const response = await fetch(
-        "https://collab-express-production.up.railway.app/summarize-career-education",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(meetingData),
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`Server responded with a ${response.status} status.`);
-      }
-      const data = await response.json();
-      console.log("streaming data:", data);
-    } catch (error) {
-      console.error("There was an error fetching the summary!", error);
-    }
-  }
-
   useEffect(() => {
+    if (!meetingData || !userId) {
+      console.log("No meeting data or userid");
+      return;
+    }
+
+    async function fetchSummary() {
+      try {
+        console.log("fetch called");
+        const response = await fetch(
+          "https://collab-express-production.up.railway.app/summarize-career-education",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(meetingData),
+          }
+        );
+        if (!response.ok) {
+          throw new Error(`Server responded with a ${response.status} status.`);
+        }
+        const data = await response.json();
+        console.log("streaming data:", data);
+      } catch (error) {
+        console.error("There was an error fetching the summary!", error);
+      }
+    }
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
@@ -143,7 +147,7 @@ export default function BuildRapportPlugin({ meetingData, session }) {
         unregister();
       }
     };
-  }, [editor]);
+  }, [editor, userId, meetingData]);
 
   return null;
 }
