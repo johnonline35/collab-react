@@ -72,9 +72,9 @@ export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 //   }
 // }
 
-export default function BuildRapportPlugin({ meetingData }) {
+export default function BuildRapportPlugin({ meetingData, session }) {
   const [editor] = useLexicalComposerContext();
-  const session = useSession();
+  const userId = session?.user?.id;
 
   async function fetchSummary() {
     try {
@@ -105,7 +105,7 @@ export default function BuildRapportPlugin({ meetingData }) {
       () => {
         // Dispatching the commands
         socket.on("connect", () => {
-          socket.emit("registerUser", session.user.id);
+          socket.emit("registerUser", userId);
         });
 
         socket.on("responseChunk", (data) => {
