@@ -132,6 +132,13 @@ export default function BuildRapportPlugin({ meetingData }) {
 
     // If the registerCommand method returns a function to unregister the command, you can call it in the cleanup
     return () => {
+      // Disconnect the WebSocket
+      socket.disconnect();
+
+      // Remove event listeners
+      socket.off("connect");
+      socket.off("responseChunk");
+
       if (typeof unregister === "function") {
         unregister();
       }
