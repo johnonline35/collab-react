@@ -5,7 +5,6 @@ import {
   COMMAND_PRIORITY_HIGH,
 } from "lexical";
 import { useEffect } from "react";
-import { useSession } from "../../../hooks/useSession";
 import socket from "../../../util/socket";
 import {
   $getRoot,
@@ -113,8 +112,16 @@ export default function BuildRapportPlugin({ meetingData, session }) {
         });
 
         socket.on("responseChunk", (data) => {
-          if (data.content === undefined || data.content.trim() === "") {
-            console.log("Received undefined or empty content, ignoring.");
+          if (data.error) {
+            console.error("Received error:", data.error);
+            return;
+          }
+          if (typeof data.content !== "string" && data.content.trim() === "") {
+            console.log("Received empty string, ignoring.");
+            return;
+          }
+          if (!data || data.content === undefined || data.content === null) {
+            console.log("Received undefined, null or no data, ignoring.");
             return;
           }
 
