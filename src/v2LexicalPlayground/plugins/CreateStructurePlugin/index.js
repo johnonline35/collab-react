@@ -13,7 +13,7 @@ import {
   LexicalEditor,
   $createTextNode,
 } from "lexical";
-import { $insertNodeToNearestRoot } from "@lexical/utils";
+import { $insertNodeToNearestRoot, $wrapNodeInElement } from "@lexical/utils";
 import { $createStructureNode } from "../../nodes/CreateStructureNode";
 import { useEffect } from "react";
 
@@ -39,7 +39,10 @@ export default function CreateStructurePlugin() {
           // const node = nodes[0];
           // console.log("Node for structure node:", node);
           const textNode = $createTextNode("TEXT NODE");
-          $insertNodeToNearestRoot(textNode);
+          $insertNodes([textNode]);
+          if ($isRootOrShadowRoot(textNode.getParentOrThrow())) {
+            $wrapNodeInElement(textNode, $createParagraphNode).selectEnd();
+          }
         });
         return true;
       },
