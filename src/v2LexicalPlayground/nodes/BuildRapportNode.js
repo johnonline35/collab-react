@@ -65,6 +65,8 @@ async function fetchSummary() {
 }
 
 export function $buildRapportNode() {
+  const selection = getSelection();
+
   const icNode = $createParagraphNode();
 
   icNode.append($createTextNode("TEXT TEST"));

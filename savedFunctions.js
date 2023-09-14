@@ -1,3 +1,65 @@
+// function getImageNodeInSelection(): ImageNode | null {
+//   const selection = $getSelection();
+//   if (!$isNodeSelection(selection)) {
+//     return null;
+//   }
+//   const nodes = selection.getNodes();
+//   const node = nodes[0];
+//   return $isImageNode(node) ? node : null;
+// }
+
+// KERRY"S CODE FOR SIMULATING DATA.CONTENT API RESPONSE:
+
+// const socketStub = (() => {
+//   const callbacks = {};
+
+//   const on = (event, callback) => {
+//     callbacks[event] = callback;
+//   };
+
+//   const emit = (event, data) => {
+//     // noop
+//   };
+// KERRYS SIMULATED RESPONSE CHUNK CODE:
+//   const trigger = async () => {
+//     let count = 0;
+//     while (count < 50) {
+//       await new Promise((resolve) => setTimeout(resolve, 1000));
+//       callbacks["responseChunk"]({
+//         content: "Hello from BUILD_RAPPORT 2",
+//       });
+//       count++;
+//     }
+//   };
+
+//   return { on, emit, trigger };
+// })();
+
+// async function fetchSummary() {
+//   await socketStub.trigger();
+//   return;
+//   try {
+//     console.log("fetch called");
+//     const response = await fetch(
+//       "https://collab-express-production.up.railway.app/summarize-career-education",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({}),
+//       }
+//     );
+//     if (!response.ok) {
+//       throw new Error(`Server responded with a ${response.status} status.`);
+//     }
+//     const data = await response.json();
+//     console.log("streaming data:", data);
+//   } catch (error) {
+//     console.error("There was an error fetching the summary!", error);
+//   }
+// }
+
 // NODE CODE FOR INSERTING LINK FOR ROUTER AND GOOGLE API
 
 // router.post("/insert-link-for-new-meeting", async (req, res) => {
