@@ -10,37 +10,38 @@ import { $createListItemNode, $createListNode } from "@lexical/list";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $createStructureNode() {
+  const para1 = $createParagraphNode();
   // "Notes:" Heading
   const notesHeading = $createHeadingNode("h3").append(
     $createTextNode("Notes:").setStyle("font-weight: bold")
   );
-  insertBeforeLastChild(notesHeading);
+  para1.append(notesHeading);
 
-  // Empty Paragraph
-  insertBeforeLastChild($createParagraphNode());
+  // // Empty Paragraph
+  // insertBeforeLastChild($createParagraphNode());
 
-  // Bullet list with a single bullet
-  const list1 = $createListNode("bullet");
-  list1.append($createListItemNode().append($createTextNode("")));
-  insertBeforeLastChild(list1);
+  // // Bullet list with a single bullet
+  // const list1 = $createListNode("bullet");
+  // list1.append($createListItemNode().append($createTextNode("")));
+  // insertBeforeLastChild(list1);
 
-  // Empty Paragraph
-  insertBeforeLastChild($createParagraphNode());
+  // // Empty Paragraph
+  // insertBeforeLastChild($createParagraphNode());
 
-  // "Follow up:" Heading
-  const followUpHeading = $createHeadingNode("h3").append(
-    $createTextNode("Action items:").setStyle("font-weight: bold")
-  );
-  insertBeforeLastChild(followUpHeading);
+  // // "Follow up:" Heading
+  // const followUpHeading = $createHeadingNode("h3").append(
+  //   $createTextNode("Action items:").setStyle("font-weight: bold")
+  // );
+  // insertBeforeLastChild(followUpHeading);
 
-  // Empty Paragraph
-  insertBeforeLastChild($createParagraphNode());
+  // // Empty Paragraph
+  // insertBeforeLastChild($createParagraphNode());
 
-  // Another bullet list with a single bullet
-  const list2 = $createListNode("bullet");
-  list2.append($createListItemNode().append($createTextNode("")));
-  insertBeforeLastChild(list2);
+  // // Another bullet list with a single bullet
+  // const list2 = $createListNode("bullet");
+  // list2.append($createListItemNode().append($createTextNode("")));
+  // insertBeforeLastChild(list2);
 
-  // Empty Paragraph
-  insertBeforeLastChild($createParagraphNode());
+  // // Empty Paragraph
+  // insertBeforeLastChild($createParagraphNode());
 }

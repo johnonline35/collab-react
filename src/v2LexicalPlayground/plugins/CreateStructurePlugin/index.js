@@ -29,7 +29,7 @@ export default function CreateStructurePlugin() {
       () => {
         editor.update(() => {
           //
-          // $createStructureNode();
+          const createStructureNode = $createStructureNode();
           //
           // const selection = $getSelection();
           // if (!$isNodeSelection(selection)) {
@@ -39,9 +39,12 @@ export default function CreateStructurePlugin() {
           // const node = nodes[0];
           // console.log("Node for structure node:", node);
           const textNode = $createTextNode("TEXT NODE");
-          $insertNodes([textNode]);
-          if ($isRootOrShadowRoot(textNode.getParentOrThrow())) {
-            $wrapNodeInElement(textNode, $createParagraphNode).selectEnd();
+          $insertNodes([createStructureNode]);
+          if ($isRootOrShadowRoot(createStructureNode.getParentOrThrow())) {
+            $wrapNodeInElement(
+              createStructureNode,
+              $createParagraphNode
+            ).selectEnd();
           }
         });
         return true;
