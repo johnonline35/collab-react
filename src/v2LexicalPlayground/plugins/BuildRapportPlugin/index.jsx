@@ -116,12 +116,12 @@ export default function BuildRapportPlugin({ meetingData, session }) {
             console.error("Received error:", data.error);
             return;
           }
-          if (typeof data.content !== "string" && data.content.trim() === "") {
-            console.log("Received empty string, ignoring.");
-            return;
-          }
           if (!data || data.content === undefined || data.content === null) {
             console.log("Received undefined, null or no data, ignoring.");
+            return;
+          }
+          if (typeof data.content === "string" && data.content.trim() === "") {
+            console.log("Received empty string, ignoring.");
             return;
           }
 
