@@ -21,56 +21,6 @@ import { $buildRapportNode } from "../../nodes/BuildRapportNode";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
-// const socketStub = (() => {
-//   const callbacks = {};
-
-//   const on = (event, callback) => {
-//     callbacks[event] = callback;
-//   };
-
-//   const emit = (event, data) => {
-//     // noop
-//   };
-
-//   const trigger = async () => {
-//     let count = 0;
-//     while (count < 50) {
-//       await new Promise((resolve) => setTimeout(resolve, 1000));
-//       callbacks["responseChunk"]({
-//         content: "Hello from BUILD_RAPPORT 2",
-//       });
-//       count++;
-//     }
-//   };
-
-//   return { on, emit, trigger };
-// })();
-
-// async function fetchSummary() {
-//   await socketStub.trigger();
-//   return;
-//   try {
-//     console.log("fetch called");
-//     const response = await fetch(
-//       "https://collab-express-production.up.railway.app/summarize-career-education",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({}),
-//       }
-//     );
-//     if (!response.ok) {
-//       throw new Error(`Server responded with a ${response.status} status.`);
-//     }
-//     const data = await response.json();
-//     console.log("streaming data:", data);
-//   } catch (error) {
-//     console.error("There was an error fetching the summary!", error);
-//   }
-// }
-
 export default function BuildRapportPlugin({ meetingData, session }) {
   const [editor] = useLexicalComposerContext();
   const userId = session?.user?.id;
@@ -81,6 +31,7 @@ export default function BuildRapportPlugin({ meetingData, session }) {
       return;
     }
 
+    // Backend api to summarize meeting data and create prompt and submit it to OpenAi
     async function fetchSummary() {
       try {
         console.log("fetch called");
@@ -141,7 +92,7 @@ export default function BuildRapportPlugin({ meetingData, session }) {
       COMMAND_PRIORITY_HIGH
     );
 
-    // If the registerCommand method returns a function to unregister the command, you can call it in the cleanup
+    // Function to unregister the command and disconnect from the socket in the cleanup
     return () => {
       // Disconnect the WebSocket
       socket.disconnect();
