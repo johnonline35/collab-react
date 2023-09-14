@@ -10,14 +10,6 @@ import { $createListItemNode, $createListNode } from "@lexical/list";
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
 
 export function $createStructureNode() {
-  // const selection = $getSelection();
-  // if (!$isNodeSelection(selection)) {
-  //   return null;
-  // }
-  // const nodes = selection.getNodes();
-  // const node = nodes[0];
-  // console.log("Node for structure node:", node);
-
   // "Notes:" Heading
   const notesHeading = $createHeadingNode("h3").append(
     $createTextNode("Notes:").setStyle("font-weight: bold")
