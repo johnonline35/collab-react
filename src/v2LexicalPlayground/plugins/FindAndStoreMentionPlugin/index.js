@@ -24,11 +24,14 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       if (fetchedUuids) {
         setUuidSet(new Set(fetchedUuids));
       }
-      console.log("Fetched UUID's:", uuidSet);
     }
 
     fetchData();
-  }, [workspace_id, userId, uuidSet]);
+  }, [workspace_id, userId]);
+
+  useEffect(() => {
+    console.log("Fetched UUID's:", uuidSet);
+  }, [uuidSet]);
 
   useEffect(() => {
     if (!editor) {
