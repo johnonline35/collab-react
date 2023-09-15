@@ -1,8 +1,8 @@
 import { $applyNodeReplacement, TextNode, $getroot } from "lexical";
 import { v4 as uuidv4 } from "uuid";
 
-export function $createMentionNode(mentionName) {
-  const mentionNode = new MentionNode(mentionName);
+export function $createMentionNode(mentionName, uuid) {
+  const mentionNode = new MentionNode(mentionName, null, null, uuid);
   mentionNode.setMode("segmented").toggleDirectionless();
 
   //   console.log("Created Mention Node:", mentionNode);
@@ -62,11 +62,6 @@ export class MentionNode extends TextNode {
     node.setMode(serializedNode.mode);
     node.setStyle(serializedNode.style);
     return node;
-  }
-
-  // Method to set the existing UUID
-  setUUID(uuid) {
-    this.__uuid = uuid;
   }
 
   exportJSON() {
