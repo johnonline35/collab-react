@@ -22,6 +22,10 @@ export function LocalStoragePlugin() {
     if (savedContent) {
       console.log("Retrieved from local storage:", savedContent);
       const savedStateJSON = JSON.parse(savedContent);
+      console.log(
+        "Retrieved from local storage: savedStateJSON:",
+        savedStateJSON
+      );
       const savedState = editor.parseEditorState(savedStateJSON);
       console.log("Parsed editor state:", savedState);
       editor.setEditorState(savedState); // Update the editor state
