@@ -115,11 +115,14 @@ function prepopulatedRichText() {
 }
 
 function App(): JSX.Element {
+  const { workspace_id } = useParams();
   const {
     settings: { isCollab, emptyEditor, measureTypingPerf },
   } = useSettings();
+  const content = localStorage.getItem(workspace_id!);
 
   const initialConfig = {
+    editorState: content,
     namespace: "Playground",
     nodes: [...PlaygroundNodes],
     onError: (error: Error) => {
