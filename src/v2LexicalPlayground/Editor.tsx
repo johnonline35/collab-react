@@ -91,10 +91,7 @@ type EditorPluginProps = {
   triggerEffect: boolean;
 };
 
-export default function Editor({
-  setTriggerEffect,
-  triggerEffect,
-}: EditorPluginProps): JSX.Element {
+export default function Editor(): JSX.Element {
   const { workspace_id } = useParams();
   const session = useSession();
   const meetingData = useMeetingData(workspace_id);
