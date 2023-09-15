@@ -51,6 +51,7 @@ export class MentionNode extends TextNode {
   }
 
   static importJSON(serializedNode) {
+    console.log("Deserializing MentionNode:", serializedNode);
     const node = new MentionNode(
       serializedNode.mentionName,
       serializedNode.text,
@@ -61,18 +62,45 @@ export class MentionNode extends TextNode {
     node.setDetail(serializedNode.detail);
     node.setMode(serializedNode.mode);
     node.setStyle(serializedNode.style);
+    console.log("Resulting MentionNode after deserialization:", node);
     return node;
   }
 
   exportJSON() {
-    return {
+    const serializedData = {
       ...super.exportJSON(),
       mentionName: this.__mention,
       uuid: this.__uuid,
       type: "mention",
       version: 1,
     };
+    console.log("Serialized MentionNode:", serializedData);
+    return serializedData;
   }
+
+  // static importJSON(serializedNode) {
+  //   const node = new MentionNode(
+  //     serializedNode.mentionName,
+  //     serializedNode.text,
+  //     undefined,
+  //     serializedNode.uuid
+  //   );
+  //   node.setFormat(serializedNode.format);
+  //   node.setDetail(serializedNode.detail);
+  //   node.setMode(serializedNode.mode);
+  //   node.setStyle(serializedNode.style);
+  //   return node;
+  // }
+
+  // exportJSON() {
+  //   return {
+  //     ...super.exportJSON(),
+  //     mentionName: this.__mention,
+  //     uuid: this.__uuid,
+  //     type: "mention",
+  //     version: 1,
+  //   };
+  // }
 
   createDOM(config) {
     const dom = super.createDOM(config);
