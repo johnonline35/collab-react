@@ -11,6 +11,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [uuidSet, setUuidSet] = useState(new Set());
   const userId = session?.user?.id;
 
+  // Fetch the existing mention UUID's and store them in a Set()
   useEffect(() => {
     if (!userId || !workspace_id) {
       console.log("No userId or WorkspaceId found");
@@ -23,10 +24,11 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       if (fetchedUuids) {
         setUuidSet(new Set(fetchedUuids));
       }
+      console.log("Fetched UUID's:", uuidSet);
     }
 
     fetchData();
-  }, [workspace_id, userId]);
+  }, [workspace_id, userId, uuidSet]);
 
   useEffect(() => {
     if (!editor) {
@@ -40,6 +42,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     // whenever there is an enter keydown event, check the Set() with the UUID of the
     // THIS IS THE END  OF THE INSTRUCTIONS TO CHAT GPT 4
 
+    // Listen to the editor state for new mentions:
     const unregister = editor.registerUpdateListener(({ editorState }) => {
       editorState.read(() => {
         const root = $getRoot();
@@ -64,6 +67,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       });
     });
 
+    // When the enter key is pressed, check the node tree for new UUID's and insert if needed:
     editor.registerCommand(
       KEY_ENTER_COMMAND,
       (event) => {
