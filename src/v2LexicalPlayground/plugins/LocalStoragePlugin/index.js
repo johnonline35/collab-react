@@ -40,10 +40,7 @@ export function LocalStoragePlugin() {
           "JSON.stringify(editorState):",
           JSON.stringify(editorState)
         );
-        console.log(
-          "JSON.stringify(editorState.toJSON()):",
-          JSON.stringify(editorState.toJSON())
-        );
+        console.log("editorState.toJSON():", editorState.toJSON());
         const serializedState = JSON.stringify(editorState.toJSON());
         // editor.getEditorState().toJSON();
         // JSON.stringify(editorState);
