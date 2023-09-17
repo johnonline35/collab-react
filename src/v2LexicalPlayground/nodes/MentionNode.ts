@@ -54,12 +54,14 @@ export class MentionNode extends TextNode {
     return new MentionNode(node.__mention, node.__text, node.__key);
   }
   static importJSON(serializedNode: SerializedMentionNode): MentionNode {
+    console.log("Import Json called");
     const node = $createMentionNode(serializedNode.mentionName);
     node.setTextContent(serializedNode.text);
     node.setFormat(serializedNode.format);
     node.setDetail(serializedNode.detail);
     node.setMode(serializedNode.mode);
     node.setStyle(serializedNode.style);
+    console.log("Node:", node);
     return node;
   }
 
