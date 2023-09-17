@@ -89,12 +89,7 @@ const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 const mentionsCache = new Map();
 
-const dummyMentionsData = [
-  "Aayla Secura",
-  "Adi Gallia",
-  "Admiral Dodd Rancit",
-  "Admiral Firmus Piett",
-];
+const dummyMentionsData = ["Next Steps: ", "Todo: "];
 
 const dummyLookupService = {
   search(string: string, callback: (results: Array<string>) => void): void {
