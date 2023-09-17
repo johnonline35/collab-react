@@ -122,7 +122,7 @@ function App(): JSX.Element {
   const content = localStorage.getItem(workspace_id!);
 
   const initialConfig = {
-    editorState: content,
+    // editorState: content,
     namespace: "Playground",
     nodes: [...PlaygroundNodes],
     onError: (error: Error) => {

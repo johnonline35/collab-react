@@ -34,7 +34,7 @@ export class MentionNode extends TextNode {
   constructor(mentionName, text, key, uuid) {
     super(text ?? mentionName, key);
     this.__mention = mentionName;
-    this.__uuid = uuid ?? uuidv4(); // Use provided UUID or generate a new one
+    this.__uuid = uuid ?? uuidv4();
   }
 
   static getType() {
