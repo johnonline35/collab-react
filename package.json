@@ -63,6 +63,7 @@
     "@types/katex": "^0.16.2",
     "@types/lodash-es": "^4.14.182",
     "@types/node": "^20.5.0",
+    "@types/uuid": "^9.0.4",
     "prettier": "^2.8.8",
     "prettier-plugin-organize-attributes": "^0.0.5"
   },
