@@ -190,12 +190,12 @@ export default function Editor(): JSX.Element {
         />
         <BuildRapportPlugin meetingData={meetingData} session={session} />
         <CreateStructurePlugin />
-        <NewMentionUUIDPlugin />
+        {/* <NewMentionUUIDPlugin /> */}
         <FindAndStoreMentionPlugin
           workspace_id={workspace_id}
           session={session}
         />
-        {/* <MentionsPlugin /> */}
+        <MentionsPlugin />
         <EmojisPlugin />
         <HashtagPlugin />
         <KeywordsPlugin />
