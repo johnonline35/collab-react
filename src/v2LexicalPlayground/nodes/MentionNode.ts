@@ -19,10 +19,12 @@ import {
   $applyNodeReplacement,
   TextNode,
 } from "lexical";
+import { uuid as UUID } from "../plugins/AutocompletePlugin";
 
 export type SerializedMentionNode = Spread<
   {
     mentionName: string;
+    uuid: string;
   },
   SerializedTextNode
 >;
@@ -45,17 +47,26 @@ function convertMentionElement(
 const mentionStyle = "background-color: rgba(24, 119, 232, 0.2)";
 export class MentionNode extends TextNode {
   __mention: string;
+  __uuid: string;
 
   static getType(): string {
     return "mention";
   }
 
   static clone(node: MentionNode): MentionNode {
-    return new MentionNode(node.__mention, node.__text, node.__key);
+    return new MentionNode(
+      node.__mention,
+      node.__text,
+      node.__key,
+      node.__uuid
+    );
   }
   static importJSON(serializedNode: SerializedMentionNode): MentionNode {
     console.log("Import Json called");
-    const node = $createMentionNode(serializedNode.mentionName);
+    const node = $createMentionNode(
+      serializedNode.mentionName,
+      serializedNode.uuid
+    );
     node.setTextContent(serializedNode.text);
     node.setFormat(serializedNode.format);
     node.setDetail(serializedNode.detail);
@@ -65,9 +76,15 @@ export class MentionNode extends TextNode {
     return node;
   }
 
-  constructor(mentionName: string, text?: string, key?: NodeKey) {
+  constructor(
+    mentionName: string,
+    text?: string,
+    key?: NodeKey,
+    uuid?: string
+  ) {
     super(text ?? mentionName, key);
     this.__mention = mentionName;
+    this.__uuid = uuid || UUID;
   }
 
   exportJSON(): SerializedMentionNode {
@@ -76,6 +93,7 @@ export class MentionNode extends TextNode {
       mentionName: this.__mention,
       type: "mention",
       version: 1,
+      uuid: this.__uuid,
     };
   }
 
@@ -120,8 +138,11 @@ export class MentionNode extends TextNode {
   }
 }
 
-export function $createMentionNode(mentionName: string): MentionNode {
-  const mentionNode = new MentionNode(mentionName);
+export function $createMentionNode(
+  mentionName: string,
+  uuid?: string
+): MentionNode {
+  const mentionNode = new MentionNode(mentionName, undefined, undefined, uuid);
   mentionNode.setMode("segmented").toggleDirectionless();
   return $applyNodeReplacement(mentionNode);
 }
