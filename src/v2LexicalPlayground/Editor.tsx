@@ -78,7 +78,7 @@ import { useMeetingData } from "./hooks/useMeetingData";
 import { useParams } from "react-router-dom";
 import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
 import { publicEmailDomainsList } from "../util/database";
-import NewMentionUUIDPlugin from "./plugins/NewMentionUUIDPlugin";
+
 import FindAndStoreMentionPlugin from "./plugins/FindAndStoreMentionPlugin";
 import { useSession } from "../hooks/useSession";
 
@@ -190,7 +190,7 @@ export default function Editor(): JSX.Element {
         />
         <BuildRapportPlugin meetingData={meetingData} session={session} />
         <CreateStructurePlugin />
-        {/* <NewMentionUUIDPlugin /> */}
+
         <FindAndStoreMentionPlugin
           workspace_id={workspace_id}
           session={session}
