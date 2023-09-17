@@ -20,6 +20,7 @@ import {
   TextNode,
 } from "lexical";
 import { uuid as UUID } from "../plugins/AutocompletePlugin";
+import { v4 as uuidv4 } from "uuid";
 
 export type SerializedMentionNode = Spread<
   {
@@ -84,7 +85,7 @@ export class MentionNode extends TextNode {
   ) {
     super(text ?? mentionName, key);
     this.__mention = mentionName;
-    this.__uuid = uuid || UUID;
+    this.__uuid = uuid || uuidv4();
   }
 
   exportJSON(): SerializedMentionNode {
