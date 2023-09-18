@@ -111,8 +111,10 @@ export const fetchUUIDs = async (workspace_id, userId) => {
     const { data, error } = await supabase
       .from("collab_users_next_steps")
       .select("collab_user_next_steps_id")
-      // .eq("workspace_id", workspace_id)
-      .eq("collab_user_id", userId);
+      .match({
+        workspace_id: workspace_id,
+        collab_user_id: userId,
+      });
 
     console.log("Data:", data);
 
