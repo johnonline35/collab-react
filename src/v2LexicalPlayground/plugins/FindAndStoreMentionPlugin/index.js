@@ -66,7 +66,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     editor.registerCommand(
       KEY_ENTER_COMMAND,
       (event) => {
-        // Handle enter key presses here
+        console.log("ENTER key pressed!");
         return false;
       },
       COMMAND_PRIORITY_LOW
