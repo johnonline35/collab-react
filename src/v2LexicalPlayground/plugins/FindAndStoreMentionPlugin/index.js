@@ -30,8 +30,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     fetchData();
   }, [workspace_id, userId]);
 
-  function newUuid(uuid) {
-    console.log("New UUID detected:", uuid);
+  function newUuid(uuid, content) {
+    console.log("New UUID detected:", uuid, "with content:", content);
     // Add any additional logic you want here.
   }
 
@@ -42,15 +42,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         console.log("ENTER key pressed!");
         setNextStepsMap((prevMap) => {
           const updatedMap = new Map([...prevMap, ...latestContentMap]);
-          console.log("Updated map:", updatedMap);
 
-          // Check each UUID in latestContentMap
-          for (let [uuid] of latestContentMap) {
+          // Check each UUID and content pair in latestContentMap
+          for (let [uuid, content] of latestContentMap) {
             if (!uuidSet.has(uuid) && !prevMap.has(uuid)) {
-              newUuid(uuid);
+              newUuid(uuid, content);
             }
           }
 
+          console.log("Updated map:", updatedMap);
           latestContentMap.clear();
           return updatedMap;
         });
