@@ -37,13 +37,6 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   }, [uuidSet]);
 
   useEffect(() => {
-    if (nextStepUUID && nextStepContent) {
-      console.log("Updated values:", nextStepUUID, nextStepContent);
-      // You can use them here.
-    }
-  }, [nextStepUUID, nextStepContent]);
-
-  useEffect(() => {
     if (!editor) {
       console.warn("Editor is not properly initialized.");
       return;
@@ -75,6 +68,10 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       KEY_ENTER_COMMAND,
       (event) => {
         console.log("ENTER key pressed!");
+        if (nextStepUUID && nextStepContent) {
+          console.log("Updated values:", nextStepUUID, nextStepContent);
+          // You can use them here.
+        }
         return false;
       },
       COMMAND_PRIORITY_LOW
