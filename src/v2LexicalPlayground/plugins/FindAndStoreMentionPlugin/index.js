@@ -32,37 +32,57 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
   useEffect(() => {
     handleEnterRef.current = async () => {
-      if (isProcessing.current) return; // Prevents overlap
+      if (isProcessing.current) return;
 
       isProcessing.current = true;
-      console.log("ENTER key pressed!");
+      console.log("Processing started.");
+
+      console.log("Initial nextStepsMap:", [...nextStepsMap]);
+      console.log("Initial latestContentMap:", [...latestContentMap]);
 
       const updatedMap = new Map([...nextStepsMap, ...latestContentMap]);
+      console.log("UpdatedMap after merging:", [...updatedMap]);
 
       for (let [uuid, content] of latestContentMap.entries()) {
         if (!uuidSet.has(uuid) && !nextStepsMap.has(uuid)) {
+          console.log(`Processing UUID: ${uuid} with content:`, content);
+
           const response = await storeNextStep(
             workspace_id,
             userId,
             uuid,
             content
           );
-          console.log("Response from storeNextStep:", response);
+
+          console.log("Response from storeNextStep for UUID:", uuid, response);
           if (response && response.success) {
-            setUuidSet((prev) => new Set(prev).add(uuid));
+            setUuidSet((prev) => {
+              console.log("Adding UUID to set:", uuid);
+              return new Set(prev).add(uuid);
+            });
           }
+        } else {
+          console.log(
+            `UUID ${uuid} either exists in uuidSet or nextStepsMap, skipping.`
+          );
         }
       }
 
+      console.log("Clearing latestContentMap");
       latestContentMap.clear();
+
+      console.log("Setting NextStepsMap with updatedMap:", [...updatedMap]);
       setNextStepsMap(updatedMap);
       isProcessing.current = false; // Reset after processing
+      console.log("Processing ended.");
     };
 
     const unregisterEnterCommand = editor.registerCommand(
       KEY_ENTER_COMMAND,
       (event) => {
+        console.log("ENTER key detected");
         if (handleEnterRef.current) {
+          console.log("Invoking handleEnterRef function");
           handleEnterRef.current();
         }
         return false;
@@ -71,12 +91,14 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     );
 
     return () => {
-      // if (
-      //   unregisterEnterCommand &&
-      //   typeof unregisterEnterCommand === "function"
-      // ) {
-      //   unregisterEnterCommand();
-      // }
+      // Uncommenting the unregister logic
+      if (
+        unregisterEnterCommand &&
+        typeof unregisterEnterCommand === "function"
+      ) {
+        console.log("Unregistering ENTER command");
+        unregisterEnterCommand();
+      }
     };
   }, [editor, workspace_id, userId, nextStepsMap]);
 
