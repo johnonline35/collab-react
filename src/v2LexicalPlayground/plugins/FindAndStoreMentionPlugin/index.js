@@ -22,6 +22,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
           allStepsMap.set(uuid, content)
         );
       }
+      for (let [uuid, content] of allStepsMap.entries()) {
+        console.log(`Processing UUID: ${uuid} with content: ${content}`)
     }
 
     if (userId && workspace_id) {
