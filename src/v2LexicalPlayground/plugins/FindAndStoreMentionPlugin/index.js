@@ -36,30 +36,31 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   // }
 
   useEffect(() => {
+    const handleEnter = async () => {
+      console.log("ENTER key pressed!");
+
+      const updatedMap = new Map([...nextStepsMap, ...latestContentMap]);
+
+      for (let [uuid, content] of latestContentMap.entries()) {
+        if (!uuidSet.has(uuid) && !nextStepsMap.has(uuid)) {
+          const response = await storeNextStep(
+            workspace_id,
+            userId,
+            uuid,
+            content
+          );
+          console.log("Response from storeNextStep:", response);
+        }
+      }
+
+      latestContentMap.clear();
+      setNextStepsMap(updatedMap);
+    };
+
     editor.registerCommand(
       KEY_ENTER_COMMAND,
-      async (event) => {
-        console.log("ENTER key pressed!");
-        setNextStepsMap(async (prevMap) => {
-          const updatedMap = new Map([...prevMap, ...latestContentMap]);
-
-          // Check each UUID and content pair in latestContentMap
-          for (let [uuid, content] of latestContentMap) {
-            if (!uuidSet.has(uuid) && !prevMap.has(uuid)) {
-              const response = await storeNextStep(
-                workspace_id,
-                userId,
-                uuid,
-                content
-              );
-              console.log("Response from storeNextStep:", response);
-            }
-          }
-
-          console.log("Updated map:", updatedMap);
-          latestContentMap.clear();
-          return updatedMap;
-        });
+      (event) => {
+        handleEnter();
         return false;
       },
       COMMAND_PRIORITY_LOW
