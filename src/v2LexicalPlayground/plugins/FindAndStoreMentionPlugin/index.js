@@ -33,15 +33,21 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   }, [workspace_id, userId]);
 
   useEffect(() => {
-    console.log("Fetched UUID's:", uuidSet);
-  }, [uuidSet]);
-
-  useEffect(() => {
     for (let [uuid, content] of nextStepsMap.entries()) {
       console.log("UUID:", uuid);
       console.log("Content:", content);
     }
-  }, [nextStepsMap]);
+
+    // When the enter key is pressed, check the node tree for new UUID's and insert if needed:
+    editor.registerCommand(
+      KEY_ENTER_COMMAND,
+      (event) => {
+        console.log("ENTER key pressed!");
+        return false;
+      },
+      COMMAND_PRIORITY_LOW
+    );
+  }, [nextStepsMap, editor, uuidSet]);
 
   useEffect(() => {
     if (!editor) {
@@ -76,16 +82,6 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         });
       });
     });
-
-    // When the enter key is pressed, check the node tree for new UUID's and insert if needed:
-    editor.registerCommand(
-      KEY_ENTER_COMMAND,
-      (event) => {
-        console.log("ENTER key pressed!");
-        return false;
-      },
-      COMMAND_PRIORITY_LOW
-    );
 
     return () => {
       if (unregister && typeof unregister === "function") {
