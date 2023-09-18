@@ -131,3 +131,27 @@ export const fetchUUIDs = async (workspace_id, userId) => {
   }
   return null;
 };
+
+export const storeNextStep = async (workspace_id, userId, uuid, content) => {
+  const { data, error } = await supabase
+    .from("collab_users_next_steps")
+    .insert([
+      {
+        workspace_id: workspace_id,
+        collab_user_id: userId,
+        uuid: uuid,
+        content: content,
+      },
+    ]);
+
+  if (error) {
+    console.error("Error storing next step:", error);
+    return null;
+  } else {
+    console.log(
+      "Successfully stored next step with id:",
+      data[0].collab_user_next_steps_id
+    );
+    return data[0].collab_user_next_steps_id;
+  }
+};

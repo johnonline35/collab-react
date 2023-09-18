@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
 import { KEY_ENTER_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
-import { fetchUUIDs } from "../../../util/database";
+import { fetchUUIDs, storeNextStep } from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
@@ -30,23 +30,29 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     fetchData();
   }, [workspace_id, userId]);
 
-  function newUuid(uuid, content) {
-    console.log("New UUID detected:", uuid, "with content:", content);
-    // Add any additional logic you want here.
-  }
+  // function newUuid(uuid, content) {
+  //   console.log("New UUID detected:", uuid, "with content:", content);
+  //   // Add any additional logic you want here.
+  // }
 
   useEffect(() => {
     editor.registerCommand(
       KEY_ENTER_COMMAND,
-      (event) => {
+      async (event) => {
         console.log("ENTER key pressed!");
-        setNextStepsMap((prevMap) => {
+        setNextStepsMap(async (prevMap) => {
           const updatedMap = new Map([...prevMap, ...latestContentMap]);
 
           // Check each UUID and content pair in latestContentMap
           for (let [uuid, content] of latestContentMap) {
             if (!uuidSet.has(uuid) && !prevMap.has(uuid)) {
-              newUuid(uuid, content);
+              const response = await storeNextStep(
+                workspace_id,
+                userId,
+                uuid,
+                content
+              );
+              console.log("Response from storeNextStep:", response);
             }
           }
 
@@ -58,7 +64,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       },
       COMMAND_PRIORITY_LOW
     );
-  }, [nextStepsMap, editor, uuidSet]);
+  }, [workspace_id, userId, nextStepsMap, editor, uuidSet]);
 
   useEffect(() => {
     if (!editor) {
