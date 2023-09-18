@@ -42,9 +42,9 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
       const updatedMap = new Map([...nextStepsMap, ...latestContentMap]);
       console.log("UpdatedMap after merging:", [...updatedMap]);
-
+      // if (!uuidSet.has(uuid) || !nextStepsMap.has(uuid)) {
       for (let [uuid, content] of latestContentMap.entries()) {
-        if (!uuidSet.has(uuid) || !nextStepsMap.has(uuid)) {
+        if (!uuidSet.has(uuid)) {
           console.log(`Processing UUID: ${uuid} with content:`, content);
 
           const response = await storeNextStep(
