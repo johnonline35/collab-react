@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
 import { KEY_ENTER_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
@@ -8,6 +8,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
   const [uuidSet, setUuidSet] = useState(new Set());
   const [nextStepsMap, setNextStepsMap] = useState(new Map());
+  const latestContentMap = useRef(new Map()).current;
   const userId = session?.user?.id;
 
   // Fetch the existing mention UUID's and store them in a Set()
@@ -30,15 +31,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   }, [workspace_id, userId]);
 
   useEffect(() => {
-    // When the enter key is pressed, check the node tree for new UUID's and insert if needed:
     editor.registerCommand(
       KEY_ENTER_COMMAND,
       (event) => {
         console.log("ENTER key pressed!");
-        for (let [uuid, content] of nextStepsMap.entries()) {
-          console.log("UUID:", uuid);
-          console.log("Content:", content);
-        }
+        setNextStepsMap((prevMap) => {
+          const updatedMap = new Map([...prevMap, ...latestContentMap]);
+          latestContentMap.clear(); // Clear temp storage
+          return updatedMap;
+        });
         return false;
       },
       COMMAND_PRIORITY_LOW
@@ -68,11 +69,10 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
                 textContainerNode.getTextContent();
               const extractedNextStepUUID = node.__uuid;
 
-              setNextStepsMap((prevMap) => {
-                const newMap = new Map(prevMap);
-                newMap.set(extractedNextStepUUID, extractedNextStepContent);
-                return newMap;
-              });
+              latestContentMap.set(
+                extractedNextStepUUID,
+                extractedNextStepContent
+              );
             }
           }
         });
