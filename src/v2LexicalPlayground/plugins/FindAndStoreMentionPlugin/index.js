@@ -5,12 +5,9 @@ import { KEY_ENTER_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
 import { fetchUUIDs } from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
-  console.log("FindAndStoreMentionPlugin Called.");
-
   const [editor] = useLexicalComposerContext();
   const [uuidSet, setUuidSet] = useState(new Set());
   const [nextStepsMap, setNextStepsMap] = useState(new Map());
-
   const userId = session?.user?.id;
 
   // Fetch the existing mention UUID's and store them in a Set()
@@ -33,16 +30,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   }, [workspace_id, userId]);
 
   useEffect(() => {
-    for (let [uuid, content] of nextStepsMap.entries()) {
-      console.log("UUID:", uuid);
-      console.log("Content:", content);
-    }
-
     // When the enter key is pressed, check the node tree for new UUID's and insert if needed:
     editor.registerCommand(
       KEY_ENTER_COMMAND,
       (event) => {
         console.log("ENTER key pressed!");
+        for (let [uuid, content] of nextStepsMap.entries()) {
+          console.log("UUID:", uuid);
+          console.log("Content:", content);
+        }
         return false;
       },
       COMMAND_PRIORITY_LOW
