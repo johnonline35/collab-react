@@ -30,6 +30,11 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     fetchData();
   }, [workspace_id, userId]);
 
+  function newUuid(uuid) {
+    console.log("New UUID detected:", uuid);
+    // Add any additional logic you want here.
+  }
+
   useEffect(() => {
     editor.registerCommand(
       KEY_ENTER_COMMAND,
@@ -39,7 +44,14 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
           const updatedMap = new Map([...prevMap, ...latestContentMap]);
           console.log("Updated map:", updatedMap);
 
-          latestContentMap.clear(); // Clear temp storage
+          // Check each UUID in latestContentMap
+          for (let [uuid] of latestContentMap) {
+            if (!uuidSet.has(uuid) && !prevMap.has(uuid)) {
+              newUuid(uuid);
+            }
+          }
+
+          latestContentMap.clear();
           return updatedMap;
         });
         return false;
