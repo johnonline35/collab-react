@@ -37,6 +37,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         console.log("ENTER key pressed!");
         setNextStepsMap((prevMap) => {
           const updatedMap = new Map([...prevMap, ...latestContentMap]);
+          console.log("Updated map:", updatedMap);
+
           latestContentMap.clear(); // Clear temp storage
           return updatedMap;
         });
@@ -68,6 +70,13 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               const extractedNextStepContent =
                 textContainerNode.getTextContent();
               const extractedNextStepUUID = node.__uuid;
+
+              console.log(
+                "Setting latestContentMap with UUID:",
+                extractedNextStepUUID,
+                "and content:",
+                extractedNextStepContent
+              );
 
               latestContentMap.set(
                 extractedNextStepUUID,
