@@ -112,7 +112,9 @@ export const fetchUUIDs = async (workspace_id, userId) => {
       .from("collab_users_next_steps")
       .select("collab_user_next_steps_id")
       .eq("workspace_id", workspace_id)
-      .eq("collab_user_id", userId); // Adjust if session has a different structure
+      .eq("collab_user_id", userId);
+
+    console.log("Data:", data);
 
     if (error) {
       console.error("Error fetching UUIDs:", error);
