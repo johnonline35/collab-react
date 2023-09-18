@@ -21,6 +21,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     async function fetchData() {
       console.log("fetchData called");
       const fetchedUuids = await fetchUUIDs(workspace_id, userId);
+      console.log("fetchedUuids:", fetchedUuids);
       if (fetchedUuids) {
         setUuidSet(new Set(fetchedUuids));
       }
