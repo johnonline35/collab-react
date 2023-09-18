@@ -113,7 +113,7 @@ export const fetchUUIDs = async (workspace_id, userId) => {
       .select("collab_user_next_steps_id")
       .match({
         workspace_id: workspace_id,
-        // collab_user_id: userId,
+        collab_user_id: userId,
       });
 
     console.log("Data:", data);
