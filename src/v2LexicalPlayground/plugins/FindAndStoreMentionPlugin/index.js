@@ -72,7 +72,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
     return () => {
       if (unregisterEnterCommand) {
-        editor.unregisterCommand(unregisterEnterCommand);
+        unregisterEnterCommand();
       }
     };
   }, [editor, workspace_id, userId, nextStepsMap]);
