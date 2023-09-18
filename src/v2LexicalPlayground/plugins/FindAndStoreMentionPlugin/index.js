@@ -51,9 +51,10 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         const root = $getRoot();
         const allTextNodes = root.getAllTextNodes();
         allTextNodes.forEach((node) => {
+          console.log("Mention Node:", node);
           if (node.__mention === "Next Step:") {
             const targetMentionNode = node;
-            console.log("Mention Node:", node);
+
             const textContainerNode = targetMentionNode.getNextSibling();
             if (
               textContainerNode &&
