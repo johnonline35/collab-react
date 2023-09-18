@@ -9,8 +9,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
   const [editor] = useLexicalComposerContext();
   const [uuidSet, setUuidSet] = useState(new Set());
-  const [nextStepUUID, setNextStepUUID] = useState(null);
-  const [nextStepContent, setNextStepContent] = useState(null);
+  const [nextStepsMap, setNextStepsMap] = useState(new Map());
+
   const userId = session?.user?.id;
 
   // Fetch the existing mention UUID's and store them in a Set()
@@ -37,6 +37,13 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   }, [uuidSet]);
 
   useEffect(() => {
+    for (let [uuid, content] of nextStepsMap.entries()) {
+      console.log("UUID:", uuid);
+      console.log("Content:", content);
+    }
+  }, [nextStepsMap]);
+
+  useEffect(() => {
     if (!editor) {
       console.warn("Editor is not properly initialized.");
       return;
@@ -55,8 +62,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               textContainerNode &&
               textContainerNode.getTextContent() !== null
             ) {
-              setNextStepContent(textContainerNode.getTextContent());
-              setNextStepUUID(node.__uuid);
+              const extractedNextStepContent =
+                textContainerNode.getTextContent();
+              const extractedNextStepUUID = node.__uuid;
+
+              setNextStepsMap((prevMap) => {
+                const newMap = new Map(prevMap);
+                newMap.set(extractedNextStepUUID, extractedNextStepContent);
+                return newMap;
+              });
             }
           }
         });
@@ -68,10 +82,6 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       KEY_ENTER_COMMAND,
       (event) => {
         console.log("ENTER key pressed!");
-        if (nextStepUUID && nextStepContent) {
-          console.log("Updated values:", nextStepUUID, nextStepContent);
-          // You can use them here.
-        }
         return false;
       },
       COMMAND_PRIORITY_LOW
