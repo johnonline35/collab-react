@@ -139,8 +139,8 @@ export const storeNextStep = async (workspace_id, userId, uuid, content) => {
       {
         workspace_id: workspace_id,
         collab_user_id: userId,
-        uuid: uuid,
-        content: content,
+        collab_user_next_steps_id: uuid,
+        nextstep_content: content,
       },
     ]);
 
