@@ -175,3 +175,25 @@ export const storeNextStep = async (workspace_id, userId, uuid, content) => {
     };
   }
 };
+
+export const storeTodo = async (workspace_id, userId, uuid, content) => {
+  const response = await supabase.from("collab_users_todos").insert([
+    {
+      workspace_id: workspace_id,
+      collab_user_id: userId,
+      collab_user_todo_id: uuid,
+      todo_content: content,
+    },
+  ]);
+
+  if (response.error) {
+    console.error("Error storing Todo:", response.error);
+    return {
+      success: false,
+    };
+  } else {
+    return {
+      success: response.status === 201,
+    };
+  }
+};

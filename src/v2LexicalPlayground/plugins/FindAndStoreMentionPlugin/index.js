@@ -6,6 +6,7 @@ import {
   fetchNextStepUUIDs,
   storeNextStep,
   fetchTodoUuids,
+  storeTodo,
 } from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
@@ -76,6 +77,20 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       }
 
       latestNextStepsMap.clear();
+
+      for (let [uuid, content] of latestTodoMap.entries()) {
+        if (!existingTodoUuidsSet.current.has(uuid)) {
+          const response = await storeTodo(workspace_id, userId, uuid, content);
+
+          if (response && response.success) {
+            existingTodoUuidsSet.current.add(uuid);
+          }
+        } else {
+          // TODO: Add some error handling here for Todos
+        }
+      }
+
+      latestTodoMap.clear();
 
       isProcessing.current = false;
     };
