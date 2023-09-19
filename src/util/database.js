@@ -148,10 +148,7 @@ export const storeNextStep = async (workspace_id, userId, uuid, content) => {
     console.error("Error storing next step:", error);
     return null;
   } else {
-    console.log(
-      "Successfully stored next step with id:",
-      data[0].collab_user_next_steps_id
-    );
-    return data[0].collab_user_next_steps_id;
+    console.log("Returned data from Supabase:", data);
   }
+  return null;
 };
