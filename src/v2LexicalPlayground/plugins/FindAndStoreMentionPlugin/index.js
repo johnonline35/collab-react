@@ -23,7 +23,10 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         );
       }
       for (let [uuid, content] of allStepsMap.entries()) {
-        console.log(`Processing UUID: ${uuid} with content:`, content);
+        console.log(
+          `allStepsMap Processing UUID: ${uuid} with content:`,
+          content
+        );
       }
     }
 
@@ -116,6 +119,12 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               const content = textContainerNode.getTextContent();
               const uuid = node.__uuid;
               latestContentMap.set(uuid, content);
+            }
+            for (let [uuid, content] of latestContentMap.entries()) {
+              console.log(
+                `latestContentMap Processing UUID: ${uuid} with content:`,
+                content
+              );
             }
           }
         });
