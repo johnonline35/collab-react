@@ -133,23 +133,26 @@ export const fetchUUIDs = async (workspace_id, userId) => {
 };
 
 export const storeNextStep = async (workspace_id, userId, uuid, content) => {
-  const { data, error } = await supabase
-    .from("collab_users_next_steps")
-    .insert([
-      {
-        workspace_id: workspace_id,
-        collab_user_id: userId,
-        collab_user_next_steps_id: uuid,
-        nextstep_content: content,
-      },
-    ])
-    .select();
+  const response = await supabase.from("collab_users_next_steps").insert([
+    {
+      workspace_id: workspace_id,
+      collab_user_id: userId,
+      collab_user_next_steps_id: uuid,
+      nextstep_content: content,
+    },
+  ]);
 
-  if (error) {
-    console.error("Error storing next step:", error);
-    return null;
+  if (response.error) {
+    console.error("Error storing next step:", response.error);
+    return {
+      status: response.status || 500,
+      statusText: response.statusText || "Internal Server Error",
+    };
   } else {
-    console.log("Returned data from Supabase:", data);
+    console.log("Returned data from Supabase:", response.data);
+    return {
+      status: response.status,
+      statusText: response.statusText,
+    };
   }
-  return null;
 };
