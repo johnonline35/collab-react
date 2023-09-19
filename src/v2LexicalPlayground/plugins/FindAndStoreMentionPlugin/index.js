@@ -2,12 +2,12 @@ import { useEffect, useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
 import { KEY_ENTER_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
-import { fetchUUIDs, storeNextStep } from "../../../util/database";
+import { fetchNextStepUUIDs, storeNextStep } from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
-  const existingUuidsSet = useRef(new Set());
-  const latestContentMap = useRef(new Map()).current;
+  const existingNextStepUuidsSet = useRef(new Set());
+  const latestNextStepContentMap = useRef(new Map()).current;
   const handleEnterRef = useRef(null);
   const isProcessing = useRef(false);
   const userId = session?.user?.id;
@@ -15,11 +15,14 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   // Fetch existing uuid's and set them for checking
   useEffect(() => {
     async function fetchData() {
-      const fetchedUuids = await fetchUUIDs(workspace_id, userId);
+      const fetchedNextStepUuids = await fetchNextStepUUIDs(
+        workspace_id,
+        userId
+      );
 
-      if (fetchedUuids) {
-        fetchedUuids.forEach((uuid) => {
-          existingUuidsSet.current.add(uuid);
+      if (fetchedNextStepUuids) {
+        fetchedNextStepUuids.forEach((uuid) => {
+          existingNextStepUuidsSet.current.add(uuid);
         });
       }
     }
@@ -39,8 +42,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
       isProcessing.current = true;
 
-      for (let [uuid, content] of latestContentMap.entries()) {
-        if (!existingUuidsSet.current.has(uuid)) {
+      for (let [uuid, content] of latestNextStepContentMap.entries()) {
+        if (!existingNextStepUuidsSet.current.has(uuid)) {
           const response = await storeNextStep(
             workspace_id,
             userId,
@@ -49,14 +52,14 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
           );
 
           if (response && response.success) {
-            existingUuidsSet.current.add(uuid);
+            existingNextStepUuidsSet.current.add(uuid);
           }
         } else {
           // TODO: Add some error handling here
         }
       }
 
-      latestContentMap.clear();
+      latestNextStepContentMap.clear();
 
       isProcessing.current = false;
     };
@@ -99,7 +102,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               if (textContainerNode && textContainerNode.getTextContent()) {
                 const content = textContainerNode.getTextContent();
                 const uuid = node.__uuid;
-                latestContentMap.set(uuid, content);
+                latestNextStepContentMap.set(uuid, content);
               }
             }
           }
