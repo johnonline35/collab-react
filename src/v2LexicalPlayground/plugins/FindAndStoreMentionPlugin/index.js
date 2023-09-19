@@ -16,7 +16,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     async function fetchData() {
       console.log("fetchData called");
       const fetchedUuids = await fetchUUIDs(workspace_id, userId);
-      console.log("fetchedUuids:", fetchedUuids);
+      // console.log("fetchedUuids:", fetchedUuids);
 
       if (fetchedUuids) {
         fetchedUuids.forEach((uuid) => {
@@ -24,10 +24,10 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         });
       }
 
-      allStepsSet.current.forEach((uuid) => {
-        // Iterating over the Set with `current`
-        console.log(`allStepsSet Processing UUID: ${uuid}`);
-      });
+      // allStepsSet.current.forEach((uuid) => {
+      //   // Iterating over the Set with `current`
+      //   console.log(`allStepsSet Processing UUID: ${uuid}`);
+      // });
     }
 
     if (userId && workspace_id) {
@@ -120,12 +120,12 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               const uuid = node.__uuid;
               latestContentMap.set(uuid, content);
             }
-            for (let [uuid, content] of latestContentMap.entries()) {
-              console.log(
-                `latestContentMap Processing UUID: ${uuid} with content:`,
-                content
-              );
-            }
+            // for (let [uuid, content] of latestContentMap.entries()) {
+            //   console.log(
+            //     `latestContentMap Processing UUID: ${uuid} with content:`,
+            //     content
+            //   );
+            // }
           }
         });
       });
