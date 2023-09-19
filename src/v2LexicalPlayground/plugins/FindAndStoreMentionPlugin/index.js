@@ -57,7 +57,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       for (let [uuid, content] of latestContentMap.entries()) {
         if (!existingUuidsSet.current.has(uuid)) {
           console.log(
-            `UUID is new: ${uuid} with content:, ${content}, with userId: ${userId}, with workspace_id: ${workspace_id}`
+            `UUID is new: ${uuid} with content: ${content}, with userId: ${userId}, with workspace_id: ${workspace_id}`
           );
 
           const response = await storeNextStep(
