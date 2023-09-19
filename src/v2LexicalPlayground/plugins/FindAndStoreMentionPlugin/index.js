@@ -19,8 +19,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       console.log("fetchedUuids:", fetchedUuids);
 
       if (fetchedUuids) {
-        fetchedUuids.forEach(({ uuid }) => {
-          allStepsSet.current.add(uuid); // Using Set's add method with `current`
+        fetchedUuids.forEach((uuid) => {
+          allStepsSet.current.add(uuid);
         });
       }
 
