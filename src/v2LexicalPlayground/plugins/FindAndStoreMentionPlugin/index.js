@@ -12,8 +12,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
   const existingNextStepUuidsSet = useRef(new Set());
   const existingTodoUuidsSet = useRef(new Set());
-  const latestNextStepContentMap = useRef(new Map()).current;
-  const latestTodoContentMap = useRef(new Map()).current;
+  const latestNextStepsMap = useRef(new Map()).current;
+  const latestTodoMap = useRef(new Map()).current;
   const handleEnterRef = useRef(null);
   const isProcessing = useRef(false);
   const userId = session?.user?.id;
@@ -58,7 +58,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
       isProcessing.current = true;
 
-      for (let [uuid, content] of latestNextStepContentMap.entries()) {
+      for (let [uuid, content] of latestNextStepsMap.entries()) {
         if (!existingNextStepUuidsSet.current.has(uuid)) {
           const response = await storeNextStep(
             workspace_id,
@@ -75,7 +75,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         }
       }
 
-      latestNextStepContentMap.clear();
+      latestNextStepsMap.clear();
 
       isProcessing.current = false;
     };
@@ -118,7 +118,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               if (textContainerNode && textContainerNode.getTextContent()) {
                 const content = textContainerNode.getTextContent();
                 const uuid = node.__uuid;
-                latestNextStepContentMap.set(uuid, content);
+                latestNextStepsMap.set(uuid, content);
+              }
+            } else if (node.__mention === "Todo:") {
+              const targetMentionNode = node;
+              const textContainerNode = targetMentionNode.getNextSibling();
+              if (textContainerNode && textContainerNode.getTextContent()) {
+                const content = textContainerNode.getTextContent();
+                const uuid = node.__uuid;
+                latestTodoMap.set(uuid, content);
               }
             }
           }
