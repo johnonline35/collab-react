@@ -86,7 +86,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
             existingTodoUuidsSet.current.add(uuid);
           }
         } else {
-          // TODO: Add some error handling here for Todos
+          // TODO: Add some error handling here
         }
       }
 
