@@ -142,7 +142,8 @@ export const storeNextStep = async (workspace_id, userId, uuid, content) => {
         collab_user_next_steps_id: uuid,
         nextstep_content: content,
       },
-    ]);
+    ])
+    .single();
 
   if (error) {
     console.error("Error storing next step:", error);
