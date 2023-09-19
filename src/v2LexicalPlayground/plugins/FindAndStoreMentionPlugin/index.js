@@ -69,7 +69,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
           console.log("Response from storeNextStep for UUID:", uuid, response);
           if (response && response.success) {
-            existingUuidsSet.set(uuid);
+            existingUuidsSet.current.add(uuid);
           }
         } else {
           console.log(`UUID ${uuid} already exists in allStepsSet, skipping.`);
