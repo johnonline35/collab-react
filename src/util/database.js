@@ -116,8 +116,6 @@ export const fetchUUIDs = async (workspace_id, userId) => {
         collab_user_id: userId,
       });
 
-    console.log("Data:", data);
-
     if (error) {
       console.error("Error fetching UUIDs:", error);
       return null;
