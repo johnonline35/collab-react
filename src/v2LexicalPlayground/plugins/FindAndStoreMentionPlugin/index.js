@@ -6,7 +6,7 @@ import { fetchUUIDs, storeNextStep } from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
-  const allStepsMap = useRef(new Map()).current;
+  const allStepsSet = useRef(new Set());
   const latestContentMap = useRef(new Map()).current;
   const handleEnterRef = useRef(null);
   const isProcessing = useRef(false);
@@ -17,17 +17,17 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       console.log("fetchData called");
       const fetchedUuids = await fetchUUIDs(workspace_id, userId);
       console.log("fetchedUuids:", fetchedUuids);
+
       if (fetchedUuids) {
-        fetchedUuids.forEach(({ uuid, content }) =>
-          allStepsMap.set(uuid, content)
-        );
+        fetchedUuids.forEach(({ uuid }) => {
+          allStepsSet.current.add(uuid); // Using Set's add method with `current`
+        });
       }
-      for (let [uuid, content] of allStepsMap.entries()) {
-        console.log(
-          `allStepsMap Processing UUID: ${uuid} with content:`,
-          content
-        );
-      }
+
+      allStepsSet.current.forEach((uuid) => {
+        // Iterating over the Set with `current`
+        console.log(`allStepsSet Processing UUID: ${uuid}`);
+      });
     }
 
     if (userId && workspace_id) {
@@ -51,11 +51,11 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       );
       console.log(
         "All UUIDs in allStepsMap:",
-        Array.from(allStepsMap.current.keys())
+        Array.from(allStepsSet.current.keys())
       );
 
       for (let [uuid, content] of latestContentMap.entries()) {
-        if (!allStepsMap.current.has(uuid)) {
+        if (!allStepsSet.current.has(uuid)) {
           console.log(`Processing UUID: ${uuid} with content:`, content);
 
           const response = await storeNextStep(
@@ -67,10 +67,10 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
           console.log("Response from storeNextStep for UUID:", uuid, response);
           if (response && response.success) {
-            allStepsMap.set(uuid, content);
+            allStepsSet.set(uuid);
           }
         } else {
-          console.log(`UUID ${uuid} already exists in allStepsMap, skipping.`);
+          console.log(`UUID ${uuid} already exists in allStepsSet, skipping.`);
         }
       }
       console.log("---- END OF DEBUGGING ----");
