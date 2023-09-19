@@ -92,13 +92,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         const root = $getRoot();
         const allTextNodes = root.getAllTextNodes();
         allTextNodes.forEach((node) => {
-          if (node.__type === "mention" && node.__mention === "Next Steps:") {
-            const targetMentionNode = node;
-            const textContainerNode = targetMentionNode.getNextSibling();
-            if (textContainerNode && textContainerNode.getTextContent()) {
-              const content = textContainerNode.getTextContent();
-              const uuid = node.__uuid;
-              latestContentMap.set(uuid, content);
+          if (node.__type === "mention") {
+            if (node.__mention === "Next Steps:") {
+              const targetMentionNode = node;
+              const textContainerNode = targetMentionNode.getNextSibling();
+              if (textContainerNode && textContainerNode.getTextContent()) {
+                const content = textContainerNode.getTextContent();
+                const uuid = node.__uuid;
+                latestContentMap.set(uuid, content);
+              }
             }
           }
         });
