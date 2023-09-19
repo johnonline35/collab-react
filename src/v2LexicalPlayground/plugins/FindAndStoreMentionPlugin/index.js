@@ -6,7 +6,7 @@ import { fetchUUIDs, storeNextStep } from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
-  const allStepsSet = useRef(new Set());
+  const existingUuidsSet = useRef(new Set());
   const latestContentMap = useRef(new Map()).current;
   const handleEnterRef = useRef(null);
   const isProcessing = useRef(false);
@@ -20,13 +20,13 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
       if (fetchedUuids) {
         fetchedUuids.forEach((uuid) => {
-          allStepsSet.current.add(uuid);
+          existingUuidsSet.current.add(uuid);
         });
       }
 
-      // allStepsSet.current.forEach((uuid) => {
+      // existingUuidsSet.current.forEach((uuid) => {
       //   // Iterating over the Set with `current`
-      //   console.log(`allStepsSet Processing UUID: ${uuid}`);
+      //   console.log(`existingUuidsSet Processing UUID: ${uuid}`);
       // });
     }
 
@@ -50,13 +50,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
         Array.from(latestContentMap.keys())
       );
       console.log(
-        "All UUIDs in allStepsMap:",
-        Array.from(allStepsSet.current.keys())
+        "All UUIDs in existingUuidsSet:",
+        Array.from(existingUuidsSet.current.keys())
       );
 
       for (let [uuid, content] of latestContentMap.entries()) {
-        if (!allStepsSet.current.has(uuid)) {
-          console.log(`Processing UUID: ${uuid} with content:`, content);
+        if (!existingUuidsSet.current.has(uuid)) {
+          console.log(
+            `UUID is new: ${uuid} with content:, ${content}, with userId: ${userId}, with workspace_id: ${workspace_id}`
+          );
 
           const response = await storeNextStep(
             workspace_id,
@@ -67,7 +69,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
 
           console.log("Response from storeNextStep for UUID:", uuid, response);
           if (response && response.success) {
-            allStepsSet.set(uuid);
+            existingUuidsSet.set(uuid);
           }
         } else {
           console.log(`UUID ${uuid} already exists in allStepsSet, skipping.`);
