@@ -590,7 +590,7 @@ export default function Dashboard() {
                       >
                         {/* Current Time: {formatTime(info.attendee_timezone)} */}
                         <br />
-                        Email: {info.attendee_email}
+                        {info.attendee_email}
                       </Text>
                     </Box>
 
