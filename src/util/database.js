@@ -146,7 +146,6 @@ export const storeNextStep = async (workspace_id, userId, uuid, content) => {
       success: false,
     };
   } else {
-    console.log("Returned data from Supabase:", response.data);
     return {
       success: response.status === 201,
     };
