@@ -41,8 +41,18 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
       isProcessing.current = true;
       console.log("Processing started.");
 
+      console.log("---- START OF DEBUGGING ----");
+      console.log(
+        "All UUIDs in latestContentMap:",
+        Array.from(latestContentMap.keys())
+      );
+      console.log(
+        "All UUIDs in allStepsMap:",
+        Array.from(allStepsMap.current.keys())
+      );
+
       for (let [uuid, content] of latestContentMap.entries()) {
-        if (!allStepsMap.has(uuid)) {
+        if (!allStepsMap.current.has(uuid)) {
           console.log(`Processing UUID: ${uuid} with content:`, content);
 
           const response = await storeNextStep(
@@ -60,6 +70,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
           console.log(`UUID ${uuid} already exists in allStepsMap, skipping.`);
         }
       }
+      console.log("---- END OF DEBUGGING ----");
 
       console.log("Clearing latestContentMap");
       latestContentMap.clear();
