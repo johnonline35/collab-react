@@ -7,7 +7,9 @@ import { fetchNextStepUUIDs, storeNextStep } from "../../../util/database";
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
   const existingNextStepUuidsSet = useRef(new Set());
+  const existingTodoUuidsSet = useRef(new Set());
   const latestNextStepContentMap = useRef(new Map()).current;
+  const latestTodoContentMap = useRef(new Map()).current;
   const handleEnterRef = useRef(null);
   const isProcessing = useRef(false);
   const userId = session?.user?.id;
