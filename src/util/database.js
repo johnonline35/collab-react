@@ -130,6 +130,30 @@ export const fetchNextStepUUIDs = async (workspace_id, userId) => {
   return null;
 };
 
+export const fetchTodoUuids = async (workspace_id, userId) => {
+  try {
+    const { data, error } = await supabase
+      .from("collab_users_todos")
+      .select("collab_user_todo_id")
+      .match({
+        workspace_id: workspace_id,
+        collab_user_id: userId,
+      });
+
+    if (error) {
+      console.error("Error fetching UUIDs:", error);
+      return null;
+    }
+
+    if (data) {
+      return data.map((item) => item.collab_user_todo_id);
+    }
+  } catch (err) {
+    console.error("Supabase fetch error:", err);
+  }
+  return null;
+};
+
 export const storeNextStep = async (workspace_id, userId, uuid, content) => {
   const response = await supabase.from("collab_users_next_steps").insert([
     {

@@ -2,7 +2,11 @@ import { useEffect, useRef } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getRoot } from "lexical";
 import { KEY_ENTER_COMMAND, COMMAND_PRIORITY_LOW } from "lexical";
-import { fetchNextStepUUIDs, storeNextStep } from "../../../util/database";
+import {
+  fetchNextStepUUIDs,
+  storeNextStep,
+  fetchTodoUuids,
+} from "../../../util/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();
@@ -17,15 +21,25 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   // Fetch existing uuid's and set them for checking
   useEffect(() => {
     async function fetchData() {
-      const fetchedNextStepUuids = await fetchNextStepUUIDs(
-        workspace_id,
-        userId
-      );
+      try {
+        const [fetchedNextStepUuids, fetchedTodoUuids] = await Promise.all([
+          fetchNextStepUUIDs(workspace_id, userId),
+          fetchTodoUuids(workspace_id, userId),
+        ]);
 
-      if (fetchedNextStepUuids) {
-        fetchedNextStepUuids.forEach((uuid) => {
-          existingNextStepUuidsSet.current.add(uuid);
-        });
+        if (fetchedNextStepUuids) {
+          fetchedNextStepUuids.forEach((uuid) => {
+            existingNextStepUuidsSet.current.add(uuid);
+          });
+        }
+
+        if (fetchedTodoUuids) {
+          fetchedTodoUuids.forEach((uuid) => {
+            existingTodoUuidsSet.current.add(uuid);
+          });
+        }
+      } catch (error) {
+        console.error("Error in fetchData:", error);
       }
     }
 
