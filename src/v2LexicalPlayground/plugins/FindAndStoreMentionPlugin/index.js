@@ -12,22 +12,16 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const isProcessing = useRef(false);
   const userId = session?.user?.id;
 
+  // Fetch existing uuid's and set them for checking before storing new uuid's
   useEffect(() => {
     async function fetchData() {
-      console.log("fetchData called");
       const fetchedUuids = await fetchUUIDs(workspace_id, userId);
-      // console.log("fetchedUuids:", fetchedUuids);
 
       if (fetchedUuids) {
         fetchedUuids.forEach((uuid) => {
           existingUuidsSet.current.add(uuid);
         });
       }
-
-      // existingUuidsSet.current.forEach((uuid) => {
-      //   // Iterating over the Set with `current`
-      //   console.log(`existingUuidsSet Processing UUID: ${uuid}`);
-      // });
     }
 
     if (userId && workspace_id) {
@@ -37,29 +31,15 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     }
   }, [workspace_id, userId]);
 
+  // Process the current mention node contents and store in supabase if uuid is new and not yet stored
   useEffect(() => {
     handleEnterRef.current = async () => {
       if (isProcessing.current) return;
 
       isProcessing.current = true;
-      console.log("Processing started.");
-
-      console.log("---- START OF DEBUGGING ----");
-      console.log(
-        "All UUIDs in latestContentMap:",
-        Array.from(latestContentMap.keys())
-      );
-      console.log(
-        "All UUIDs in existingUuidsSet:",
-        Array.from(existingUuidsSet.current.keys())
-      );
 
       for (let [uuid, content] of latestContentMap.entries()) {
         if (!existingUuidsSet.current.has(uuid)) {
-          console.log(
-            `UUID is new: ${uuid} with content: ${content}, with userId: ${userId}, with workspace_id: ${workspace_id}`
-          );
-
           const response = await storeNextStep(
             workspace_id,
             userId,
@@ -67,21 +47,17 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
             content
           );
 
-          console.log("Response from storeNextStep for UUID:", uuid, response);
           if (response && response.success) {
             existingUuidsSet.current.add(uuid);
           }
         } else {
-          console.log(`UUID ${uuid} already exists in allStepsSet, skipping.`);
+          // Add some error handling here
         }
       }
-      console.log("---- END OF DEBUGGING ----");
 
-      console.log("Clearing latestContentMap");
       latestContentMap.clear();
 
       isProcessing.current = false;
-      console.log("Processing ended.");
     };
 
     const unregisterEnterCommand = editor.registerCommand(
@@ -103,6 +79,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
     };
   }, [editor, workspace_id, userId]);
 
+  // Listen to the current editor state and maintain copy of all mention nodes and corresponding uuid's
   useEffect(() => {
     if (!editor) {
       console.warn("Editor is not properly initialized.");
@@ -122,12 +99,6 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
               const uuid = node.__uuid;
               latestContentMap.set(uuid, content);
             }
-            // for (let [uuid, content] of latestContentMap.entries()) {
-            //   console.log(
-            //     `latestContentMap Processing UUID: ${uuid} with content:`,
-            //     content
-            //   );
-            // }
           }
         });
       });
