@@ -106,7 +106,7 @@ export const publicEmailDomainsList = async () => {
   return publicEmailDomains;
 };
 
-export const fetchUUIDs = async (workspace_id, userId) => {
+export const fetchNextStepUUIDs = async (workspace_id, userId) => {
   try {
     const { data, error } = await supabase
       .from("collab_users_next_steps")
