@@ -83,15 +83,25 @@ export default function CollabPageHome() {
   };
 
   // These functions are used by the TeamMemberStack:
-  const handleAttendeeCheckboxChange = (attendeeId) => {
+  // const handleAttendeeCheckboxChange = (attendeeId) => {
+  //   if (attendeeIsChecked.includes(attendeeId)) {
+  //     // If the attendee is currently checked, remove them from the array
+  //     setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
+  //   } else {
+  //     // If the attendee is not currently checked, add them to the array
+  //     setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
+  //   }
+  // };
+
+  const handleAttendeeCheckboxChange = useCallback((attendeeId) => {
     if (attendeeIsChecked.includes(attendeeId)) {
       // If the attendee is currently checked, remove them from the array
-      setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
+      setAttendeeIsChecked((prev) => prev.filter((id) => id !== attendeeId));
     } else {
       // If the attendee is not currently checked, add them to the array
-      setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
+      setAttendeeIsChecked((prev) => [...prev, attendeeId]);
     }
-  };
+  }, []);
 
   const handleSetLead = async () => {
     if (attendeeIsChecked.length === 1) {
