@@ -93,15 +93,18 @@ export default function CollabPageHome() {
   //   }
   // };
 
-  const handleAttendeeCheckboxChange = useCallback((attendeeId) => {
-    if (attendeeIsChecked.includes(attendeeId)) {
-      // If the attendee is currently checked, remove them from the array
-      setAttendeeIsChecked((prev) => prev.filter((id) => id !== attendeeId));
-    } else {
-      // If the attendee is not currently checked, add them to the array
-      setAttendeeIsChecked((prev) => [...prev, attendeeId]);
-    }
-  }, []);
+  const handleAttendeeCheckboxChange = useCallback(
+    (attendeeId) => {
+      if (attendeeIsChecked.includes(attendeeId)) {
+        // If the attendee is currently checked, remove them from the array
+        setAttendeeIsChecked((prev) => prev.filter((id) => id !== attendeeId));
+      } else {
+        // If the attendee is not currently checked, add them to the array
+        setAttendeeIsChecked((prev) => [...prev, attendeeId]);
+      }
+    },
+    [attendeeIsChecked]
+  );
 
   const handleSetLead = async () => {
     if (attendeeIsChecked.length === 1) {
