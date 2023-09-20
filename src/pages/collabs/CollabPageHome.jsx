@@ -33,7 +33,6 @@ import { ToDoList } from "../../components/TodoList";
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 
 export default function CollabPageHome() {
-  const params = useParams();
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -83,28 +82,15 @@ export default function CollabPageHome() {
   };
 
   // These functions are used by the TeamMemberStack:
-  // const handleAttendeeCheckboxChange = (attendeeId) => {
-  //   if (attendeeIsChecked.includes(attendeeId)) {
-  //     // If the attendee is currently checked, remove them from the array
-  //     setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
-  //   } else {
-  //     // If the attendee is not currently checked, add them to the array
-  //     setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
-  //   }
-  // };
-
-  const handleAttendeeCheckboxChange = useCallback(
-    (attendeeId) => {
-      if (attendeeIsChecked.includes(attendeeId)) {
-        // If the attendee is currently checked, remove them from the array
-        setAttendeeIsChecked((prev) => prev.filter((id) => id !== attendeeId));
-      } else {
-        // If the attendee is not currently checked, add them to the array
-        setAttendeeIsChecked((prev) => [...prev, attendeeId]);
-      }
-    },
-    [attendeeIsChecked]
-  );
+  const handleAttendeeCheckboxChange = (attendeeId) => {
+    if (attendeeIsChecked.includes(attendeeId)) {
+      // If the attendee is currently checked, remove them from the array
+      setAttendeeIsChecked(attendeeIsChecked.filter((id) => id !== attendeeId));
+    } else {
+      // If the attendee is not currently checked, add them to the array
+      setAttendeeIsChecked([...attendeeIsChecked, attendeeId]);
+    }
+  };
 
   const handleSetLead = async () => {
     if (attendeeIsChecked.length === 1) {
@@ -337,7 +323,7 @@ export default function CollabPageHome() {
     const { data, error } = await supabase
       .from("workspaces")
       .select()
-      .eq("workspace_id", params.workspace_id);
+      .eq("workspace_id", workspace_id);
 
     setEmailLink(data[0].workspace_attendee_enable_calendar_link);
     setCustomerName(data[0].workspace_name);
@@ -364,7 +350,7 @@ export default function CollabPageHome() {
     const { data, error } = await supabase
       .from("workspaces")
       .update({ workspace_attendee_enable_calendar_link: !emailLink })
-      .eq("workspace_id", params.workspace_id)
+      .eq("workspace_id", workspace_id)
       .select();
 
     setEmailLink(data[0].workspace_attendee_enable_calendar_link);
@@ -421,7 +407,7 @@ export default function CollabPageHome() {
                 setEmailLink={setEmailLink}
                 updateEmailToggle={updateEmailToggle}
                 loadingToggle={loadingToggle}
-                workspace_id={params.workspace_id}
+                workspace_id={workspace_id}
               />
               <ListItem>
                 <Flex direction='row' justify='space-between'>
