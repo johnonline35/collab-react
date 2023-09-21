@@ -1,6 +1,3 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { supabase } from "../supabase/clientapp";
 import {
   Stack,
   StackDivider,
@@ -13,10 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
-const PreviousMeetings = () => {
-  const params = useParams();
-  const [meetings, setMeetings] = useState([]);
-
+const PreviousMeetings = (meetings) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
@@ -43,31 +37,6 @@ const PreviousMeetings = () => {
       }`;
     }
   };
-
-  useEffect(() => {
-    const fetchMeetings = async () => {
-      try {
-        let { data, error } = await supabase
-          .from("meetings")
-          .select("*")
-          .eq("workspace_id", params.workspace_id)
-          .order('"start_dateTime"', { ascending: false });
-
-        if (error) {
-          console.error("Error fetching meetings: ", error);
-          return;
-        }
-
-        console.log("Fetched meetings: ", data);
-        setMeetings(data);
-      } catch (error) {
-        console.error("Exception caught while fetching meetings: ", error);
-      }
-    };
-
-    console.log("Workspace ID: ", params.workspace_id);
-    fetchMeetings();
-  }, [params.workspace_id]);
 
   return (
     <Box
