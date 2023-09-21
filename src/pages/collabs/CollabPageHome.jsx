@@ -39,7 +39,33 @@ export default function CollabPageHome() {
   const [customerName, setCustomerName] = useState("");
   const [isChecked, setIsChecked] = useState([]);
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
+  const [meetings, setMeetings] = useState([]);
   const toast = useToast();
+
+  useEffect(() => {
+    const fetchMeetings = async () => {
+      try {
+        let { data, error } = await supabase
+          .from("meetings")
+          .select("*")
+          .eq("workspace_id", workspace_id)
+          .order('"start_dateTime"', { ascending: false });
+
+        if (error) {
+          console.error("Error fetching meetings: ", error);
+          return;
+        }
+
+        console.log("Fetched meetings: ", data);
+        setMeetings(data);
+      } catch (error) {
+        console.error("Exception caught while fetching meetings: ", error);
+      }
+    };
+
+    console.log("Workspace ID: ", workspace_id);
+    fetchMeetings();
+  }, [workspace_id]);
 
   // These functions are used by the Next Steps List and Todo List components:
   const handleCheckboxChange = (id) => {
@@ -417,7 +443,7 @@ export default function CollabPageHome() {
                   </Flex>
                 </Flex>
               </ListItem>
-              <PreviousMeetings />
+              <PreviousMeetings meetings={meetings} />
             </List>
           </Card>
           <Card p='12px'>
