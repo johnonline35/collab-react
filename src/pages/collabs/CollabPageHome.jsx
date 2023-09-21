@@ -61,6 +61,7 @@ export default function CollabPageHome() {
       if (error) {
         console.error(error);
       } else {
+        console.log("Fetched next steps: ", data);
         setNextSteps(data);
       }
     };
@@ -98,8 +99,6 @@ export default function CollabPageHome() {
       return null; // Or replace with <Loading /> component
     }
     const fetchAttendees = async () => {
-      console.log("fetchAttendees called");
-
       if (!workspace_id) {
         console.error("Invalid or missing parameters: workspace_id'");
         return;
