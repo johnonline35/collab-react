@@ -51,6 +51,7 @@ export default function CollabPageHome() {
     }
 
     const fetchNextSteps = async () => {
+      console.log("Fetch next steps called");
       const { data, error } = await supabase
         .from("collab_users_next_steps")
         .select("*")
