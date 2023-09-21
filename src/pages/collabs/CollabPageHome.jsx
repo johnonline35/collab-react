@@ -41,7 +41,31 @@ export default function CollabPageHome() {
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
   const [meetings, setMeetings] = useState([]);
   const [members, setMembers] = useState([]);
+  const [nextSteps, setNextSteps] = useState([]);
   const toast = useToast();
+
+  useEffect(() => {
+    if (!workspace_id) {
+      console.error("Invalid or missing workspace_id'");
+      return;
+    }
+
+    const fetchNextSteps = async () => {
+      const { data, error } = await supabase
+        .from("collab_users_next_steps")
+        .select("*")
+        .eq("workspace_id", workspace_id)
+        .neq("ignore", true);
+
+      if (error) {
+        console.error(error);
+      } else {
+        setNextSteps(data);
+      }
+    };
+
+    fetchNextSteps();
+  }, [workspace_id]);
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -533,6 +557,8 @@ export default function CollabPageHome() {
                 </Flex>
               </Flex>
               <NextStepsList
+                nextSteps={nextSteps}
+                setNextSteps={setNextSteps}
                 workspace_id={workspace_id}
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
