@@ -40,6 +40,7 @@ export default function CollabPageHome() {
   const [isChecked, setIsChecked] = useState([]);
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
   const [meetings, setMeetings] = useState([]);
+  const [members, setMembers] = useState([]);
   const toast = useToast();
 
   useEffect(() => {
@@ -65,6 +66,33 @@ export default function CollabPageHome() {
 
     console.log("Workspace ID: ", workspace_id);
     fetchMeetings();
+  }, [workspace_id]);
+
+  useEffect(() => {
+    if (!workspace_id) {
+      return null; // Or replace with <Loading /> component
+    }
+    const fetchAttendees = async () => {
+      console.log("fetchAttendees called");
+
+      if (!workspace_id) {
+        console.error("Invalid or missing parameters: workspace_id'");
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from("attendees")
+        .select("*")
+        .eq("workspace_id", workspace_id);
+
+      if (error) {
+        console.error(error);
+      } else {
+        setMembers(data);
+      }
+    };
+
+    fetchAttendees();
   }, [workspace_id]);
 
   // These functions are used by the Next Steps List and Todo List components:
@@ -474,6 +502,8 @@ export default function CollabPageHome() {
               </Flex>
               {workspace_id && (
                 <TeamMemberStack
+                  members={members}
+                  setMembers={setMembers}
                   workspace_id={workspace_id}
                   handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
                   attendeeIsChecked={attendeeIsChecked}

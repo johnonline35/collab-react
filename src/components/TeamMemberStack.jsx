@@ -35,41 +35,13 @@ const infoReducer = (state, action) => {
   }
 };
 
-const TeamMemberStack = ({
+export const TeamMemberStack = ({
   handleAttendeeCheckboxChange,
   attendeeIsChecked,
+  members,
+  setMembers,
 }) => {
-  const [members, setMembers] = useState([]);
   const [info, dispatch] = useReducer(infoReducer, {});
-
-  const { workspace_id } = useParams();
-
-  useEffect(() => {
-    if (!workspace_id) {
-      return null; // Or replace with <Loading /> component
-    }
-    const fetchAttendees = async () => {
-      console.log("fetchAttendees called");
-
-      if (!workspace_id) {
-        console.error("Invalid or missing parameters: workspace_id'");
-        return;
-      }
-
-      const { data, error } = await supabase
-        .from("attendees")
-        .select("*")
-        .eq("workspace_id", workspace_id);
-
-      if (error) {
-        console.error(error);
-      } else {
-        setMembers(data);
-      }
-    };
-
-    fetchAttendees();
-  }, [workspace_id]);
 
   const updateAttendee = async (id, updates) => {
     const { data, error } = await supabase
@@ -263,8 +235,6 @@ const TeamMemberStack = ({
     </Center>
   );
 };
-
-export const MemoizedTeamMemberStack = React.memo(TeamMemberStack);
 
 // import React from "react";
 // import { useState, useEffect, useReducer } from "react";
