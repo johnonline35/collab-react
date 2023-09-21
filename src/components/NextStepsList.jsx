@@ -37,36 +37,11 @@ export const NextStepsList = ({
   isChecked,
   handleCheckboxChange,
   workspace_id,
+  nextSteps,
+  setNextSteps,
 }) => {
-  const [nextSteps, setNextSteps] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [info, dispatch] = useReducer(infoReducer, {});
-
-  const fetchNextSteps = useCallback(async () => {
-    setIsLoading(true); // set loading state to true before fetching data
-    console.log("fetchNextSteps called");
-    if (!workspace_id) {
-      console.error("Invalid or missing workspace_id'");
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from("collab_users_next_steps")
-      .select("*")
-      .eq("workspace_id", workspace_id)
-      .neq("ignore", true);
-
-    if (error) {
-      console.error(error);
-    } else {
-      setNextSteps(data);
-      setIsLoading(false); // set loading state to false after fetching data
-    }
-  }, [workspace_id]);
-
-  useEffect(() => {
-    fetchNextSteps();
-  }, [fetchNextSteps]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
