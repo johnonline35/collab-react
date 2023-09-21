@@ -24,7 +24,7 @@ import {
   FiUsers,
 } from "react-icons/fi";
 
-import { MemoizedTeamMemberStack as TeamMemberStack } from "../../components/TeamMemberStack";
+import { TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
