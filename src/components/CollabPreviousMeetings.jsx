@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
-const PreviousMeetings = (meetings) => {
+const PreviousMeetings = ({ meetings }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
