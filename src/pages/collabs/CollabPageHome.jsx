@@ -33,10 +33,10 @@ import { ToDoList } from "../../components/TodoList";
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 
 export default function CollabPageHome() {
+  const { workspace_id } = useParams();
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
-  const { workspace_id } = useParams();
   const [isChecked, setIsChecked] = useState([]);
   const [attendeeIsChecked, setAttendeeIsChecked] = useState([]);
   const toast = useToast();
