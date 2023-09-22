@@ -60,7 +60,7 @@ export const NextStepsList = ({
     return <div style={{ marginBottom: "200px" }}></div>;
   }
 
-  if (!isLoading || nextSteps.length === 0) {
+  if (!isLoading && nextSteps.length === 0) {
     return (
       <ListItem mt='0px'>
         <Alert
