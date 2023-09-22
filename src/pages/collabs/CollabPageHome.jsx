@@ -36,7 +36,7 @@ import { useSession } from "../../hooks/useSession";
 export default function CollabPageHome() {
   const { workspace_id } = useParams();
   const session = useSession();
-  console.log("Session:", session);
+
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -47,6 +47,10 @@ export default function CollabPageHome() {
   const [nextSteps, setNextSteps] = useState([]);
   const userId = session.user.id;
   const toast = useToast();
+
+  useEffect(() => {
+    console.log("Session state has changed:", session);
+  }, [session]);
 
   useEffect(() => {
     if (!workspace_id) {
