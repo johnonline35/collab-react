@@ -65,8 +65,8 @@ export default function CollabPageHome() {
         .match({
           workspace_id: workspace_id,
           collab_user_id: userId,
-        });
-      // .neq("ignore", true);
+        })
+        .neq("ignore", true);
 
       if (error) {
         console.error(error);
