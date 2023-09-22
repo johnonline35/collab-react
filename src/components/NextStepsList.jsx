@@ -39,9 +39,11 @@ export const NextStepsList = ({
   workspace_id,
   nextSteps,
   setNextSteps,
+  updateNextStep,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [info, dispatch] = useReducer(infoReducer, {});
+  console.log("nextSteps:", nextSteps);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -50,17 +52,6 @@ export const NextStepsList = ({
       day: "2-digit",
       year: "numeric",
     }).format(date);
-  };
-
-  const updateNextStep = async (id, updates) => {
-    const { data, error } = await supabase
-      .from("collab_users_next_steps")
-      .update(updates)
-      .eq("collab_user_next_steps_id", id);
-
-    if (error) {
-      console.error("Error updating next step info:", error);
-    }
   };
 
   if (isLoading) {
