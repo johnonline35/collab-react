@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase/clientapp";
 import {
   FiCheck,
@@ -36,6 +36,7 @@ import { useSession } from "../../hooks/useSession";
 export default function CollabPageHome() {
   const { workspace_id } = useParams();
   const session = useSession();
+  const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -46,7 +47,6 @@ export default function CollabPageHome() {
   const [nextSteps, setNextSteps] = useState([]);
   const [isNextStepsLoading, setIsNextStepsLoading] = useState(true);
   const [toDoList, setToDoList] = useState([]);
-  const userId = session?.user.id;
   const toast = useToast();
 
   useEffect(() => {
