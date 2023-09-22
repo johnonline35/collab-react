@@ -44,6 +44,17 @@ export default function CollabPageHome() {
   const [nextSteps, setNextSteps] = useState([]);
   const toast = useToast();
 
+  const updateNextStep = async (id, updates) => {
+    const { data, error } = await supabase
+      .from("collab_users_next_steps")
+      .update(updates)
+      .eq("collab_user_next_steps_id", id);
+
+    if (error) {
+      console.error("Error updating next step info:", error);
+    }
+  };
+
   useEffect(() => {
     if (!workspace_id) {
       console.error("Invalid or missing workspace_id'");
@@ -61,7 +72,7 @@ export default function CollabPageHome() {
       if (error) {
         console.error(error);
       } else {
-        console.log("Fetched next steps: ", data);
+        // console.log("Fetched next steps: ", data);
         setNextSteps(data);
       }
     };
@@ -562,6 +573,7 @@ export default function CollabPageHome() {
                 workspace_id={workspace_id}
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
+                updateNextStep={updateNextStep}
               />
 
               <Flex direction='row' justify='space-between'>
