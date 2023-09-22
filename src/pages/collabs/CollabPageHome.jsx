@@ -49,37 +49,35 @@ export default function CollabPageHome() {
 
   useEffect(() => {
     console.log("Session state has changed:", session);
-  }, [session]);
 
-  useEffect(() => {
-    if (!workspace_id || !userId) {
-      console.error("Invalid or missing userId or workspace_id'");
+    if (!workspace_id) {
+      console.error("Invalid or missing workspace_id'");
       return;
     }
 
-    const fetchNextSteps = async () => {
-      console.log("Fetch next steps called");
-      const { data, error } = await supabase
-        .from("collab_users_next_steps")
-        .select("*")
-        .match({
-          workspace_id: workspace_id,
-          collab_user_id: userId,
-        })
-        .neq("ignore", true);
+    if (userId) {
+      const fetchNextSteps = async () => {
+        console.log("Fetch next steps called");
+        const { data, error } = await supabase
+          .from("collab_users_next_steps")
+          .select("*")
+          .match({
+            workspace_id: workspace_id,
+            collab_user_id: userId,
+          })
+          .neq("ignore", true);
 
-      if (error) {
-        console.error(error);
-      } else {
-        console.log("Fetched next steps: ", data);
-        setNextSteps(data);
-      }
-    };
+        if (error) {
+          console.error(error);
+        } else {
+          console.log("Fetched next steps: ", data);
+          setNextSteps(data);
+        }
+      };
 
-    fetchNextSteps();
-  }, [workspace_id, userId]);
+      fetchNextSteps();
+    }
 
-  useEffect(() => {
     const fetchMeetings = async () => {
       try {
         let { data, error } = await supabase
@@ -102,18 +100,8 @@ export default function CollabPageHome() {
 
     console.log("Workspace ID: ", workspace_id);
     fetchMeetings();
-  }, [workspace_id]);
 
-  useEffect(() => {
-    if (!workspace_id) {
-      return null; // Or replace with <Loading /> component
-    }
     const fetchAttendees = async () => {
-      if (!workspace_id) {
-        console.error("Invalid or missing parameters: workspace_id'");
-        return;
-      }
-
       const { data, error } = await supabase
         .from("attendees")
         .select("*")
@@ -127,7 +115,7 @@ export default function CollabPageHome() {
     };
 
     fetchAttendees();
-  }, [workspace_id]);
+  }, [workspace_id, userId, session]);
 
   // These functions are used by the Next Steps List and Todo List components:
   const handleCheckboxChange = (id) => {
