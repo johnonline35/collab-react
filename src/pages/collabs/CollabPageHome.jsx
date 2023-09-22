@@ -44,7 +44,7 @@ export default function CollabPageHome() {
   const [meetings, setMeetings] = useState([]);
   const [members, setMembers] = useState([]);
   const [nextSteps, setNextSteps] = useState([]);
-  // const userId = session.user.id;
+  const userId = session?.user.id;
   const toast = useToast();
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function CollabPageHome() {
         .select("*")
         .match({
           workspace_id: workspace_id,
-          // collab_user_id: userId,
+          collab_user_id: userId,
         })
         .neq("ignore", true);
 
@@ -77,7 +77,7 @@ export default function CollabPageHome() {
     };
 
     fetchNextSteps();
-  }, [workspace_id]);
+  }, [workspace_id, userId]);
 
   useEffect(() => {
     const fetchMeetings = async () => {
