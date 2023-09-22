@@ -41,9 +41,8 @@ export const NextStepsList = ({
   const [info, dispatch] = useReducer(infoReducer, {});
 
   useEffect(() => {
-    if (nextSteps) {
+    if (nextSteps !== undefined) {
       setIsLoading(false);
-      console.log("nextSteps:", nextSteps);
     }
   }, [nextSteps]);
 
