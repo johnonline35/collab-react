@@ -31,9 +31,11 @@ import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSetting
 import { ToDoList } from "../../components/TodoList";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
+import { useSession } from "../../hooks/useSession";
 
 export default function CollabPageHome() {
   const { workspace_id } = useParams();
+  const session = useSession();
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -42,6 +44,7 @@ export default function CollabPageHome() {
   const [meetings, setMeetings] = useState([]);
   const [members, setMembers] = useState([]);
   const [nextSteps, setNextSteps] = useState([]);
+  const userId = session.user.id;
   const toast = useToast();
 
   const updateNextStep = async (id, updates) => {
@@ -66,7 +69,10 @@ export default function CollabPageHome() {
       const { data, error } = await supabase
         .from("collab_users_next_steps")
         .select("*")
-        .eq("workspace_id", workspace_id)
+        .match({
+          workspace_id: workspace_id,
+          collab_user_id: userId,
+        })
         .neq("ignore", true);
 
       if (error) {
@@ -78,7 +84,7 @@ export default function CollabPageHome() {
     };
 
     fetchNextSteps();
-  }, [workspace_id]);
+  }, [workspace_id, userId]);
 
   useEffect(() => {
     const fetchMeetings = async () => {
