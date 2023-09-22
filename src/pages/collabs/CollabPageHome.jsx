@@ -72,7 +72,7 @@ export default function CollabPageHome() {
       if (error) {
         console.error(error);
       } else {
-        // console.log("Fetched next steps: ", data);
+        console.log("Fetched next steps: ", data);
         setNextSteps(data);
       }
     };
