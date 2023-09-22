@@ -52,8 +52,8 @@ export default function CollabPageHome() {
   }, [session]);
 
   useEffect(() => {
-    if (!workspace_id) {
-      console.error("Invalid or missing workspace_id'");
+    if (!workspace_id || !userId) {
+      console.error("Invalid or missing userId or workspace_id'");
       return;
     }
 
