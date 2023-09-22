@@ -44,6 +44,7 @@ export default function CollabPageHome() {
   const [meetings, setMeetings] = useState([]);
   const [members, setMembers] = useState([]);
   const [nextSteps, setNextSteps] = useState([]);
+  const [isNextStepsLoading, setIsNextStepsLoading] = useState(true);
   const [toDoList, setToDoList] = useState([]);
   const userId = session?.user.id;
   const toast = useToast();
@@ -58,7 +59,7 @@ export default function CollabPageHome() {
 
     if (userId) {
       const fetchNextSteps = async () => {
-        console.log("Fetch next steps called");
+        setIsNextStepsLoading(true);
         const { data, error } = await supabase
           .from("collab_users_next_steps")
           .select("*")
@@ -73,6 +74,7 @@ export default function CollabPageHome() {
         } else {
           setNextSteps(data);
         }
+        setIsNextStepsLoading(false);
       };
       const fetchToDos = async () => {
         console.log("fetchToDos called");
@@ -603,6 +605,7 @@ export default function CollabPageHome() {
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
                 updateNextStep={updateNextStep}
+                isLoading={isNextStepsLoading}
               />
 
               <Flex direction='row' justify='space-between'>
