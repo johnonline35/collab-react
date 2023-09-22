@@ -46,6 +46,7 @@ export const NextStepsList = ({
 
   useEffect(() => {
     if (nextSteps) {
+      setIsLoading(false);
       console.log("nextSteps:", nextSteps);
     }
   }, [nextSteps]);
