@@ -26,34 +26,14 @@ const infoReducer = (state, action) => {
   }
 };
 
-export const ToDoList = ({ workspace_id, isChecked, handleCheckboxChange }) => {
-  const [toDoList, setToDoList] = useState([]);
+export const ToDoList = ({
+  isChecked,
+  handleCheckboxChange,
+  toDoList,
+  setToDoList,
+  updateToDoList,
+}) => {
   const [info, dispatch] = useReducer(infoReducer, {});
-
-  const fetchToDos = useCallback(async () => {
-    console.log("fetchToDos called");
-    if (!workspace_id) {
-      console.error("Invalid or missing workspace_id'");
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from("collab_users_todos")
-      .select("*")
-      .eq("workspace_id", workspace_id)
-      .neq("ignore", true);
-
-    if (error) {
-      console.error(error);
-    } else {
-      setToDoList(data);
-      console.log(toDoList);
-    }
-  }, [workspace_id]);
-
-  useEffect(() => {
-    fetchToDos();
-  }, [fetchToDos]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -62,17 +42,6 @@ export const ToDoList = ({ workspace_id, isChecked, handleCheckboxChange }) => {
       day: "2-digit",
       year: "numeric",
     }).format(date);
-  };
-
-  const updateToDoList = async (id, updates) => {
-    const { data, error } = await supabase
-      .from("collab_users_todos")
-      .update(updates)
-      .eq("collab_user_todo_id", id);
-
-    if (error) {
-      console.error("Error updating next step info:", error);
-    }
   };
 
   return (

@@ -44,6 +44,7 @@ export default function CollabPageHome() {
   const [meetings, setMeetings] = useState([]);
   const [members, setMembers] = useState([]);
   const [nextSteps, setNextSteps] = useState([]);
+  const [toDoList, setToDoList] = useState([]);
   const userId = session?.user.id;
   const toast = useToast();
 
@@ -73,7 +74,29 @@ export default function CollabPageHome() {
           setNextSteps(data);
         }
       };
+      const fetchToDos = async () => {
+        console.log("fetchToDos called");
+        if (!workspace_id) {
+          console.error("Invalid or missing workspace_id'");
+          return;
+        }
 
+        const { data, error } = await supabase
+          .from("collab_users_todos")
+          .select("*")
+          .match({
+            workspace_id: workspace_id,
+            collab_user_id: userId,
+          })
+          .neq("ignore", true);
+
+        if (error) {
+          console.error(error);
+        } else {
+          setToDoList(data);
+        }
+      };
+      fetchToDos();
       fetchNextSteps();
     }
 
@@ -112,7 +135,6 @@ export default function CollabPageHome() {
         setMembers(data);
       }
     };
-
     fetchAttendees();
   }, [workspace_id, userId, session]);
 
@@ -442,6 +464,17 @@ export default function CollabPageHome() {
     }
   };
 
+  const updateToDoList = async (id, updates) => {
+    const { data, error } = await supabase
+      .from("collab_users_todos")
+      .update(updates)
+      .eq("collab_user_todo_id", id);
+
+    if (error) {
+      console.error("Error updating next step info:", error);
+    }
+  };
+
   const Card = (props) => (
     <Box
       minH='36'
@@ -567,7 +600,6 @@ export default function CollabPageHome() {
               <NextStepsList
                 nextSteps={nextSteps}
                 setNextSteps={setNextSteps}
-                workspace_id={workspace_id}
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
                 updateNextStep={updateNextStep}
@@ -593,9 +625,11 @@ export default function CollabPageHome() {
               </Flex>
 
               <ToDoList
-                workspace_id={workspace_id}
+                toDoList={toDoList}
+                setToDoList={setToDoList}
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
+                updateToDoList={updateToDoList}
               />
             </List>
           </Card>

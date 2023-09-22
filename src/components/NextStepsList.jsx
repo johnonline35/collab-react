@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useReducer } from "react";
+import { useState, useEffect, useReducer } from "react";
 import {
   Box,
   Center,
@@ -17,9 +17,6 @@ import {
   AlertTitle,
   Flex,
 } from "@chakra-ui/react";
-import { supabase } from "../supabase/clientapp";
-import { useParams } from "react-router-dom";
-import { FiCheck } from "react-icons/fi";
 
 const infoReducer = (state, action) => {
   switch (action.type) {
@@ -36,7 +33,6 @@ const infoReducer = (state, action) => {
 export const NextStepsList = ({
   isChecked,
   handleCheckboxChange,
-  workspace_id,
   nextSteps,
   setNextSteps,
   updateNextStep,
