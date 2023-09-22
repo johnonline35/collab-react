@@ -36,6 +36,7 @@ import { useSession } from "../../hooks/useSession";
 export default function CollabPageHome() {
   const { workspace_id } = useParams();
   const session = useSession();
+  console.log("Session:", session);
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -46,17 +47,6 @@ export default function CollabPageHome() {
   const [nextSteps, setNextSteps] = useState([]);
   const userId = session.user.id;
   const toast = useToast();
-
-  const updateNextStep = async (id, updates) => {
-    const { data, error } = await supabase
-      .from("collab_users_next_steps")
-      .update(updates)
-      .eq("collab_user_next_steps_id", id);
-
-    if (error) {
-      console.error("Error updating next step info:", error);
-    }
-  };
 
   useEffect(() => {
     if (!workspace_id) {
@@ -449,6 +439,17 @@ export default function CollabPageHome() {
       .select();
 
     setEmailLink(data[0].workspace_attendee_enable_calendar_link);
+  };
+
+  const updateNextStep = async (id, updates) => {
+    const { data, error } = await supabase
+      .from("collab_users_next_steps")
+      .update(updates)
+      .eq("collab_user_next_steps_id", id);
+
+    if (error) {
+      console.error("Error updating next step info:", error);
+    }
   };
 
   const Card = (props) => (
