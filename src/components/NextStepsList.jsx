@@ -43,7 +43,12 @@ export const NextStepsList = ({
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [info, dispatch] = useReducer(infoReducer, {});
-  console.log("nextSteps:", nextSteps);
+
+  useEffect(() => {
+    if (nextSteps) {
+      console.log("nextSteps:", nextSteps);
+    }
+  }, [nextSteps]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);

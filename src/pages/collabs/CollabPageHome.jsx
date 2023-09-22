@@ -70,7 +70,6 @@ export default function CollabPageHome() {
         if (error) {
           console.error(error);
         } else {
-          console.log("Fetched next steps: ", data);
           setNextSteps(data);
         }
       };
@@ -91,14 +90,14 @@ export default function CollabPageHome() {
           return;
         }
 
-        console.log("Fetched meetings: ", data);
+        // console.log("Fetched meetings: ", data);
         setMeetings(data);
       } catch (error) {
         console.error("Exception caught while fetching meetings: ", error);
       }
     };
 
-    console.log("Workspace ID: ", workspace_id);
+    // console.log("Workspace ID: ", workspace_id);
     fetchMeetings();
 
     const fetchAttendees = async () => {
@@ -129,7 +128,7 @@ export default function CollabPageHome() {
   };
 
   const handleCheckClick = async (type) => {
-    console.log("Tick icon pressed", isChecked);
+    // console.log("Tick icon pressed", isChecked);
     // Loop over the isChecked array and update each entry
     for (const id of isChecked) {
       let tableName;
@@ -170,7 +169,7 @@ export default function CollabPageHome() {
 
   const handleSetLead = async () => {
     if (attendeeIsChecked.length === 1) {
-      console.log("Lead", attendeeIsChecked[0]);
+      // console.log("Lead", attendeeIsChecked[0]);
 
       try {
         // First, set all attendees for this workspace to not be the lead
