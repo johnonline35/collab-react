@@ -1,6 +1,5 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createTextNode, $getNodeByKey } from "lexical";
-import { DecoratorNode } from "lexical/nodes/LexicalDecoratorNode";
+import { $createTextNode, $getNodeByKey, DecoratorNode } from "lexical";
 import { useEffect, useState } from "react";
 
 export class CustomDecoratorNode extends DecoratorNode {
