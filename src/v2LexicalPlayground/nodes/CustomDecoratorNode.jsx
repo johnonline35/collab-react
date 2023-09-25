@@ -3,8 +3,27 @@ import { $createTextNode, $getNodeByKey, DecoratorNode } from "lexical";
 import { useEffect, useState } from "react";
 
 export class CustomDecoratorNode extends DecoratorNode {
+  constructor(spanText = "", key) {
+    super(key);
+    this.__spanText = spanText;
+  }
+
   static getType() {
     return "custom-decorator-node";
+  }
+
+  static clone(node) {
+    return new CustomDecoratorNode(node.__spanText, node.__key);
+  }
+
+  setSpanText(spanText) {
+    const self = this.getWritable();
+    self.__spanText = spanText;
+  }
+
+  getSpanText() {
+    const self = this.getLatest();
+    return self.__spanText;
   }
 
   decorate() {
@@ -15,7 +34,7 @@ export class CustomDecoratorNode extends DecoratorNode {
 }
 
 export function $createCustomDecoratorNode(uuid) {
-  return new CustomDecoratorNode(uuid);
+  return new CustomDecoratorNode("", uuid);
 }
 
 function CustomDecoratorNodeComponent(props) {
