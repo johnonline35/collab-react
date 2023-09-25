@@ -16,16 +16,6 @@ export class CustomDecoratorNode extends DecoratorNode {
     return new CustomDecoratorNode(node.__spanText, node.__key);
   }
 
-  setSpanText(spanText) {
-    const self = this.getWritable();
-    self.__spanText = spanText;
-  }
-
-  getSpanText() {
-    const self = this.getLatest();
-    return self.__spanText;
-  }
-
   decorate() {
     return (
       <CustomDecoratorNodeComponent uuid={this.__uuid} nodeKey={this.__key} />
