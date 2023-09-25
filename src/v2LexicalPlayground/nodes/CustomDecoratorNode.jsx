@@ -3,6 +3,10 @@ import { $createTextNode, $getNodeByKey, DecoratorNode } from "lexical";
 import { useEffect, useState } from "react";
 
 export class CustomDecoratorNode extends DecoratorNode {
+  static getType() {
+    return "custom-decorator-node";
+  }
+
   decorate() {
     return (
       <CustomDecoratorNodeComponent uuid={this.__uuid} nodeKey={this.__key} />
