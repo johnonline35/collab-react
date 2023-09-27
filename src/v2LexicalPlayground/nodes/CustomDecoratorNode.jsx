@@ -13,8 +13,7 @@ export class CustomDecoratorNode extends DecoratorNode {
   }
 
   createDOM(config) {
-    const div = document.createElement("div");
-    return div;
+    return document.createElement("span");
   }
 
   updateDOM() {
