@@ -21,7 +21,7 @@ import { ExcalidrawNode } from "./ExcalidrawNode";
 import { ImageNode } from "./ImageNode";
 import { KeywordNode } from "./KeywordNode";
 import { MentionNode } from "./MentionNode";
-import { CustomDecoratorNode } from "./CustomDecoratorNode";
+import { CustomDecoratorNode } from "./NoteStructureNode";
 
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
