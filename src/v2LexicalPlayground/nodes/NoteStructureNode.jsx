@@ -1,5 +1,10 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $createTextNode, $getNodeByKey, DecoratorNode } from "lexical";
+import {
+  $createTextNode,
+  $getNodeByKey,
+  $createParagraphNode,
+  DecoratorNode,
+} from "lexical";
 import { $createHeadingNode } from "@lexical/rich-text";
 import { useEffect, useState } from "react";
 
@@ -57,13 +62,15 @@ function NoteStructureNodeComponent(props) {
 
   useEffect(() => {
     editor.update(() => {
+      const paraContainer = $createParagraphNode();
       const currentNode = $getNodeByKey(props.nodeKey);
       console.log("Current node:", currentNode);
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Notes:").setStyle("font-weight: bold")
       );
+      paraContainer.append(notesHeading);
       const textNode = $createTextNode(spanText);
-      currentNode && currentNode.replace(notesHeading);
+      currentNode && currentNode.replace(paraContainer);
     });
   }, [editor, props.nodeKey, spanText]);
 
