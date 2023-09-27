@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useReducer } from "react";
+import { useReducer } from "react";
 import {
   Box,
   Center,
@@ -11,8 +11,6 @@ import {
   Flex,
   Checkbox,
 } from "@chakra-ui/react";
-import { supabase } from "../supabase/clientapp";
-import { useParams } from "react-router-dom";
 
 const infoReducer = (state, action) => {
   switch (action.type) {
