@@ -65,7 +65,6 @@ function NoteStructureNodeComponent(props) {
     editor.update(() => {
       const paraContainer = $createParagraphNode();
       const currentNode = $getNodeByKey(props.nodeKey);
-      console.log("Current node:", currentNode);
       const notesHeading = $createHeadingNode("h3").append(
         $createTextNode("Notes:").setStyle("font-weight: bold")
       );
@@ -83,6 +82,7 @@ function NoteStructureNodeComponent(props) {
       const list2 = $createListNode("bullet");
       list2.append($createListItemNode().append($createTextNode("")));
       paraContainer.append(list2);
+      paraContainer.append($createParagraphNode());
       paraContainer.append($createParagraphNode());
       paraContainer.append($createParagraphNode());
       const textNode = $createTextNode(spanText);
