@@ -185,41 +185,6 @@ export default function CollabPageHome() {
     setIsChecked([]);
   };
 
-  // const handleCheckClick = async (type) => {
-  //   // console.log("Tick icon pressed", isChecked);
-  //   // Loop over the isChecked array and update each entry
-  //   for (const id of isChecked) {
-  //     let tableName;
-  //     let matchIdName;
-
-  //     if (type === "nextSteps") {
-  //       tableName = "collab_users_next_steps";
-  //       matchIdName = "collab_user_next_steps_id";
-  //     } else if (type === "todo") {
-  //       tableName = "collab_users_todos";
-  //       matchIdName = "collab_user_todo_id";
-  //     }
-
-  //     // Supabase update
-  //     const { error } = await supabase
-  //       .from(tableName)
-  //       .update({ ignore: true })
-  //       .match({ [matchIdName]: id });
-
-  //     if (error) {
-  //       console.log(error);
-  //       return;
-  //     }
-  //   }
-  //   setNextSteps((prevSteps) =>
-  //     prevSteps.filter(
-  //       (step) => !isChecked.includes(step.collab_user_next_steps_id)
-  //     )
-  //   );
-
-  //   setIsChecked([]);
-  // };
-
   // These functions are used by the TeamMemberStack:
   const handleAttendeeCheckboxChange = (attendeeId) => {
     if (attendeeIsChecked.includes(attendeeId)) {
