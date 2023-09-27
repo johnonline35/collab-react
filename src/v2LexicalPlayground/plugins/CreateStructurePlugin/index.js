@@ -29,17 +29,7 @@ export default function CreateStructurePlugin() {
       INSERT_STRUCTURE_COMMAND,
       () => {
         editor.update(() => {
-          //
           const createStructureNode = $createNoteStructureNode();
-          //
-          // const selection = $getSelection();
-          // if (!$isNodeSelection(selection)) {
-          //   return null;
-          // }
-          // const nodes = selection.getNodes();
-          // const node = nodes[0];
-          // console.log("Node for structure node:", node);
-          // const textNode = $createTextNode("TEXT NODE");
           $insertNodes([createStructureNode]);
           if ($isRootOrShadowRoot(createStructureNode.getParentOrThrow())) {
             $wrapNodeInElement(
