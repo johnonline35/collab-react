@@ -21,7 +21,7 @@ import { ExcalidrawNode } from "./ExcalidrawNode";
 import { ImageNode } from "./ImageNode";
 import { KeywordNode } from "./KeywordNode";
 import { MentionNode } from "./MentionNode";
-import { CustomDecoratorNode } from "./NoteStructureNode";
+import { NoteStructureNode } from "./NoteStructureNode";
 
 const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   HeadingNode,
@@ -40,7 +40,7 @@ const PlaygroundNodes: Array<Klass<LexicalNode>> = [
   EquationNode,
   AutocompleteNode,
   KeywordNode,
-  CustomDecoratorNode,
+  NoteStructureNode,
 ];
 
 export default PlaygroundNodes;
