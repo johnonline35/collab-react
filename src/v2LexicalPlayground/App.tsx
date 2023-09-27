@@ -33,6 +33,7 @@ import { LocalStoragePlugin } from "./plugins/LocalStoragePlugin";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchLexicalMeetingData } from "../util/database";
+import { CustomDecoratorNode } from "./nodes/CustomDecoratorNode";
 
 function prepopulatedRichText() {
   const root = $getRoot();
@@ -124,7 +125,7 @@ function App(): JSX.Element {
   const initialConfig = {
     editorState: content,
     namespace: "Playground",
-    nodes: [...PlaygroundNodes],
+    nodes: [...PlaygroundNodes, CustomDecoratorNode],
     onError: (error: Error) => {
       throw error;
     },
