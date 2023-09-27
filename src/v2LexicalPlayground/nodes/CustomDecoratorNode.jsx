@@ -69,43 +69,16 @@ function CustomDecoratorNodeComponent(props) {
 
     delayedLoop("hello");
 
-    const fetchData = async () => {
-      try {
-        console.log("fetch called");
-        const response = await fetch(
-          "https://collab-express-production.up.railway.app/summarize-career-education",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({}),
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`Server responded with a ${response.status} status.`);
-        }
-        const data = await response.json();
-        /**
-         * Append the text in the data object to the spanText state.
-         * // props.onSpanTextChange(data.summary);
-         */
-        console.log("streaming data:", data);
-      } catch (error) {
-        console.error("There was an error fetching the summary!", error);
-      }
-    };
-
     // fetchData();
   }, []);
 
-  useEffect(() => {
-    // editor.update(() => {
-    //   const currentNode = $getNodeByKey(props.nodeKey);
-    //   const textNode = $createTextNode(spanText);
-    //   currentNode && currentNode.replace(textNode);
-    // });
-  }, [spanText]);
+  // useEffect(() => {
+  //   editor.update(() => {
+  //     const currentNode = $getNodeByKey(props.nodeKey);
+  //     const textNode = $createTextNode(spanText);
+  //     currentNode && currentNode.replace(textNode);
+  //   });
+  // }, [spanText]);
 
   return <span spellCheck='false'>{spanText}</span>;
 }
