@@ -6,6 +6,7 @@ import {
   DecoratorNode,
 } from "lexical";
 import { $createHeadingNode } from "@lexical/rich-text";
+import { $createListItemNode, $createListNode } from "@lexical/list";
 import { useEffect, useState } from "react";
 
 export class NoteStructureNode extends DecoratorNode {
@@ -69,6 +70,9 @@ function NoteStructureNodeComponent(props) {
         $createTextNode("Notes:").setStyle("font-weight: bold")
       );
       paraContainer.append(notesHeading);
+      paraContainer.append($createParagraphNode);
+      const list1 = $createListNode("bullet");
+      list1.append($createListItemNode().append($createTextNode("")));
       const textNode = $createTextNode(spanText);
       currentNode && currentNode.replace(paraContainer);
     });
