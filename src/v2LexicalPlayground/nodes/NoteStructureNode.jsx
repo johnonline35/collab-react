@@ -70,9 +70,10 @@ function NoteStructureNodeComponent(props) {
         $createTextNode("Notes:").setStyle("font-weight: bold")
       );
       paraContainer.append(notesHeading);
-      paraContainer.append($createParagraphNode);
+      paraContainer.append($createParagraphNode());
       const list1 = $createListNode("bullet");
       list1.append($createListItemNode().append($createTextNode("")));
+      paraContainer.append(list1);
       const textNode = $createTextNode(spanText);
       currentNode && currentNode.replace(paraContainer);
     });
