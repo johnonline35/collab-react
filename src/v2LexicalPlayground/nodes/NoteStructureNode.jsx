@@ -83,8 +83,7 @@ function NoteStructureNodeComponent(props) {
       list2.append($createListItemNode().append($createTextNode("")));
       paraContainer.append(list2);
       paraContainer.append($createParagraphNode());
-      paraContainer.append($createParagraphNode());
-      paraContainer.append($createParagraphNode());
+      // paraContainer.append($createTextNode(""));
       const textNode = $createTextNode(spanText);
       currentNode && currentNode.replace(paraContainer);
     });
