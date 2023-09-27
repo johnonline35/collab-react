@@ -73,6 +73,7 @@ function CustomDecoratorNodeComponent(props) {
 
   useEffect(() => {
     editor.update(() => {
+      console.log("Called Editor Update in the node component");
       const currentNode = $getNodeByKey(props.nodeKey);
       const textNode = $createTextNode(spanText);
       currentNode && currentNode.replace(textNode);
