@@ -52,7 +52,7 @@ export function $createCustomDecoratorNode(uuid) {
 
 function CustomDecoratorNodeComponent(props) {
   const [editor] = useLexicalComposerContext();
-  const [spanText, setSpanText] = useState("");
+  const [spanText, setSpanText] = useState("TEXT");
 
   // useEffect(() => {
   //   const delayedLoop = async (text) => {
@@ -72,7 +72,6 @@ function CustomDecoratorNodeComponent(props) {
   // }, []);
 
   useEffect(() => {
-    setSpanText("THIS");
     editor.update(() => {
       const currentNode = $getNodeByKey(props.nodeKey);
       const textNode = $createTextNode(spanText);
