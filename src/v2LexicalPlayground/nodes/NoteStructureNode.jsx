@@ -1,5 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $createTextNode, $getNodeByKey, DecoratorNode } from "lexical";
+import { $createHeadingNode } from "@lexical/rich-text";
 import { useEffect, useState } from "react";
 
 export class NoteStructureNode extends DecoratorNode {
@@ -57,8 +58,12 @@ function NoteStructureNodeComponent(props) {
   useEffect(() => {
     editor.update(() => {
       const currentNode = $getNodeByKey(props.nodeKey);
+      console.log("Current node:", currentNode);
+      const notesHeading = $createHeadingNode("h3").append(
+        $createTextNode("Notes:").setStyle("font-weight: bold")
+      );
       const textNode = $createTextNode(spanText);
-      currentNode && currentNode.replace(textNode);
+      currentNode && currentNode.replace(notesHeading);
     });
   }, [editor, props.nodeKey, spanText]);
 
