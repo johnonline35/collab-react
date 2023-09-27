@@ -38,6 +38,8 @@ export const NextStepsList = ({
   updateNextStep,
   isLoading,
 }) => {
+  nextSteps.map((step) => console.log({ step: step }));
+
   const [info, dispatch] = useReducer(infoReducer, {});
 
   const formatDate = (dateString) => {
