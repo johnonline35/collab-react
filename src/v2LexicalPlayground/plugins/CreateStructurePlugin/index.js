@@ -15,7 +15,7 @@ import {
 } from "lexical";
 import { $insertNodeToNearestRoot, $wrapNodeInElement } from "@lexical/utils";
 import { $createStructureNode } from "../../nodes/CreateStructureNode";
-import { $createCustomDecoratorNode } from "../../nodes/CustomDecoratorNode";
+import { $createNoteStructureNode } from "../../nodes/NoteStructureNode";
 import { useEffect } from "react";
 
 export const INSERT_STRUCTURE_COMMAND = createCommand();
@@ -30,7 +30,7 @@ export default function CreateStructurePlugin() {
       () => {
         editor.update(() => {
           //
-          const createStructureNode = $createCustomDecoratorNode();
+          const createStructureNode = $createNoteStructureNode();
           //
           // const selection = $getSelection();
           // if (!$isNodeSelection(selection)) {

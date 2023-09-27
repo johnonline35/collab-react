@@ -78,7 +78,6 @@ export default function BuildRapportPlugin({ meetingData, session }) {
           }
 
           editor.update(() => {
-            console.log({ root: $getRoot() });
             const textNode = $createTextNode(data.content);
             $insertNodes([textNode]);
             if ($isRootOrShadowRoot(textNode.getParentOrThrow())) {

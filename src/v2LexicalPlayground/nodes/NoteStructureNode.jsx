@@ -2,14 +2,14 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $createTextNode, $getNodeByKey, DecoratorNode } from "lexical";
 import { useEffect, useState } from "react";
 
-export class CustomDecoratorNode extends DecoratorNode {
+export class NoteStructureNode extends DecoratorNode {
   constructor(spanText = "", key) {
     super(key);
     this.__spanText = spanText;
   }
 
   static getType() {
-    return "custom-decorator-node";
+    return "note-structure-node";
   }
 
   createDOM(config) {
@@ -21,7 +21,7 @@ export class CustomDecoratorNode extends DecoratorNode {
   }
 
   static importJSON(serializedNode) {
-    const node = $createCustomDecoratorNode(serializedNode.uuid);
+    const node = $createNoteStructureNode(serializedNode.uuid);
     node.__spanText = serializedNode.spanText;
     return node;
   }
@@ -30,27 +30,27 @@ export class CustomDecoratorNode extends DecoratorNode {
     return {
       uuid: this.__uuid,
       spanText: this.__spanText,
-      type: CustomDecoratorNode.getType(),
+      type: NoteStructureNode.getType(),
       version: 1,
     };
   }
 
   static clone(node) {
-    return new CustomDecoratorNode(node.__spanText, node.__key);
+    return new NoteStructureNode(node.__spanText, node.__key);
   }
 
   decorate() {
     return (
-      <CustomDecoratorNodeComponent uuid={this.__uuid} nodeKey={this.__key} />
+      <NoteStructureNodeComponent uuid={this.__uuid} nodeKey={this.__key} />
     );
   }
 }
 
-export function $createCustomDecoratorNode(uuid) {
-  return new CustomDecoratorNode("", uuid);
+export function $createNoteStructureNode(uuid) {
+  return new NoteStructureNode("", uuid);
 }
 
-function CustomDecoratorNodeComponent(props) {
+function NoteStructureNodeComponent(props) {
   const [editor] = useLexicalComposerContext();
   const [spanText, setSpanText] = useState("TEXT");
 
@@ -73,7 +73,6 @@ function CustomDecoratorNodeComponent(props) {
 
   useEffect(() => {
     editor.update(() => {
-      console.log("Called Editor Update in the node component");
       const currentNode = $getNodeByKey(props.nodeKey);
       const textNode = $createTextNode(spanText);
       currentNode && currentNode.replace(textNode);
