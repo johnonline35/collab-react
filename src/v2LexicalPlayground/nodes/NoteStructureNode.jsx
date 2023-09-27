@@ -89,7 +89,8 @@ function NoteStructureNodeComponent(props) {
     });
   }, [editor, props.nodeKey, spanText]);
 
-  return <span>{spanText}</span>;
+  // return <span>{spanText}</span>;
+  return null;
 }
 
 // useEffect(() => {
