@@ -29,11 +29,11 @@ export default function CreateStructurePlugin() {
       INSERT_STRUCTURE_COMMAND,
       () => {
         editor.update(() => {
-          const createStructureNode = $createNoteStructureNode();
-          $insertNodes([createStructureNode]);
-          if ($isRootOrShadowRoot(createStructureNode.getParentOrThrow())) {
+          const createNoteStructureNode = $createNoteStructureNode();
+          $insertNodes([createNoteStructureNode]);
+          if ($isRootOrShadowRoot(createNoteStructureNode.getParentOrThrow())) {
             $wrapNodeInElement(
-              createStructureNode,
+              createNoteStructureNode,
               $createParagraphNode
             ).selectEnd();
           }
