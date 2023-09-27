@@ -54,6 +54,7 @@ export default function BuildRapportPlugin({ meetingData, session }) {
         console.error("There was an error fetching the summary!", error);
       }
     }
+    // New comment
     const unregister = editor.registerCommand(
       INSERT_BUILD_RAPPORT_COMMAND,
       () => {
