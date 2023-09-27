@@ -177,6 +177,12 @@ export default function CollabPageHome() {
         return;
       }
     }
+    setNextSteps((prevSteps) =>
+      prevSteps.filter(
+        (step) => !isChecked.includes(step.collab_user_next_steps_id)
+      )
+    );
+
     setIsChecked([]);
   };
 
