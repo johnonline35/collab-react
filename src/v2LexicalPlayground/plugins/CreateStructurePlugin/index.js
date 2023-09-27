@@ -39,7 +39,7 @@ export default function CreateStructurePlugin() {
           // const nodes = selection.getNodes();
           // const node = nodes[0];
           // console.log("Node for structure node:", node);
-          const textNode = $createTextNode("TEXT NODE");
+          // const textNode = $createTextNode("TEXT NODE");
           $insertNodes([createStructureNode]);
           if ($isRootOrShadowRoot(createStructureNode.getParentOrThrow())) {
             $wrapNodeInElement(

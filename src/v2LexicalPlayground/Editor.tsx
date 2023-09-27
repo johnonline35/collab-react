@@ -289,7 +289,7 @@ export default function Editor(): JSX.Element {
         {shouldUseLexicalContextMenu && <ContextMenuPlugin />}
         {/* <ActionsPlugin isRichText={isRichText} /> */}
       </div>
-      {/* <TreeViewPlugin /> */}
+      <TreeViewPlugin />
       {/* {showTreeView && <TreeViewPlugin />} */}
     </>
   );
