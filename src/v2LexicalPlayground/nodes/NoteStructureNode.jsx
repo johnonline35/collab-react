@@ -74,6 +74,17 @@ function NoteStructureNodeComponent(props) {
       const list1 = $createListNode("bullet");
       list1.append($createListItemNode().append($createTextNode("")));
       paraContainer.append(list1);
+      paraContainer.append($createParagraphNode());
+      const followUpHeading = $createHeadingNode("h3").append(
+        $createTextNode("Action items:").setStyle("font-weight: bold")
+      );
+      paraContainer.append(followUpHeading);
+      paraContainer.append($createParagraphNode());
+      const list2 = $createListNode("bullet");
+      list2.append($createListItemNode().append($createTextNode("")));
+      paraContainer.append(list2);
+      paraContainer.append($createParagraphNode());
+      paraContainer.append($createParagraphNode());
       const textNode = $createTextNode(spanText);
       currentNode && currentNode.replace(paraContainer);
     });
