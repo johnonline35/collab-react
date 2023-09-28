@@ -58,7 +58,7 @@ export default function Navbar() {
 
             const userId = session.user.id;
 
-            // First, stop the Google Calendar watch.
+            // First, try to stop the Google Calendar watch.
             fetch(
               "https://collab-express-production.up.railway.app/stop-google-calendar-watch",
               {
@@ -73,9 +73,20 @@ export default function Navbar() {
             )
               .then((response) => {
                 if (!response.ok) {
-                  throw new Error("Failed to stop Google Calendar watch.");
+                  // Log the error and proceed with the signout.
+                  console.error("Failed to stop Google Calendar watch.");
                 }
-                // Once that's done, sign out the user.
+                return;
+              })
+              .catch((error) => {
+                // Log the error but continue with the logout process.
+                console.error(
+                  "Error stopping the Google Calendar watch:",
+                  error
+                );
+              })
+              .finally(() => {
+                // Always sign out the user, regardless of previous errors.
                 return signout();
               })
               .then(() => {
@@ -88,11 +99,11 @@ export default function Navbar() {
                   duration: 5000,
                   isClosable: true,
                 });
-                // Finally, navigate to home.
+                // Navigate to home.
                 navigate("/");
               })
               .catch((error) => {
-                // Handle any errors that occurred during the process.
+                // Handle any errors that occurred during the logout process.
                 console.error("Error during the logout process:", error);
               });
           }}
