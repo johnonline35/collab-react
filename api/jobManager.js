@@ -58,7 +58,7 @@ module.exports = async (req, res) => {
     // Extract newRow from the parsed body
     const newRow = req.body;
 
-    const collabUserId = newRow?.record?.collab_user_id;
+    const collabUserId = newRow?.collab_user_id;
 
     const jobId = await createJobRecord(collabUserId);
 
