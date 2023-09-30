@@ -10,7 +10,7 @@ const brandfetch_api_key = process.env.REACT_APP_BRANDFETCH;
 
 const brandfetchJob = async (newRow) => {
   // Extract domainName from newRow
-  const domainName = newRow?.record?.domain;
+  const domainName = newRow?.domain;
 
   // Log the domainName
   console.log("Domain name: ", domainName);
