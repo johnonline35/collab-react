@@ -53,7 +53,7 @@ async function updateJobRecord(jobId, results) {
 }
 
 module.exports = async (req, res) => {
-  console.log("Job Manager API Called");
+  console.log("Job Manager API Called with the req.body:", req.body);
   try {
     // Extract newRow from the parsed body
     const newRow = req.body;
