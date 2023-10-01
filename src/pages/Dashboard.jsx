@@ -242,7 +242,6 @@ export default function Dashboard() {
       <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
         {companyInfo &&
           companyInfo
-            .filter((info) => info.enrich_and_display)
             .sort((a, b) => {
               // Check if next_meeting_date is present in both items
               if (a.next_meeting_date && b.next_meeting_date) {
