@@ -10,7 +10,7 @@ const avatar_api_username = process.env.REACT_APP_AVATARAPI_USERNAME;
 const avatar_api_password = process.env.REACT_APP_AVATARAPI_PASSWORD;
 
 const workspcesAvatarApi = async (newRow) => {
-  const email = newRow?.meeting_attendee_email;
+  const email = newRow?.email;
   console.log("Received email:", email);
 
   if (!email) {
