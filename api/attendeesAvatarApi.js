@@ -11,7 +11,7 @@ const avatar_api_password = process.env.REACT_APP_AVATARAPI_PASSWORD;
 
 const attendeesAvatarApiJob = async (newRow) => {
   // Extract the email from newRow
-  const email = newRow?.attendee_email;
+  const email = newRow?.email;
   console.log("Received email:", email);
 
   if (!email) {

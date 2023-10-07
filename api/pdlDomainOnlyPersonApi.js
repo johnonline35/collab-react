@@ -32,7 +32,7 @@ function correctDateFormat(dateStr) {
 
 const pdlDomainOnlyPersonApiJob = async (newRow) => {
   // Extract email from newRow
-  const email = newRow?.attendee_email;
+  const email = newRow?.email;
 
   if (!email) {
     console.log("Missing email in request body");
