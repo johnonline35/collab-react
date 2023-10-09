@@ -51,6 +51,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+  const session = useSession();
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -75,6 +76,10 @@ export default function Dashboard() {
     }
   };
 
+  useEffect(() => {
+    const userId = session?.user.id;
+    setUserId(userId);
+  }, [session]);
   // Fetch user session and set the userId
   useEffect(() => {
     setLoadingCards(true);
@@ -106,26 +111,21 @@ export default function Dashboard() {
     };
 
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      console.log("session:", data.session);
-      const userId = data?.session?.user.id;
+      // const { data, error } = await supabase.auth.getSession();
+      // console.log("session:", data.session);
+      // const userId = data?.session?.user.id;
 
-      if (error) {
-        console.error("Error getting session:", error);
-        return;
-      }
-
-      console.log("initialUserId:", userId);
-      setUserId(userId); // Set the user ID in state
-
-      // Get the refresh token from the session object
-
-      // Call getMeetings after the userId state has been set
+      // if (error) {
+      //   console.error("Error getting session:", error);
+      //   return;
+      // }
+      // console.log("initialUserId:", userId);
+      // setUserId(userId); // Set the user ID in state
       getMeetings(userId);
     };
 
     getSession();
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     if (companyInfo !== null) {
