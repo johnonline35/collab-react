@@ -22,6 +22,7 @@ import CollabPageNotes from "./pages/collabs/CollabPageNotes";
 // import { supabase } from "./supabase/clientapp";
 import { createCookie, PrivateRoute, SessionContext } from "./privateRoute";
 import { supabase } from "./supabase/clientapp";
+import { storeRefreshToken } from "./util/database";
 
 function Router() {
   const [session, setSession] = useState(null);
@@ -34,6 +35,10 @@ function Router() {
     if (session) {
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
+      const userId = session?.user.id;
+      const refreshToken = session?.provider_refresh_token;
+
+      await storeRefreshToken(userId, refreshToken);
     }
     setLoading(false); // set loading to false after supabaseCall completes
   }
