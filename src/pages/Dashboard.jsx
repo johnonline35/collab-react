@@ -114,6 +114,8 @@ export default function Dashboard() {
     try {
       const workspaces = await fetchWorkspaces(userId);
 
+      console.log("workspaces before filter:", workspaces);
+
       const workspacesToDisplay = workspaces.filter(
         (workspace) => workspace.enrich_and_display
       );
