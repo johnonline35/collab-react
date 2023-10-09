@@ -39,6 +39,7 @@ import { IoMdPeople } from "react-icons/io";
 // import { AiFillFacebook } from "react-icons/ai";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
+import { useSession } from "../hooks/useSession";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -50,29 +51,10 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
+  const session = useSession();
 
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
-
-  const getWorkspaceData = async (userId) => {
-    try {
-      const { data, error } = await supabase
-        .from("workspaces")
-        .select("*")
-        .eq("collab_user_id", userId);
-
-      if (error) {
-        console.error("Error fetching workspace data:", error);
-        return null;
-      }
-
-      console.log("Workspace data:", data);
-      return data;
-    } catch (error) {
-      console.error("Unexpected error fetching workspace data:", error);
-      return null;
-    }
-  };
 
   // Fetch Google Calendar via Server and process the response
 
@@ -88,19 +70,6 @@ export default function Dashboard() {
 
       console.log("datanewtestdasboard:", data);
       setCompanyInfo(data);
-
-      // Update the Redis cache with the new company info
-      // const response = await fetch("/api/redisSetCompanyInfo", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ userId, data }),
-      // });
-
-      // if (!response.ok) {
-      //   throw new Error(`Server error: ${response.statusText}`);
-      // }
     } catch (error) {
       console.error("Error in test_dashboard:", error);
     } finally {
@@ -118,14 +87,6 @@ export default function Dashboard() {
       console.log("Starting getMeetings");
       if (!userId) return; // Do not proceed if there's no user ID
       console.log("Passed userId check");
-
-      // Fetch and load the local workspace data first, if any
-      // let workspaceData = await getWorkspaceData(userId);
-      // if (workspaceData) {
-      //   console.log("Loaded workspace data:", workspaceData);
-      //   // Call getCompanyTileInfo with userId when workspace data is present
-      //   getCompanyTileInfo(userId);
-      // }
 
       const response = await fetch(getMeetingsEndpoint, {
         method: "POST",
@@ -148,20 +109,15 @@ export default function Dashboard() {
     };
 
     const getSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      console.log("session:", data.session);
-      const userId = data?.session?.user.id;
-
-      if (error) {
-        console.error("Error getting session:", error);
-        return;
-      }
-
+      console.log("session:", session);
+      const userId = session?.user.id;
       console.log("initialUserId:", userId);
+      const refreshToken = session?.provider_refresh_token;
+      console.log("refreshToken:", refreshToken);
+
       setUserId(userId); // Set the user ID in state
 
       // Get the refresh token from the session object
-      const refreshToken = data.session.provider_refresh_token;
 
       // Upsert the userId and the refresh token
       const { error: upsertError } = await supabase
@@ -179,7 +135,7 @@ export default function Dashboard() {
     };
 
     getSession();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     if (companyInfo !== null) {
