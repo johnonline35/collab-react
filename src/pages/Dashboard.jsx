@@ -40,6 +40,7 @@ import { IoMdPeople } from "react-icons/io";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
 import { useSession } from "../hooks/useSession";
+import { fetchWorkspaces } from "../util/database";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -82,10 +83,9 @@ export default function Dashboard() {
     setLoadingCards(true);
 
     const getGoogleCal = async (userId) => {
+      if (!userId) return; // Do not proceed if there's no user ID
       console.log("NEWuserId:", userId);
       console.log("Starting getGoogleCal");
-      if (!userId) return; // Do not proceed if there's no user ID
-      console.log("Passed userId check");
 
       const response = await fetch(getGoogleCalEndpoint, {
         method: "POST",
@@ -97,7 +97,7 @@ export default function Dashboard() {
       console.log("Sent fetch request");
 
       if (response.ok) {
-        console.log("Got Meetings");
+        console.log("Got Google Cal");
         const meetingsData = await response.json();
         console.log("meetingsData:", meetingsData);
 
@@ -107,11 +107,25 @@ export default function Dashboard() {
       }
     };
 
-    const callBackend = async () => {
-      getGoogleCal(userId);
+    const loadWorkspaces = async (userId) => {
+      try {
+        const workspaces = await fetchWorkspaces(userId);
+
+        const workspacesToDisplay = workspaces.filter(
+          (workspace) => workspace.enrich_and_display
+        );
+
+        if (workspacesToDisplay.length > 1) {
+          await getCompanyTileInfo(userId);
+        } else if (workspacesToDisplay.length === 0) {
+          await getGoogleCal(userId);
+        }
+      } catch (error) {
+        console.error("Error loading workspaces:", error);
+      }
     };
 
-    callBackend();
+    loadWorkspaces();
   }, [userId]);
 
   useEffect(() => {

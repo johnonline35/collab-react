@@ -210,3 +210,21 @@ export async function storeRefreshToken(userId, refreshToken) {
   }
   console.log("After calling the async function");
 }
+
+export async function fetchWorkspaces(userId) {
+  try {
+    const { data, error } = await supabase
+      .from("workspaces")
+      .select("*")
+      .eq("collab_user_id", userId);
+
+    if (error) {
+      throw error;
+    }
+    console.log("fetchWorkspaces Data:", data[0]);
+    return data[0] || [];
+  } catch (err) {
+    console.error("Error fetching workspaces:", err);
+    return [];
+  }
+}
