@@ -55,28 +55,6 @@ export default function Dashboard() {
   const getMeetingsEndpoint =
     "https://collab-express-production.up.railway.app/";
 
-  const getWorkspaceData = async (userId) => {
-    try {
-      const { data, error } = await supabase
-        .from("workspaces")
-        .select("*")
-        .eq("collab_user_id", userId);
-
-      if (error) {
-        console.error("Error fetching workspace data:", error);
-        return null;
-      }
-
-      console.log("Workspace data:", data);
-      return data;
-    } catch (error) {
-      console.error("Unexpected error fetching workspace data:", error);
-      return null;
-    }
-  };
-
-  // Fetch Google Calendar via Server and process the response
-
   const getCompanyTileInfo = async (userId) => {
     try {
       const { data, error } = await supabase.rpc("new_test_dashboard", {
@@ -106,14 +84,6 @@ export default function Dashboard() {
       console.log("Starting getMeetings");
       if (!userId) return; // Do not proceed if there's no user ID
       console.log("Passed userId check");
-
-      // Fetch and load the local workspace data first, if any
-      // let workspaceData = await getWorkspaceData(userId);
-      // if (workspaceData) {
-      //   console.log("Loaded workspace data:", workspaceData);
-      //   // Call getCompanyTileInfo with userId when workspace data is present
-      //   getCompanyTileInfo(userId);
-      // }
 
       const response = await fetch(getMeetingsEndpoint, {
         method: "POST",
@@ -149,18 +119,6 @@ export default function Dashboard() {
       setUserId(userId); // Set the user ID in state
 
       // Get the refresh token from the session object
-      const refreshToken = data.session.provider_refresh_token;
-
-      // Upsert the userId and the refresh token
-      const { error: upsertError } = await supabase
-        .from("collab_users")
-        .upsert([{ id: userId, refresh_token: refreshToken }], {
-          onConflict: "id",
-        });
-
-      if (upsertError) {
-        console.error("Error upserting refresh token:", upsertError);
-      }
 
       // Call getMeetings after the userId state has been set
       getMeetings(userId);

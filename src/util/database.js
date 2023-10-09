@@ -197,3 +197,16 @@ export const storeTodo = async (workspace_id, userId, uuid, content) => {
     };
   }
 };
+
+export async function storeRefreshToken(userId, refreshToken) {
+  const { error: upsertError } = await supabase
+    .from("collab_users")
+    .upsert([{ id: userId, refresh_token: refreshToken }], {
+      onConflict: "id",
+    });
+
+  if (upsertError) {
+    console.error("Error upserting refresh token:", upsertError);
+  }
+  console.log("After calling the async function");
+}
