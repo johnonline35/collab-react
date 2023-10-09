@@ -108,6 +108,7 @@ export default function Dashboard() {
     };
 
     const loadWorkspaces = async (userId) => {
+      if (!userId) return;
       try {
         const workspaces = await fetchWorkspaces(userId);
 
