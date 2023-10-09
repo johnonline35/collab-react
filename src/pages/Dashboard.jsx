@@ -108,11 +108,11 @@ export default function Dashboard() {
       }
     };
 
-    const getSession = async () => {
+    const insertRefreshToken = async () => {
       console.log("session:", session);
       const userId = session?.user.id;
       console.log("initialUserId:", userId);
-      const refreshToken = session?.provider_refresh_token;
+      const refreshToken = session?.refresh_token;
       console.log("refreshToken:", refreshToken);
 
       setUserId(userId); // Set the user ID in state
@@ -134,7 +134,7 @@ export default function Dashboard() {
       getMeetings(userId);
     };
 
-    getSession();
+    insertRefreshToken();
   }, [session]);
 
   useEffect(() => {
