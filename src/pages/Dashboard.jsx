@@ -70,9 +70,6 @@ export default function Dashboard() {
       setCompanyInfo(data);
     } catch (error) {
       console.error("Error in test_dashboard:", error);
-    } finally {
-      // Always run this last after the async operation above finishes
-      // setLoadingCards(false);
     }
   };
 
@@ -110,21 +107,11 @@ export default function Dashboard() {
       }
     };
 
-    const getSession = async () => {
-      // const { data, error } = await supabase.auth.getSession();
-      // console.log("session:", data.session);
-      // const userId = data?.session?.user.id;
-
-      // if (error) {
-      //   console.error("Error getting session:", error);
-      //   return;
-      // }
-      // console.log("initialUserId:", userId);
-      // setUserId(userId); // Set the user ID in state
+    const callBackend = async () => {
       getMeetings(userId);
     };
 
-    getSession();
+    callBackend();
   }, [userId]);
 
   useEffect(() => {
