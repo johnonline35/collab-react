@@ -221,7 +221,7 @@ export async function fetchWorkspaces(userId) {
     if (error) {
       throw error;
     }
-    console.log("fetchWorkspaces Data:", data[0]);
+    console.log("fetchWorkspaces Data:", data);
     return data[0] || [];
   } catch (err) {
     console.error("Error fetching workspaces:", err);
