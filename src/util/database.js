@@ -222,7 +222,7 @@ export async function fetchWorkspaces(userId) {
       throw error;
     }
     console.log("fetchWorkspaces Data:", data);
-    return data[0] || [];
+    return data || [];
   } catch (err) {
     console.error("Error fetching workspaces:", err);
     return [];
