@@ -53,7 +53,7 @@ export default function Dashboard() {
   const [userId, setUserId] = useState(null);
   const session = useSession();
 
-  const getMeetingsEndpoint =
+  const getGoogleCalEndpoint =
     "https://collab-express-production.up.railway.app/";
 
   const getCompanyTileInfo = async (userId) => {
@@ -81,13 +81,13 @@ export default function Dashboard() {
   useEffect(() => {
     setLoadingCards(true);
 
-    const getMeetings = async (userId) => {
+    const getGoogleCal = async (userId) => {
       console.log("NEWuserId:", userId);
-      console.log("Starting getMeetings");
+      console.log("Starting getGoogleCal");
       if (!userId) return; // Do not proceed if there's no user ID
       console.log("Passed userId check");
 
-      const response = await fetch(getMeetingsEndpoint, {
+      const response = await fetch(getGoogleCalEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export default function Dashboard() {
     };
 
     const callBackend = async () => {
-      getMeetings(userId);
+      getGoogleCal(userId);
     };
 
     callBackend();
