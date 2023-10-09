@@ -150,25 +150,13 @@ export default function Dashboard() {
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       console.log("session:", data.session);
+      const userId = data?.session?.user.id;
 
       if (error) {
         console.error("Error getting session:", error);
         return;
       }
 
-      // Fetch user id from the collab_users table
-      let { data: userData, error: userError } = await supabase
-        .from("collab_users")
-        .select("id")
-        .eq("collab_user_email", data.session.user.email) // Assuming that the email is a unique identifier
-        .single();
-
-      if (userError) {
-        console.error("Error getting user data:", userError);
-        return;
-      }
-
-      const userId = userData.id;
       console.log("initialUserId:", userId);
       setUserId(userId); // Set the user ID in state
 
