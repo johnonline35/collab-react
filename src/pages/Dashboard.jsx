@@ -27,7 +27,7 @@ import {
   Image,
   Icon,
 } from "@chakra-ui/react";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { supabase } from "../supabase/clientapp";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
@@ -79,55 +79,61 @@ export default function Dashboard() {
     setUserId(userId);
   }, [session]);
   // Fetch user session and set the userId
-  useEffect(() => {
-    setLoadingCards(true);
+  const getGoogleCal = async (userId) => {
+    if (!userId) return;
 
-    const getGoogleCal = async (userId) => {
-      if (!userId) return; // Do not proceed if there's no user ID
-      console.log("NEWuserId:", userId);
-      console.log("Starting getGoogleCal");
+    console.log("NEWuserId:", userId);
+    console.log("Starting getGoogleCal");
 
-      const response = await fetch(getGoogleCalEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId }),
-      });
-      console.log("Sent fetch request");
+    const response = await fetch(getGoogleCalEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
+    });
 
-      if (response.ok) {
-        console.log("Got Google Cal");
-        const meetingsData = await response.json();
-        console.log("meetingsData:", meetingsData);
+    console.log("Sent fetch request");
 
-        getCompanyTileInfo(userId);
-      } else {
-        console.error("Error getting meetings:", response.status);
+    if (response.ok) {
+      console.log("Got Google Cal");
+      const meetingsData = await response.json();
+      console.log("meetingsData:", meetingsData);
+
+      getCompanyTileInfo(userId);
+    } else {
+      console.error("Error getting meetings:", response.status);
+      const errorData = await response.json();
+      console.error("Error data:", errorData);
+    }
+  };
+
+  const loadWorkspaces = useCallback(async () => {
+    if (!userId) return;
+
+    try {
+      const workspaces = await fetchWorkspaces(userId);
+
+      const workspacesToDisplay = workspaces.filter(
+        (workspace) => workspace.enrich_and_display
+      );
+
+      if (workspacesToDisplay.length > 1) {
+        await getCompanyTileInfo(userId);
+      } else if (workspacesToDisplay.length === 0) {
+        await getGoogleCal(userId);
       }
-    };
-
-    const loadWorkspaces = async (userId) => {
-      if (!userId) return;
-      try {
-        const workspaces = await fetchWorkspaces(userId);
-
-        const workspacesToDisplay = workspaces.filter(
-          (workspace) => workspace.enrich_and_display
-        );
-
-        if (workspacesToDisplay.length > 1) {
-          await getCompanyTileInfo(userId);
-        } else if (workspacesToDisplay.length === 0) {
-          await getGoogleCal(userId);
-        }
-      } catch (error) {
-        console.error("Error loading workspaces:", error);
-      }
-    };
-
-    loadWorkspaces();
+    } catch (error) {
+      console.error("Error loading workspaces:", error);
+    }
   }, [userId]);
+
+  useEffect(() => {
+    if (userId) {
+      setLoadingCards(true);
+      loadWorkspaces();
+    }
+  }, [userId, loadWorkspaces]);
 
   useEffect(() => {
     if (companyInfo !== null) {
