@@ -48,7 +48,10 @@ function Router() {
   useEffect(() => {
     supabaseCall();
   }, []);
-  console.log("ROUTE userId", userId);
+
+  useEffect(() => {
+    console.log("ROUTE userId", userId);
+  }, [userId]);
   return (
     <SessionContext.Provider value={session}>
       <Routes>
