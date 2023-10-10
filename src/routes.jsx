@@ -27,7 +27,7 @@ import { storeRefreshToken } from "./util/database";
 function Router() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [theUserId, setTheUserId] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   async function supabaseCall() {
     const {
@@ -36,9 +36,9 @@ function Router() {
     if (session) {
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
-      const userId = session?.user.id;
+      const id = session?.user.id;
 
-      setTheUserId(userId);
+      setUserId(id);
       const refreshToken = session?.provider_refresh_token;
 
       await storeRefreshToken(userId, refreshToken);
@@ -59,10 +59,7 @@ function Router() {
         <Route path='' element={<Privacy />} />
       </Route> */}
         <Route path='/termsofservice' element={<TermsOfService />} />
-        <Route
-          path='/collabs/:workspace_id'
-          element={<CollabPageLayout userId={theUserId} />}
-        >
+        <Route path='/collabs/:workspace_id' element={<CollabPageLayout />}>
           <Route
             path='/collabs/:workspace_id'
             element={
