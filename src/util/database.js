@@ -228,3 +228,20 @@ export async function fetchWorkspaces(userId) {
     return [];
   }
 }
+
+export const getCompanyTileInfo = async (userId) => {
+  try {
+    const { data, error } = await supabase.rpc("new_test_dashboard", {
+      _userid: userId,
+    });
+
+    if (error) {
+      console.error("Error fetching data:", error);
+    }
+
+    console.log("datanewtestdasboard:", data);
+    return data;
+  } catch (error) {
+    console.error("Error in test_dashboard:", error);
+  }
+};
