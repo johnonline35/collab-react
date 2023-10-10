@@ -62,7 +62,7 @@ function Router() {
         <Route path='/termsofservice' element={<TermsOfService />} />
         <Route
           path='/collabs/:workspace_id'
-          element={<CollabPageLayout userId={userId} />}
+          element={<CollabPageLayout userId={session.user.id} />}
         >
           <Route
             path='/collabs/:workspace_id'
