@@ -1,9 +1,9 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import CollabPageSidebar from "../components/CollabPageSidebar";
 
-export default async function CollabPageLayout() {
+export default function RootLayout() {
   return (
     <Grid templateColumns='repeat(6, 1fr)' bg='gray.50'>
       <GridItem
