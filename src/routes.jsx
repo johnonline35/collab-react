@@ -43,7 +43,7 @@ function Router() {
 
       await storeRefreshToken(userId, refreshToken);
     }
-    setLoading(false); // set loading to false after supabaseCall completes
+    setLoading(false);
   }
 
   useEffect(() => {
