@@ -9,7 +9,7 @@ export default async function CollabPageLayout() {
   const { workspace_id } = useParams();
   const session = useSession();
   const userId = session?.user.id;
-  console.log("PAGE USERID:", userId);
+  console.log("SESSION FFS:", session);
 
   const workspaceName = await fetchWorkspaceName(userId, workspace_id);
 
