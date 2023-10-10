@@ -4,7 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { CgWebsite } from "react-icons/cg";
 
-export default function Sidebar(workspace_id) {
+export default function Sidebar(workspace_id, workspaceName) {
   return (
     <List color='white' fontSize='1.2em' spacing={4}>
       <ListItem>
@@ -15,7 +15,7 @@ export default function Sidebar(workspace_id) {
 
       <Box pl='45px'>
         <Text mb='15px' fontSize='l'>
-          Heading
+          {workspaceName}
         </Text>
         <Box pl='17px'>
           <List spacing={4}>

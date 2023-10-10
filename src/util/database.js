@@ -245,3 +245,24 @@ export const getCompanyTileInfo = async (userId) => {
     console.error("Error in test_dashboard:", error);
   }
 };
+
+export async function fetchWorkspaceName(userId, workspace_id) {
+  try {
+    const { data, error } = await supabase
+      .from("workspaces")
+      .select("workspace_name")
+      .match({
+        workspace_id: workspace_id,
+        collab_user_id: userId,
+      });
+
+    if (error) {
+      throw error;
+    }
+    console.log("fetchWorkspaces Name:", data);
+    return data;
+  } catch (err) {
+    console.error("Error fetching workspaces:", err);
+    return [];
+  }
+}
