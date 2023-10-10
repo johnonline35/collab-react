@@ -20,6 +20,9 @@ export default function Sidebar() {
           Heading
         </Text>
       </Box>
+      <ListItem>
+        <NavLink disabled>Heading</NavLink>
+      </ListItem>
 
       <ListItem>
         <NavLink to={`/collabs/${params.workspace_id}`}>
