@@ -5,6 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { CgWebsite } from "react-icons/cg";
 import { useSession } from "../hooks/useSession";
+import { fetchWorkspaceName } from "../util/database";
 
 export default function Sidebar() {
   const { workspace_id } = useParams();
@@ -13,16 +14,11 @@ export default function Sidebar() {
   const [workspaceName, setWorkspaceName] = useState("");
 
   useEffect(() => {
-    if (!session) return;
-    console.log("SESSION FFS:", session);
-  }, [session]);
-
-  useEffect(() => {
     if (!userId || !workspace_id) return;
 
     async function fetchData() {
-      const name = "KEVIN";
-      // await fetchWorkspaceName(userId, workspace_id);
+      const name = await fetchWorkspaceName(userId, workspace_id);
+
       setWorkspaceName(name);
     }
 
