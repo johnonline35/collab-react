@@ -247,6 +247,7 @@ export const getCompanyTileInfo = async (userId) => {
 };
 
 export async function fetchWorkspaceName(userId, workspace_id) {
+  console.log("fetchWorkspaceName(userId, workspace_id)", userId, workspace_id);
   try {
     const { data, error } = await supabase
       .from("workspaces")
