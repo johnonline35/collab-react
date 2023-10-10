@@ -41,6 +41,7 @@ import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
 import { useSession } from "../hooks/useSession";
 import { fetchWorkspaces } from "../util/database";
+import { getCompanyTileInfo } from "../util/database";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -56,23 +57,6 @@ export default function Dashboard() {
 
   const getGoogleCalEndpoint =
     "https://collab-express-production.up.railway.app/";
-
-  const getCompanyTileInfo = async (userId) => {
-    try {
-      const { data, error } = await supabase.rpc("new_test_dashboard", {
-        _userid: userId,
-      });
-
-      if (error) {
-        console.error("Error fetching data:", error);
-      }
-
-      console.log("datanewtestdasboard:", data);
-      setCompanyInfo(data);
-    } catch (error) {
-      console.error("Error in test_dashboard:", error);
-    }
-  };
 
   useEffect(() => {
     const userId = session?.user.id;
@@ -100,7 +84,8 @@ export default function Dashboard() {
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
 
-      getCompanyTileInfo(userId);
+      const dashboard = await getCompanyTileInfo(userId);
+      setCompanyInfo(dashboard);
     } else {
       console.error("Error getting meetings:", response.status);
       const errorData = await response.json();
@@ -120,8 +105,9 @@ export default function Dashboard() {
         (workspace) => workspace.enrich_and_display
       );
 
-      if (workspacesToDisplay.length > 1) {
-        await getCompanyTileInfo(userId);
+      if (workspacesToDisplay.length >= 1) {
+        const dashboard = await getCompanyTileInfo(userId);
+        setCompanyInfo(dashboard);
       } else if (workspacesToDisplay.length === 0) {
         await getGoogleCal(userId);
       }
