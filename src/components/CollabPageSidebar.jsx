@@ -4,9 +4,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { CgWebsite } from "react-icons/cg";
 
-export default function Sidebar() {
-  const params = useParams();
-
+export default function Sidebar(workspace_id) {
   return (
     <List color='white' fontSize='1.2em' spacing={4}>
       <ListItem>
@@ -22,20 +20,20 @@ export default function Sidebar() {
         <Box pl='17px'>
           <List spacing={4}>
             <ListItem>
-              <NavLink to={`/collabs/${params.workspace_id}`}>
+              <NavLink to={`/collabs/${workspace_id}`}>
                 <ListIcon as={FiHome} color='white' /> Overview
               </NavLink>
             </ListItem>
 
             <ListItem>
-              <NavLink to={`/collabs/${params.workspace_id}/notes`}>
+              <NavLink to={`/collabs/${workspace_id}/notes`}>
                 <ListIcon as={EditIcon} color='white' />
                 Workspace AI
               </NavLink>
             </ListItem>
 
             <ListItem>
-              <NavLink to={`/collabs/${params.workspace_id}/share`}>
+              <NavLink to={`/collabs/${workspace_id}/share`}>
                 <ListIcon as={CgWebsite} color='white' />
                 Collab Space
               </NavLink>
