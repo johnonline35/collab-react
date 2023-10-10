@@ -14,7 +14,7 @@ export default function Sidebar() {
         </NavLink>
       </ListItem>
 
-      <Box my={4} pl='30px'>
+      <Box my={1} pl='40px'>
         <Text fontSize='xl' fontWeight='bold'>
           Heading
         </Text>
