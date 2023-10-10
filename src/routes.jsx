@@ -27,7 +27,6 @@ import { storeRefreshToken } from "./util/database";
 function Router() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
 
   async function supabaseCall() {
     const {
@@ -36,12 +35,11 @@ function Router() {
     if (session) {
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
-      const id = session?.user.id;
-      console.log("session?.user.id;:", id);
-      setUserId(id);
+      const userId = session?.user.id;
+
       const refreshToken = session?.provider_refresh_token;
 
-      await storeRefreshToken(id, refreshToken);
+      await storeRefreshToken(userId, refreshToken);
     }
     setLoading(false);
   }
@@ -49,12 +47,6 @@ function Router() {
   useEffect(() => {
     supabaseCall();
   }, []);
-
-  useEffect(() => {
-    if (userId) {
-      console.log("USEEFFECT USERID:", userId);
-    }
-  }, [userId]);
 
   return (
     <SessionContext.Provider value={session}>
@@ -65,10 +57,7 @@ function Router() {
         <Route path='' element={<Privacy />} />
       </Route> */}
         <Route path='/termsofservice' element={<TermsOfService />} />
-        <Route
-          path='/collabs/:workspace_id'
-          element={userId ?? <CollabPageLayout userId={userId} />}
-        >
+        <Route path='/collabs/:workspace_id' element={<CollabPageLayout />}>
           <Route
             path='/collabs/:workspace_id'
             element={

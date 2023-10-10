@@ -3,10 +3,13 @@ import { Outlet, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import CollabPageSidebar from "../components/CollabPageSidebar";
 import { fetchWorkspaceName } from "../util/database";
+import { useSession } from "../hooks/useSession";
 
-export default async function CollabPageLayout(userId) {
+export default async function CollabPageLayout() {
   const { workspace_id } = useParams();
-  console.log("ROOTLAYOUT userId", userId);
+  const session = useSession();
+  const userId = session?.user.id;
+  console.log("PAGE USERID:", userId);
 
   const workspaceName = await fetchWorkspaceName(userId, workspace_id);
 
