@@ -34,11 +34,10 @@ function Router() {
       data: { session },
     } = await supabase.auth.getSession();
     if (session) {
-      console.log("SESSION", session);
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
       const userId = session?.user.id;
-      console.log("SESSION userId", userId);
+
       setUserId(userId);
       const refreshToken = session?.provider_refresh_token;
 
@@ -60,10 +59,7 @@ function Router() {
         <Route path='' element={<Privacy />} />
       </Route> */}
         <Route path='/termsofservice' element={<TermsOfService />} />
-        <Route
-          path='/collabs/:workspace_id'
-          element={<CollabPageLayout userId={session.user.id} />}
-        >
+        <Route path='/collabs/:workspace_id' element={<CollabPageLayout />}>
           <Route
             path='/collabs/:workspace_id'
             element={
