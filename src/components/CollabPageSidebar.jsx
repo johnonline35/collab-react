@@ -35,7 +35,7 @@ export default function Sidebar() {
 
       <Box pl='45px'>
         <Text mb='15px' fontSize='l'>
-          Workspace {workspaceName}
+          {workspaceName}
         </Text>
         <Box pl='17px'>
           <List spacing={4}>
