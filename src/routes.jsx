@@ -41,7 +41,7 @@ function Router() {
       setUserId(id);
       const refreshToken = session?.provider_refresh_token;
 
-      await storeRefreshToken(userId, refreshToken);
+      await storeRefreshToken(id, refreshToken);
     }
     setLoading(false);
   }
