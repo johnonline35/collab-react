@@ -20,10 +20,12 @@ import {
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
+import { useSession } from "../hooks/useSession";
 
-export default function Navbar(userId) {
+export default function Navbar(user) {
   const navigate = useNavigate();
   const toast = useToast();
+  const session = useSession();
 
   return (
     <Flex as='nav' p='0px' mb='20px' alignItems='center'>
@@ -49,6 +51,13 @@ export default function Navbar(userId) {
         <Button
           colorScheme='blue'
           onClick={() => {
+            if (!session) {
+              console.error("No session found");
+              return;
+            }
+
+            const userId = session.user.id;
+
             // First, try to stop the Google Calendar watch.
             fetch(
               "https://collab-express-production.up.railway.app/stop-google-calendar-watch",
