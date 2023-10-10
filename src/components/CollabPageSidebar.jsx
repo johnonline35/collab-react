@@ -22,7 +22,8 @@ export default function Sidebar() {
     if (!userId || !workspace_id) return;
 
     async function fetchData() {
-      const name = await fetchWorkspaceName(userId, workspace_id);
+      const name = "KEVIN";
+      // await fetchWorkspaceName(userId, workspace_id);
       setWorkspaceName(name);
     }
 
