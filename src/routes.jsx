@@ -37,6 +37,7 @@ function Router() {
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
       const userId = session?.user.id;
+      console.log("ROUTE userId", userId);
       setUserId(userId);
       const refreshToken = session?.provider_refresh_token;
 
@@ -49,9 +50,6 @@ function Router() {
     supabaseCall();
   }, []);
 
-  useEffect(() => {
-    console.log("ROUTE userId", userId);
-  }, [userId]);
   return (
     <SessionContext.Provider value={session}>
       <Routes>
