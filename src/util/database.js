@@ -260,8 +260,8 @@ export async function fetchWorkspaceName(userId, workspace_id) {
     if (error) {
       throw error;
     }
-    console.log("fetchWorkspaces Name:", data);
-    return data;
+    console.log("fetchWorkspaces Name:", data[0]);
+    return data[0];
   } catch (err) {
     console.error("Error fetching workspaces:", err);
   }
