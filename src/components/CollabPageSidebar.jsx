@@ -14,35 +14,32 @@ export default function Sidebar() {
         </NavLink>
       </ListItem>
 
-      {/* Heading for the Links */}
-      <Box my={4} pl='20px'>
+      <Box my={4} pl='30px'>
         <Text fontSize='xl' fontWeight='bold'>
           Heading
         </Text>
+        <Box pl='10px'>
+          <ListItem>
+            <NavLink to={`/collabs/${params.workspace_id}`}>
+              <ListIcon as={FiHome} color='white' /> Overview
+            </NavLink>
+          </ListItem>
+
+          <ListItem>
+            <NavLink to={`/collabs/${params.workspace_id}/notes`}>
+              <ListIcon as={EditIcon} color='white' />
+              Workspace AI
+            </NavLink>
+          </ListItem>
+
+          <ListItem>
+            <NavLink to={`/collabs/${params.workspace_id}/share`}>
+              <ListIcon as={CgWebsite} color='white' />
+              Collab Space
+            </NavLink>
+          </ListItem>
+        </Box>
       </Box>
-      <ListItem>
-        <NavLink disabled>Heading</NavLink>
-      </ListItem>
-
-      <ListItem>
-        <NavLink to={`/collabs/${params.workspace_id}`}>
-          <ListIcon as={FiHome} color='white' /> Overview
-        </NavLink>
-      </ListItem>
-
-      <ListItem>
-        <NavLink to={`/collabs/${params.workspace_id}/notes`}>
-          <ListIcon as={EditIcon} color='white' />
-          Workspace AI
-        </NavLink>
-      </ListItem>
-
-      <ListItem>
-        <NavLink to={`/collabs/${params.workspace_id}/share`}>
-          <ListIcon as={CgWebsite} color='white' />
-          Collab Space
-        </NavLink>
-      </ListItem>
     </List>
   );
 }
