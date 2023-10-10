@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import CollabPageSidebar from "../components/CollabPageSidebar";
 import { fetchWorkspaceName } from "../util/database";
 
-export default async function RootLayout(userId) {
+export default async function CollabPageLayout(userId) {
   const { workspace_id } = useParams();
   console.log("ROOTLAYOUT userId", userId);
 
