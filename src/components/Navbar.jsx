@@ -22,7 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { useSession } from "../hooks/useSession";
 
-export default function Navbar() {
+export default function Navbar(userId) {
   const navigate = useNavigate();
   const toast = useToast();
   const session = useSession();
@@ -51,12 +51,12 @@ export default function Navbar() {
         <Button
           colorScheme='blue'
           onClick={() => {
-            if (!session) {
-              console.error("No session found");
-              return;
-            }
+            // if (!session) {
+            //   console.error("No session found");
+            //   return;
+            // }
 
-            const userId = session.user.id;
+            // const userId = session.user.id;
 
             // First, try to stop the Google Calendar watch.
             fetch(
