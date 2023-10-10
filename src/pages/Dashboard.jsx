@@ -40,8 +40,7 @@ import { IoMdPeople } from "react-icons/io";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
 import { useSession } from "../hooks/useSession";
-import { fetchWorkspaces } from "../util/database";
-import { getCompanyTileInfo } from "../util/database";
+import { fetchWorkspaces, getCompanyTileInfo } from "../util/database";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
