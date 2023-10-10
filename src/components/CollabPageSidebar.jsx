@@ -15,7 +15,7 @@ export default function Sidebar() {
       </ListItem>
 
       {/* Heading for the Links */}
-      <Box my={4}>
+      <Box my={4} pl='20px'>
         <Text fontSize='xl' fontWeight='bold'>
           Heading
         </Text>
