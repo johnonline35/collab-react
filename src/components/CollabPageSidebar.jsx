@@ -9,9 +9,9 @@ import { useEffect, useState } from "react";
 
 export default function Sidebar() {
   const { workspace_id } = useParams();
-  const session = useSession();
-  const userId = session?.user.id;
-  const [workspaceName, setWorkspaceName] = useState("");
+  // const session = useSession();
+  // const userId = session?.user.id;
+  // const [workspaceName, setWorkspaceName] = useState("");
 
   // useEffect(() => {
   //   if (!session) return;
