@@ -27,8 +27,7 @@ import {
   Image,
   Icon,
 } from "@chakra-ui/react";
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import { supabase } from "../supabase/clientapp";
+import { useEffect, useState, useCallback } from "react";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
@@ -83,8 +82,8 @@ export default function Dashboard() {
       const meetingsData = await response.json();
       console.log("meetingsData:", meetingsData);
 
-      const dashboard = await getCompanyTileInfo(userId);
-      setCompanyInfo(dashboard);
+      const dataForDashboard = await getCompanyTileInfo(userId);
+      setCompanyInfo(dataForDashboard);
     } else {
       console.error("Error getting meetings:", response.status);
       const errorData = await response.json();
@@ -105,8 +104,8 @@ export default function Dashboard() {
       );
 
       if (workspacesToDisplay.length >= 1) {
-        const dashboard = await getCompanyTileInfo(userId);
-        setCompanyInfo(dashboard);
+        const dataForDashboard = await getCompanyTileInfo(userId);
+        setCompanyInfo(dataForDashboard);
       } else if (workspacesToDisplay.length === 0) {
         await getGoogleCal(userId);
       }
