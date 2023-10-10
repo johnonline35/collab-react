@@ -36,9 +36,9 @@ function Router() {
     if (session) {
       createCookie("token", session.access_token, session.expires_in);
       setSession(session);
-      const userId = session?.user.id;
+      const id = session?.user.id;
 
-      setUserId(userId);
+      setUserId(id);
       const refreshToken = session?.provider_refresh_token;
 
       await storeRefreshToken(userId, refreshToken);
