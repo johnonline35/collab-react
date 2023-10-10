@@ -4,8 +4,6 @@ import Navbar from "../components/Navbar";
 import CollabPageSidebar from "../components/CollabPageSidebar";
 
 export default async function CollabPageLayout() {
-  const { workspace_id } = useParams();
-
   return (
     <Grid templateColumns='repeat(6, 1fr)' bg='gray.50'>
       <GridItem
@@ -15,7 +13,7 @@ export default async function CollabPageLayout() {
         minHeight={{ lg: "100vh" }}
         p={{ base: "20px", lg: "30px" }}
       >
-        <CollabPageSidebar workspace_id={workspace_id} />
+        <CollabPageSidebar />
       </GridItem>
       <GridItem as='main' colSpan={{ base: 6, lg: 4, xl: 5 }} p='40px'>
         <Navbar />
