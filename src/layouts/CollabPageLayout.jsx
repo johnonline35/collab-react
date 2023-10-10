@@ -4,12 +4,16 @@ import Navbar from "../components/Navbar";
 import CollabPageSidebar from "../components/CollabPageSidebar";
 import { fetchWorkspaceName } from "../util/database";
 import { useSession } from "../hooks/useSession";
+import { useEffect } from "react";
 
 export default async function CollabPageLayout() {
   const { workspace_id } = useParams();
   const session = useSession();
   const userId = session?.user.id;
-  console.log("SESSION FFS:", session);
+
+  useEffect(() => {
+    console.log("SESSION FFS:", session);
+  }, [session]);
 
   const workspaceName = await fetchWorkspaceName(userId, workspace_id);
 
