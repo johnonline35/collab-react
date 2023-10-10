@@ -13,22 +13,22 @@ export default function Sidebar() {
   const userId = session?.user.id;
   const [workspaceName, setWorkspaceName] = useState("");
 
-  useEffect(() => {
-    if (!session) return;
-    console.log("SESSION FFS:", session);
-  }, [session]);
+  // useEffect(() => {
+  //   if (!session) return;
+  //   console.log("SESSION FFS:", session);
+  // }, [session]);
 
-  useEffect(() => {
-    if (!userId || !workspace_id) return;
+  // useEffect(() => {
+  //   if (!userId || !workspace_id) return;
 
-    async function fetchData() {
-      const name = "KEVIN";
-      // await fetchWorkspaceName(userId, workspace_id);
-      setWorkspaceName(name);
-    }
+  //   async function fetchData() {
+  //     const name = "KEVIN";
+  //     // await fetchWorkspaceName(userId, workspace_id);
+  //     setWorkspaceName(name);
+  //   }
 
-    fetchData();
-  }, [userId, workspace_id]);
+  //   fetchData();
+  // }, [userId, workspace_id]);
 
   return (
     <List color='white' fontSize='1.2em' spacing={4}>
