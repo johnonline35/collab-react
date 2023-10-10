@@ -5,17 +5,30 @@ import { FiHome } from "react-icons/fi";
 import { CgWebsite } from "react-icons/cg";
 import { useSession } from "../hooks/useSession";
 import { fetchWorkspaceName } from "../util/database";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default async function Sidebar(workspace_id) {
+export default function Sidebar() {
+  const { workspace_id } = useParams();
   const session = useSession();
   const userId = session?.user.id;
+  const [workspaceName, setWorkspaceName] = useState("");
 
   useEffect(() => {
+    if (!session) return;
     console.log("SESSION FFS:", session);
   }, [session]);
 
-  const workspaceName = await fetchWorkspaceName(userId, workspace_id);
+  useEffect(() => {
+    if (!userId || !workspace_id) return;
+
+    async function fetchData() {
+      const name = await fetchWorkspaceName(userId, workspace_id);
+      setWorkspaceName(name);
+    }
+
+    fetchData();
+  }, [userId, workspace_id]);
+
   return (
     <List color='white' fontSize='1.2em' spacing={4}>
       <ListItem>
