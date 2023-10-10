@@ -6,7 +6,7 @@ import { fetchWorkspaceName } from "../util/database";
 
 export default async function CollabPageLayout(userId) {
   const { workspace_id } = useParams();
-  console.log("ROOTLAYOUT userId", userId);
+  // console.log("ROOTLAYOUT userId", userId);
 
   const workspaceName = await fetchWorkspaceName(userId, workspace_id);
 
