@@ -15,7 +15,7 @@ export default function Sidebar() {
       </ListItem>
 
       <Box my={1} pl='40px'>
-        <Text fontSize='xl' fontWeight='bold'>
+        <Text fontSize='l' fontWeight='bold'>
           Heading
         </Text>
         <Box pl='10px'>
