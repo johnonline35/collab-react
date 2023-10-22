@@ -21,6 +21,7 @@ import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { useSession } from "../hooks/useSession";
+import { AccountSwitcher } from "../NewDesign/AccountSwitcher";
 
 export default function Navbar(user) {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function Navbar(user) {
       <Spacer />
 
       <HStack spacing='20px'>
+        <AccountSwitcher />
         {/* <InputGroup maxW='xs'>
           <InputLeftElement pointerEvents='none' mr='30px'>
             <Icon as={FiSearch} color='muted' boxSize='5' />
@@ -48,7 +50,7 @@ export default function Navbar(user) {
         {/* <Box>
           <Text>John Childs-Eddy: Account</Text>
         </Box> */}
-        <Button
+        {/* <Button
           colorScheme='blue'
           onClick={() => {
             if (!session) {
@@ -109,7 +111,7 @@ export default function Navbar(user) {
           }}
         >
           Logout
-        </Button>
+        </Button> */}
       </HStack>
     </Flex>
   );

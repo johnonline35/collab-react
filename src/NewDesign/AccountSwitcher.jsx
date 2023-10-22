@@ -63,9 +63,47 @@ export const AccountSwitcher = () => {
         <MenuItem
           closeOnSelect='true'
           rounded='md'
-          onClick={() =>
-            signout()
-              .then(
+          onClick={() => {
+            if (!session) {
+              console.error("No session found");
+              return;
+            }
+
+            const userId = session.user.id;
+
+            // First, try to stop the Google Calendar watch.
+            fetch(
+              "https://collab-express-production.up.railway.app/stop-google-calendar-watch",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  userId: userId,
+                }),
+              }
+            )
+              .then((response) => {
+                if (!response.ok) {
+                  // Log the error and proceed with the signout.
+                  console.error("Failed to stop Google Calendar watch.");
+                }
+                return;
+              })
+              .catch((error) => {
+                // Log the error but continue with the logout process.
+                console.error(
+                  "Error stopping the Google Calendar watch:",
+                  error
+                );
+              })
+              .finally(() => {
+                // Always sign out the user, regardless of previous errors.
+                return signout();
+              })
+              .then(() => {
+                // Show toast.
                 toast({
                   position: "top",
                   title: "Log out successful.",
@@ -73,10 +111,29 @@ export const AccountSwitcher = () => {
                   status: "success",
                   duration: 5000,
                   isClosable: true,
-                })
-              )
-              .then(() => navigate("/"))
-          }
+                });
+                // Navigate to home.
+                navigate("/");
+              })
+              .catch((error) => {
+                // Handle any errors that occurred during the logout process.
+                console.error("Error during the logout process:", error);
+              });
+          }}
+          // onClick={() =>
+          //   signout()
+          //     .then(
+          //       toast({
+          //         position: "top",
+          //         title: "Log out successful.",
+          //         description: "You have been logged out.",
+          //         status: "success",
+          //         duration: 5000,
+          //         isClosable: true,
+          //       })
+          //     )
+          //     .then(() => navigate("/"))
+          // }
         >
           Logout
         </MenuItem>
