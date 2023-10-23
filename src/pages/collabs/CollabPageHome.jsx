@@ -24,6 +24,7 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { FaCalendarCheck } from "react-icons/fa";
+import { HiUsers } from "react-icons/hi";
 
 import { TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
@@ -551,7 +552,7 @@ export default function CollabPageHome() {
             <List>
               <Flex direction='row' justify='space-between'>
                 <ListItem mb='0px'>
-                  <ListIcon as={FiUsers} color='black' />
+                  <ListIcon as={HiUsers} color='black' />
                   Team
                 </ListItem>
                 <Flex pr='10px' gap='2'>
