@@ -144,12 +144,13 @@ export default function Dashboard() {
   return (
     <>
       {" "}
+      <Text fontSize='3xl'>Dashboard</Text>
       <Tabs>
         <TabList pb={3}>
           <Tab>Workspaces</Tab>
-          <Tab>Recently Viewed</Tab>
+          {/* <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
-          <Tab>Alerts</Tab>
+          <Tab>Alerts</Tab> */}
         </TabList>
 
         <TabPanels>
