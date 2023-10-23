@@ -60,6 +60,7 @@ export const NextStepsList = ({
       <ListItem mt='0px'>
         <Alert
           status='success'
+          color='blue.400'
           variant='subtle'
           flexDirection='column'
           alignItems='center'
