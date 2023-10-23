@@ -620,7 +620,7 @@ export default function CollabPageHome() {
                     onClick={() => handleSetLead()}
                     disabled={attendeeIsChecked.length !== 1}
                   >
-                    Set Lead
+                    Set Main
                   </Button>
 
                   <Spacer />
