@@ -60,7 +60,6 @@ export const NextStepsList = ({
       <ListItem mt='0px'>
         <Alert
           status='success'
-          color='blue.400'
           variant='subtle'
           flexDirection='column'
           alignItems='center'
@@ -69,7 +68,7 @@ export const NextStepsList = ({
           height='200px'
           bg='white'
         >
-          <AlertIcon boxSize='40px' mr={0} />
+          <AlertIcon color='blue.400' boxSize='40px' mr={0} />
           <AlertTitle mt={4} mb={1} fontSize='lg'>
             Nothing to see here!
           </AlertTitle>
