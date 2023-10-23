@@ -185,6 +185,7 @@ export const TeamMemberStack = ({
                                   size='sm'
                                   // fontSize='0.4em'
                                   // colorScheme='green'
+                                  color='white'
                                 >
                                   Lead
                                 </Badge>
