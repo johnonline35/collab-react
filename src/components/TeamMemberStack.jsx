@@ -165,7 +165,7 @@ export const TeamMemberStack = ({
                               member.attendee_avatar ||
                               "/images/custom/blue-avatar.jpeg"
                             }
-                            boxSize='10'
+                            boxSize='30'
                           ></Avatar>
                           <Box>
                             <Flex direction='row' justify='space-between'>
