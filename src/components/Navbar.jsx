@@ -28,6 +28,20 @@ export default function Navbar(user) {
   const toast = useToast();
   const session = useSession();
 
+  //    return (
+  //     <Flex as='nav' p='0px' mb='20px' alignItems='center'>
+  //       <Link href={`/dashboard`}>
+  //         <Image src='/img/collablogo-removebg-white.png' height='40px' />
+  //       </Link>
+  //       <Spacer />
+
+  //       <HStack spacing='20px'>
+  //         <AccountSwitcher />
+  //       </HStack>
+  //     </Flex>
+  //   );
+  // }
+
   return (
     <Flex as='nav' p='0px' mb='20px' alignItems='center'>
       <Link href={`/dashboard`}>
