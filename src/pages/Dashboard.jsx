@@ -546,13 +546,11 @@ export default function Dashboard() {
                             <HStack>
                               {info.next_meeting_date ? (
                                 <Text size='xs' color='gray.400'>
-                                  Next meeting:{" "}
-                                  {formatTime(info.next_meeting_date)}
+                                  Date: {formatTime(info.next_meeting_date)}
                                 </Text>
                               ) : (
                                 <Text size='xs' color='gray.400'>
-                                  Last meeting:{" "}
-                                  {formatTime(info.last_meeting_date)}
+                                  Date: {formatTime(info.last_meeting_date)}
                                 </Text>
                               )}
                             </HStack>
