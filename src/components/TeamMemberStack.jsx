@@ -180,7 +180,7 @@ export const TeamMemberStack = ({
                                 <EditablePreview />
                                 <EditableInput />
                               </Editable>
-                              {member.attendee_is_workspace_lead === true && (
+                              {/* {member.attendee_is_workspace_lead === true && (
                                 <Badge
                                   size='sm'
                                   // fontSize='0.4em'
@@ -189,7 +189,7 @@ export const TeamMemberStack = ({
                                 >
                                   Lead
                                 </Badge>
-                              )}
+                              )} */}
                             </Flex>
                             <Editable
                               color='muted'
