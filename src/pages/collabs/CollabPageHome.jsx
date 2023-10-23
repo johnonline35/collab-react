@@ -23,6 +23,7 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
+import { FaCalendarCheck } from "react-icons/fa";
 
 import { TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
@@ -538,7 +539,7 @@ export default function CollabPageHome() {
               <ListItem>
                 <Flex direction='row' justify='space-between'>
                   <Flex>
-                    <ListIcon as={FiDribbble} color='black' mt='5px' />
+                    <ListIcon as={FaCalendarCheck} color='black' mt='5px' />
                     All Meetings
                   </Flex>
                 </Flex>
