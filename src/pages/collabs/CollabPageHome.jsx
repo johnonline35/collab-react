@@ -524,8 +524,8 @@ export default function CollabPageHome() {
         >
           <Card p='20px'>
             <List>
-              <ListItem>
-                <ListIcon as={FiSettings} color='black' />
+              <ListItem fontSize='xl' fontWeight='bold'>
+                <ListIcon as={FiSettings} color='black' boxSize='24px' />
                 Settings for <Text as='b'>{customerName}</Text>
               </ListItem>
               <CollabWorkspaceSettings
@@ -540,7 +540,12 @@ export default function CollabPageHome() {
               <ListItem>
                 <Flex direction='row' justify='space-between'>
                   <Flex>
-                    <ListIcon as={FaCalendarCheck} color='black' mt='5px' />
+                    <ListIcon
+                      as={FaCalendarCheck}
+                      color='black'
+                      mt='5px'
+                      boxSize='24px'
+                    />
                     All Meetings
                   </Flex>
                 </Flex>
@@ -607,8 +612,8 @@ export default function CollabPageHome() {
           <Card p='12px'>
             <List>
               <Flex direction='row' justify='space-between'>
-                <ListItem mb='0px'>
-                  <ListIcon as={HiUsers} color='black' />
+                <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
+                  <ListIcon as={HiUsers} color='black' boxSize='24px' />
                   Team
                 </ListItem>
                 <Flex pr='10px' gap='2'>
