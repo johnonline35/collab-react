@@ -537,7 +537,7 @@ export default function CollabPageHome() {
                 loadingToggle={loadingToggle}
                 workspace_id={workspace_id}
               />
-              <ListItem>
+              <ListItem fontSize='xl' fontWeight='bold'>
                 <Flex direction='row' justify='space-between'>
                   <Flex>
                     <ListIcon
