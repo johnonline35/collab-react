@@ -154,8 +154,6 @@ export default function Dashboard() {
 
         <TabPanels>
           <TabPanel>
-            <p>Group</p>
-
             <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
               {companyInfo &&
                 companyInfo
