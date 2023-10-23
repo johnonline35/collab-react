@@ -31,13 +31,19 @@ export default function Navbar(user) {
   return (
     <Flex as='nav' p='0px' mb='20px' alignItems='center'>
       <Link href={`/dashboard`}>
-        <Image src='/img/collablogo-removebg.png' height='40px' />
+        <Image src='/img/collablogo-removebg-white.png' height='40px' />
       </Link>
       <Spacer />
 
       <HStack spacing='20px'>
         <AccountSwitcher />
-        {/* <InputGroup maxW='xs'>
+      </HStack>
+    </Flex>
+  );
+}
+
+{
+  /* <InputGroup maxW='xs'>
           <InputLeftElement pointerEvents='none' mr='30px'>
             <Icon as={FiSearch} color='muted' boxSize='5' />
           </InputLeftElement>
@@ -46,11 +52,15 @@ export default function Navbar(user) {
         <Spacer />
         <Box bg='gray.200' p='10px'>
           <Text>Help?</Text>
-        </Box> */}
-        {/* <Box>
+        </Box> */
+}
+{
+  /* <Box>
           <Text>John Childs-Eddy: Account</Text>
-        </Box> */}
-        {/* <Button
+        </Box> */
+}
+{
+  /* <Button
           colorScheme='blue'
           onClick={() => {
             if (!session) {
@@ -111,8 +121,5 @@ export default function Navbar(user) {
           }}
         >
           Logout
-        </Button> */}
-      </HStack>
-    </Flex>
-  );
+        </Button> */
 }
