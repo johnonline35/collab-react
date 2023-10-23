@@ -548,44 +548,7 @@ export default function CollabPageHome() {
               <PreviousMeetings meetings={meetings} />
             </List>
           </Card>
-          <Card p='12px'>
-            <List>
-              <Flex direction='row' justify='space-between'>
-                <ListItem mb='0px'>
-                  <ListIcon as={HiUsers} color='black' />
-                  Team
-                </ListItem>
-                <Flex pr='10px' gap='2'>
-                  <Button
-                    variant='secondary'
-                    size='sm'
-                    onClick={() => handleSetLead()}
-                    disabled={attendeeIsChecked.length !== 1}
-                  >
-                    Set Lead
-                  </Button>
 
-                  <Spacer />
-                  <IconButton
-                    size='sm'
-                    variant='secondary'
-                    icon={<DeleteIcon />}
-                    onClick={handleDeleteAttendees}
-                  />
-                </Flex>
-              </Flex>
-              {workspace_id && (
-                <TeamMemberStack
-                  members={members}
-                  setMembers={setMembers}
-                  workspace_id={workspace_id}
-                  handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
-                  attendeeIsChecked={attendeeIsChecked}
-                />
-              )}
-              {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
-            </List>
-          </Card>
           <Card p='12px'>
             <List>
               <Flex direction='row' justify='space-between'>
@@ -641,6 +604,44 @@ export default function CollabPageHome() {
                 handleCheckboxChange={handleCheckboxChange}
                 updateToDoList={updateToDoList}
               /> */}
+            </List>
+          </Card>
+          <Card p='12px'>
+            <List>
+              <Flex direction='row' justify='space-between'>
+                <ListItem mb='0px'>
+                  <ListIcon as={HiUsers} color='black' />
+                  Team
+                </ListItem>
+                <Flex pr='10px' gap='2'>
+                  <Button
+                    variant='secondary'
+                    size='sm'
+                    onClick={() => handleSetLead()}
+                    disabled={attendeeIsChecked.length !== 1}
+                  >
+                    Set Lead
+                  </Button>
+
+                  <Spacer />
+                  <IconButton
+                    size='sm'
+                    variant='secondary'
+                    icon={<DeleteIcon />}
+                    onClick={handleDeleteAttendees}
+                  />
+                </Flex>
+              </Flex>
+              {workspace_id && (
+                <TeamMemberStack
+                  members={members}
+                  setMembers={setMembers}
+                  workspace_id={workspace_id}
+                  handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
+                  attendeeIsChecked={attendeeIsChecked}
+                />
+              )}
+              {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
             </List>
           </Card>
         </SimpleGrid>
