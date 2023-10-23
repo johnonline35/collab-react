@@ -190,14 +190,7 @@ export default function Dashboard() {
                     const displayName = info.attendee_name || "Enter Name";
                     const displayTitle =
                       info.attendee_job_title || "Enter Title";
-                    {
-                      /* console.log("companyInfo:", companyInfo);
-              console.log(
-                "Does start_dateTime exist?",
-                "start_dateTime" in info
-              );
-              console.log("rawDate", info.next_meeting_date); */
-                    }
+
                     return (
                       <Card
                         key={info.workspace_id}
@@ -485,50 +478,48 @@ export default function Dashboard() {
                         }
                       />
                     </Avatar> */}
-                                <Box>
-                                  <Flex direction='row' justify='space-between'>
-                                    <Text
-                                      fontWeight='medium'
-                                      color='emphasized'
+                                {info.attendee_name ? (
+                                  <Box>
+                                    <Flex
+                                      direction='row'
+                                      justify='space-between'
                                     >
+                                      <Text
+                                        fontWeight='medium'
+                                        color='emphasized'
+                                      >
+                                        {capitalizeFirstLetterOfEachWord(
+                                          info.attendee_name
+                                        )}
+                                      </Text>
+                                    </Flex>
+
+                                    <Text color='muted'>
                                       {capitalizeFirstLetterOfEachWord(
-                                        displayName
+                                        displayTitle
                                       )}
                                     </Text>
-                                    {/* <Badge
-                              size='sm'
-                              colorScheme={
-                                info.status === "lead" ? "green" : null
-                              }
-                            >
-                              {info.status}
-                            </Badge> */}
+                                  </Box>
+                                ) : (
+                                  <Flex direction='row' justify='space-between'>
+                                    <Text
+                                      color='muted'
+                                      sx={{
+                                        "-webkit-box-orient": "vertical",
+                                        "-webkit-line-clamp": "2",
+                                        overflow: "hidden",
+                                        display: "-webkit-box",
+                                      }}
+                                    >
+                                      {info.attendee_email}
+                                    </Text>
                                   </Flex>
-
-                                  <Text color='muted'>
-                                    {capitalizeFirstLetterOfEachWord(
-                                      displayTitle
-                                    )}
-                                  </Text>
-                                </Box>
+                                )}
                               </HStack>
                             </Stack>
-                            <Text
-                              color='muted'
-                              sx={{
-                                "-webkit-box-orient": "vertical",
-                                "-webkit-line-clamp": "2",
-                                overflow: "hidden",
-                                display: "-webkit-box",
-                              }}
-                            >
-                              {/* Current Time: {formatTime(info.attendee_timezone)} */}
-                              <br />
-                              {info.attendee_email}
-                            </Text>
                           </Box>
 
-                          <Flex
+                          {/* <Flex
                             direction='column'
                             justify='center'
                             align='center'
@@ -543,9 +534,9 @@ export default function Dashboard() {
                               >
                                 Workspace AI
                               </Button>
-                              {/* {info.workspace_id} */}
+                              
                             </Link>
-                          </Flex>
+                          </Flex> */}
                         </CardBody>
                         <Divider borderColor='gray.200' />
 
