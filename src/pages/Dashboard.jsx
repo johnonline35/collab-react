@@ -41,6 +41,7 @@ import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
 import { useSession } from "../hooks/useSession";
 import { fetchWorkspaces, getCompanyTileInfo } from "../util/database";
+import DescriptionComponent from "../components/DescriptionComponent";
 
 export default function Dashboard() {
   const [companyInfo, setCompanyInfo] = useState(null);
@@ -435,7 +436,8 @@ export default function Dashboard() {
                                 </>
                               )}
                             </Flex>
-                            <Box py='4' height='200px' maxHeight='200px'>
+                            <DescriptionComponent info={info} />
+                            {/* <Box py='4' height='200px' maxHeight='200px'>
                               <Flex height='200px' maxHeight='200px'>
                                 <Text
                                   fontWeight='medium'
@@ -449,7 +451,7 @@ export default function Dashboard() {
                                     : "This is a personal email account workspace. Workspaces of personal email accounts are not automatically associated with a specific company. This workspace still functions the same way as other company specific workspaces."}
                                 </Text>
                               </Flex>
-                            </Box>
+                            </Box> */}
                           </Box>
                           <Box bg='bg-surface' py='4'>
                             <Stack
