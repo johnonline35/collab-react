@@ -69,7 +69,7 @@ export const NextStepsList = ({
           bg='white'
         >
           <AlertIcon color='blue.400' boxSize='80px' mr={0} />
-          <AlertTitle mt={4} mb={1} fontSize='lg'>
+          <AlertTitle mt={4} mb={1} fontSize='xlg'>
             Nothing to see here!
           </AlertTitle>
           <AlertDescription maxWidth='sm'>
