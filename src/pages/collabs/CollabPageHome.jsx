@@ -552,14 +552,12 @@ export default function CollabPageHome() {
           <Card p='12px'>
             <List>
               <Flex direction='row' justify='space-between'>
-                <ListItem>
-                  <ListIcon as={ArrowRightIcon} color='black' />
+                <ListItem fontSize='xl' fontWeight='bold'>
+                  <ListIcon as={ArrowRightIcon} color='black' boxSize='24px' />
                   Next Steps
                 </ListItem>
+
                 <Flex pr='10px' gap='2'>
-                  {/* <Button variant='secondary' size='sm'>
-                    Create Briefing Doc
-                  </Button> */}
                   <Spacer />
                   <IconButton
                     size='sm'
