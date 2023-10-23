@@ -614,31 +614,31 @@ export default function CollabPageHome() {
               />
 
               <Flex direction='row' justify='space-between'>
-                <ListItem>
+                {/* <ListItem>
                   <ListIcon as={FiCheckCircle} color='black' />
                   Todo List
-                </ListItem>
+                </ListItem> */}
                 <Flex pr='10px' gap='2'>
                   {/* <Button variant='secondary' size='sm'>
                     Create Briefing Doc
                   </Button> */}
                   <Spacer />
-                  <IconButton
+                  {/* <IconButton
                     size='sm'
                     variant='secondary'
                     icon={<FiCheck />}
                     onClick={() => handleCheckClick("todo")}
-                  />
+                  /> */}
                 </Flex>
               </Flex>
 
-              <ToDoList
+              {/* <ToDoList
                 toDoList={toDoList}
                 setToDoList={setToDoList}
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
                 updateToDoList={updateToDoList}
-              />
+              /> */}
             </List>
           </Card>
         </SimpleGrid>
