@@ -23,6 +23,7 @@ import {
   Tab,
   TabPanels,
   TabPanel,
+  TabIndicator,
   CardFooter,
   Image,
   Icon,
@@ -145,14 +146,19 @@ export default function Dashboard() {
     <>
       {" "}
       <Text fontSize='3xl'>Dashboard</Text>
-      <Tabs>
+      <Tabs variant='unstyled'>
         <TabList pb={3}>
           <Tab>Workspaces</Tab>
           {/* <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
           <Tab>Alerts</Tab> */}
         </TabList>
-
+        <TabIndicator
+          mt='-1.5px'
+          height='2px'
+          bg='blue.500'
+          borderRadius='1px'
+        />
         <TabPanels>
           <TabPanel>
             <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
