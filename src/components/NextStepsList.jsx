@@ -67,7 +67,7 @@ export const NextStepsList = ({
           textAlign='center'
           height='200px'
           bg='white'
-          mt={4}
+          mt={6}
         >
           <AlertIcon color='blue.400' boxSize='80px' mr={0} />
           <AlertTitle mt={4} mb={1} fontSize='xlg'>
