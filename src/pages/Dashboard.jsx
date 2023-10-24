@@ -526,7 +526,7 @@ export default function Dashboard() {
                             </Link>
                           </Flex> */}
                         </CardBody>
-                        <Divider borderColor='gray.100' />
+                        <Divider borderColor='gray.50' />
 
                         <CardFooter>
                           {(info.next_meeting_date ||
