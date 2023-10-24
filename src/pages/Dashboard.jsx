@@ -442,7 +442,7 @@ export default function Dashboard() {
                               justify='space-between'
                               spacing='4'
                             >
-                              <HStack spacing='3'>
+                              <HStack spacing='1'>
                                 {/* <Checkbox /> */}
                                 <Avatar
                                   src={
