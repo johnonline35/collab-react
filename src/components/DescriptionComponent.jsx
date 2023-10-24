@@ -26,7 +26,7 @@ function DescriptionComponent({ info }) {
               style={{ color: "blue", cursor: "pointer" }}
               onClick={() => setIsExpanded(true)}
             >
-              Read more...
+              ... read more
             </span>
           )}
         </Text>
