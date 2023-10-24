@@ -23,7 +23,7 @@ function DescriptionComponent({ info }) {
           {displayText}
           {shouldShowReadMore && (
             <span
-              style={{ color: "blue", cursor: "pointer" }}
+              style={{ color: "blue.400", cursor: "pointer" }}
               onClick={() => setIsExpanded(true)}
             >
               ... read more
