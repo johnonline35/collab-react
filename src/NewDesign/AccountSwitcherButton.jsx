@@ -56,7 +56,7 @@ export const AccountSwitcherButton = (props) => {
     <Flex
       as='button'
       {...buttonProps}
-      w='md'
+      w='sm'
       display='flex'
       alignItems='center'
       rounded='lg'
