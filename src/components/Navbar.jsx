@@ -29,7 +29,14 @@ export default function Navbar(user) {
   const session = useSession();
 
   return (
-    <Flex as='nav' p='0px' mb='20px' alignItems='center' bg='blue.400'>
+    <Flex
+      as='nav'
+      p='0px'
+      mb='20px'
+      alignItems='center'
+      bg='blue.400'
+      width='100%'
+    >
       <Link href={`/dashboard`}>
         <Image src='/img/collablogo-removebg-white.png' height='40px' />
       </Link>
