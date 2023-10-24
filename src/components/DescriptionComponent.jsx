@@ -8,6 +8,8 @@ function DescriptionComponent({ info }) {
   const description = info.description ? info.description : defaultDescription;
   const shouldShowReadMore = description.length > 43 && !isExpanded;
 
+  const displayText = isExpanded ? description : description.substring(0, 43);
+
   return (
     <Box py='4' height={isExpanded ? "auto" : "200px"} maxHeight='200px'>
       <Flex height='200px' maxHeight='200px'>
@@ -18,7 +20,7 @@ function DescriptionComponent({ info }) {
           textOverflow='ellipsis'
           maxHeight='200px'
         >
-          {description}
+          {displayText}
           {shouldShowReadMore && (
             <span
               style={{ color: "blue", cursor: "pointer" }}
