@@ -544,7 +544,8 @@ export default function CollabPageHome() {
                   }}
                   gap='6'
                 >
-                  <Card pl='20px' pr='20px' pb='20px'>
+                  {/* *pl='20px' pr='20px' pb='20px' */}
+                  <Card p='20px'>
                     <List>
                       <ListItem fontSize='xl' fontWeight='bold'>
                         <ListIcon
@@ -579,7 +580,6 @@ export default function CollabPageHome() {
                       <PreviousMeetings meetings={meetings} />
                     </List>
                   </Card>
-
                   <Card p='12px'>
                     <List>
                       <Flex direction='row' justify='space-between'>
