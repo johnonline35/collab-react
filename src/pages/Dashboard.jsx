@@ -148,7 +148,7 @@ export default function Dashboard() {
       {" "}
       <Text fontSize='3xl'>Dashboard</Text>
       <Tabs variant='unstyled'>
-        <TabList pb={3}>
+        <TabList>
           <Tab>Workspaces</Tab>
           {/* <Tab>Recently Viewed</Tab>
           <Tab>Custom Search</Tab>
@@ -201,7 +201,6 @@ export default function Dashboard() {
                         loading={loadingCards}
                         minW='xs'
                         maxW='lg'
-                        pb='5px'
                       >
                         <CardHeader
                           p='0'
