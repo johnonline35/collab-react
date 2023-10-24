@@ -10,7 +10,7 @@ export default function RootLayout() {
         {/* Span the full width for the Navbar */}
         <Navbar />
       </GridItem>
-      <GridItem as='main' colSpan={6} pl='40px' pr='40px' pb='40px'>
+      <GridItem as='main' colSpan={6} pt='10px' pl='40px' pr='40px' pb='40px'>
         {" "}
         {/* Span the full width for the Outlet */}
         <Outlet />
