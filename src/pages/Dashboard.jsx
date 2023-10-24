@@ -157,7 +157,7 @@ export default function Dashboard() {
         <TabIndicator
           mt='-1.5px'
           height='2px'
-          bg='blue.500'
+          bg='blue.400'
           borderRadius='1px'
         />
         <TabPanels>
@@ -200,7 +200,7 @@ export default function Dashboard() {
                         bg='white'
                         loading={loadingCards}
                         minW='xs'
-                        maxW='lg'
+                        maxW='xs'
                       >
                         <CardHeader
                           p='0'
@@ -208,7 +208,7 @@ export default function Dashboard() {
                             info.banner_src
                               ? `url("${info.banner_src}")`
                               : info.image
-                              ? "blue.200"
+                              ? "blue.400"
                               : `url("/images/custom/collab_header2.jpeg")`
                           }
                           bgPos='center'
