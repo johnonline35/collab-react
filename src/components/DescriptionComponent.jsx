@@ -8,7 +8,9 @@ function DescriptionComponent({ info }) {
   const description = info.description ? info.description : defaultDescription;
   const shouldShowReadMore = description.length > 43 && !isExpanded;
 
-  const displayText = isExpanded ? description : description.substring(0, 43);
+  const displayText = isExpanded
+    ? description
+    : description.substring(0, 39) + "... ";
 
   return (
     <Box py='4' height={isExpanded ? "auto" : "100px"} maxHeight='200px'>
@@ -23,7 +25,7 @@ function DescriptionComponent({ info }) {
           {displayText}
           {shouldShowReadMore && (
             <Link color='blue.400' onClick={() => setIsExpanded(true)}>
-              ... read more
+              read more
             </Link>
           )}
         </Text>
