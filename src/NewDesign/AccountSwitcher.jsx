@@ -29,7 +29,7 @@ export const AccountSwitcher = () => {
 
   return (
     <Menu>
-      <AccountSwitcherButton session={session} w='100px' />
+      <AccountSwitcherButton session={session} />
       <MenuList
         shadow='lg'
         py='4'
