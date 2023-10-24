@@ -6,10 +6,10 @@ function DescriptionComponent({ info }) {
     "This is a personal email account workspace. Workspaces of personal email accounts are not automatically associated with a specific company. This workspace still functions the same way as other company specific workspaces.";
   const [isExpanded, setIsExpanded] = useState(false);
   const description = info.description ? info.description : defaultDescription;
-  const shouldShowReadMore = description.length > 43 && !isExpanded;
+  const shouldShowReadMore = description.length > 39 && !isExpanded;
 
   const displayText = isExpanded
-    ? description
+    ? description + " "
     : description.substring(0, 39) + "... ";
 
   return (
@@ -23,10 +23,16 @@ function DescriptionComponent({ info }) {
           maxHeight='200px'
         >
           {displayText}
-          {shouldShowReadMore && (
+          {shouldShowReadMore ? (
             <Link color='blue.400' onClick={() => setIsExpanded(true)}>
               read more
             </Link>
+          ) : (
+            isExpanded && (
+              <Link color='blue.400' onClick={() => setIsExpanded(false)}>
+                read less
+              </Link>
+            )
           )}
         </Text>
       </Flex>
@@ -35,12 +41,3 @@ function DescriptionComponent({ info }) {
 }
 
 export default DescriptionComponent;
-
-{
-  /* <span
-              style={{ color: "blue.400", cursor: "pointer" }}
-              onClick={() => setIsExpanded(true)}
-            >
-              ... read more
-            </span> */
-}
