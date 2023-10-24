@@ -8,7 +8,7 @@ export default function RootLayout() {
       <GridItem as='main' colSpan={6} p='40px'>
         {" "}
         {/* Adjusted to span the full grid width */}
-        <Navbar />
+        <Navbar bg='blue.400' />
         <Outlet />
       </GridItem>
     </Grid>
