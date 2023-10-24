@@ -162,7 +162,7 @@ export default function Dashboard() {
         />
         <TabPanels>
           <TabPanel>
-            <SimpleGrid mt={6} spacing={10} minChildWidth='300px'>
+            <SimpleGrid mt={1} spacing={10} minChildWidth='300px'>
               {companyInfo &&
                 companyInfo
                   .sort((a, b) => {
@@ -257,9 +257,6 @@ export default function Dashboard() {
                             <Link href={`/collabs/${info.workspace_id}`} mb={1}>
                               <Heading as='h3' size='sm'>
                                 {info.workspace_name}
-                                {/* <Badge marginTop='-15px' size='sm' colorScheme='green'>
-                          2 Next Steps
-                        </Badge> */}
                               </Heading>
                             </Link>
                             <Flex>
