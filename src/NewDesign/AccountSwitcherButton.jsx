@@ -95,7 +95,7 @@ export const AccountSwitcherButton = (props) => {
           />
         )}
         <Box textAlign='start'>
-          <Box noOfLines={1} fontWeight='semibold'>
+          <Box noOfLines={1} fontWeight='semibold' color='blue.100'>
             {companyName}
           </Box>
           <Box fontSize='xs' color='blue.100'>
