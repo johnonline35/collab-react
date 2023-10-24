@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Link } from "@chakra-ui/react";
 
 function DescriptionComponent({ info }) {
   const defaultDescription =
@@ -22,12 +22,9 @@ function DescriptionComponent({ info }) {
         >
           {displayText}
           {shouldShowReadMore && (
-            <span
-              style={{ color: "blue.400", cursor: "pointer" }}
-              onClick={() => setIsExpanded(true)}
-            >
+            <Link color='blue.400' onClick={() => setIsExpanded(true)}>
               ... read more
-            </span>
+            </Link>
           )}
         </Text>
       </Flex>
@@ -36,3 +33,12 @@ function DescriptionComponent({ info }) {
 }
 
 export default DescriptionComponent;
+
+{
+  /* <span
+              style={{ color: "blue.400", cursor: "pointer" }}
+              onClick={() => setIsExpanded(true)}
+            >
+              ... read more
+            </span> */
+}
