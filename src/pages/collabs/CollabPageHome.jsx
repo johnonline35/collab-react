@@ -11,6 +11,12 @@ import {
   Spacer,
   Text,
   useToast,
+  Tab,
+  Tabs,
+  TabList,
+  TabIndicator,
+  TabPanels,
+  TabPanel,
 } from "@chakra-ui/react";
 
 import { useParams } from "react-router-dom";
@@ -495,161 +501,189 @@ export default function CollabPageHome() {
   );
 
   return (
-    <Stack
-      spacing={{
-        base: "8",
-        lg: "6",
-      }}
-    >
-      <Stack
-        spacing='4'
-        direction={{
-          base: "column",
-          lg: "row",
-        }}
-        justify='space-between'
-      ></Stack>
-      <Stack
-        spacing={{
-          base: "5",
-          lg: "6",
-        }}
-      >
-        <SimpleGrid
-          columns={{
-            base: 1,
-            md: 3,
-          }}
-          gap='6'
-        >
-          <Card p='20px'>
-            <List>
-              <ListItem fontSize='xl' fontWeight='bold'>
-                <ListIcon as={FiSettings} color='black' boxSize='24px' />
-                Settings for <Text as='b'>{customerName}</Text>
-              </ListItem>
-              <CollabWorkspaceSettings
-                customerName={customerName}
-                handleCustomerNameChange={handleCustomerNameChange}
-                emailLink={emailLink}
-                setEmailLink={setEmailLink}
-                updateEmailToggle={updateEmailToggle}
-                loadingToggle={loadingToggle}
-                workspace_id={workspace_id}
-              />
-              <ListItem fontSize='xl' fontWeight='bold'>
-                <Flex direction='row' justify='space-between'>
-                  <Flex>
-                    <ListIcon
-                      as={FaCalendarCheck}
-                      color='black'
-                      mt='5px'
-                      boxSize='24px'
-                    />
-                    All Meetings
-                  </Flex>
-                </Flex>
-              </ListItem>
-              <PreviousMeetings meetings={meetings} />
-            </List>
-          </Card>
+    <>
+      {" "}
+      <Text fontSize='3xl'>Dashboard</Text>
+      <Tabs variant='unstyled'>
+        <TabList>
+          <Tab>Workspaces</Tab>
+          {/* <Tab>Recently Viewed</Tab>
+          <Tab>Custom Search</Tab>
+          <Tab>Alerts</Tab> */}
+        </TabList>
+        <TabIndicator
+          mt='-1.5px'
+          height='2px'
+          bg='blue.400'
+          borderRadius='1px'
+        />
+        <TabPanels>
+          <TabPanel>
+            <Stack
+              spacing={{
+                base: "8",
+                lg: "6",
+              }}
+            >
+              <Stack
+                spacing='4'
+                direction={{
+                  base: "column",
+                  lg: "row",
+                }}
+                justify='space-between'
+              ></Stack>
+              <Stack
+                spacing={{
+                  base: "5",
+                  lg: "6",
+                }}
+              >
+                <SimpleGrid
+                  columns={{
+                    base: 1,
+                    md: 3,
+                  }}
+                  gap='6'
+                >
+                  <Card p='20px'>
+                    <List>
+                      <ListItem fontSize='xl' fontWeight='bold'>
+                        <ListIcon
+                          as={FiSettings}
+                          color='black'
+                          boxSize='24px'
+                        />
+                        Settings for <Text as='b'>{customerName}</Text>
+                      </ListItem>
+                      <CollabWorkspaceSettings
+                        customerName={customerName}
+                        handleCustomerNameChange={handleCustomerNameChange}
+                        emailLink={emailLink}
+                        setEmailLink={setEmailLink}
+                        updateEmailToggle={updateEmailToggle}
+                        loadingToggle={loadingToggle}
+                        workspace_id={workspace_id}
+                      />
+                      <ListItem fontSize='xl' fontWeight='bold'>
+                        <Flex direction='row' justify='space-between'>
+                          <Flex>
+                            <ListIcon
+                              as={FaCalendarCheck}
+                              color='black'
+                              mt='5px'
+                              boxSize='24px'
+                            />
+                            All Meetings
+                          </Flex>
+                        </Flex>
+                      </ListItem>
+                      <PreviousMeetings meetings={meetings} />
+                    </List>
+                  </Card>
 
-          <Card p='12px'>
-            <List>
-              <Flex direction='row' justify='space-between'>
-                <ListItem fontSize='xl' fontWeight='bold'>
-                  <ListIcon as={ArrowRightIcon} color='black' boxSize='24px' />
-                  Next Steps
-                </ListItem>
+                  <Card p='12px'>
+                    <List>
+                      <Flex direction='row' justify='space-between'>
+                        <ListItem fontSize='xl' fontWeight='bold'>
+                          <ListIcon
+                            as={ArrowRightIcon}
+                            color='black'
+                            boxSize='24px'
+                          />
+                          Next Steps
+                        </ListItem>
 
-                <Flex pr='10px' gap='2'>
-                  <Spacer />
-                  <IconButton
-                    size='sm'
-                    variant='secondary'
-                    icon={<FiCheck />}
-                    onClick={() => handleCheckClick("nextSteps")}
-                  />
-                </Flex>
-              </Flex>
-              <NextStepsList
-                nextSteps={nextSteps}
-                setNextSteps={setNextSteps}
-                isChecked={isChecked}
-                handleCheckboxChange={handleCheckboxChange}
-                updateNextStep={updateNextStep}
-                isLoading={isNextStepsLoading}
-              />
+                        <Flex pr='10px' gap='2'>
+                          <Spacer />
+                          <IconButton
+                            size='sm'
+                            variant='secondary'
+                            icon={<FiCheck />}
+                            onClick={() => handleCheckClick("nextSteps")}
+                          />
+                        </Flex>
+                      </Flex>
+                      <NextStepsList
+                        nextSteps={nextSteps}
+                        setNextSteps={setNextSteps}
+                        isChecked={isChecked}
+                        handleCheckboxChange={handleCheckboxChange}
+                        updateNextStep={updateNextStep}
+                        isLoading={isNextStepsLoading}
+                      />
 
-              <Flex direction='row' justify='space-between'>
-                {/* <ListItem>
+                      <Flex direction='row' justify='space-between'>
+                        {/* <ListItem>
                   <ListIcon as={FiCheckCircle} color='black' />
                   Todo List
                 </ListItem> */}
-                <Flex pr='10px' gap='2'>
-                  {/* <Button variant='secondary' size='sm'>
+                        <Flex pr='10px' gap='2'>
+                          {/* <Button variant='secondary' size='sm'>
                     Create Briefing Doc
                   </Button> */}
-                  <Spacer />
-                  {/* <IconButton
+                          <Spacer />
+                          {/* <IconButton
                     size='sm'
                     variant='secondary'
                     icon={<FiCheck />}
                     onClick={() => handleCheckClick("todo")}
                   /> */}
-                </Flex>
-              </Flex>
+                        </Flex>
+                      </Flex>
 
-              {/* <ToDoList
+                      {/* <ToDoList
                 toDoList={toDoList}
                 setToDoList={setToDoList}
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
                 updateToDoList={updateToDoList}
               /> */}
-            </List>
-          </Card>
-          <Card p='12px'>
-            <List>
-              <Flex direction='row' justify='space-between'>
-                <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
-                  <ListIcon as={HiUsers} color='black' boxSize='24px' />
-                  Team
-                </ListItem>
-                <Flex pr='10px' gap='2'>
-                  <Button
-                    variant='secondary'
-                    size='sm'
-                    onClick={() => handleSetLead()}
-                    disabled={attendeeIsChecked.length !== 1}
-                  >
-                    Set Main
-                  </Button>
+                    </List>
+                  </Card>
+                  <Card p='12px'>
+                    <List>
+                      <Flex direction='row' justify='space-between'>
+                        <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
+                          <ListIcon as={HiUsers} color='black' boxSize='24px' />
+                          Team
+                        </ListItem>
+                        <Flex pr='10px' gap='2'>
+                          <Button
+                            variant='secondary'
+                            size='sm'
+                            onClick={() => handleSetLead()}
+                            disabled={attendeeIsChecked.length !== 1}
+                          >
+                            Set Main
+                          </Button>
 
-                  <Spacer />
-                  <IconButton
-                    size='sm'
-                    variant='secondary'
-                    icon={<DeleteIcon />}
-                    onClick={handleDeleteAttendees}
-                  />
-                </Flex>
-              </Flex>
-              {workspace_id && (
-                <TeamMemberStack
-                  members={members}
-                  setMembers={setMembers}
-                  workspace_id={workspace_id}
-                  handleAttendeeCheckboxChange={handleAttendeeCheckboxChange}
-                  attendeeIsChecked={attendeeIsChecked}
-                />
-              )}
-              {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
-            </List>
-          </Card>
-        </SimpleGrid>
-      </Stack>
-      {/* <Card p='12px' minH='xs'>
+                          <Spacer />
+                          <IconButton
+                            size='sm'
+                            variant='secondary'
+                            icon={<DeleteIcon />}
+                            onClick={handleDeleteAttendees}
+                          />
+                        </Flex>
+                      </Flex>
+                      {workspace_id && (
+                        <TeamMemberStack
+                          members={members}
+                          setMembers={setMembers}
+                          workspace_id={workspace_id}
+                          handleAttendeeCheckboxChange={
+                            handleAttendeeCheckboxChange
+                          }
+                          attendeeIsChecked={attendeeIsChecked}
+                        />
+                      )}
+                      {/* <TeamMemberStack mt='0px' workspace_id={workspace_id_memo} /> */}
+                    </List>
+                  </Card>
+                </SimpleGrid>
+              </Stack>
+              {/* <Card p='12px' minH='xs'>
         <List>
           <ListItem>
             <ListIcon as={FiArchive} color='black' />
@@ -669,7 +703,20 @@ export default function CollabPageHome() {
           </Container>
         </Box>
       </Card> */}
-    </Stack>
+            </Stack>
+          </TabPanel>
+          {/* <TabPanel>
+            <p>Individual</p>
+          </TabPanel>
+          <TabPanel>
+            <p>All</p>
+          </TabPanel>
+          <TabPanel>
+            <p>four!</p>
+          </TabPanel> */}
+        </TabPanels>
+      </Tabs>
+    </>
   );
 }
 {
