@@ -502,6 +502,7 @@ export default function CollabPageHome() {
 
   return (
     <>
+      {" "}
       <Text fontSize='3xl'>{customerName}</Text>
       <Tabs variant='unstyled'>
         <TabList>
