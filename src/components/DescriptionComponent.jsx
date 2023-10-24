@@ -30,7 +30,7 @@ function DescriptionComponent({ info }) {
           ) : (
             isExpanded && (
               <Link color='blue.400' onClick={() => setIsExpanded(false)}>
-                read less
+                Read less
               </Link>
             )
           )}
