@@ -502,14 +502,12 @@ export default function CollabPageHome() {
 
   return (
     <>
-      {" "}
       <Text fontSize='3xl'>Dashboard</Text>
       <Tabs variant='unstyled'>
         <TabList>
-          <Tab>Workspaces</Tab>
-          {/* <Tab>Recently Viewed</Tab>
-          <Tab>Custom Search</Tab>
-          <Tab>Alerts</Tab> */}
+          <Tab>Overview</Tab>
+          <Tab>Workspace AI</Tab>
+          <Tab>Settings</Tab>
         </TabList>
         <TabIndicator
           mt='-1.5px'
