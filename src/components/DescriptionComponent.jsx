@@ -11,7 +11,7 @@ function DescriptionComponent({ info }) {
   const displayText = isExpanded ? description : description.substring(0, 43);
 
   return (
-    <Box py='4' height={isExpanded ? "auto" : "200px"} maxHeight='200px'>
+    <Box py='4' height={isExpanded ? "auto" : "100px"} maxHeight='200px'>
       <Flex height='200px' maxHeight='200px'>
         <Text
           fontWeight='medium'
