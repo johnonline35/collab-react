@@ -5,7 +5,12 @@ import Navbar from "../components/Navbar";
 export default function RootLayout() {
   return (
     <Grid templateColumns='repeat(6, 1fr)' bg='gray.50'>
-      <GridItem as='main' colSpan={6} p='40px'>
+      <GridItem
+        as='main'
+        bg='blue.400'
+        colSpan={{ base: 6, lg: 4, xl: 5 }}
+        p='40px'
+      >
         {" "}
         {/* Adjusted to span the full grid width */}
         <Navbar />
