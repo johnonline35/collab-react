@@ -437,23 +437,9 @@ export default function Dashboard() {
                               )}
                             </Flex>
                             <DescriptionComponent info={info} />
-                            {/* <Box py='4' height='200px' maxHeight='200px'>
-                              <Flex height='200px' maxHeight='200px'>
-                                <Text
-                                  fontWeight='medium'
-                                  size='xs'
-                                  overflow='auto'
-                                  textOverflow='ellipsis'
-                                  maxHeight='200px'
-                                >
-                                  {info.description
-                                    ? info.description
-                                    : "This is a personal email account workspace. Workspaces of personal email accounts are not automatically associated with a specific company. This workspace still functions the same way as other company specific workspaces."}
-                                </Text>
-                              </Flex>
-                            </Box> */}
                           </Box>
-                          <Box bg='bg-surface' py='4'>
+                          {/* <Box bg='bg-surface' py='4'> */}
+                          <Box bg='bg-surface'>
                             <Stack
                               direction='row'
                               justify='space-between'
@@ -540,7 +526,7 @@ export default function Dashboard() {
                             </Link>
                           </Flex> */}
                         </CardBody>
-                        <Divider borderColor='gray.200' />
+                        <Divider borderColor='gray.100' />
 
                         <CardFooter>
                           {(info.next_meeting_date ||
