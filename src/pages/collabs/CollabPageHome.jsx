@@ -502,7 +502,7 @@ export default function CollabPageHome() {
 
   return (
     <>
-      <Text fontSize='3xl'>Dashboard</Text>
+      <Text fontSize='3xl'>{customerName}</Text>
       <Tabs variant='unstyled'>
         <TabList>
           <Tab>Overview</Tab>
@@ -544,7 +544,7 @@ export default function CollabPageHome() {
                   }}
                   gap='6'
                 >
-                  <Card p='20px'>
+                  <Card pl='20px' pr='20px' pb='20px'>
                     <List>
                       <ListItem fontSize='xl' fontWeight='bold'>
                         <ListIcon
