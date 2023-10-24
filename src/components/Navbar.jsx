@@ -31,7 +31,7 @@ export default function Navbar(user) {
   return (
     <Flex as='nav' p='0px' alignItems='center' width='100%'>
       <Link href={`/dashboard`}>
-        <Image src='/img/collablogo-removebg-white.png' height='550px' />
+        <Image src='/img/collablogo-removebg-white.png' height='55px' />
       </Link>
       <Spacer />
 
