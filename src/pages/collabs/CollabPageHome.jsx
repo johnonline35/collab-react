@@ -548,7 +548,7 @@ export default function CollabPageHome() {
                   gap='6'
                 >
                   {/* *pl='20px' pr='20px' pb='20px' */}
-                  <Card p='20px'>
+                  <Card p='20px' minHeight='200px'>
                     <List>
                       <ListItem fontSize='xl' fontWeight='bold'>
                         <Flex direction='row' justify='space-between'>
