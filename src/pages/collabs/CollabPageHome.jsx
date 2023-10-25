@@ -40,6 +40,7 @@ import { ToDoList } from "../../components/TodoList";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 import CollabPageNotes from "../collabs/CollabPageNotes";
+import CollabPageSettings from "../collabs/CollabPageSettings";
 import { useSession } from "../../hooks/useSession";
 
 export default function CollabPageHome() {
@@ -708,12 +709,17 @@ export default function CollabPageHome() {
           <TabPanel>
             <CollabPageNotes />
           </TabPanel>
-          {/* <TabPanel>
-            <p>All</p>
-          </TabPanel>
           <TabPanel>
-            <p>four!</p>
-          </TabPanel> */}
+            <CollabPageSettings
+              customerName={customerName}
+              handleCustomerNameChange={handleCustomerNameChange}
+              emailLink={emailLink}
+              setEmailLink={setEmailLink}
+              updateEmailToggle={updateEmailToggle}
+              loadingToggle={loadingToggle}
+              workspace_id={workspace_id}
+            />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </>
