@@ -39,6 +39,7 @@ import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSetting
 import { ToDoList } from "../../components/TodoList";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
+import CollabPageNotes from "../collabs/CollabPageNotes";
 import { useSession } from "../../hooks/useSession";
 
 export default function CollabPageHome() {
@@ -704,10 +705,10 @@ export default function CollabPageHome() {
       </Card> */}
             </Stack>
           </TabPanel>
-          {/* <TabPanel>
-            <p>Individual</p>
-          </TabPanel>
           <TabPanel>
+            <CollabPageNotes />
+          </TabPanel>
+          {/* <TabPanel>
             <p>All</p>
           </TabPanel>
           <TabPanel>
