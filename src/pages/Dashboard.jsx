@@ -161,7 +161,7 @@ export default function Dashboard() {
         />
         <TabPanels>
           <TabPanel>
-            <SimpleGrid mt={1} spacing={10} minChildWidth='300px'>
+            <SimpleGrid spacing={10} minChildWidth='300px'>
               {companyInfo &&
                 companyInfo
                   .sort((a, b) => {
