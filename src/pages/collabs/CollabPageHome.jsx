@@ -502,6 +502,8 @@ export default function CollabPageHome() {
     />
   );
 
+  const boxSize = "20px";
+
   return (
     <>
       {" "}
@@ -557,8 +559,7 @@ export default function CollabPageHome() {
                             <ListIcon
                               as={FaCalendarCheck}
                               color='black'
-                              mt='5px'
-                              boxSize='24px'
+                              boxSize={boxSize}
                             />
                             All Meetings
                           </Flex>
@@ -574,7 +575,7 @@ export default function CollabPageHome() {
                           <ListIcon
                             as={ArrowRightIcon}
                             color='black'
-                            boxSize='24px'
+                            boxSize={boxSize}
                           />
                           Next Steps
                         </ListItem>
@@ -630,7 +631,11 @@ export default function CollabPageHome() {
                     <List>
                       <Flex direction='row' justify='space-between'>
                         <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
-                          <ListIcon as={HiUsers} color='black' boxSize='24px' />
+                          <ListIcon
+                            as={HiUsers}
+                            color='black'
+                            boxSize={boxSize}
+                          />
                           Team
                         </ListItem>
                         <Flex pr='10px' gap='2'>
