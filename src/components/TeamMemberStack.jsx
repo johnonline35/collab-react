@@ -207,7 +207,7 @@ export const TeamMemberStack = ({
                           </Box>
                         </HStack>
                       </Stack>
-                      <Text
+                      {/* <Text
                         color='muted'
                         sx={{
                           "-webkit-box-orient": "vertical",
@@ -224,7 +224,7 @@ export const TeamMemberStack = ({
                           <EditablePreview />
                           <EditableInput />
                         </Editable>
-                      </Text>
+                      </Text> */}
                     </Stack>
                   </HStack>
                 </Stack>
