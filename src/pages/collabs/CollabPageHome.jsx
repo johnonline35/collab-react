@@ -553,7 +553,7 @@ export default function CollabPageHome() {
                 >
                   <Card p='12px'>
                     <List>
-                      <ListItem fontSize='xl' fontWeight='bold'>
+                      <ListItem fontSize='l' fontWeight='bold'>
                         <Flex direction='row' justify='space-between'>
                           <Flex>
                             <ListIcon
@@ -572,7 +572,7 @@ export default function CollabPageHome() {
                   <Card p='12px'>
                     <List>
                       <Flex direction='row' justify='space-between'>
-                        <ListItem fontSize='xl' fontWeight='bold'>
+                        <ListItem fontSize='l' fontWeight='bold'>
                           <ListIcon
                             as={ArrowRightIcon}
                             color='black'
@@ -631,7 +631,7 @@ export default function CollabPageHome() {
                   <Card p='12px'>
                     <List>
                       <Flex direction='row' justify='space-between'>
-                        <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
+                        <ListItem mb='0px' fontSize='l' fontWeight='bold'>
                           <ListIcon
                             as={HiUsers}
                             color='black'
