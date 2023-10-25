@@ -510,10 +510,7 @@ export default function CollabPageHome() {
         <TabList>
           <Tab>Overview</Tab>
           <Tab>Workspace AI</Tab>
-          <Tab>
-            <ListIcon as={FiSettings} color='black' />
-            Settings
-          </Tab>
+          <Tab>Settings</Tab>
         </TabList>
         <TabIndicator
           mt='-1.5px'
@@ -727,26 +724,4 @@ export default function CollabPageHome() {
       </Tabs>
     </>
   );
-}
-{
-  /* <ListItem mt='20px'>
-                <Alert
-                  status='success'
-                  variant='subtle'
-                  flexDirection='column'
-                  alignItems='center'
-                  justifyContent='center'
-                  textAlign='center'
-                  height='200px'
-                >
-                  <AlertIcon boxSize='40px' mr={0} />
-                  <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    Momentum is rolling!
-                  </AlertTitle>
-                  <AlertDescription maxWidth='sm'>
-                    Momentum has been building with this customer recently. Keep
-                    up the good work!
-                  </AlertDescription>
-                </Alert>
-              </ListItem> */
 }

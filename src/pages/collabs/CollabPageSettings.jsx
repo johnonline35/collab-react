@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import {
   SimpleGrid,
   Stack,
@@ -20,9 +19,6 @@ export default function CollabPageSettings({
   loadingToggle,
   workspace_id,
 }) {
-  const params = useParams();
-  console.log(params);
-
   return (
     <>
       <Stack
