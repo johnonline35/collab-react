@@ -557,6 +557,7 @@ export default function CollabPageHome() {
                         <Flex direction='row' justify='space-between'>
                           <Flex>
                             <ListIcon
+                              mt='3px'
                               as={FaCalendarCheck}
                               color='black'
                               boxSize={boxSize}
