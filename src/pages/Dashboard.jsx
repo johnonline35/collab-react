@@ -146,9 +146,7 @@ export default function Dashboard() {
   return (
     <>
       {" "}
-      <Text fontSize='2xl' as='b'>
-        Dashboard
-      </Text>
+      <Text fontSize='2xl'>Dashboard</Text>
       <Tabs variant='unstyled'>
         <TabList>
           <Tab>Workspaces</Tab>
@@ -474,6 +472,7 @@ export default function Dashboard() {
                                       <Text
                                         fontWeight='medium'
                                         color='emphasized'
+                                        as='b'
                                       >
                                         {capitalizeFirstLetterOfEachWord(
                                           info.attendee_name
