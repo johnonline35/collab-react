@@ -510,7 +510,10 @@ export default function CollabPageHome() {
         <TabList>
           <Tab>Overview</Tab>
           <Tab>Workspace AI</Tab>
-          <Tab>Settings</Tab>
+          <Tab>
+            <ListIcon as={FiSettings} color='black' />
+            Settings
+          </Tab>
         </TabList>
         <TabIndicator
           mt='-1.5px'
