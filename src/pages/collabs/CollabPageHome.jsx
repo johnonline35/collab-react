@@ -551,23 +551,6 @@ export default function CollabPageHome() {
                   <Card p='20px'>
                     <List>
                       <ListItem fontSize='xl' fontWeight='bold'>
-                        <ListIcon
-                          as={FiSettings}
-                          color='black'
-                          boxSize='24px'
-                        />
-                        Settings for <Text as='b'>{customerName}</Text>
-                      </ListItem>
-                      <CollabWorkspaceSettings
-                        customerName={customerName}
-                        handleCustomerNameChange={handleCustomerNameChange}
-                        emailLink={emailLink}
-                        setEmailLink={setEmailLink}
-                        updateEmailToggle={updateEmailToggle}
-                        loadingToggle={loadingToggle}
-                        workspace_id={workspace_id}
-                      />
-                      <ListItem fontSize='xl' fontWeight='bold'>
                         <Flex direction='row' justify='space-between'>
                           <Flex>
                             <ListIcon
