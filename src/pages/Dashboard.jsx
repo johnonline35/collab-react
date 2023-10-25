@@ -208,7 +208,7 @@ export default function Dashboard() {
                             info.banner_src
                               ? `url("${info.banner_src}")`
                               : info.image
-                              ? "blue.400"
+                              ? `url("/images/custom/leaderboard.jpeg")`
                               : `url("/images/custom/collab_header2.jpeg")`
                           }
                           bgPos='center'
