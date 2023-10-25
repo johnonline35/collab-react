@@ -150,9 +150,6 @@ export default function Dashboard() {
       <Tabs variant='unstyled'>
         <TabList>
           <Tab>Workspaces</Tab>
-          {/* <Tab>Recently Viewed</Tab>
-          <Tab>Custom Search</Tab>
-          <Tab>Alerts</Tab> */}
         </TabList>
         <TabIndicator
           mt='-1.5px'
@@ -469,11 +466,7 @@ export default function Dashboard() {
                                       direction='row'
                                       justify='space-between'
                                     >
-                                      <Text
-                                        fontWeight='medium'
-                                        color='emphasized'
-                                        as='b'
-                                      >
+                                      <Text as='b'>
                                         {capitalizeFirstLetterOfEachWord(
                                           info.attendee_name
                                         )}
