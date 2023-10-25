@@ -146,7 +146,9 @@ export default function Dashboard() {
   return (
     <>
       {" "}
-      <Text fontSize='3xl'>Dashboard</Text>
+      <Text fontSize='2xl' as='b'>
+        Dashboard
+      </Text>
       <Tabs variant='unstyled'>
         <TabList>
           <Tab>Workspaces</Tab>
