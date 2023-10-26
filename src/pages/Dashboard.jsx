@@ -238,7 +238,7 @@ export default function Dashboard() {
                                 position='absolute'
                                 zIndex='10'
                                 left='20px'
-                                top={info.banner_src ? "-58px" : "20px"}
+                                top={info.banner_src ? "-56px" : "26px"}
                                 bg='white'
                                 transform='translateY(50%)'
                                 src={
