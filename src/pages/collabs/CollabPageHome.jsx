@@ -29,7 +29,7 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
-import { FaRectangleList } from "react-icons/fa";
+import { FaRectangleList } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi";
 import { IoDocumentText } from "react-icons/io5";
 
