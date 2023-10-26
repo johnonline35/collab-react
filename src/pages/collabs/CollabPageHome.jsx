@@ -31,7 +31,7 @@ import {
 } from "react-icons/fi";
 import { FaCalendarCheck } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
-import { IoDocumentText } from "react-icons/io";
+import { IoDocumentText } from "react-icons/io5";
 
 import { TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
