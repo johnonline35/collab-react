@@ -29,7 +29,7 @@ import {
   FiSettings,
   FiUsers,
 } from "react-icons/fi";
-import { FaRectangleList } from "react-icons/fa6";
+import { FaListAlt } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
 import { IoDocumentText } from "react-icons/io5";
 
@@ -576,7 +576,7 @@ export default function CollabPageHome() {
                         <ListItem fontSize='xl' fontWeight='bold'>
                           <ListIcon
                             mt='-1px'
-                            as={FaRectangleList}
+                            as={FaListAlt}
                             color='black'
                             boxSize={boxSize}
                           />
