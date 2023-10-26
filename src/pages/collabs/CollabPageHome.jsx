@@ -574,6 +574,7 @@ export default function CollabPageHome() {
                       <Flex direction='row' justify='space-between'>
                         <ListItem fontSize='xl' fontWeight='bold'>
                           <ListIcon
+                            mt='-1px'
                             as={ArrowRightIcon}
                             color='black'
                             boxSize={boxSize}
@@ -633,6 +634,7 @@ export default function CollabPageHome() {
                       <Flex direction='row' justify='space-between'>
                         <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
                           <ListIcon
+                            mt='-1px'
                             as={HiUsers}
                             color='black'
                             boxSize={boxSize}
