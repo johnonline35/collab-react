@@ -58,7 +58,7 @@ header h1 {
   width: 816px;
   min-height: 1056px;
   padding: 96px;
-  margin: 1rem;
+  margin: auto;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
