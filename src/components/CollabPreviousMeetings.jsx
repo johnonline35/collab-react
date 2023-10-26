@@ -7,10 +7,13 @@ import {
   ListIcon,
   Container,
   Text,
+  Link,
 } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
-const PreviousMeetings = ({ meetings }) => {
+const PreviousMeetings = ({ meetings, workspace_id }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
@@ -70,7 +73,15 @@ const PreviousMeetings = ({ meetings }) => {
                       <ListItem key={meeting.id}>
                         <Flex align='center'>
                           <ListIcon as={MdCheckCircle} color='blue.400' />
-                          <Text ml={2}>Date: {formattedStartDate}.</Text>
+                          <ChakraLink
+                            as={ReactRouterLink}
+                            to='/collabs/:workspace_id/notes'
+                          >
+                            Date: {formattedStartDate}.
+                          </ChakraLink>
+
+                          {/* <Text ml={2}>Date: {formattedStartDate}.</Text> */}
+
                           {/* Duration: {duration} */}
                         </Flex>
                       </ListItem>
