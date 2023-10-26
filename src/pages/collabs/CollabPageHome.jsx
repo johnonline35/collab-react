@@ -558,7 +558,7 @@ export default function CollabPageHome() {
                         <Flex direction='row' justify='space-between'>
                           <Flex>
                             <ListIcon
-                              mt='4px'
+                              mt='5px'
                               as={IoDocumentText}
                               color='black'
                               boxSize={boxSize}
@@ -575,7 +575,7 @@ export default function CollabPageHome() {
                       <Flex direction='row' justify='space-between'>
                         <ListItem fontSize='xl' fontWeight='bold'>
                           <ListIcon
-                            mt='-1px'
+                            mt='0px'
                             as={FaListAlt}
                             color='black'
                             boxSize={boxSize}
@@ -635,7 +635,7 @@ export default function CollabPageHome() {
                       <Flex direction='row' justify='space-between'>
                         <ListItem mb='0px' fontSize='xl' fontWeight='bold'>
                           <ListIcon
-                            mt='-1px'
+                            mt='0px'
                             as={HiUsers}
                             color='black'
                             boxSize={boxSize}
