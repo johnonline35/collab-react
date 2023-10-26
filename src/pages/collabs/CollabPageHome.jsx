@@ -703,7 +703,7 @@ export default function CollabPageHome() {
             </Stack>
           </TabPanel>
           <TabPanel>
-            <CollabPageNotes />
+            <CollabPageNotes customerName={customerName} />
           </TabPanel>
           <TabPanel>
             <CollabPageSettings

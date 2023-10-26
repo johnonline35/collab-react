@@ -77,7 +77,7 @@ const PreviousMeetings = ({ meetings, workspace_id }) => {
                             as={ReactRouterLink}
                             to={`/collabs/${workspace_id}/notes`}
                           >
-                            {formattedStartDate}.
+                            {formattedStartDate}
                           </ChakraLink>
 
                           {/* <Text ml={2}>Date: {formattedStartDate}.</Text> */}
