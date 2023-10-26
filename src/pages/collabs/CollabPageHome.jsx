@@ -504,7 +504,7 @@ export default function CollabPageHome() {
   );
 
   const boxSize = "20px";
-
+  //
   return (
     <>
       {" "}
