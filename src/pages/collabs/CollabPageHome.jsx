@@ -64,7 +64,7 @@ export default function CollabPageHome() {
     console.log("Session state has changed:", session);
 
     if (!workspace_id) {
-      console.error("Invalid or missing workspace_id'");
+      console.error("Invalid, or missing workspace_id'");
       return;
     }
 
