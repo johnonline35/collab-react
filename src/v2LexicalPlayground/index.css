@@ -968,7 +968,6 @@ i.page-break,
   display: inline-block;
   position: relative;
   user-select: none;
-  margin: auto;
 }
 
 .editor-shell .editor-image img {
@@ -1724,7 +1723,7 @@ button.action-button:disabled {
       width: 624px;
       min-height: 864px;
       padding: 0;
-      margin: 0;
+      margin: auto;
       box-shadow: none;
       align-self: flex-start;
     }
