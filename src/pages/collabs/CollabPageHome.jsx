@@ -514,7 +514,7 @@ export default function CollabPageHome() {
       <Tabs variant='unstyled'>
         <TabList>
           <Tab>Overview</Tab>
-          <Tab>Workspace AI</Tab>
+          <Tab>Notes</Tab>
           <Tab>Settings</Tab>
         </TabList>
         <TabIndicator
