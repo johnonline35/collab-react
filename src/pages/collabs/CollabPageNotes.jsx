@@ -23,6 +23,10 @@ export default function CollabPageNotes({ customerName }) {
 
   return (
     <>
+      {" "}
+      <Text fontSize='xl' as='b'>
+        {customerName}
+      </Text>
       <PlaygroundApp />
     </>
   );
