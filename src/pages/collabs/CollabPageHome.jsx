@@ -702,9 +702,9 @@ export default function CollabPageHome() {
       </Card> */}
             </Stack>
           </TabPanel>
-          {/* <TabPanel>
+          <TabPanel>
             <CollabPageNotes customerName={customerName} />
-          </TabPanel> */}
+          </TabPanel>
           <TabPanel>
             <CollabPageSettings
               customerName={customerName}
