@@ -75,7 +75,7 @@ const PreviousMeetings = ({ meetings, workspace_id }) => {
                           <ListIcon as={MdCheckCircle} color='blue.400' />
                           <ChakraLink
                             as={ReactRouterLink}
-                            to='/collabs/:workspace_id/notes'
+                            to={`/collabs/${workspace_id}/notes`}
                           >
                             Date: {formattedStartDate}.
                           </ChakraLink>
