@@ -21,39 +21,9 @@ export default function CollabPageNotes({ customerName }) {
   const params = useParams();
   console.log(params);
 
-  //   return (
-  //     <>
-  //       <PlaygroundApp />
-  //     </>
-  //   );
-  // }
-
   return (
     <>
-      {" "}
-      <Text fontSize='xl' as='b'>
-        {customerName}
-      </Text>
-      <Tabs variant='unstyled'>
-        <TabList>
-          <Tab>Overview</Tab>
-          <Tab>Notes</Tab>
-        </TabList>
-        <TabIndicator
-          mt='-1.5px'
-          height='2px'
-          bg='blue.400'
-          borderRadius='1px'
-        />
-        <TabPanels>
-          <TabPanel>
-            <CollabPageHome />
-          </TabPanel>
-          <TabPanel>
-            <PlaygroundApp />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <PlaygroundApp />
     </>
   );
 }
