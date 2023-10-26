@@ -567,7 +567,10 @@ export default function CollabPageHome() {
                           </Flex>
                         </Flex>
                       </ListItem>
-                      <PreviousMeetings meetings={meetings} />
+                      <PreviousMeetings
+                        meetings={meetings}
+                        workspace_id={workspace_id}
+                      />
                     </List>
                   </Card>
                   <Card p='12px'>
