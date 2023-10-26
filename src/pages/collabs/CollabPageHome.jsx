@@ -31,6 +31,7 @@ import {
 } from "react-icons/fi";
 import { FaCalendarCheck } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
+import { SiGoogledocs } from "react-icons/si";
 
 import { TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
@@ -558,11 +559,11 @@ export default function CollabPageHome() {
                           <Flex>
                             <ListIcon
                               mt='4px'
-                              as={FaCalendarCheck}
+                              as={SiGoogledocs}
                               color='black'
                               boxSize={boxSize}
                             />
-                            All Meetings
+                            Meeting Notes
                           </Flex>
                         </Flex>
                       </ListItem>
@@ -575,7 +576,7 @@ export default function CollabPageHome() {
                         <ListItem fontSize='xl' fontWeight='bold'>
                           <ListIcon
                             mt='-1px'
-                            as={ArrowRightIcon}
+                            as={FaCalendarCheck}
                             color='black'
                             boxSize={boxSize}
                           />
