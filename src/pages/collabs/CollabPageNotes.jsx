@@ -17,16 +17,12 @@ import PlaygroundApp from "../../v2LexicalPlayground/App";
 
 import CollabPageHome from "./CollabPageHome";
 
-export default function CollabPageNotes({ customerName }) {
+export default function CollabPageNotes() {
   const params = useParams();
   console.log(params);
 
   return (
     <>
-      {" "}
-      <Text fontSize='xl' as='b'>
-        {customerName}
-      </Text>
       <PlaygroundApp />
     </>
   );

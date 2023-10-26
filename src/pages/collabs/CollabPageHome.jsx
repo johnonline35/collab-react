@@ -570,6 +570,7 @@ export default function CollabPageHome() {
                       <PreviousMeetings
                         meetings={meetings}
                         workspace_id={workspace_id}
+                        customerName={customerName}
                       />
                     </List>
                   </Card>
@@ -703,7 +704,7 @@ export default function CollabPageHome() {
             </Stack>
           </TabPanel>
           <TabPanel>
-            <CollabPageNotes customerName={customerName} />
+            <CollabPageNotes />
           </TabPanel>
           <TabPanel>
             <CollabPageSettings
