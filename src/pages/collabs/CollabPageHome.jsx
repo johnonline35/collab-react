@@ -552,30 +552,29 @@ export default function CollabPageHome() {
                   }}
                   gap='6'
                 >
-                  <Box minH='300px'>
-                    <Card p='12px' w='100%' h='100%'>
-                      <List>
-                        <ListItem fontSize='xl' fontWeight='bold'>
-                          <Flex direction='row' justify='space-between'>
-                            <Flex>
-                              <ListIcon
-                                mt='5px'
-                                as={IoDocumentText}
-                                color='black'
-                                boxSize={boxSize}
-                              />
-                              Meeting Notes
-                            </Flex>
+                  <Card p='12px' variant='funky'>
+                    <List>
+                      <ListItem fontSize='xl' fontWeight='bold'>
+                        <Flex direction='row' justify='space-between'>
+                          <Flex>
+                            <ListIcon
+                              mt='5px'
+                              as={IoDocumentText}
+                              color='black'
+                              boxSize={boxSize}
+                            />
+                            Meeting Notes
                           </Flex>
-                        </ListItem>
-                        <PreviousMeetings
-                          meetings={meetings}
-                          workspace_id={workspace_id}
-                          customerName={customerName}
-                        />
-                      </List>
-                    </Card>
-                  </Box>
+                        </Flex>
+                      </ListItem>
+                      <PreviousMeetings
+                        meetings={meetings}
+                        workspace_id={workspace_id}
+                        customerName={customerName}
+                      />
+                    </List>
+                  </Card>
+
                   <Card p='12px'>
                     <List>
                       <Flex direction='row' justify='space-between'>

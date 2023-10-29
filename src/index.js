@@ -2,13 +2,31 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import {
+  createMultiStyleConfigHelpers,
   ChakraProvider,
   extendTheme,
   theme as baseTheme,
 } from "@chakra-ui/react";
 import { theme as proTheme } from "@chakra-ui/pro-theme";
+import { cardAnatomy } from "@chakra-ui/anatomy";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
+
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers(cardAnatomy.keys);
+
+// define custom styles for funky variant
+const variants = {
+  funky: definePartsStyle({
+    container: {
+      borderColor: "red",
+      borderWidth: "3px",
+    },
+  }),
+};
+
+// export variants in the component theme
+export const cardTheme = defineMultiStyleConfig({ variants });
 
 // extend the theme
 
