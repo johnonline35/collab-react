@@ -552,7 +552,7 @@ export default function CollabPageHome() {
                   }}
                   gap='6'
                 >
-                  <Card p='12px' variant='funky'>
+                  <Card p='12px' size='md'>
                     <List>
                       <ListItem fontSize='xl' fontWeight='bold'>
                         <Flex direction='row' justify='space-between'>
