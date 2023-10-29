@@ -47,6 +47,9 @@ const fonts = {
 const theme = extendTheme(
   {
     colors: { ...baseTheme.colors, brand: baseTheme.colors.blue },
+    components: {
+      Card: cardTheme,
+    },
   },
   proTheme
 );
