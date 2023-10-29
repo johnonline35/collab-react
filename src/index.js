@@ -32,14 +32,15 @@ const baseStyle = definePartsStyle({
 });
 
 const sizes = {
-  md: definePartsStyle({
+  xl: definePartsStyle({
     container: {
-      borderRadius: "0px",
+      borderRadius: "36px",
+      padding: "40px",
     },
   }),
 };
 
-export const cardTheme = defineMultiStyleConfig({ baseStyle, sizes });
+export const cardTheme = defineMultiStyleConfig({ sizes });
 
 // extend the theme
 const colors = {
@@ -59,6 +60,9 @@ const fonts = {
 const theme = extendTheme(
   {
     colors: { ...baseTheme.colors, brand: baseTheme.colors.blue },
+    components: {
+      Card: cardTheme,
+    },
   },
   proTheme
 );
