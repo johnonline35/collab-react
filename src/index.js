@@ -15,21 +15,33 @@ import { BrowserRouter } from "react-router-dom";
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(cardAnatomy.keys);
 
-// define custom styles for funky variant
-const variants = {
-  funky: definePartsStyle({
+const baseStyle = definePartsStyle({
+  // define the part you're going to style
+  container: {
+    backgroundColor: "#FF0000",
+  },
+  header: {
+    paddingBottom: "2px",
+  },
+  body: {
+    paddingTop: "2px",
+  },
+  footer: {
+    paddingTop: "2px",
+  },
+});
+
+const sizes = {
+  md: definePartsStyle({
     container: {
-      borderColor: "red",
-      borderWidth: "3px",
+      borderRadius: "0px",
     },
   }),
 };
 
-// export variants in the component theme
-export const cardTheme = defineMultiStyleConfig({ variants });
+export const cardTheme = defineMultiStyleConfig({ baseStyle, sizes });
 
 // extend the theme
-
 const colors = {
   brand: {
     900: "#024fc9",
