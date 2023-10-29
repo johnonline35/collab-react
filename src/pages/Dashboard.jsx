@@ -199,6 +199,7 @@ export default function Dashboard() {
                         bg='white'
                         loading={loadingCards}
                         minW='xs'
+                        maxW='xs'
                       >
                         <CardHeader
                           p='0'
