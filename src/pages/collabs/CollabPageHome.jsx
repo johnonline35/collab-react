@@ -158,6 +158,8 @@ export default function CollabPageHome() {
       return;
     }
 
+    console.log({ USEEFFECTuserId: userId });
+
     // Map through meetings to generate an array of each meetings.meeting_id
     const meetingIds = meetings.map((meeting) => meeting.meeting_id);
 
