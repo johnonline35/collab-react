@@ -640,6 +640,7 @@ export default function CollabPageHome() {
                       </ListItem>
                       <PreviousMeetings
                         meetings={meetings}
+                        notes={notes}
                         workspace_id={workspace_id}
                         customerName={customerName}
                       />
