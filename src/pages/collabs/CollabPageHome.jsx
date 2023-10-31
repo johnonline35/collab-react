@@ -173,25 +173,21 @@ export default function CollabPageHome() {
         console.error("Error fetching collab_users_notes:", error);
         return;
       }
-      console.log("fetchCollabUserNotes", data);
 
       // Filter out the meetingIds that do not have a matching collab_user_note_id
       const missingMeetingIds = meetingIds.filter(
         (meetingId) => !data.some((note) => note.meeting_id === meetingId)
       );
-      missingMeetingIds.forEach((meetingId) =>
-        console.log({ missingMeetingId: meetingId })
-      );
 
       // For each missingMeetingId, create a new UUID and insert to the collab_users_notes table
       for (let meetingId of missingMeetingIds) {
-        const docUuid = uuid4();
+        const noteUuid = uuid4();
 
         const { data, error } = await supabase
           .from("collab_users_notes")
           .insert([
             {
-              collab_user_note_id: docUuid,
+              collab_user_note_id: noteUuid,
               meeting_id: meetingId,
               workspace_id: workspace_id,
               collab_user_id: userId,
@@ -212,13 +208,19 @@ export default function CollabPageHome() {
         .eq("workspace_id", workspace_id);
 
       if (fetchedNotes.data) {
-        console.log({ fetchedNotesdata: fetchedNotes.data });
         setNotes(fetchedNotes.data);
       }
     };
 
     fetchCollabUserNotes();
   }, [workspace_id, userId, meetings]);
+
+  useEffect(() => {
+    if (!notes) {
+      return;
+    }
+    console.log({ setNotesdata: notes });
+  }, [notes]);
 
   // These functions are used by the Next Steps List and Todo List components:
   const handleCheckboxChange = (id) => {
