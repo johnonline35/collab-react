@@ -159,8 +159,8 @@ export default function CollabPageHome() {
     }
 
     // Map through meetings to generate an array of each meetings.meeting_id
-    const meetingIds = meetings.map((meeting) => meeting.meeting_id);
-    meetings.forEach((meeting) => console.log(meeting));
+    const meetingIds = meetings.map((meeting) => meeting.id);
+    meetings.forEach((meeting) => console.log({ meetingId: meeting.id }));
 
     // Fetch the existing collab_users_notes for each meeting_id
     const fetchCollabUserNotes = async (userId) => {
