@@ -86,6 +86,10 @@ function Router() {
             path='/collabs/:workspace_id/notes'
             element={<CollabPageNotes />}
           />
+          <Route
+            path='/collabs/:workspace_id/:collab_user_note_id'
+            element={<CollabPageNotes />}
+          />
           {/* <Route
             path='/collabs/:workspace_id/journey'
             element={<CollabPageJourney />}
