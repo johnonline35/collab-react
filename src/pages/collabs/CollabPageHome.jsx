@@ -173,10 +173,11 @@ export default function CollabPageHome() {
         console.error("Error fetching collab_users_notes:", error);
         return;
       }
+      console.log("fetchCollabUserNotes", data);
 
       // Filter out the meetingIds that do not have a matching collab_user_note_id
       const missingMeetingIds = meetingIds.filter(
-        (meetingId) => !data.some((note) => note.meeting_id === meetingId)
+        (meetingId) => !data.some((note) => note.id === meetingId)
       );
       missingMeetingIds.forEach((meetingId) =>
         console.log({ missingMeetingId: meetingId.id })
