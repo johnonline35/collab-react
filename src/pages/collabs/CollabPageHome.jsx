@@ -585,7 +585,7 @@ export default function CollabPageHome() {
       <Tabs variant='unstyled'>
         <TabList>
           <Tab>Overview</Tab>
-          <Tab>Notes</Tab>
+          {/* <Tab>Notes</Tab> */}
           <Tab>Settings</Tab>
         </TabList>
         <TabIndicator
@@ -776,9 +776,9 @@ export default function CollabPageHome() {
       </Card> */}
             </Stack>
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <CollabPageNotes />
-          </TabPanel>
+          </TabPanel> */}
           <TabPanel>
             <CollabPageSettings
               customerName={customerName}
