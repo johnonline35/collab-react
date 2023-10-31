@@ -24,7 +24,7 @@ const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
       };
     });
 
-    console.log(mergedArray);
+    console.log({ mergedArray: mergedArray });
   }, [meetings, notes]);
 
   const formatDate = (dateString) => {
