@@ -184,7 +184,7 @@ export default function CollabPageHome() {
       for (let meetingId of missingMeetingIds) {
         const docUuid = uuid4();
 
-        await supabase
+        const { data, error } = await supabase
           .from("collab_users_notes")
           .insert([
             {
@@ -192,10 +192,12 @@ export default function CollabPageHome() {
               meeting_id: meetingId,
               collab_user_id: userId,
             },
-          ])
-          .catch((error) => {
-            console.error("Error inserting data:", error);
-          });
+          ]);
+
+        if (error) {
+          console.error("Error inserting into collab_users_notes:", error);
+          return;
+        }
       }
 
       // Refetch after upserting to make sure state is updated
