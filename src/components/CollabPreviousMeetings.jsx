@@ -17,7 +17,7 @@ import { MdCheckCircle } from "react-icons/md";
 const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
   useEffect(() => {
     const mergedArray = meetings.map((meeting) => {
-      const note = notes.find((n) => n.meeting_id === meeting.meeting_id);
+      const note = notes.find((n) => n.meeting_id === meeting.id);
       return {
         ...meeting,
         ...note,
