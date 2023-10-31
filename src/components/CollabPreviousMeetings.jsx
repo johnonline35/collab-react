@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Stack,
   StackDivider,
@@ -13,12 +14,19 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
-const PreviousMeetings = ({
-  meetings,
-  workspace_id,
-  customerName,
-  collab_user_note_id,
-}) => {
+const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
+  useEffect(() => {
+    const mergedArray = meetings.map((meeting) => {
+      const note = notes.find((n) => n.meeting_id === meeting.meeting_id);
+      return {
+        ...meeting,
+        ...note,
+      };
+    });
+
+    console.log(mergedArray);
+  }, [meetings, notes]);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
@@ -80,7 +88,7 @@ const PreviousMeetings = ({
                           <ListIcon as={MdCheckCircle} color='blue.400' />
                           <ChakraLink
                             as={ReactRouterLink}
-                            to={`/collabs/${workspace_id}/${collab_user_note_id}`}
+                            // to={`/collabs/${workspace_id}/${collab_user_note_id}`}
                             customerName={customerName}
                           >
                             {formattedStartDate}
