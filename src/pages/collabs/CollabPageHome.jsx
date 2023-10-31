@@ -160,10 +160,9 @@ export default function CollabPageHome() {
 
     // Map through meetings to generate an array of each meetings.meeting_id
     const meetingIds = meetings.map((meeting) => meeting.id);
-    meetings.forEach((meeting) => console.log({ meetingId: meeting.id }));
 
     // Fetch the existing collab_users_notes for each meeting_id
-    const fetchCollabUserNotes = async (userId) => {
+    const fetchCollabUserNotes = async () => {
       const { data, error } = await supabase
         .from("collab_users_notes")
         .select("collab_user_note_id, meeting_id")
@@ -179,6 +178,9 @@ export default function CollabPageHome() {
       const missingMeetingIds = meetingIds.filter(
         (meetingId) => !data.some((note) => note.meeting_id === meetingId)
       );
+      missingMeetingIds.forEach((meetingId) =>
+        console.log({ missingMeetingId: meetingId.id })
+      );
 
       // For each missingMeetingId, create a new UUID and insert to the collab_users_notes table
       for (let meetingId of missingMeetingIds) {
@@ -190,6 +192,7 @@ export default function CollabPageHome() {
             {
               collab_user_note_id: docUuid,
               meeting_id: meetingId,
+              workspace_id: workspace_id,
               collab_user_id: userId,
             },
           ]);
