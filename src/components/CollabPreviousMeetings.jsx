@@ -64,48 +64,31 @@ const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
   };
 
   return (
-    <Box
-      as='section'
-      py={{
-        base: "4",
-        md: "8",
-      }}
-    >
+    <Box as='section' py={{ base: "4", md: "8" }}>
       <Container maxW='3xl'>
-        <Box
-          bg='bg-surface'
-          borderRadius='lg'
-          p={{
-            base: "4",
-            md: "6",
-          }}
-        >
+        <Box bg='bg-surface' borderRadius='lg' p={{ base: "4", md: "6" }}>
           <Stack spacing='5' divider={<StackDivider />}>
             <Stack spacing='1'>
               <Box>
                 <Flex direction='column'>
-                  {meetings.map((meeting) => {
-                    const startDate = new Date(meeting.start_dateTime);
-                    const endDate = new Date(meeting.end_dateTime);
+                  {meetingsNotes.map((meetingNote) => {
+                    const startDate = new Date(meetingNote.start_dateTime);
+                    const endDate = new Date(meetingNote.end_dateTime);
 
                     const formattedStartDate = formatDate(startDate);
                     const duration = getDuration(startDate, endDate);
 
                     return (
-                      <ListItem key={meeting.id}>
+                      <ListItem key={meetingNote.id}>
                         <Flex align='center'>
                           <ListIcon as={MdCheckCircle} color='blue.400' />
-                          <ChakraLink
+                          <Link
                             as={ReactRouterLink}
-                            // to={`/collabs/${workspace_id}/${collab_user_note_id}`}
+                            to={`/collabs/${workspace_id}/${meetingNote.collab_user_note_id}`}
                             customerName={customerName}
                           >
-                            {formattedStartDate}
-                          </ChakraLink>
-
-                          {/* <Text ml={2}>Date: {formattedStartDate}.</Text> */}
-
-                          {/* Duration: {duration} */}
+                            {formattedStartDate} - Duration: {duration}
+                          </Link>
                         </Flex>
                       </ListItem>
                     );
@@ -121,3 +104,62 @@ const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
 };
 
 export default PreviousMeetings;
+
+//   return (
+//     <Box
+//       as='section'
+//       py={{
+//         base: "4",
+//         md: "8",
+//       }}
+//     >
+//       <Container maxW='3xl'>
+//         <Box
+//           bg='bg-surface'
+//           borderRadius='lg'
+//           p={{
+//             base: "4",
+//             md: "6",
+//           }}
+//         >
+//           <Stack spacing='5' divider={<StackDivider />}>
+//             <Stack spacing='1'>
+//               <Box>
+//                 <Flex direction='column'>
+//                   {meetings.map((meeting) => {
+//                     const startDate = new Date(meeting.start_dateTime);
+//                     const endDate = new Date(meeting.end_dateTime);
+
+//                     const formattedStartDate = formatDate(startDate);
+//                     const duration = getDuration(startDate, endDate);
+
+//                     return (
+//                       <ListItem key={meeting.id}>
+//                         <Flex align='center'>
+//                           <ListIcon as={MdCheckCircle} color='blue.400' />
+//                           <ChakraLink
+//                             as={ReactRouterLink}
+//                             // to={`/collabs/${workspace_id}/${collab_user_note_id}`}
+//                             customerName={customerName}
+//                           >
+//                             {formattedStartDate}
+//                           </ChakraLink>
+
+//                           {/* <Text ml={2}>Date: {formattedStartDate}.</Text> */}
+
+//                           {/* Duration: {duration} */}
+//                         </Flex>
+//                       </ListItem>
+//                     );
+//                   })}
+//                 </Flex>
+//               </Box>
+//             </Stack>
+//           </Stack>
+//         </Box>
+//       </Container>
+//     </Box>
+//   );
+// };
+
+// export default PreviousMeetings;
