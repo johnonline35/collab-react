@@ -51,10 +51,10 @@ export default function CollabPageSettings({
             {/* *pl='20px' pr='20px' pb='20px' */}
             <Card p='20px'>
               <List>
-                <ListItem fontSize='xl' fontWeight='bold'>
+                {/* <ListItem fontSize='xl' fontWeight='bold'>
                   <ListIcon as={FiSettings} color='black' boxSize='24px' />
                   Settings for <Text as='b'>{customerName}</Text>
-                </ListItem>
+                </ListItem> */}
                 <CollabWorkspaceSettings
                   customerName={customerName}
                   handleCustomerNameChange={handleCustomerNameChange}
