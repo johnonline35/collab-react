@@ -120,4 +120,4 @@ const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
   );
 };
 
-// export default PreviousMeetings;
+export default PreviousMeetings;
