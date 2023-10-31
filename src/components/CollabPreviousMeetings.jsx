@@ -14,7 +14,12 @@ import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
-const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
+export default function PreviousMeetings({
+  meetings,
+  workspace_id,
+  customerName,
+  notes,
+}) {
   const [meetingsNotes, setMeetingsNotes] = useState([]);
   useEffect(() => {
     const mergedArray = meetings.map((meeting) => {
@@ -118,6 +123,4 @@ const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
       </Container>
     </Box>
   );
-};
-
-export default PreviousMeetings;
+}

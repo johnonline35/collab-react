@@ -5,13 +5,14 @@ import { debounce } from "lodash";
 
 export function LocalStoragePlugin() {
   const [editor] = useLexicalComposerContext();
-  const { workspace_id } = useParams();
+  const { workspace_id, collab_user_note_id } = useParams();
 
   const saveContent = useCallback(
     function (content) {
-      localStorage.setItem(workspace_id, content);
+      const localStorageKey = `content_${workspace_id}_${collab_user_note_id}`;
+      localStorage.setItem(localStorageKey, content);
     },
-    [workspace_id]
+    [workspace_id, collab_user_note_id]
   );
 
   const debouncedSaveContent = debounce(saveContent, 100);
@@ -35,7 +36,7 @@ export function LocalStoragePlugin() {
         debouncedSaveContent(serializedState);
       }
     );
-  }, [debouncedSaveContent, editor, workspace_id]);
+  }, [debouncedSaveContent, editor, workspace_id, collab_user_note_id]);
 
   return null;
 }
