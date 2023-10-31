@@ -51,6 +51,10 @@ export function LocalStoragePlugin() {
   const debouncedSaveContent = debounce(saveContent, 100);
 
   useEffect(() => {
+    if (!collab_user_note_id) {
+      console.log("collab_user_note_id is not available");
+      return;
+    }
     return editor.registerUpdateListener(
       ({ editorState, dirtyElements, dirtyLeaves }) => {
         // Don't update if nothing changed
