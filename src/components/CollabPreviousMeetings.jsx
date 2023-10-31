@@ -15,6 +15,7 @@ import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
 const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
+  const [meetingsNotes, setMeetingsNotes] = useState([]);
   useEffect(() => {
     const mergedArray = meetings.map((meeting) => {
       const note = notes.find((n) => n.meeting_id === meeting.id);
@@ -24,8 +25,16 @@ const PreviousMeetings = ({ meetings, workspace_id, customerName, notes }) => {
       };
     });
 
-    console.log({ mergedArray: mergedArray });
+    setMeetingsNotes(mergedArray);
   }, [meetings, notes]);
+
+  useEffect(() => {
+    if (!meetingsNotes) {
+      return;
+    }
+
+    console.log({ meetingsNotes: meetingsNotes });
+  }, [meetingsNotes]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
