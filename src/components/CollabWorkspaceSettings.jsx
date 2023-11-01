@@ -62,10 +62,10 @@ export const CollabWorkspaceSettings = ({
         <Box
           bg='bg-surface'
           borderRadius='lg'
-          p={{
-            base: "4",
-            md: "6",
-          }}
+          // p={{
+          //   base: "4",
+          //   md: "6",
+          // }}
         >
           <Stack spacing='5' divider={<StackDivider />}>
             <Stack spacing='1'>
