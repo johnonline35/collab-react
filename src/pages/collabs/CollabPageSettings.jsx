@@ -49,7 +49,7 @@ export default function CollabPageSettings({
             gap='6'
           >
             {/* *pl='20px' pr='20px' pb='20px' */}
-            <Card p='12px'>
+            <Card p='5px'>
               <List>
                 {/* <ListItem fontSize='xl' fontWeight='bold'>
                   <ListIcon as={FiSettings} color='black' boxSize='24px' />
