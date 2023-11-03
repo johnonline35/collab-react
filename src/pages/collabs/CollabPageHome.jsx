@@ -477,17 +477,17 @@ export default function CollabPageHome() {
     });
   };
 
-  const getSupabaseData = async () => {
-    const { data, error } = await supabase
-      .from("collab_users")
-      .select("*, workspaces(*)");
+  // const getSupabaseData = async () => {
+  //   const { data, error } = await supabase
+  //     .from("collab_users")
+  //     .select("*, workspaces(*)");
 
-    if (error) {
-      console.log(error);
-    }
+  //   if (error) {
+  //     console.log(error);
+  //   }
 
-    console.log("Different log:", data);
-  };
+  //   console.log("Different log:", data);
+  // };
 
   const fetchPublicEmailDomains = async () => {
     const { data, error } = await supabase
@@ -520,7 +520,7 @@ export default function CollabPageHome() {
   useEffect(() => {
     setLoadingToggle(true);
     getEmailLinkStateAndName();
-    getSupabaseData();
+    // getSupabaseData();
   }, []);
 
   // useEffect(() => {
