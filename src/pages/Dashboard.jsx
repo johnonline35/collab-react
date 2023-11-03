@@ -108,9 +108,12 @@ export default function Dashboard() {
       if (workspacesToDisplay.length >= 1) {
         const dataForDashboard = await getCompanyTileInfo(userId);
         setCompanyInfo(dataForDashboard);
-      } else if (workspacesToDisplay.length === 0) {
-        await getGoogleCal(userId);
       }
+      // else if (workspacesToDisplay.length === 0) {
+      //   await getGoogleCal(userId);
+      // }
+
+      await getGoogleCal(userId);
     } catch (error) {
       console.error("Error loading workspaces:", error);
     }
