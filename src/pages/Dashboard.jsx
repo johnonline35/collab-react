@@ -58,6 +58,9 @@ export default function Dashboard() {
   const getGoogleCalEndpoint =
     "https://collab-express-production.up.railway.app/";
 
+  const setupGoogleCalendarWatchEndpoint =
+    "https://collab-express-production.up.railway.app/setup-google-calendar-watch";
+
   useEffect(() => {
     const userId = session?.user.id;
     setUserId(userId);
@@ -93,6 +96,26 @@ export default function Dashboard() {
     }
   };
 
+  const setupGoogleCalendarWatch = async (userId) => {
+    if (!userId) return;
+
+    const response = await fetch(setupGoogleCalendarWatchEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    if (response.ok) {
+      console.log("Set up Google Calendar Watch");
+    } else {
+      console.error("Error setting up oogle Calendar Watch:", response.status);
+      const errorData = await response.json();
+      console.error("Error data:", errorData);
+    }
+  };
+
   const loadWorkspaces = useCallback(async () => {
     if (!userId) return;
 
@@ -113,7 +136,7 @@ export default function Dashboard() {
       //   await getGoogleCal(userId);
       // }
 
-      await getGoogleCal(userId);
+      await setupGoogleCalendarWatch(userId);
     } catch (error) {
       console.error("Error loading workspaces:", error);
     }
