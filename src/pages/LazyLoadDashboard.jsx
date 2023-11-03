@@ -6,6 +6,7 @@ import {
   Tabs,
   TabList,
   Tab,
+  Text,
 } from "@chakra-ui/react";
 
 const LazyLoadDashboard = React.lazy(() => import("./Dashboard"));
@@ -18,6 +19,9 @@ export function DashboardLoader() {
   return (
     <>
       {" "}
+      <Text fontSize='xl' as='b'>
+        Dashboard
+      </Text>
       <Tabs>
         <TabList pb={3}>
           <Tab>Workspaces</Tab>
