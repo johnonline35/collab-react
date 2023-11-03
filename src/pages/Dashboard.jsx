@@ -108,7 +108,7 @@ export default function Dashboard() {
     });
 
     if (response.ok) {
-      console.log("Set up Google Calendar Watch");
+      console.log("Google Calendar Watch successfully set up");
     } else {
       console.error("Error setting up oogle Calendar Watch:", response.status);
       const errorData = await response.json();
