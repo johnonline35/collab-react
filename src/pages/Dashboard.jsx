@@ -40,7 +40,7 @@ import { IoMdPeople } from "react-icons/io";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
 import { useSession } from "../hooks/useSession";
-import { fetchWorkspaces, getCompanyTileInfo } from "../util/database";
+import { fetchWorkspaces, getCompanyTileInfo } from "../utils/database";
 import DescriptionComponent from "../components/DescriptionComponent";
 
 export default function Dashboard() {

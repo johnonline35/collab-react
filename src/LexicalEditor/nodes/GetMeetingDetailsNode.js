@@ -1,7 +1,7 @@
 import { $createParagraphNode, $createTextNode } from "lexical";
 import { $createHeadingNode, $createQuoteNode } from "@lexical/rich-text";
 import { $createLinkNode } from "@lexical/link";
-import { capitalizeFirstLetterOfEachWord } from "../../util/timeAndCapitalize";
+import { capitalizeFirstLetterOfEachWord } from "../../utils/timeAndCapitalize";
 import { utcToZonedTime, format } from "date-fns-tz";
 
 function formatURL(url) {

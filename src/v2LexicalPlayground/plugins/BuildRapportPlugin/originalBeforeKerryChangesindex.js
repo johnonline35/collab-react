@@ -9,7 +9,7 @@ import {
   $getNodeByKey,
 } from "lexical";
 import { useEffect, useState, useRef } from "react";
-import socket from "../../../util/socket";
+import socket from "../../../utils/socket";
 import { useSession } from "../../../hooks/useSession";
 import { $wrapNodeInElement, mergeRegister } from "@lexical/utils";
 

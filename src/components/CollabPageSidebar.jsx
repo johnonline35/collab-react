@@ -5,7 +5,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { CgWebsite } from "react-icons/cg";
 import { useSession } from "../hooks/useSession";
-import { fetchWorkspaceName } from "../util/database";
+import { fetchWorkspaceName } from "../utils/database";
 
 export default function Sidebar() {
   const { workspace_id } = useParams();
