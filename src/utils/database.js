@@ -52,6 +52,10 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
     .select("*")
     .eq("meeting_id", nextMeeting.id);
 
+  attendees.forEach((attendee) => {
+    console.log({ meeting_attendees_array: attendee });
+  });
+
   // Map attendees data to gather required details
   const detailedAttendees = await Promise.all(
     attendees.map(async (attendee) => {
