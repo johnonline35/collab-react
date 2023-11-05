@@ -5,7 +5,7 @@ import {
   COMMAND_PRIORITY_HIGH,
 } from "lexical";
 import { useEffect } from "react";
-import socket from "../../../util/socket";
+import socket from "../../../utils/socket";
 import {
   $getRoot,
   $getSelection,

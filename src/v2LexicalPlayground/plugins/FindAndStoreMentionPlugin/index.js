@@ -7,7 +7,7 @@ import {
   storeNextStep,
   fetchTodoUuids,
   storeTodo,
-} from "../../../util/database";
+} from "../../../utils/database";
 
 export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const [editor] = useLexicalComposerContext();

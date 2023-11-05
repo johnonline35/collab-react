@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchLexicalMeetingData } from "../../util/database";
+import { fetchLexicalMeetingData } from "../../utils/database";
 
 export function useMeetingData(workspace_id) {
   const [meetingData, setMeetingData] = useState(null);

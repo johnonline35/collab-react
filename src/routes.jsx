@@ -22,7 +22,7 @@ import CollabPageNotes from "./pages/collabs/CollabPageNotes";
 // import { supabase } from "./supabase/clientapp";
 import { createCookie, PrivateRoute, SessionContext } from "./privateRoute";
 import { supabase } from "./supabase/clientapp";
-import { storeRefreshToken } from "./util/database";
+import { storeRefreshToken } from "./utils/database";
 
 function Router() {
   const [session, setSession] = useState(null);

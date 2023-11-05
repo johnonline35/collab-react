@@ -21,8 +21,8 @@ import {
   EditablePreview,
   EditableInput,
 } from "@chakra-ui/react";
-import { getTimeWithLocation } from "../util/timeAndCapitalize";
-import { updateAttendee } from "../util/database";
+import { getTimeWithLocation } from "../utils/timeAndCapitalize";
+import { updateAttendee } from "../utils/database";
 
 const Member = React.memo(
   ({ member, handleAttendeeCheckboxChange, attendeeIsChecked, dispatch }) => {

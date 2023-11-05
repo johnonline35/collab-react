@@ -20,7 +20,7 @@ import { supabase } from "../supabase/clientapp";
 import {
   getTimeWithLocation,
   capitalizeFirstLetterOfEachWord,
-} from "../util/timeAndCapitalize";
+} from "../utils/timeAndCapitalize";
 
 const infoReducer = (state, action) => {
   switch (action.type) {

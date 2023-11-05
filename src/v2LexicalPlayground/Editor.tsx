@@ -77,7 +77,7 @@ import CreateStructurePlugin from "./plugins/CreateStructurePlugin";
 import { useMeetingData } from "./hooks/useMeetingData";
 import { useParams } from "react-router-dom";
 import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
-import { publicEmailDomainsList } from "../util/database";
+import { publicEmailDomainsList } from "../utils/database";
 
 import FindAndStoreMentionPlugin from "./plugins/FindAndStoreMentionPlugin";
 import { useSession } from "../hooks/useSession";

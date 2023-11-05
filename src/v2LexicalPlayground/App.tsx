@@ -32,7 +32,7 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { LocalStoragePlugin } from "./plugins/LocalStoragePlugin";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchLexicalMeetingData } from "../util/database";
+import { fetchLexicalMeetingData } from "../utils/database";
 import { NoteStructureNode } from "./nodes/NoteStructureNode";
 
 function prepopulatedRichText() {
