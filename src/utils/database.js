@@ -52,10 +52,6 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
     .select("*")
     .eq("meeting_id", nextMeeting.id);
 
-  attendees.forEach((attendee) => {
-    console.log({ meeting_attendees_array: attendee });
-  });
-
   // Map attendees data to gather required details
   const detailedAttendees = await Promise.all(
     attendees.map(async (attendee) => {
@@ -65,6 +61,10 @@ export const fetchLexicalMeetingData = async (workspace_id) => {
           "attendee_name, attendee_email, attendee_job_title, attendee_linkedin, attendee_twitter, job_company_linkedin_url, job_company_twitter_url, attendee_domain, attendee_is_workspace_lead"
         )
         .eq("attendee_email", attendee.email);
+
+      detailedInfo.forEach((attendee) => {
+        console.log({ meeting_attendees_array: attendee });
+      });
 
       return detailedInfo[0]; // Assuming detailedInfo is an array and you need the first item
     })
