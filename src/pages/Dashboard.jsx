@@ -131,7 +131,7 @@ export default function Dashboard() {
       if (workspacesToDisplay.length >= 1) {
         const dataForDashboard = await getCompanyTileInfo(userId);
         setCompanyInfo(dataForDashboard);
-        await setupGoogleCalendarWatch(userId);
+        // await setupGoogleCalendarWatch(userId);
       } else if (workspacesToDisplay.length === 0) {
         await getGoogleCal(userId);
       }
