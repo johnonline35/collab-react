@@ -303,7 +303,8 @@ export default function Dashboard() {
                                     }}
                                     as={FiLink}
                                   />
-                                  {info.domain}
+                                  website
+                                  {/* {info.domain} */}
                                 </Link>
                               ) : (
                                 <Text color='black'>Personal workspace</Text>
