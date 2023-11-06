@@ -4,9 +4,9 @@ import { supabase } from "../supabase/clientapp";
 export default async function HandleDeleteAttendees(
   workspace_id,
   setAttendeeIsChecked,
-  attendeeIsChecked
+  attendeeIsChecked,
+  toast
 ) {
-  const toast = useToast();
   // First check if there is only one attendee in the workspace
   const { data, error } = await supabase
     .from("attendees")
