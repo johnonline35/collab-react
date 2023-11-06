@@ -39,8 +39,6 @@ export const AccountSwitcherButton = (props) => {
         .eq("collab_user_email", user.email)
         .single();
 
-      console.log("avatar data", data);
-
       if (data && !error) {
         setAvatar(data.collab_user_avatar_url); // Update Recoil state
         setUserName(data.collab_user_name);

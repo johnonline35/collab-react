@@ -38,6 +38,7 @@ import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
 import { ToDoList } from "../../components/TodoList";
+import HandleDeleteAttendees from "../../hooks/useHandleDeleteAttendees";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 import CollabPageNotes from "../collabs/CollabPageNotes";
@@ -734,7 +735,13 @@ export default function CollabPageHome() {
                             size='sm'
                             variant='secondary'
                             icon={<DeleteIcon />}
-                            onClick={handleDeleteAttendees}
+                            onClick={() => {
+                              HandleDeleteAttendees(
+                                workspace_id,
+                                setAttendeeIsChecked,
+                                attendeeIsChecked
+                              );
+                            }}
                           />
                         </Flex>
                       </Flex>
