@@ -38,7 +38,6 @@ import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, DeleteIcon } from "@chakra-ui/icons";
 import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
 import { ToDoList } from "../../components/TodoList";
-import HandleDeleteAttendees from "../../hooks/useHandleDeleteAttendees";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 import CollabPageNotes from "../collabs/CollabPageNotes";
