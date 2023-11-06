@@ -739,7 +739,8 @@ export default function CollabPageHome() {
                               HandleDeleteAttendees(
                                 workspace_id,
                                 setAttendeeIsChecked,
-                                attendeeIsChecked
+                                attendeeIsChecked,
+                                toast
                               );
                             }}
                           />
