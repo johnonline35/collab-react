@@ -303,7 +303,7 @@ export default function Dashboard() {
                                     }}
                                     as={FiLink}
                                   />
-                                  visit website
+                                  Visit website
                                   {/* {info.domain} */}
                                 </Link>
                               ) : (
