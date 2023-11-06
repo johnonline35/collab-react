@@ -735,14 +735,7 @@ export default function CollabPageHome() {
                             size='sm'
                             variant='secondary'
                             icon={<DeleteIcon />}
-                            onClick={() => {
-                              HandleDeleteAttendees(
-                                workspace_id,
-                                setAttendeeIsChecked,
-                                attendeeIsChecked,
-                                toast
-                              );
-                            }}
+                            onClick={handleDeleteAttendees}
                           />
                         </Flex>
                       </Flex>
