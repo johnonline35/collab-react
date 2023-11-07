@@ -15,35 +15,10 @@ import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import { MdCheckCircle } from "react-icons/md";
 
 export default function PreviousMeetings({
-  meetings,
   workspace_id,
   customerName,
-  notes,
+  meetingsNotes,
 }) {
-  const [meetingsNotes, setMeetingsNotes] = useState([]);
-  useEffect(() => {
-    if (!meetings || !notes) {
-      return;
-    }
-    const mergedArray = meetings.map((meeting) => {
-      const note = notes.find((n) => n.meeting_id === meeting.id);
-      return {
-        ...meeting,
-        ...note,
-      };
-    });
-
-    setMeetingsNotes(mergedArray);
-  }, [meetings, notes]);
-
-  useEffect(() => {
-    if (!meetingsNotes) {
-      return;
-    }
-
-    console.log({ meetingsNotes: meetingsNotes });
-  }, [meetingsNotes]);
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
