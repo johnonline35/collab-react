@@ -39,20 +39,20 @@ import { debounce } from "lodash";
 
 export function LocalStoragePlugin() {
   const [editor] = useLexicalComposerContext();
-  const { collab_user_note_id } = useParams();
+  const { workspace_id } = useParams();
 
   const saveContent = useCallback(
     function (content) {
-      localStorage.setItem(collab_user_note_id, content);
+      localStorage.setItem(workspace_id, content);
     },
-    [collab_user_note_id]
+    [workspace_id]
   );
 
   const debouncedSaveContent = debounce(saveContent, 100);
 
   useEffect(() => {
-    if (!collab_user_note_id) {
-      console.log("collab_user_note_id is not available");
+    if (!workspace_id) {
+      console.error("workspace_id is not available");
       return;
     }
     return editor.registerUpdateListener(
@@ -73,7 +73,7 @@ export function LocalStoragePlugin() {
         debouncedSaveContent(serializedState);
       }
     );
-  }, [debouncedSaveContent, editor, collab_user_note_id]);
+  }, [debouncedSaveContent, editor, workspace_id]);
 
   return null;
 }
