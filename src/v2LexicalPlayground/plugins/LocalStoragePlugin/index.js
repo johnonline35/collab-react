@@ -55,6 +55,9 @@ export function LocalStoragePlugin() {
       console.error("workspace_id is not available");
       return;
     }
+
+    console.log("LOCAL STORAGE WORKSPACE ID:", workspace_id);
+
     return editor.registerUpdateListener(
       ({ editorState, dirtyElements, dirtyLeaves }) => {
         // Don't update if nothing changed
