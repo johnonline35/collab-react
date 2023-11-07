@@ -154,86 +154,31 @@ export default function CollabPageHome() {
   }, [workspace_id, userId, session]);
 
   useEffect(() => {
-    if (!meetings || !userId || !workspace_id) {
+    if (!userId || !workspace_id) {
       return;
     }
 
-    // Map through meetings to generate an array of each meetings.meeting_id
-    const meetingIds = meetings.map((meeting) => meeting.id);
-
-    meetingIds.forEach((meetingId) => {
-      console.log({ meetingId: meetingId });
-    });
-
-    // Fetch the existing collab_users_notes for each meeting_id
     const fetchCollabUserNotes = async () => {
       const { data: collabUserNotes, error } = await supabase
         .from("collab_users_notes")
-        .select("collab_user_note_id, meeting_id")
+        .select("*")
         .eq("workspace_id", workspace_id);
-
-      collabUserNotes.forEach((note) => {
-        console.log({ collabUserNotesNOTE: note });
-      });
 
       if (error) {
-        console.error("Error fetching collab_users_notes:", error);
-        return;
-      }
-
-      // Filter out the meetingIds that do not have a matching collab_user_note_id
-      const missingMeetingIds = meetingIds.filter(
-        (meetingId) =>
-          !collabUserNotes.some(
-            (collabUserNote) => collabUserNote.meeting_id === meetingId
-          )
-      );
-
-      missingMeetingIds.forEach((missingId) => {
-        console.log({ missingMeetingId: missingId });
-      });
-
-      // For each missingMeetingId, create a new UUID and insert to the collab_users_notes table
-      for (let meetingId of missingMeetingIds) {
-        const noteUuid = uuid4();
-
-        const { data, error } = await supabase
-          .from("collab_users_notes")
-          .insert([
-            {
-              collab_user_note_id: noteUuid,
-              meeting_id: meetingId,
-              workspace_id: workspace_id,
-              collab_user_id: userId,
-            },
-          ]);
-
-        if (error) {
-          console.error("Error inserting into collab_users_notes:", error);
-          return;
-        }
-      }
-
-      // Refetch after upserting to make sure state is updated
-      const fetchedNotes = await supabase
-        .from("collab_users_notes")
-        .select("collab_user_note_id, meeting_id")
-        .in("meeting_id", meetingIds)
-        .eq("workspace_id", workspace_id);
-
-      if (fetchedNotes.data) {
-        setNotes(fetchedNotes.data);
+        console.error(error);
+      } else {
+        setNotes(collabUserNotes);
       }
     };
 
     fetchCollabUserNotes();
-  }, [workspace_id, userId, meetings]);
+  }, [workspace_id, userId]);
 
   useEffect(() => {
     if (!notes) {
       return;
     }
-    console.log({ setNotesdata: notes });
+    console.log({ NOTESdata: notes });
   }, [notes]);
 
   // These functions are used by the Next Steps List and Todo List components:
