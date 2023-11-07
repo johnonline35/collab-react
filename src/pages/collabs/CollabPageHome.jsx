@@ -167,6 +167,7 @@ export default function CollabPageHome() {
       if (error) {
         console.error(error);
       } else {
+        console.log({ collabUserNotes: collabUserNotes });
         setNotes(collabUserNotes);
       }
     };
