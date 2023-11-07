@@ -105,7 +105,7 @@ export default function PreviousMeetings({
                           <ListIcon as={MdCheckCircle} color='blue.400' />
                           <ChakraLink
                             as={ReactRouterLink}
-                            to={`/collabs/${workspace_id}/${meetingNote.collab_user_note_id}`}
+                            to={`/collabs/${workspace_id}/notes}`}
                             customerName={customerName}
                           >
                             {formattedStartDate}
