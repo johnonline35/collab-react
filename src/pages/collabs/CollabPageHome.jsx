@@ -60,6 +60,7 @@ export default function CollabPageHome() {
   const [isNextStepsLoading, setIsNextStepsLoading] = useState(true);
   const [toDoList, setToDoList] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [meetingsNotes, setMeetingsNotes] = useState([]);
   const toast = useToast();
 
   useEffect(() => {
@@ -176,11 +177,27 @@ export default function CollabPageHome() {
   }, [workspace_id, userId]);
 
   useEffect(() => {
-    if (!notes) {
+    if (!meetings || !notes) {
       return;
     }
-    console.log({ NOTESdata: notes });
-  }, [notes]);
+    const mergedArray = meetings.map((meeting) => {
+      const note = notes.find((n) => n.meeting_id === meeting.id);
+      return {
+        ...meeting,
+        ...note,
+      };
+    });
+
+    setMeetingsNotes(mergedArray);
+  }, [meetings, notes]);
+
+  useEffect(() => {
+    if (!meetingsNotes) {
+      return;
+    }
+
+    console.log({ meetingsNotes: meetingsNotes });
+  }, [meetingsNotes]);
 
   // These functions are used by the Next Steps List and Todo List components:
   const handleCheckboxChange = (id) => {
@@ -599,8 +616,7 @@ export default function CollabPageHome() {
                         </Flex>
                       </ListItem>
                       <PreviousMeetings
-                        meetings={meetings}
-                        notes={notes}
+                        meetingsNotes={meetingsNotes}
                         workspace_id={workspace_id}
                         customerName={customerName}
                       />
