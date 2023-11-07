@@ -22,6 +22,9 @@ export default function PreviousMeetings({
 }) {
   const [meetingsNotes, setMeetingsNotes] = useState([]);
   useEffect(() => {
+    if (!meetings || !notes) {
+      return;
+    }
     const mergedArray = meetings.map((meeting) => {
       const note = notes.find((n) => n.meeting_id === meeting.id);
       return {
