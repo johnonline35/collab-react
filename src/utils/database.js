@@ -1,10 +1,7 @@
 import { supabase } from "../supabase/clientapp";
 
 // Define an async function to fetch data from Supabase
-export const fetchLexicalMeetingData = async ({
-  workspace_id,
-  nextMeetingId,
-}) => {
+export const fetchLexicalMeetingData = async (workspace_id, nextMeetingId) => {
   console.log(
     "fetchLexicalMeetingData:",
     "workspace_id",
