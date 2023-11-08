@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchLexicalMeetingData } from "../../utils/database";
 import { supabase } from "../../supabase/clientapp";
 
-export function useMeetingData(workspace_id, collab_user_note_id) {
+export function useMeetingData(session, workspace_id, collab_user_note_id) {
   const [meetingData, setMeetingData] = useState(null);
 
   useEffect(() => {
@@ -22,11 +22,8 @@ export function useMeetingData(workspace_id, collab_user_note_id) {
         if (noteData) {
           const nextMeetingId = noteData.meeting_id;
 
-          // Fetch additional data based on the meeting ID
-          // console.log({ collab_users_note_id: collab_user_note_id });
-          // console.log({ nextMeetingId: nextMeetingId });
-          // console.log({ workspace_id: workspace_id });
           const meetingInfo = await fetchLexicalMeetingData(
+            session,
             workspace_id,
             nextMeetingId
           );
