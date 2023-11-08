@@ -17,7 +17,7 @@ export const fetchLexicalMeetingData = async ({
     console.error("Error getting session:", error);
     return;
   }
-
+  //
   const userEmail = data.session.user.email;
 
   // Prepare promises for concurrent fetching
