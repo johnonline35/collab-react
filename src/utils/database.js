@@ -3,11 +3,15 @@ import { supabase } from "../supabase/clientapp";
 // Define an async function to fetch data from Supabase
 export const fetchLexicalMeetingData = async ({
   workspace_id,
-  collab_users_note_id,
   nextMeetingId,
 }) => {
-  const now = new Date().toISOString(); // Get current time in ISO format
-
+  console.log(
+    "fetchLexicalMeetingData:",
+    "workspace_id",
+    workspace_id,
+    "nextMeetingId",
+    nextMeetingId
+  );
   const { data, error } = await supabase.auth.getSession();
   if (error) {
     console.error("Error getting session:", error);
