@@ -12,13 +12,13 @@ export const fetchLexicalMeetingData = async (
   //   return;
   // }
   //
-  const userEmail = session?.user.email;
 
+  const userId = session?.user?.id;
   // Prepare promises for concurrent fetching
   const collabUserPromise = supabase
     .from("collab_users")
     .select("collab_user_timezone")
-    .eq("collab_user_email", userEmail)
+    .eq("id", userId)
     .single();
 
   const workspacePromise = supabase
