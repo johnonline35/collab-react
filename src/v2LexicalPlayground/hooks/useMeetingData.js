@@ -13,7 +13,7 @@ export function useMeetingData(session, workspace_id, collab_user_note_id) {
           .from("collab_users_notes")
           .select("*")
           .eq("collab_user_note_id", collab_user_note_id)
-          .single(); // Assuming you are fetching a single item with a unique ID
+          .single();
 
         if (error) {
           throw error;
