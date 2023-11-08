@@ -4,6 +4,7 @@ import { supabase } from "../../supabase/clientapp";
 
 export function useMeetingData(workspace_id, collab_users_note_id) {
   const [meetingData, setMeetingData] = useState(null);
+  console.log({ collab_users_note_id: collab_users_note_id });
 
   useEffect(() => {
     async function fetchData() {
