@@ -12,7 +12,7 @@ export const fetchLexicalMeetingData = async (
   //   return;
   // }
   //
-  const userEmail = session.user.email;
+  const userEmail = session?.user.email;
 
   // Prepare promises for concurrent fetching
   const collabUserPromise = supabase
