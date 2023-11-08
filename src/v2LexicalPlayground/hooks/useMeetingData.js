@@ -8,7 +8,7 @@ export function useMeetingData(session, workspace_id, collab_user_note_id) {
   useEffect(() => {
     if (!session) return;
     const userId = session?.user?.id;
-    console.log({ userId: userId });
+
     async function fetchData() {
       try {
         // Fetch the note data asynchronously
@@ -26,7 +26,7 @@ export function useMeetingData(session, workspace_id, collab_user_note_id) {
           const nextMeetingId = noteData.meeting_id;
 
           const meetingInfo = await fetchLexicalMeetingData(
-            session,
+            userId,
             workspace_id,
             nextMeetingId
           );
