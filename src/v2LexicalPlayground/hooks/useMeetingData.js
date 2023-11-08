@@ -23,12 +23,11 @@ export function useMeetingData(workspace_id, collab_user_note_id) {
           const nextMeetingId = noteData.meeting_id;
 
           // Fetch additional data based on the meeting ID
-          console.log({ collab_users_note_id: collab_user_note_id });
-          console.log({ nextMeetingId: nextMeetingId });
-          console.log({ workspace_id: workspace_id });
+          // console.log({ collab_users_note_id: collab_user_note_id });
+          // console.log({ nextMeetingId: nextMeetingId });
+          // console.log({ workspace_id: workspace_id });
           const meetingInfo = await fetchLexicalMeetingData(
             workspace_id,
-            collab_user_note_id,
             nextMeetingId
           );
 
