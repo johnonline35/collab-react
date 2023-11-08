@@ -94,7 +94,11 @@ type EditorPluginProps = {
 export default function Editor(): JSX.Element {
   const { workspace_id, collab_user_note_id } = useParams();
   const session = useSession();
-  const meetingData = useMeetingData(workspace_id, collab_user_note_id);
+  const meetingData = useMeetingData(
+    session,
+    workspace_id,
+    collab_user_note_id
+  );
   const { historyState } = useSharedHistoryContext();
   const {
     settings: {

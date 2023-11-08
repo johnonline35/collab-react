@@ -1,21 +1,18 @@
 import { supabase } from "../supabase/clientapp";
 
 // Define an async function to fetch data from Supabase
-export const fetchLexicalMeetingData = async (workspace_id, nextMeetingId) => {
-  console.log(
-    "fetchLexicalMeetingData:",
-    "workspace_id",
-    workspace_id,
-    "nextMeetingId",
-    nextMeetingId
-  );
-  const { data, error } = await supabase.auth.getSession();
-  if (error) {
-    console.error("Error getting session:", error);
-    return;
-  }
+export const fetchLexicalMeetingData = async (
+  session,
+  workspace_id,
+  nextMeetingId
+) => {
+  // const { data, error } = await supabase.auth.getSession();
+  // if (error) {
+  //   console.error("Error getting session:", error);
+  //   return;
+  // }
   //
-  const userEmail = data.session.user.email;
+  const userEmail = session.user.email;
 
   // Prepare promises for concurrent fetching
   const collabUserPromise = supabase
