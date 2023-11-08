@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { supabase } from "../supabase/clientapp";
 
-// Define an async function to fetch data from Supabase
 export const fetchLexicalMeetingData = async (
   userId,
   workspace_id,

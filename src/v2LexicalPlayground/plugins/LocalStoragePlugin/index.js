@@ -37,9 +37,8 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { useParams } from "react-router-dom";
 import { debounce } from "lodash";
 
-export function LocalStoragePlugin() {
+export function LocalStoragePlugin(collab_user_note_id) {
   const [editor] = useLexicalComposerContext();
-  const { collab_user_note_id } = useParams();
 
   const saveContent = useCallback(
     function (content) {
