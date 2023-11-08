@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { fetchLexicalMeetingData } from "../../utils/database";
 import { supabase } from "../../supabase/clientapp";
 
-export function useMeetingData(workspace_id, collab_users_note_id) {
+export function useMeetingData(workspace_id, collab_user_note_id) {
   const [meetingData, setMeetingData] = useState(null);
-  console.log({ collab_users_note_id: collab_users_note_id });
+  console.log({ collab_users_note_id: collab_user_note_id });
 
   useEffect(() => {
     async function fetchData() {
@@ -13,7 +13,7 @@ export function useMeetingData(workspace_id, collab_users_note_id) {
         let { data: noteData, error } = await supabase
           .from("collab_users_notes")
           .select("*")
-          .eq("collab_user_note_id", collab_users_note_id)
+          .eq("collab_user_note_id", collab_user_note_id)
           .single(); // Assuming you are fetching a single item with a unique ID
 
         if (error) {
@@ -27,7 +27,7 @@ export function useMeetingData(workspace_id, collab_users_note_id) {
           // Fetch additional data based on the meeting ID
           const meetingInfo = await fetchLexicalMeetingData(
             workspace_id,
-            collab_users_note_id,
+            collab_user_note_id,
             nextMeetingId
           );
 
@@ -40,7 +40,7 @@ export function useMeetingData(workspace_id, collab_users_note_id) {
     }
 
     fetchData();
-  }, [workspace_id, collab_users_note_id]);
+  }, [workspace_id, collab_user_note_id]);
 
   return meetingData;
 }
