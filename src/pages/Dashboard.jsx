@@ -84,13 +84,12 @@ export default function Dashboard() {
 
     if (response.ok) {
       console.log("Got Google Cal");
-      const meetingsData = await response.json();
-      console.log("meetingsData:", meetingsData);
+      // const meetingsData = await response.json();
+      // console.log("meetingsData:", meetingsData);
 
       const dataForDashboard = await getCompanyTileInfo(userId);
       setCompanyInfo(dataForDashboard);
     } else {
-      console.error("Error getting meetings:", response.status);
       const errorData = await response.json();
       console.error("Error data:", errorData);
     }
@@ -119,14 +118,31 @@ export default function Dashboard() {
   const loadWorkspaces = useCallback(async () => {
     if (!userId) return;
 
+    const cachedWorkspacesKey = `workspaces-${userId}`;
+
     try {
-      const workspaces = await fetchWorkspaces(userId);
+      let workspacesToDisplay = [];
+      const cachedWorkspaces = sessionStorage.getItem(cachedWorkspacesKey);
 
-      console.log("workspaces before filter:", workspaces);
+      if (cachedWorkspaces) {
+        // Parse the data back into the original format
+        workspacesToDisplay = JSON.parse(cachedWorkspaces).filter(
+          (workspace) => workspace.enrich_and_display
+        );
+        console.log("Using cached workspaces");
+      } else {
+        const workspaces = await fetchWorkspaces(userId);
 
-      const workspacesToDisplay = workspaces.filter(
-        (workspace) => workspace.enrich_and_display
-      );
+        workspacesToDisplay = workspaces.filter(
+          (workspace) => workspace.enrich_and_display
+        );
+
+        // Cache the filtered workspaces in sessionStorage
+        sessionStorage.setItem(
+          cachedWorkspacesKey,
+          JSON.stringify(workspacesToDisplay)
+        );
+      }
 
       if (workspacesToDisplay.length >= 1) {
         const dataForDashboard = await getCompanyTileInfo(userId);
@@ -139,6 +155,30 @@ export default function Dashboard() {
       console.error("Error loading workspaces:", error);
     }
   }, [userId]);
+
+  // const loadWorkspaces = useCallback(async () => {
+  //   if (!userId) return;
+
+  //   try {
+  //     const workspaces = await fetchWorkspaces(userId);
+
+  //     console.log("workspaces before filter:", workspaces);
+
+  //     const workspacesToDisplay = workspaces.filter(
+  //       (workspace) => workspace.enrich_and_display
+  //     );
+
+  //     if (workspacesToDisplay.length >= 1) {
+  //       const dataForDashboard = await getCompanyTileInfo(userId);
+  //       setCompanyInfo(dataForDashboard);
+  //       // await setupGoogleCalendarWatch(userId);
+  //     } else if (workspacesToDisplay.length === 0) {
+  //       await getGoogleCal(userId);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error loading workspaces:", error);
+  //   }
+  // }, [userId]);
 
   useEffect(() => {
     if (userId) {
