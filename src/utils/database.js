@@ -1,9 +1,13 @@
 import { supabase } from "../supabase/clientapp";
 
-export const fetchLexicalMeetingData = async (
+// Define an async function to fetch data from Supabase
+export const fetchLexicalMeetingData = async ({
   workspace_id,
-  collab_users_note_id
-) => {
+  collab_users_note_id,
+  nextMeetingId,
+}) => {
+  const now = new Date().toISOString(); // Get current time in ISO format
+
   const { data, error } = await supabase.auth.getSession();
   if (error) {
     console.error("Error getting session:", error);
@@ -24,23 +28,15 @@ export const fetchLexicalMeetingData = async (
     .select("workspace_name")
     .eq("workspace_id", workspace_id);
 
-  const notesPromise = supabase
-    .from("collab_users_notes")
-    .select("*")
-    .eq("collab_users_note_id", collab_users_note_id);
-
-  const nextMeeting = notes.data[0];
-  const nextMeetingId = nextMeeting.meeting_id;
-
   const meetingsPromise = supabase
     .from("meetings")
     .select("*")
     .eq("id", nextMeetingId);
 
-  const [collabUser, workspaces, notes] = await Promise.all([
+  const [collabUser, workspaces, meetings] = await Promise.all([
     collabUserPromise,
     workspacePromise,
-    notesPromise,
+    meetingsPromise,
   ]);
 
   // Check if meetings is empty or undefined
@@ -49,11 +45,14 @@ export const fetchLexicalMeetingData = async (
     return; // or handle this situation as needed
   }
 
+  const nextMeeting = meetings.data[0];
+  const nextMeetingDate = nextMeeting.start_dateTime;
+
   // Fetch meeting attendees using meetings.id
   let { data: attendees } = await supabase
     .from("meeting_attendees")
     .select("*")
-    .eq("meeting_id", nextMeetingId);
+    .eq("meeting_id", nextMeeting.id);
 
   // Map attendees data to gather required details
   const detailedAttendees = await Promise.all(
@@ -85,89 +84,6 @@ export const fetchLexicalMeetingData = async (
 
   return [meetingDetails]; // Assuming you want an array containing the next meeting details
 };
-
-// Define an async function to fetch data from Supabase
-// export const fetchLexicalMeetingData = async (workspace_id) => {
-//   const now = new Date().toISOString(); // Get current time in ISO format
-
-//   const { data, error } = await supabase.auth.getSession();
-//   if (error) {
-//     console.error("Error getting session:", error);
-//     return;
-//   }
-
-//   const userEmail = data.session.user.email;
-
-//   // Prepare promises for concurrent fetching
-//   const collabUserPromise = supabase
-//     .from("collab_users")
-//     .select("collab_user_timezone")
-//     .eq("collab_user_email", userEmail)
-//     .single();
-
-//   const workspacePromise = supabase
-//     .from("workspaces")
-//     .select("workspace_name")
-//     .eq("workspace_id", workspace_id);
-
-//   const meetingsPromise = supabase
-//     .from("meetings")
-//     .select("*")
-//     .eq("workspace_id", workspace_id)
-//     .gte("start_dateTime", now)
-//     .order("start_dateTime", { ascending: true });
-
-//   const [collabUser, workspaces, meetings] = await Promise.all([
-//     collabUserPromise,
-//     workspacePromise,
-//     meetingsPromise,
-//   ]);
-
-//   // Check if meetings is empty or undefined
-//   if (!meetings.data || meetings.data.length === 0) {
-//     console.log("No meetings found for workspace_id:", workspace_id);
-//     return; // or handle this situation as needed
-//   }
-
-//   const nextMeeting = meetings.data[0];
-//   const nextMeetingDate = nextMeeting.start_dateTime;
-
-//   // Fetch meeting attendees using meetings.id
-//   let { data: attendees } = await supabase
-//     .from("meeting_attendees")
-//     .select("*")
-//     .eq("meeting_id", nextMeeting.id);
-
-//   // Map attendees data to gather required details
-//   const detailedAttendees = await Promise.all(
-//     attendees.map(async (attendee) => {
-//       let { data: detailedInfo } = await supabase
-//         .from("attendees")
-//         .select(
-//           "attendee_name, attendee_email, attendee_job_title, attendee_linkedin, attendee_twitter, job_company_linkedin_url, job_company_twitter_url, attendee_domain, attendee_is_workspace_lead"
-//         )
-//         .eq("attendee_email", attendee.email);
-
-//       detailedInfo.forEach((attendee) => {
-//         console.log({ meeting_attendees_array: attendee });
-//       });
-
-//       return detailedInfo[0]; // Assuming detailedInfo is an array and you need the first item
-//     })
-//   );
-
-//   // Construct meeting data object
-//   const meetingDetails = {
-//     workspaceName: workspaces.data[0].workspace_name,
-//     nextMeetingDate: nextMeetingDate,
-//     attendees: detailedAttendees,
-//     user_timezone: collabUser.data.collab_user_timezone,
-//   };
-
-//   console.log("meetingDetails:", meetingDetails);
-
-//   return [meetingDetails]; // Assuming you want an array containing the next meeting details
-// };
 
 export const updateAttendee = async (id, updates) => {
   const { data, error } = await supabase
