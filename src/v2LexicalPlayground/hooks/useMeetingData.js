@@ -16,7 +16,11 @@ export function useMeetingData(workspace_id, collab_users_note_id) {
 
     console.log({ nextMeetingId: nextMeetingId });
 
-    fetchLexicalMeetingData(workspace_id, collab_users_note_id).then((data) => {
+    fetchLexicalMeetingData(
+      workspace_id,
+      collab_users_note_id,
+      nextMeetingId
+    ).then((data) => {
       setMeetingData(data);
     });
   }, [workspace_id, collab_users_note_id]);
