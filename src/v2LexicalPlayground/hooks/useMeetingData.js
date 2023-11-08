@@ -6,6 +6,9 @@ export function useMeetingData(session, workspace_id, collab_user_note_id) {
   const [meetingData, setMeetingData] = useState(null);
 
   useEffect(() => {
+    if (!session) return;
+    const userId = session?.user?.id;
+    console.log({ userId: userId });
     async function fetchData() {
       try {
         // Fetch the note data asynchronously
@@ -37,7 +40,7 @@ export function useMeetingData(session, workspace_id, collab_user_note_id) {
     }
 
     fetchData();
-  }, [workspace_id, collab_user_note_id]);
+  }, [session, workspace_id, collab_user_note_id]);
 
   return meetingData;
 }
