@@ -13,7 +13,7 @@ export function useMeetingData(workspace_id, collab_users_note_id) {
         let { data: noteData, error } = await supabase
           .from("collab_users_notes")
           .select("*")
-          .eq("collab_users_note_id", collab_users_note_id)
+          .eq("collab_user_note_id", collab_users_note_id)
           .single(); // Assuming you are fetching a single item with a unique ID
 
         if (error) {
