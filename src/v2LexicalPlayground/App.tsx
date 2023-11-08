@@ -116,11 +116,11 @@ function prepopulatedRichText() {
 }
 
 function App(): JSX.Element {
-  const { workspace_id } = useParams();
+  const { workspace_id, collab_user_note_id } = useParams();
   const {
     settings: { isCollab, emptyEditor, measureTypingPerf },
   } = useSettings();
-  const content = localStorage.getItem(workspace_id!);
+  const content = localStorage.getItem(collab_user_note_id!);
 
   const initialConfig = {
     editorState: content,
@@ -142,7 +142,7 @@ function App(): JSX.Element {
             </div>
             <div className='editor-shell'>
               <Editor />
-              <LocalStoragePlugin />
+              <LocalStoragePlugin collab_user_note_id={collab_user_note_id} />
             </div>
             {/* <Settings />
             {isDevPlayground ? <DocsPlugin /> : null}
