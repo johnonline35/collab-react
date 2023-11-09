@@ -120,30 +120,32 @@ export default function Dashboard() {
 
     const cachedWorkspacesKey = `workspaces-${userId}`;
 
-    try {
-      let workspacesToDisplay = [];
-      const cachedWorkspaces = sessionStorage.getItem(cachedWorkspacesKey);
-
-      if (cachedWorkspaces) {
-        // Parse the data back into the original format
-        workspacesToDisplay = JSON.parse(cachedWorkspaces).filter(
-          (workspace) => workspace.enrich_and_display
-        );
-        console.log("Using cached workspaces");
-      } else {
-        const workspaces = await fetchWorkspaces(userId);
-
-        workspacesToDisplay = workspaces.filter(
-          (workspace) => workspace.enrich_and_display
-        );
-
-        // Cache the filtered workspaces in sessionStorage
-        sessionStorage.setItem(
-          cachedWorkspacesKey,
-          JSON.stringify(workspacesToDisplay)
-        );
+    // Immediately use cached data for a faster initial display
+    const cachedWorkspaces = sessionStorage.getItem(cachedWorkspacesKey);
+    if (cachedWorkspaces) {
+      const workspacesFromCache = JSON.parse(cachedWorkspaces).filter(
+        (workspace) => workspace.enrich_and_display
+      );
+      if (workspacesFromCache.length) {
+        console.log("Using cached workspaces for initial display");
+        setCompanyInfo(workspacesFromCache); // Assuming setCompanyInfo is used to update the state
       }
+    }
 
+    try {
+      // Always fetch the latest workspaces from the API
+      const workspaces = await fetchWorkspaces(userId);
+      const workspacesToDisplay = workspaces.filter(
+        (workspace) => workspace.enrich_and_display
+      );
+
+      // Update sessionStorage with the latest data
+      sessionStorage.setItem(
+        cachedWorkspacesKey,
+        JSON.stringify(workspacesToDisplay)
+      );
+
+      // Update the state with the latest data
       if (workspacesToDisplay.length >= 1) {
         const dataForDashboard = await getCompanyTileInfo(userId);
         setCompanyInfo(dataForDashboard);
