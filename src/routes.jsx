@@ -59,7 +59,7 @@ function Router() {
             path='/collabs/:workspace_id'
             element={
               <PrivateRoute>
-                <CollabPageHome />
+                <CollabPageHome session={session} />
               </PrivateRoute>
             }
           />
@@ -121,61 +121,3 @@ function Router() {
 }
 
 export default Router;
-{
-  /* <Route
-            path='/collabs/:workspace_id/notes'
-            element={<CollabPageNotes />}
-          /> */
-}
-{
-  /* <Route
-            path='/collabs/:workspace_id/journey'
-            element={<CollabPageJourney />}
-          />
-
-          <Route
-          path='/collabs/:workspace_id/challenges'
-          element={<CollabPageChallenges />}
-        />
-        <Route
-          path='/collabs/:workspace_id/proposals'
-          element={<CollabPageProposals />}
-        />
-        <Route
-          path='/collabs/:workspace_id/currentstate'
-          element={<CollabPageCurrentState />}
-        />
-        <Route
-          path='/collabs/:workspace_id/legaldocuments'
-          element={<CollabPageLegalDocuments />}
-        />
-        <Route
-          path='/collabs/:workspace_id/pricing'
-          element={<CollabPagePricing />}
-        />
-        <Route
-          path='/collabs/:workspace_id/timeline'
-          element={<CollabPageTimeline />}
-        />
-        <Route
-          path='/collabs/:workspace_id/questions'
-          element={<CollabPageQuestions />}
-        /> */
-}
-
-{
-  /* <Route index element={<Dashboard />} /> */
-}
-{
-  /* <Route path='/newapp' element={<RootLayout />}>
-          <Route
-            index
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          
-        </Route> */
-}

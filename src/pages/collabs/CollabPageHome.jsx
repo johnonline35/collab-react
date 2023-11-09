@@ -45,9 +45,9 @@ import CollabPageSettings from "../collabs/CollabPageSettings";
 import { useSession } from "../../hooks/useSession";
 import { v4 as uuid4 } from "uuid";
 
-export default function CollabPageHome() {
+export default function CollabPageHome({ session }) {
   const { workspace_id } = useParams();
-  const session = useSession();
+  // const session = useSession();
   const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
