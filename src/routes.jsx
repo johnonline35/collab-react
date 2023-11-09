@@ -57,7 +57,7 @@ function Router() {
         <Route path='' element={<Privacy />} />
       </Route> */}
         <Route path='/termsofservice' element={<TermsOfService />} />
-        <Route path='/collabs/:workspace_id' element={<CollabPageLayout />}>
+        <Route path='/collabs/:workspace_id' element={<RootLayout />}>
           <Route
             path='/collabs/:workspace_id'
             element={
@@ -78,10 +78,10 @@ function Router() {
             path='/collabs/:workspace_id/share'
             element={<CollabPageShowcase />}
           />
-          <Route
+          {/* <Route
             path='/collabs/:workspace_id/notes'
             element={<CollabPageNotes />}
-          />
+          /> */}
           <Route
             path='/collabs/:workspace_id/:collab_user_note_id'
             element={<CollabPageNotes />}
