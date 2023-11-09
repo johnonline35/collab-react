@@ -95,9 +95,11 @@ function Router() {
   return (
     <SessionContext.Provider value={session}>
       <Routes>
+        {/*Public Routes */}
         <Route path='/' element={<Login />} />
         <Route path='/privacy' element=<Privacy /> />
         <Route path='/termsofservice' element={<TermsOfService />} />
+        {/*Private Routes */}
         <Route path='/collabs/:workspace_id' element={<RootLayout />}>
           <Route
             path='/collabs/:workspace_id'
