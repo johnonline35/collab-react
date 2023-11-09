@@ -140,15 +140,15 @@ export default function Dashboard() {
       );
 
       // Update sessionStorage with the latest data
-      sessionStorage.setItem(
-        cachedWorkspacesKey,
-        JSON.stringify(workspacesToDisplay)
-      );
 
       // Update the state with the latest data
       if (workspacesToDisplay.length >= 1) {
         const dataForDashboard = await getCompanyTileInfo(userId);
         setCompanyInfo(dataForDashboard);
+        sessionStorage.setItem(
+          cachedWorkspacesKey,
+          JSON.stringify(dataForDashboard)
+        );
         // await setupGoogleCalendarWatch(userId);
       } else if (workspacesToDisplay.length === 0) {
         await getGoogleCal(userId);
