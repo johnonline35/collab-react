@@ -482,22 +482,56 @@ export default function CollabPageHome() {
     return publicEmailDomains;
   };
 
+  // const getEmailLinkStateAndName = async () => {
+  //   const { data, error } = await supabase
+  //     .from("workspaces")
+  //     .select()
+  //     .eq("workspace_id", workspace_id);
+
+  //   setEmailLink(data[0].workspace_attendee_enable_calendar_link);
+  //   setCustomerName(data[0].workspace_name);
+
+  //   setLoadingToggle(false);
+  // };
+
   const getEmailLinkStateAndName = async () => {
-    const { data, error } = await supabase
-      .from("workspaces")
-      .select()
-      .eq("workspace_id", workspace_id);
+    const cacheKey = `customerName-${workspace_id}`;
 
-    setEmailLink(data[0].workspace_attendee_enable_calendar_link);
-    setCustomerName(data[0].workspace_name);
+    // Try to get the name from sessionStorage and set it for immediate display
+    const cachedName = sessionStorage.getItem(cacheKey);
+    if (cachedName) {
+      setCustomerName(cachedName);
+    }
 
+    try {
+      // Fetch the new data
+      const { data, error } = await supabase
+        .from("workspaces")
+        .select()
+        .eq("workspace_id", workspace_id);
+
+      if (error) {
+        throw error;
+      }
+
+      if (data && data.length > 0) {
+        setEmailLink(data[0].workspace_attendee_enable_calendar_link);
+
+        // Cache the new name and update the state
+        sessionStorage.setItem(cacheKey, data[0].workspace_name);
+        setCustomerName(data[0].workspace_name);
+      }
+    } catch (error) {
+      console.error("Error fetching workspace data:", error);
+      // Handle the error accordingly
+    }
+
+    // Finish loading
     setLoadingToggle(false);
   };
-
   useEffect(() => {
     setLoadingToggle(true);
     getEmailLinkStateAndName();
-    // getSupabaseData();
   }, []);
 
   // useEffect(() => {
