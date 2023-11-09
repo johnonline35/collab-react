@@ -53,9 +53,6 @@ function Router() {
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/privacy' element=<Privacy /> />
-        {/* <Route exact path='/privacy' element={<PrivateRoute />}>
-        <Route path='' element={<Privacy />} />
-      </Route> */}
         <Route path='/termsofservice' element={<TermsOfService />} />
         <Route path='/collabs/:workspace_id' element={<RootLayout />}>
           <Route
@@ -78,71 +75,16 @@ function Router() {
             path='/collabs/:workspace_id/share'
             element={<CollabPageShowcase />}
           />
-          {/* <Route
-            path='/collabs/:workspace_id/notes'
-            element={<CollabPageNotes />}
-          /> */}
+
           <Route
             path='/collabs/:workspace_id/:collab_user_note_id'
             element={<CollabPageNotes />}
           />
-          {/* <Route
-            path='/collabs/:workspace_id/journey'
-            element={<CollabPageJourney />}
-          />
-
-          <Route
-          path='/collabs/:workspace_id/challenges'
-          element={<CollabPageChallenges />}
-        />
-        <Route
-          path='/collabs/:workspace_id/proposals'
-          element={<CollabPageProposals />}
-        />
-        <Route
-          path='/collabs/:workspace_id/currentstate'
-          element={<CollabPageCurrentState />}
-        />
-        <Route
-          path='/collabs/:workspace_id/legaldocuments'
-          element={<CollabPageLegalDocuments />}
-        />
-        <Route
-          path='/collabs/:workspace_id/pricing'
-          element={<CollabPagePricing />}
-        />
-        <Route
-          path='/collabs/:workspace_id/timeline'
-          element={<CollabPageTimeline />}
-        />
-        <Route
-          path='/collabs/:workspace_id/questions'
-          element={<CollabPageQuestions />}
-        /> */}
           <Route
             path='/collabs/:workspace_id/files'
             element={<CollabPageAllAttachments />}
           />
         </Route>
-
-        {/* <Route index element={<Dashboard />} /> */}
-        <Route path='/newapp' element={<RootLayout />}>
-          <Route
-            index
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          {/* <Route
-          path='/dashboard/mastertodolist'
-          element={<MasterTodoList />}
-          action={createAction}
-        />
-        <Route path='/dashboard/account' element={<Account />} /> */}
-        </Route>
-
         <Route
           path='/dashboard'
           element={
@@ -179,3 +121,61 @@ function Router() {
 }
 
 export default Router;
+{
+  /* <Route
+            path='/collabs/:workspace_id/notes'
+            element={<CollabPageNotes />}
+          /> */
+}
+{
+  /* <Route
+            path='/collabs/:workspace_id/journey'
+            element={<CollabPageJourney />}
+          />
+
+          <Route
+          path='/collabs/:workspace_id/challenges'
+          element={<CollabPageChallenges />}
+        />
+        <Route
+          path='/collabs/:workspace_id/proposals'
+          element={<CollabPageProposals />}
+        />
+        <Route
+          path='/collabs/:workspace_id/currentstate'
+          element={<CollabPageCurrentState />}
+        />
+        <Route
+          path='/collabs/:workspace_id/legaldocuments'
+          element={<CollabPageLegalDocuments />}
+        />
+        <Route
+          path='/collabs/:workspace_id/pricing'
+          element={<CollabPagePricing />}
+        />
+        <Route
+          path='/collabs/:workspace_id/timeline'
+          element={<CollabPageTimeline />}
+        />
+        <Route
+          path='/collabs/:workspace_id/questions'
+          element={<CollabPageQuestions />}
+        /> */
+}
+
+{
+  /* <Route index element={<Dashboard />} /> */
+}
+{
+  /* <Route path='/newapp' element={<RootLayout />}>
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          
+        </Route> */
+}
