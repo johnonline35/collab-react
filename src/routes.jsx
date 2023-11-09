@@ -55,8 +55,8 @@ function Router() {
         <Route path='/privacy' element={<Privacy />} />
         <Route path='/termsofservice' element={<TermsOfService />} />
 
-        <Route element={<PrivateRoute />}>
-          <Route element={<RootLayout />}>
+        <Route element={<RootLayout />}>
+          <Route element={<PrivateRoute />}>
             <Route
               path='/collabs/:workspace_id'
               element={<CollabPageHome session={session} />}
@@ -77,13 +77,14 @@ function Router() {
               path='/collabs/:workspace_id/files'
               element={<CollabPageAllAttachments />}
             />
-            <Route path='/dashboard' element={<Dashboard />} />
-            <Route
-              path='/dashboard/mastertodolist'
-              element={<MasterTodoList />}
-              action={createAction}
-            />
-            <Route path='/dashboard/account' element={<Account />} />
+            <Route path='/dashboard' element={<Dashboard />}>
+              <Route
+                path='/dashboard/mastertodolist'
+                element={<MasterTodoList />}
+                action={createAction}
+              />
+              <Route path='/dashboard/account' element={<Account />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
