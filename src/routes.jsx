@@ -54,8 +54,9 @@ function Router() {
         <Route path='/' element={<Login />} />
         <Route path='/privacy' element={<Privacy />} />
         <Route path='/termsofservice' element={<TermsOfService />} />
-        <RootLayout>
-          <Route element={<PrivateRoute />}>
+
+        <Route element={<PrivateRoute />}>
+          <RootLayout>
             <Route
               path='/collabs/:workspace_id'
               element={<CollabPageHome session={session} />}
@@ -83,8 +84,8 @@ function Router() {
               action={createAction}
             />
             <Route path='/dashboard/account' element={<Account />} />
-          </Route>
-        </RootLayout>
+          </RootLayout>
+        </Route>
       </Routes>
     </SessionContext.Provider>
   );
