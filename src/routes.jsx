@@ -106,7 +106,12 @@ function Router() {
                 <CollabPageHome session={session} />
               </PrivateRoute>
             }
-          />
+          >
+            <Route
+              path='/collabs/:workspace_id/:collab_user_note_id'
+              element={<CollabPageNotes />}
+            />
+          </Route>
           <Route
             path='/collabs/:workspace_id/team'
             element={
@@ -120,10 +125,6 @@ function Router() {
             element={<CollabPageShowcase />}
           />
 
-          <Route
-            path='/collabs/:workspace_id/:collab_user_note_id'
-            element={<CollabPageNotes />}
-          />
           <Route
             path='/collabs/:workspace_id/files'
             element={<CollabPageAllAttachments />}
