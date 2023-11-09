@@ -109,7 +109,11 @@ function Router() {
           >
             <Route
               path='/collabs/:workspace_id/:collab_user_note_id'
-              element={<CollabPageNotes />}
+              element={
+                <PrivateRoute>
+                  <CollabPageNotes />
+                </PrivateRoute>
+              }
             />
           </Route>
           <Route
