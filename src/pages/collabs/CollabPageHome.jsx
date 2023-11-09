@@ -36,18 +36,13 @@ import { IoDocumentText } from "react-icons/io5";
 import { TeamMemberStack } from "../../components/TeamMemberStack";
 import { NextStepsList } from "../../components/NextStepsList";
 import { ArrowRightIcon, DeleteIcon } from "@chakra-ui/icons";
-import { CollabWorkspaceSettings } from "../../components/CollabWorkspaceSettings";
-import { ToDoList } from "../../components/TodoList";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
-import CollabPageNotes from "../collabs/CollabPageNotes";
 import CollabPageSettings from "../collabs/CollabPageSettings";
-import { useSession } from "../../hooks/useSession";
-import { v4 as uuid4 } from "uuid";
 
 export default function CollabPageHome({ session }) {
   const { workspace_id } = useParams();
-  // const session = useSession();
+
   const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
@@ -195,97 +190,6 @@ export default function CollabPageHome({ session }) {
 
     fetchAttendees();
   }, [workspace_id, userId, session]);
-
-  // useEffect(() => {
-  //   console.log("Session state has changed:", session);
-
-  //   if (!workspace_id) {
-  //     console.error("Invalid, or missing workspace_id'");
-  //     return;
-  //   }
-
-  //   if (userId) {
-  //     const fetchNextSteps = async () => {
-  //       setIsNextStepsLoading(true);
-  //       const { data, error } = await supabase
-  //         .from("collab_users_next_steps")
-  //         .select("*")
-  //         .match({
-  //           workspace_id: workspace_id,
-  //           collab_user_id: userId,
-  //         })
-  //         .neq("ignore", true);
-
-  //       if (error) {
-  //         console.error(error);
-  //       } else {
-  //         setNextSteps(data);
-  //       }
-  //       setIsNextStepsLoading(false);
-  //     };
-  //     const fetchToDos = async () => {
-  //       console.log("fetchToDos called");
-  //       if (!workspace_id) {
-  //         console.error("Invalid or missing workspace_id'");
-  //         return;
-  //       }
-
-  //       const { data, error } = await supabase
-  //         .from("collab_users_todos")
-  //         .select("*")
-  //         .match({
-  //           workspace_id: workspace_id,
-  //           collab_user_id: userId,
-  //         })
-  //         .neq("ignore", true);
-
-  //       if (error) {
-  //         console.error(error);
-  //       } else {
-  //         setToDoList(data);
-  //       }
-  //     };
-  //     fetchToDos();
-  //     fetchNextSteps();
-  //   }
-
-  //   const fetchMeetings = async () => {
-  //     try {
-  //       let { data, error } = await supabase
-  //         .from("meetings")
-  //         .select("*")
-  //         .eq("workspace_id", workspace_id)
-  //         .order('"start_dateTime"', { ascending: false });
-
-  //       if (error) {
-  //         console.error("Error fetching meetings: ", error);
-  //         return;
-  //       }
-
-  //       // console.log("Fetched meetings: ", data);
-  //       setMeetings(data);
-  //     } catch (error) {
-  //       console.error("Exception caught while fetching meetings: ", error);
-  //     }
-  //   };
-
-  //   // console.log("Workspace ID: ", workspace_id);
-  //   fetchMeetings();
-
-  //   const fetchAttendees = async () => {
-  //     const { data, error } = await supabase
-  //       .from("attendees")
-  //       .select("*")
-  //       .eq("workspace_id", workspace_id);
-
-  //     if (error) {
-  //       console.error(error);
-  //     } else {
-  //       setMembers(data);
-  //     }
-  //   };
-  //   fetchAttendees();
-  // }, [workspace_id, userId, session]);
 
   useEffect(() => {
     if (!userId || !workspace_id) {
@@ -587,18 +491,6 @@ export default function CollabPageHome({ session }) {
     });
   };
 
-  // const getSupabaseData = async () => {
-  //   const { data, error } = await supabase
-  //     .from("collab_users")
-  //     .select("*, workspaces(*)");
-
-  //   if (error) {
-  //     console.log(error);
-  //   }
-
-  //   console.log("Different log:", data);
-  // };
-
   const fetchPublicEmailDomains = async () => {
     const { data, error } = await supabase
       .from("public_email_domains")
@@ -654,10 +546,6 @@ export default function CollabPageHome({ session }) {
     setLoadingToggle(true);
     getEmailLinkStateAndName();
   }, []);
-
-  // useEffect(() => {
-  //   console.log(customerName);
-  // }, [customerName]);
 
   const handleCustomerNameChange = useCallback((value) => {
     setCustomerName(value);
