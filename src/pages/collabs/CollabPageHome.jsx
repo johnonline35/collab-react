@@ -74,85 +74,218 @@ export default function CollabPageHome() {
     if (userId) {
       const fetchNextSteps = async () => {
         setIsNextStepsLoading(true);
-        const { data, error } = await supabase
-          .from("collab_users_next_steps")
-          .select("*")
-          .match({
-            workspace_id: workspace_id,
-            collab_user_id: userId,
-          })
-          .neq("ignore", true);
 
-        if (error) {
-          console.error(error);
+        // Define a key for sessionStorage
+        const nextStepsKey = `nextSteps-${workspace_id}-${userId}`;
+        // Attempt to get cached data
+        const cachedNextSteps = sessionStorage.getItem(nextStepsKey);
+
+        if (cachedNextSteps) {
+          setNextSteps(JSON.parse(cachedNextSteps));
         } else {
-          setNextSteps(data);
+          const { data, error } = await supabase
+            .from("collab_users_next_steps")
+            .select("*")
+            .match({
+              workspace_id: workspace_id,
+              collab_user_id: userId,
+            })
+            .neq("ignore", true);
+
+          if (error) {
+            console.error(error);
+          } else {
+            // Cache the data and update state
+            sessionStorage.setItem(nextStepsKey, JSON.stringify(data));
+            setNextSteps(data);
+          }
         }
+
         setIsNextStepsLoading(false);
       };
+
       const fetchToDos = async () => {
         console.log("fetchToDos called");
-        if (!workspace_id) {
-          console.error("Invalid or missing workspace_id'");
-          return;
-        }
 
-        const { data, error } = await supabase
-          .from("collab_users_todos")
-          .select("*")
-          .match({
-            workspace_id: workspace_id,
-            collab_user_id: userId,
-          })
-          .neq("ignore", true);
+        // Define a key for sessionStorage
+        const toDosKey = `toDos-${workspace_id}-${userId}`;
+        // Attempt to get cached data
+        const cachedToDos = sessionStorage.getItem(toDosKey);
 
-        if (error) {
-          console.error(error);
+        if (cachedToDos) {
+          setToDoList(JSON.parse(cachedToDos));
         } else {
-          setToDoList(data);
+          const { data, error } = await supabase
+            .from("collab_users_todos")
+            .select("*")
+            .match({
+              workspace_id: workspace_id,
+              collab_user_id: userId,
+            })
+            .neq("ignore", true);
+
+          if (error) {
+            console.error(error);
+          } else {
+            // Cache the data and update state
+            sessionStorage.setItem(toDosKey, JSON.stringify(data));
+            setToDoList(data);
+          }
         }
       };
+
       fetchToDos();
       fetchNextSteps();
     }
 
     const fetchMeetings = async () => {
-      try {
-        let { data, error } = await supabase
-          .from("meetings")
+      // Define a key for sessionStorage
+      const meetingsKey = `meetings-${workspace_id}`;
+      // Attempt to get cached data
+      const cachedMeetings = sessionStorage.getItem(meetingsKey);
+
+      if (cachedMeetings) {
+        setMeetings(JSON.parse(cachedMeetings));
+      } else {
+        try {
+          let { data, error } = await supabase
+            .from("meetings")
+            .select("*")
+            .eq("workspace_id", workspace_id)
+            .order('"start_dateTime"', { ascending: false });
+
+          if (error) {
+            console.error("Error fetching meetings: ", error);
+            return;
+          }
+
+          // Cache the data and update state
+          sessionStorage.setItem(meetingsKey, JSON.stringify(data));
+          setMeetings(data);
+        } catch (error) {
+          console.error("Exception caught while fetching meetings: ", error);
+        }
+      }
+    };
+
+    fetchMeetings();
+    const fetchAttendees = async () => {
+      // Define a key for sessionStorage
+      const attendeesKey = `attendees-${workspace_id}`;
+      // Attempt to get cached data
+      const cachedAttendees = sessionStorage.getItem(attendeesKey);
+
+      if (cachedAttendees) {
+        setMembers(JSON.parse(cachedAttendees));
+      } else {
+        const { data, error } = await supabase
+          .from("attendees")
           .select("*")
-          .eq("workspace_id", workspace_id)
-          .order('"start_dateTime"', { ascending: false });
+          .eq("workspace_id", workspace_id);
 
         if (error) {
-          console.error("Error fetching meetings: ", error);
-          return;
+          console.error(error);
+        } else {
+          // Cache the data and update state
+          sessionStorage.setItem(attendeesKey, JSON.stringify(data));
+          setMembers(data);
         }
-
-        // console.log("Fetched meetings: ", data);
-        setMeetings(data);
-      } catch (error) {
-        console.error("Exception caught while fetching meetings: ", error);
       }
     };
 
-    // console.log("Workspace ID: ", workspace_id);
-    fetchMeetings();
-
-    const fetchAttendees = async () => {
-      const { data, error } = await supabase
-        .from("attendees")
-        .select("*")
-        .eq("workspace_id", workspace_id);
-
-      if (error) {
-        console.error(error);
-      } else {
-        setMembers(data);
-      }
-    };
     fetchAttendees();
   }, [workspace_id, userId, session]);
+
+  // useEffect(() => {
+  //   console.log("Session state has changed:", session);
+
+  //   if (!workspace_id) {
+  //     console.error("Invalid, or missing workspace_id'");
+  //     return;
+  //   }
+
+  //   if (userId) {
+  //     const fetchNextSteps = async () => {
+  //       setIsNextStepsLoading(true);
+  //       const { data, error } = await supabase
+  //         .from("collab_users_next_steps")
+  //         .select("*")
+  //         .match({
+  //           workspace_id: workspace_id,
+  //           collab_user_id: userId,
+  //         })
+  //         .neq("ignore", true);
+
+  //       if (error) {
+  //         console.error(error);
+  //       } else {
+  //         setNextSteps(data);
+  //       }
+  //       setIsNextStepsLoading(false);
+  //     };
+  //     const fetchToDos = async () => {
+  //       console.log("fetchToDos called");
+  //       if (!workspace_id) {
+  //         console.error("Invalid or missing workspace_id'");
+  //         return;
+  //       }
+
+  //       const { data, error } = await supabase
+  //         .from("collab_users_todos")
+  //         .select("*")
+  //         .match({
+  //           workspace_id: workspace_id,
+  //           collab_user_id: userId,
+  //         })
+  //         .neq("ignore", true);
+
+  //       if (error) {
+  //         console.error(error);
+  //       } else {
+  //         setToDoList(data);
+  //       }
+  //     };
+  //     fetchToDos();
+  //     fetchNextSteps();
+  //   }
+
+  //   const fetchMeetings = async () => {
+  //     try {
+  //       let { data, error } = await supabase
+  //         .from("meetings")
+  //         .select("*")
+  //         .eq("workspace_id", workspace_id)
+  //         .order('"start_dateTime"', { ascending: false });
+
+  //       if (error) {
+  //         console.error("Error fetching meetings: ", error);
+  //         return;
+  //       }
+
+  //       // console.log("Fetched meetings: ", data);
+  //       setMeetings(data);
+  //     } catch (error) {
+  //       console.error("Exception caught while fetching meetings: ", error);
+  //     }
+  //   };
+
+  //   // console.log("Workspace ID: ", workspace_id);
+  //   fetchMeetings();
+
+  //   const fetchAttendees = async () => {
+  //     const { data, error } = await supabase
+  //       .from("attendees")
+  //       .select("*")
+  //       .eq("workspace_id", workspace_id);
+
+  //     if (error) {
+  //       console.error(error);
+  //     } else {
+  //       setMembers(data);
+  //     }
+  //   };
+  //   fetchAttendees();
+  // }, [workspace_id, userId, session]);
 
   useEffect(() => {
     if (!userId || !workspace_id) {
@@ -481,18 +614,6 @@ export default function CollabPageHome() {
 
     return publicEmailDomains;
   };
-
-  // const getEmailLinkStateAndName = async () => {
-  //   const { data, error } = await supabase
-  //     .from("workspaces")
-  //     .select()
-  //     .eq("workspace_id", workspace_id);
-
-  //   setEmailLink(data[0].workspace_attendee_enable_calendar_link);
-  //   setCustomerName(data[0].workspace_name);
-
-  //   setLoadingToggle(false);
-  // };
 
   const getEmailLinkStateAndName = async () => {
     const cacheKey = `customerName-${workspace_id}`;
