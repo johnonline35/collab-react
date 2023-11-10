@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { EditIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Text, List, ListIcon, ListItem } from "@chakra-ui/react";
 import { NavLink, useParams } from "react-router-dom";
 import { FiHome } from "react-icons/fi";
 import { CgWebsite } from "react-icons/cg";
-import { useSession } from "../hooks/useSession";
+
+import { SessionContext } from "../privateRoute";
+
 import { fetchWorkspaceName } from "../utils/database";
 
 export default function Sidebar() {
   const { workspace_id } = useParams();
-  const session = useSession();
+  const session = useContext(SessionContext);
   const userId = session?.user.id;
   const [workspaceName, setWorkspaceName] = useState("");
 

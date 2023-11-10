@@ -36,7 +36,9 @@ import {
 } from "@chakra-ui/react";
 import { Dropzone } from "../components/Dropzone";
 import EditProfile from "../components/EditProfile";
-import { useSession } from "../hooks/useSession";
+
+import { SessionContext } from "../privateRoute";
+
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import {
@@ -49,7 +51,7 @@ export default function Account() {
   const [avatar, setAvatar] = useRecoilState(avatarState); // Use Recoil state
   const toast = useToast();
   const navigate = useNavigate();
-  const session = useSession();
+  const session = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useRecoilState(userNameState);

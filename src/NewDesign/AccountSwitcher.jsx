@@ -10,14 +10,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
-import { useSession } from "../hooks/useSession";
-import { useEffect, useState } from "react";
+import { SessionContext } from "../privateRoute";
+import { useEffect, useState, useContext } from "react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 
 export const AccountSwitcher = () => {
   const [email, setEmail] = useState();
-  const session = useSession();
+  const session = useContext(SessionContext);
   const navigate = useNavigate();
   const toast = useToast();
 

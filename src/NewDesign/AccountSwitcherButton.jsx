@@ -7,9 +7,11 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { HiSelector } from "react-icons/hi";
-import { useSession } from "../hooks/useSession";
+
+import { SessionContext } from "../privateRoute";
+
 import { supabase } from "../supabase/clientapp";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useRecoilState } from "recoil";
 import {
   avatarState,
@@ -21,7 +23,7 @@ export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
   const [avatar, setAvatar] = useRecoilState(avatarState);
 
-  const session = useSession();
+  const session = useContext(SessionContext);
 
   const [userName, setUserName] = useRecoilState(userNameState);
   const [companyName, setCompanyName] = useRecoilState(companyNameState);
