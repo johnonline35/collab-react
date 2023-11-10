@@ -53,41 +53,45 @@ function Router() {
       <Routes>
         {/*Public Routes */}
         <Route path='/' element={<Login />} />
-        <Route path='/privacy' element={<Privacy />} />
+        <Route path='/privacy' element=<Privacy /> />
         <Route path='/termsofservice' element={<TermsOfService />} />
-
         {/*Private Routes */}
-        <Route path='/collabs' element={<RootLayout />}>
+        <Route path='/collabs/:workspace_id' element={<RootLayout />}>
           <Route
-            path=':workspace_id'
+            path='/collabs/:workspace_id'
             element={
               <PrivateRoute>
                 <CollabPageHome session={session} />
               </PrivateRoute>
             }
-          >
-            {/* Nested route for CollabPageNotes inside CollabPageHome */}
-            <Route
-              path=':collab_user_note_id'
-              element={
-                <PrivateRoute>
-                  <CollabPageNotes />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path='team'
-              element={
-                <PrivateRoute>
-                  <CollabPageTeam />
-                </PrivateRoute>
-              }
-            />
-            <Route path='share' element={<CollabPageShowcase />} />
-            <Route path='files' element={<CollabPageAllAttachments />} />
-          </Route>
-        </Route>
+          />
+          <Route
+            path='/collabs/:workspace_id/:collab_user_note_id'
+            element={
+              <PrivateRoute>
+                <CollabPageNotes />
+              </PrivateRoute>
+            }
+          />
 
+          <Route
+            path='/collabs/:workspace_id/team'
+            element={
+              <PrivateRoute>
+                <CollabPageTeam />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/collabs/:workspace_id/share'
+            element={<CollabPageShowcase />}
+          />
+
+          <Route
+            path='/collabs/:workspace_id/files'
+            element={<CollabPageAllAttachments />}
+          />
+        </Route>
         <Route
           path='/dashboard'
           element={
@@ -105,12 +109,12 @@ function Router() {
             }
           />
           <Route
-            path='mastertodolist'
+            path='/dashboard/mastertodolist'
             element={<MasterTodoList />}
             action={createAction}
           />
           <Route
-            path='account'
+            path='/dashboard/account'
             element={
               <PrivateRoute>
                 <Account />
@@ -124,84 +128,3 @@ function Router() {
 }
 
 export default Router;
-
-//   return (
-//     <SessionContext.Provider value={session}>
-//       <Routes>
-//         {/*Public Routes */}
-//         <Route path='/' element={<Login />} />
-//         <Route path='/privacy' element=<Privacy /> />
-//         <Route path='/termsofservice' element={<TermsOfService />} />
-//         {/*Private Routes */}
-//         <Route path='/collabs/:workspace_id' element={<RootLayout />}>
-//           <Route
-//             path='/collabs/:workspace_id'
-//             element={
-//               <PrivateRoute>
-//                 <CollabPageHome session={session} />
-//               </PrivateRoute>
-//             }
-//           />
-//           <Route
-//             path='/collabs/:workspace_id/:collab_user_note_id'
-//             element={
-//               <PrivateRoute>
-//                 <CollabPageNotes />
-//               </PrivateRoute>
-//             }
-//           />
-
-//           <Route
-//             path='/collabs/:workspace_id/team'
-//             element={
-//               <PrivateRoute>
-//                 <CollabPageTeam />
-//               </PrivateRoute>
-//             }
-//           />
-//           <Route
-//             path='/collabs/:workspace_id/share'
-//             element={<CollabPageShowcase />}
-//           />
-
-//           <Route
-//             path='/collabs/:workspace_id/files'
-//             element={<CollabPageAllAttachments />}
-//           />
-//         </Route>
-//         <Route
-//           path='/dashboard'
-//           element={
-//             <PrivateRoute>
-//               <RootLayout />
-//             </PrivateRoute>
-//           }
-//         >
-//           <Route
-//             index
-//             element={
-//               <PrivateRoute>
-//                 <Dashboard />
-//               </PrivateRoute>
-//             }
-//           />
-//           <Route
-//             path='/dashboard/mastertodolist'
-//             element={<MasterTodoList />}
-//             action={createAction}
-//           />
-//           <Route
-//             path='/dashboard/account'
-//             element={
-//               <PrivateRoute>
-//                 <Account />
-//               </PrivateRoute>
-//             }
-//           />
-//         </Route>
-//       </Routes>
-//     </SessionContext.Provider>
-//   );
-// }
-
-// export default Router;
