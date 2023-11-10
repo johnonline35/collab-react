@@ -797,9 +797,6 @@ export default function CollabPageHome({ session }) {
             </Stack>
           </TabPanel>
           <TabPanel>
-            <Outlet />
-          </TabPanel>
-          <TabPanel>
             <CollabPageSettings
               customerName={customerName}
               handleCustomerNameChange={handleCustomerNameChange}
@@ -809,6 +806,9 @@ export default function CollabPageHome({ session }) {
               loadingToggle={loadingToggle}
               workspace_id={workspace_id}
             />
+          </TabPanel>
+          <TabPanel>
+            <Outlet />
           </TabPanel>
         </TabPanels>
       </Tabs>
