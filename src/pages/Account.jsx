@@ -169,7 +169,7 @@ export default function Account() {
           >
             <Box>
               <Text color='muted' fontSize='sm'>
-                This information is displayed on your Collab 'Share Page'
+                This information is displayed on your Collab Space
               </Text>
             </Box>
           </Stack>
