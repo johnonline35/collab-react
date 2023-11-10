@@ -19,7 +19,7 @@ import {
   TabPanel,
 } from "@chakra-ui/react";
 
-import { useParams } from "react-router-dom";
+import { useParams, Outlet } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase/clientapp";
 import {
@@ -607,6 +607,7 @@ export default function CollabPageHome({ session }) {
           <Tab>Overview</Tab>
           {/* <Tab>Notes</Tab> */}
           <Tab>Settings</Tab>
+          <Tab>Doc</Tab>
         </TabList>
         <TabIndicator
           mt='-1.5px'
@@ -795,9 +796,9 @@ export default function CollabPageHome({ session }) {
       </Card> */}
             </Stack>
           </TabPanel>
-          {/* <TabPanel>
-            <CollabPageNotes />
-          </TabPanel> */}
+          <TabPanel>
+            <Outlet />
+          </TabPanel>
           <TabPanel>
             <CollabPageSettings
               customerName={customerName}
