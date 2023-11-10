@@ -131,36 +131,32 @@ function Router() {
         <Route path='/privacy' element={<Privacy />} />
         <Route path='/termsofservice' element={<TermsOfService />} />
 
-        {/* Wrap PrivateRoute and RootLayout around the child routes */}
-        <Route
-          element={
-            <PrivateRoute>
-              <RootLayout />
-            </PrivateRoute>
-          }
-        >
-          {/* Child routes for /collabs */}
-          <Route
-            path='collabs/:workspace_id'
-            element={<CollabPageHome session={session} />}
-          >
-            <Route path=':collab_user_note_id' element={<CollabPageNotes />} />
-            <Route path='team' element={<CollabPageTeam />} />
-            <Route path='share' element={<CollabPageShowcase />} />
-            <Route path='files' element={<CollabPageAllAttachments />} />
-          </Route>
+        {/* RootLayout as the common layout component */}
+        <Route element={<RootLayout />}>
+          {/* Private routes that require authentication */}
+          <Route element={<PrivateRoute />}>
+            <Route path='collabs/:workspace_id' element={<CollabPageHome />}>
+              <Route
+                path=':collab_user_note_id'
+                element={<CollabPageNotes />}
+              />
+              <Route path='team' element={<CollabPageTeam />} />
+              <Route path='share' element={<CollabPageShowcase />} />
+              <Route path='files' element={<CollabPageAllAttachments />} />
+              {/* ... more nested routes if needed */}
+            </Route>
 
-          {/* Child routes for /dashboard */}
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route
-            path='dashboard/mastertodolist'
-            element={<MasterTodoList />}
-            action={createAction}
-          />
-          <Route path='dashboard/account' element={<Account />} />
+            <Route path='dashboard' element={<Dashboard />}>
+              <Route index element={<Dashboard />} />
+              <Route path='mastertodolist' element={<MasterTodoList />} />
+              <Route path='account' element={<Account />} />
+              {/* ... more nested routes if needed */}
+            </Route>
+          </Route>
+          {/* ... more routes that use RootLayout */}
         </Route>
 
-        {/* Define any other routes that do not share the RootLayout outside of this group */}
+        {/* ... other routes that don't use RootLayout */}
       </Routes>
     </SessionContext.Provider>
   );
