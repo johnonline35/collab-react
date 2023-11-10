@@ -28,7 +28,7 @@ import {
   Image,
   Icon,
 } from "@chakra-ui/react";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
@@ -39,7 +39,9 @@ import { IoMdPeople } from "react-icons/io";
 // import { AiFillFacebook } from "react-icons/ai";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
-import { useSession } from "../hooks/useSession";
+
+import { SessionContext } from "../privateRoute";
+
 import { fetchWorkspaces, getCompanyTileInfo } from "../utils/database";
 import DescriptionComponent from "../components/DescriptionComponent";
 
@@ -53,7 +55,7 @@ export default function Dashboard() {
     setLoadedImages
   );
   const [userId, setUserId] = useState(null);
-  const session = useSession();
+  const session = useContext(SessionContext);
 
   const getGoogleCalEndpoint =
     "https://collab-express-production.up.railway.app/";
