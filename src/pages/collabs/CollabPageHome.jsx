@@ -66,130 +66,198 @@ export default function CollabPageHome({ session }) {
       return;
     }
 
+    const fetchData = async (key, supabaseQuery, setState) => {
+      // Attempt to get cached data
+      const cachedData = sessionStorage.getItem(key);
+
+      if (cachedData) {
+        setState(JSON.parse(cachedData));
+      }
+
+      // Fetch from the database
+      const { data, error } = await supabaseQuery;
+
+      if (error) {
+        console.error(error);
+      } else {
+        // Cache the new data and update state
+        sessionStorage.setItem(key, JSON.stringify(data));
+        setState(data);
+      }
+    };
+
     if (userId) {
-      const fetchNextSteps = async () => {
-        setIsNextStepsLoading(true);
+      setIsNextStepsLoading(true);
+      fetchData(
+        `nextSteps-${workspace_id}-${userId}`,
+        supabase
+          .from("collab_users_next_steps")
+          .select("*")
+          .match({ workspace_id, collab_user_id: userId })
+          .neq("ignore", true),
+        setNextSteps
+      ).finally(() => setIsNextStepsLoading(false));
 
-        // Define a key for sessionStorage
-        const nextStepsKey = `nextSteps-${workspace_id}-${userId}`;
-        // Attempt to get cached data
-        const cachedNextSteps = sessionStorage.getItem(nextStepsKey);
-
-        if (cachedNextSteps) {
-          setNextSteps(JSON.parse(cachedNextSteps));
-        } else {
-          const { data, error } = await supabase
-            .from("collab_users_next_steps")
-            .select("*")
-            .match({
-              workspace_id: workspace_id,
-              collab_user_id: userId,
-            })
-            .neq("ignore", true);
-
-          if (error) {
-            console.error(error);
-          } else {
-            // Cache the data and update state
-            sessionStorage.setItem(nextStepsKey, JSON.stringify(data));
-            setNextSteps(data);
-          }
-        }
-
-        setIsNextStepsLoading(false);
-      };
-
-      const fetchToDos = async () => {
-        console.log("fetchToDos called");
-
-        // Define a key for sessionStorage
-        const toDosKey = `toDos-${workspace_id}-${userId}`;
-        // Attempt to get cached data
-        const cachedToDos = sessionStorage.getItem(toDosKey);
-
-        if (cachedToDos) {
-          setToDoList(JSON.parse(cachedToDos));
-        } else {
-          const { data, error } = await supabase
-            .from("collab_users_todos")
-            .select("*")
-            .match({
-              workspace_id: workspace_id,
-              collab_user_id: userId,
-            })
-            .neq("ignore", true);
-
-          if (error) {
-            console.error(error);
-          } else {
-            // Cache the data and update state
-            sessionStorage.setItem(toDosKey, JSON.stringify(data));
-            setToDoList(data);
-          }
-        }
-      };
-
-      fetchToDos();
-      fetchNextSteps();
+      fetchData(
+        `toDos-${workspace_id}-${userId}`,
+        supabase
+          .from("collab_users_todos")
+          .select("*")
+          .match({ workspace_id, collab_user_id: userId })
+          .neq("ignore", true),
+        setToDoList
+      );
     }
 
-    const fetchMeetings = async () => {
-      // Define a key for sessionStorage
-      const meetingsKey = `meetings-${workspace_id}`;
-      // Attempt to get cached data
-      const cachedMeetings = sessionStorage.getItem(meetingsKey);
+    fetchData(
+      `meetings-${workspace_id}`,
+      supabase
+        .from("meetings")
+        .select("*")
+        .eq("workspace_id", workspace_id)
+        .order('"start_dateTime"', { ascending: false }),
+      setMeetings
+    );
 
-      if (cachedMeetings) {
-        setMeetings(JSON.parse(cachedMeetings));
-      } else {
-        try {
-          let { data, error } = await supabase
-            .from("meetings")
-            .select("*")
-            .eq("workspace_id", workspace_id)
-            .order('"start_dateTime"', { ascending: false });
-
-          if (error) {
-            console.error("Error fetching meetings: ", error);
-            return;
-          }
-
-          // Cache the data and update state
-          sessionStorage.setItem(meetingsKey, JSON.stringify(data));
-          setMeetings(data);
-        } catch (error) {
-          console.error("Exception caught while fetching meetings: ", error);
-        }
-      }
-    };
-
-    fetchMeetings();
-    const fetchAttendees = async () => {
-      // Define a key for sessionStorage
-      const attendeesKey = `attendees-${workspace_id}`;
-      // Attempt to get cached data
-      const cachedAttendees = sessionStorage.getItem(attendeesKey);
-
-      if (cachedAttendees) {
-        setMembers(JSON.parse(cachedAttendees));
-      } else {
-        const { data, error } = await supabase
-          .from("attendees")
-          .select("*")
-          .eq("workspace_id", workspace_id);
-
-        if (error) {
-          console.error(error);
-        } else {
-          // Cache the data and update state
-          sessionStorage.setItem(attendeesKey, JSON.stringify(data));
-          setMembers(data);
-        }
-      }
-    };
-
-    fetchAttendees();
+    fetchData(
+      `attendees-${workspace_id}`,
+      supabase.from("attendees").select("*").eq("workspace_id", workspace_id),
+      setMembers
+    );
   }, [workspace_id, userId, session]);
+
+  // useEffect(() => {
+  //   console.log("Session state has changed:", session);
+
+  //   if (!workspace_id) {
+  //     console.error("Invalid, or missing workspace_id'");
+  //     return;
+  //   }
+
+  //   if (userId) {
+  //     const fetchNextSteps = async () => {
+  //       setIsNextStepsLoading(true);
+
+  //       // Define a key for sessionStorage
+  //       const nextStepsKey = `nextSteps-${workspace_id}-${userId}`;
+  //       // Attempt to get cached data
+  //       const cachedNextSteps = sessionStorage.getItem(nextStepsKey);
+
+  //       if (cachedNextSteps) {
+  //         setNextSteps(JSON.parse(cachedNextSteps));
+  //       } else {
+  //         const { data, error } = await supabase
+  //           .from("collab_users_next_steps")
+  //           .select("*")
+  //           .match({
+  //             workspace_id: workspace_id,
+  //             collab_user_id: userId,
+  //           })
+  //           .neq("ignore", true);
+
+  //         if (error) {
+  //           console.error(error);
+  //         } else {
+  //           // Cache the data and update state
+  //           sessionStorage.setItem(nextStepsKey, JSON.stringify(data));
+  //           setNextSteps(data);
+  //         }
+  //       }
+
+  //       setIsNextStepsLoading(false);
+  //     };
+
+  //     const fetchToDos = async () => {
+  //       console.log("fetchToDos called");
+
+  //       // Define a key for sessionStorage
+  //       const toDosKey = `toDos-${workspace_id}-${userId}`;
+  //       // Attempt to get cached data
+  //       const cachedToDos = sessionStorage.getItem(toDosKey);
+
+  //       if (cachedToDos) {
+  //         setToDoList(JSON.parse(cachedToDos));
+  //       } else {
+  //         const { data, error } = await supabase
+  //           .from("collab_users_todos")
+  //           .select("*")
+  //           .match({
+  //             workspace_id: workspace_id,
+  //             collab_user_id: userId,
+  //           })
+  //           .neq("ignore", true);
+
+  //         if (error) {
+  //           console.error(error);
+  //         } else {
+  //           // Cache the data and update state
+  //           sessionStorage.setItem(toDosKey, JSON.stringify(data));
+  //           setToDoList(data);
+  //         }
+  //       }
+  //     };
+
+  //     fetchToDos();
+  //     fetchNextSteps();
+  //   }
+
+  //   const fetchMeetings = async () => {
+  //     // Define a key for sessionStorage
+  //     const meetingsKey = `meetings-${workspace_id}`;
+  //     // Attempt to get cached data
+  //     const cachedMeetings = sessionStorage.getItem(meetingsKey);
+
+  //     if (cachedMeetings) {
+  //       setMeetings(JSON.parse(cachedMeetings));
+  //     } else {
+  //       try {
+  //         let { data, error } = await supabase
+  //           .from("meetings")
+  //           .select("*")
+  //           .eq("workspace_id", workspace_id)
+  //           .order('"start_dateTime"', { ascending: false });
+
+  //         if (error) {
+  //           console.error("Error fetching meetings: ", error);
+  //           return;
+  //         }
+
+  //         // Cache the data and update state
+  //         sessionStorage.setItem(meetingsKey, JSON.stringify(data));
+  //         setMeetings(data);
+  //       } catch (error) {
+  //         console.error("Exception caught while fetching meetings: ", error);
+  //       }
+  //     }
+  //   };
+
+  //   fetchMeetings();
+  //   const fetchAttendees = async () => {
+  //     // Define a key for sessionStorage
+  //     const attendeesKey = `attendees-${workspace_id}`;
+  //     // Attempt to get cached data
+  //     const cachedAttendees = sessionStorage.getItem(attendeesKey);
+
+  //     if (cachedAttendees) {
+  //       setMembers(JSON.parse(cachedAttendees));
+  //     } else {
+  //       const { data, error } = await supabase
+  //         .from("attendees")
+  //         .select("*")
+  //         .eq("workspace_id", workspace_id);
+
+  //       if (error) {
+  //         console.error(error);
+  //       } else {
+  //         // Cache the data and update state
+  //         sessionStorage.setItem(attendeesKey, JSON.stringify(data));
+  //         setMembers(data);
+  //       }
+  //     }
+  //   };
+
+  //   fetchAttendees();
+  // }, [workspace_id, userId, session]);
 
   useEffect(() => {
     if (!userId || !workspace_id) {
