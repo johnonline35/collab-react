@@ -72,27 +72,34 @@ export default function CollabPageHome({ session }) {
   }, [location]);
 
   useEffect(() => {
-    // Extract the last part of the URL path
-    const pathSegments = location.pathname.split("/").filter(Boolean);
-    const lastSegment = pathSegments[pathSegments.length - 1];
-
-    // Set the tab index based on the last URL segment
-    if (lastSegment === "settings") {
-      setTabIndex(1); // Index of the Settings tab
-    } else if (lastSegment.match(/^\d+$/)) {
-      setTabIndex(2); // Index of the Notes tab, assuming it's a numeric ID
-    } else {
+    // Check the URL and update the tabIndex state accordingly
+    const pathSegments = location.pathname.split("/");
+    // Assuming the path is like '/collabs/:workspace_id/:collab_user_note_id'
+    if (pathSegments[2] && pathSegments[3]) {
+      // If there is a collab_user_note_id in the URL, switch to the Notes tab
+      setTabIndex(2); // Index of the Notes tab
+    } else if (pathSegments[2]) {
+      // If there is only a workspace_id in the URL, switch to the Overview tab
       setTabIndex(0); // Index of the Overview tab
     }
-  }, [location]);
+  }, [location, workspace_id]);
 
   const handleTabsChange = (index) => {
     setTabIndex(index);
-
-    if (index === 0) {
-      navigate(`/collabs/${workspace_id}`);
-    } else if (index === 1) {
-      navigate(`/collabs/${workspace_id}/settings`);
+    switch (index) {
+      case 0:
+        // Navigate to the Overview tab URL
+        navigate(`/collabs/${workspace_id}`);
+        break;
+      case 1:
+        // Navigate to the Settings tab URL (You'll need to define this)
+        navigate(`/collabs/${workspace_id}/settings`);
+        break;
+      case 2:
+        // Navigate to the Notes tab URL (This should automatically be handled by the Outlet)
+        break;
+      default:
+        break;
     }
   };
 
