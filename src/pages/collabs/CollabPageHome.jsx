@@ -61,42 +61,75 @@ export default function CollabPageHome({ session }) {
   const location = useLocation();
 
   useEffect(() => {
-    // Check the URL and update the tabIndex state accordingly
-    if (location.pathname.endsWith("settings")) {
-      setTabIndex(1);
-    } else if (location.pathname.includes("notes")) {
-      setTabIndex(2);
+    const searchParams = new URLSearchParams(location.search);
+    const tab = searchParams.get("tab");
+    const pathSegments = location.pathname.split("/").filter(Boolean); // filter(Boolean) will remove any empty strings from the array
+
+    if (tab === "settings") {
+      setTabIndex(1); // Index for the Settings tab
+    } else if (pathSegments.length > 2) {
+      // Assuming the third part of the path is the collab_user_note_id
+      setTabIndex(2); // Index for the Notes tab
     } else {
-      setTabIndex(0);
+      setTabIndex(0); // Default to the Overview tab
     }
   }, [location]);
 
-  useEffect(() => {
-    // Check the URL and update the tabIndex state accordingly
-    const pathSegments = location.pathname.split("/");
-    // Assuming the path is like '/collabs/:workspace_id/:collab_user_note_id'
-    if (pathSegments[2] && pathSegments[3]) {
-      // If there is a collab_user_note_id in the URL, switch to the Notes tab
-      setTabIndex(2); // Index of the Notes tab
-    } else if (pathSegments[2]) {
-      // If there is only a workspace_id in the URL, switch to the Overview tab
-      setTabIndex(0); // Index of the Overview tab
-    }
-  }, [location, workspace_id]);
+  // useEffect(() => {
+  //   // Check the URL and update the tabIndex state accordingly
+  //   if (location.pathname.endsWith("settings")) {
+  //     setTabIndex(1);
+  //   } else if (location.pathname.includes("notes")) {
+  //     setTabIndex(2);
+  //   } else {
+  //     setTabIndex(0);
+  //   }
+  // }, [location]);
+
+  // useEffect(() => {
+  //   // Check the URL and update the tabIndex state accordingly
+  //   const pathSegments = location.pathname.split("/");
+  //   // Assuming the path is like '/collabs/:workspace_id/:collab_user_note_id'
+  //   if (pathSegments[2] && pathSegments[3]) {
+  //     // If there is a collab_user_note_id in the URL, switch to the Notes tab
+  //     setTabIndex(2); // Index of the Notes tab
+  //   } else if (pathSegments[2]) {
+  //     // If there is only a workspace_id in the URL, switch to the Overview tab
+  //     setTabIndex(0); // Index of the Overview tab
+  //   }
+  // }, [location, workspace_id]);
+
+  // const handleTabsChange = (index) => {
+  //   setTabIndex(index);
+  //   switch (index) {
+  //     case 0:
+  //       // Navigate to the Overview tab URL
+  //       navigate(`/collabs/${workspace_id}`);
+  //       break;
+  //     case 1:
+  //       // Navigate to the Settings tab URL (You'll need to define this)
+  //       navigate(`/collabs/${workspace_id}/settings`);
+  //       break;
+  //     case 2:
+  //       // Navigate to the Notes tab URL (This should automatically be handled by the Outlet)
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // };
 
   const handleTabsChange = (index) => {
     setTabIndex(index);
     switch (index) {
       case 0:
-        // Navigate to the Overview tab URL
         navigate(`/collabs/${workspace_id}`);
         break;
       case 1:
-        // Navigate to the Settings tab URL (You'll need to define this)
-        navigate(`/collabs/${workspace_id}/settings`);
+        navigate(`/collabs/${workspace_id}?tab=settings`);
         break;
       case 2:
-        // Navigate to the Notes tab URL (This should automatically be handled by the Outlet)
+        // If the Notes tab requires specific navigation, handle it here
+        // otherwise, if it's handled by clicking on individual notes, you may not need to navigate
         break;
       default:
         break;
