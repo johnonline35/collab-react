@@ -56,6 +56,7 @@ export default function CollabPageHome({ session }) {
   const [notes, setNotes] = useState([]);
   const [meetingsNotes, setMeetingsNotes] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
+  const [showNotesTab, setShowNotesTab] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -63,12 +64,14 @@ export default function CollabPageHome({ session }) {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const tab = searchParams.get("tab");
-    const pathSegments = location.pathname.split("/").filter(Boolean); // filter(Boolean) will remove any empty strings from the array
+    const pathSegments = location.pathname.split("/").filter(Boolean);
+
+    // Set the showNotesTab state to true if the URL indicates a specific note is selected
+    setShowNotesTab(pathSegments.length > 2);
 
     if (tab === "settings") {
       setTabIndex(1); // Index for the Settings tab
     } else if (pathSegments.length > 2) {
-      // Assuming the third part of the path is the collab_user_note_id
       setTabIndex(2); // Index for the Notes tab
     } else {
       setTabIndex(0); // Default to the Overview tab
@@ -753,7 +756,7 @@ export default function CollabPageHome({ session }) {
           <Tab>Overview</Tab>
 
           <Tab>Settings</Tab>
-          <Tab>Notes</Tab>
+          {showNotesTab && <Tab>Notes</Tab>}
         </TabList>
         <TabIndicator
           mt='-1.5px'
@@ -953,9 +956,11 @@ export default function CollabPageHome({ session }) {
               workspace_id={workspace_id}
             />
           </TabPanel>
-          <TabPanel>
-            <Outlet />
-          </TabPanel>
+          {showNotesTab && (
+            <TabPanel>
+              <Outlet />
+            </TabPanel>
+          )}
         </TabPanels>
       </Tabs>
     </>
