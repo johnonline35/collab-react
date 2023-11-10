@@ -42,8 +42,8 @@ import CollabPageSettings from "../collabs/CollabPageSettings";
 import { SessionContext } from "../../privateRoute";
 
 export default function CollabPageHome() {
-  const session = useContext(SessionContext);
   const { workspace_id } = useParams();
+  const session = useContext(SessionContext);
   const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
