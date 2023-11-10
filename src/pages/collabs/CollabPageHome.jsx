@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate, useLocation, useParams, Outlet } from "react-router-dom";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { supabase } from "../../supabase/clientapp";
 import {
   FiCheck,
@@ -39,8 +39,10 @@ import { ArrowRightIcon, DeleteIcon } from "@chakra-ui/icons";
 
 import PreviousMeetings from "../../components/CollabPreviousMeetings";
 import CollabPageSettings from "../collabs/CollabPageSettings";
+import { SessionContext } from "../../privateRoute";
 
-export default function CollabPageHome({ session }) {
+export default function CollabPageHome() {
+  const session = useContext(SessionContext);
   const { workspace_id } = useParams();
   const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
