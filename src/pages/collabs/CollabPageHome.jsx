@@ -71,6 +71,19 @@ export default function CollabPageHome({ session }) {
     }
   }, [location]);
 
+  useEffect(() => {
+    // Check the URL and update the tabIndex state accordingly
+    const pathSegments = location.pathname.split("/");
+    // Assuming the path is like '/collabs/:workspace_id/:collab_user_note_id'
+    if (pathSegments[2] && pathSegments[3]) {
+      // If there is a collab_user_note_id in the URL, switch to the Notes tab
+      setTabIndex(2); // Index of the Notes tab
+    } else if (pathSegments[2]) {
+      // If there is only a workspace_id in the URL, switch to the Overview tab
+      setTabIndex(0); // Index of the Overview tab
+    }
+  }, [location, workspace_id]);
+
   const handleTabsChange = (index) => {
     setTabIndex(index);
     switch (index) {
