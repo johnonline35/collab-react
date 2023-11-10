@@ -140,10 +140,7 @@ function Router() {
           }
         >
           {/* Child routes for /collabs */}
-          <Route
-            path='collabs/:workspace_id'
-            element={<CollabPageHome session={session} />}
-          >
+          <Route path='collabs/:workspace_id' element={<CollabPageHome />}>
             <Route path=':collab_user_note_id' element={<CollabPageNotes />} />
             <Route path='team' element={<CollabPageTeam />} />
             <Route path='share' element={<CollabPageShowcase />} />
