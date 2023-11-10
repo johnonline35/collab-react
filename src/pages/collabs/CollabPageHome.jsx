@@ -607,7 +607,7 @@ export default function CollabPageHome({ session }) {
           <Tab>Overview</Tab>
           {/* <Tab>Notes</Tab> */}
           <Tab>Settings</Tab>
-          <Tab>Doc</Tab>
+          {/* <Tab>Doc</Tab> */}
         </TabList>
         <TabIndicator
           mt='-1.5px'
@@ -807,9 +807,9 @@ export default function CollabPageHome({ session }) {
               workspace_id={workspace_id}
             />
           </TabPanel>
-          <TabPanel>
+          {/* <TabPanel>
             <Outlet />
-          </TabPanel>
+          </TabPanel> */}
         </TabPanels>
       </Tabs>
     </>
