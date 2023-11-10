@@ -18,8 +18,8 @@ import {
   TabPanels,
   TabPanel,
 } from "@chakra-ui/react";
+import { useNavigate, useLocation, useParams, Outlet } from "react-router-dom";
 
-import { useParams, Outlet } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "../../supabase/clientapp";
 import {
@@ -42,7 +42,6 @@ import CollabPageSettings from "../collabs/CollabPageSettings";
 
 export default function CollabPageHome({ session }) {
   const { workspace_id } = useParams();
-
   const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
@@ -56,7 +55,40 @@ export default function CollabPageHome({ session }) {
   const [toDoList, setToDoList] = useState([]);
   const [notes, setNotes] = useState([]);
   const [meetingsNotes, setMeetingsNotes] = useState([]);
+  const [tabIndex, setTabIndex] = useState(0);
   const toast = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Check the URL and update the tabIndex state accordingly
+    if (location.pathname.endsWith("settings")) {
+      setTabIndex(1);
+    } else if (location.pathname.includes("notes")) {
+      setTabIndex(2);
+    } else {
+      setTabIndex(0);
+    }
+  }, [location]);
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+    switch (index) {
+      case 0:
+        // Navigate to the Overview tab URL
+        navigate(`/collabs/${workspace_id}`);
+        break;
+      case 1:
+        // Navigate to the Settings tab URL (You'll need to define this)
+        navigate(`/collabs/${workspace_id}/settings`);
+        break;
+      case 2:
+        // Navigate to the Notes tab URL (This should automatically be handled by the Outlet)
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     console.log("Session state has changed:", session);
@@ -670,7 +702,7 @@ export default function CollabPageHome({ session }) {
       <Text fontSize='xl' as='b'>
         {customerName}
       </Text>
-      <Tabs variant='unstyled'>
+      <Tabs variant='unstyled' index={tabIndex} onChange={handleTabsChange}>
         <TabList>
           <Tab>Overview</Tab>
 
