@@ -23,7 +23,7 @@ import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
 import useLexicalEditable from "@lexical/react/useLexicalEditable";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { CAN_USE_DOM } from "./shared/canUseDOM";
 
 import { createWebsocketProvider } from "./collaboration";
@@ -80,7 +80,8 @@ import BuildRapportPlugin from "./plugins/BuildRapportPlugin";
 import { publicEmailDomainsList } from "../utils/database";
 
 import FindAndStoreMentionPlugin from "./plugins/FindAndStoreMentionPlugin";
-import { useSession } from "../hooks/useSession";
+
+import { SessionContext } from "../privateRoute";
 
 const skipCollaborationInit =
   // @ts-ignore
@@ -93,7 +94,7 @@ type EditorPluginProps = {
 
 export default function Editor(): JSX.Element {
   const { workspace_id, collab_user_note_id } = useParams();
-  const session = useSession();
+  const session = useContext(SessionContext);
   const meetingData = useMeetingData(
     session,
     workspace_id,
