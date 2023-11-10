@@ -12,7 +12,8 @@ import {
 import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection";
 
 import { insertBeforeLastChild } from "../utils/insertBeforeLastChild";
-import { useSession } from "../../hooks/useSession";
+import { useContext } from "react";
+import { SessionContext } from "../privateRoute";
 
 const socketStub = (() => {
   const callbacks = {};
@@ -65,6 +66,7 @@ async function fetchSummary() {
 }
 
 export function $buildRapportNode() {
+  const session = useContext(SessionContext);
   const selection = getSelection();
 
   const icNode = $createParagraphNode();

@@ -17,17 +17,10 @@ import {
   Input,
   Link,
 } from "@chakra-ui/react";
-import { signout } from "../supabase/clientapp";
-import { useNavigate } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
-import { useSession } from "../hooks/useSession";
+
 import { AccountSwitcher } from "../NewDesign/AccountSwitcher";
 
 export default function Navbar(user) {
-  const navigate = useNavigate();
-  const toast = useToast();
-  const session = useSession();
-
   return (
     <Flex as='nav' pl='20px' pr='20px' alignItems='center' width='100%'>
       <Link href={`/dashboard`}>

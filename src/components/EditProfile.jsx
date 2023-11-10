@@ -17,9 +17,6 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { Dropzone } from "./Dropzone";
-import { useState, useEffect } from "react";
-import { supabase } from "../supabase/clientapp";
-import { useSession } from "../hooks/useSession";
 
 export default function EditProfile() {
   return (
