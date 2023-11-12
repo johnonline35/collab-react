@@ -11,11 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
 import { SessionContext } from "../privateRoute";
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 
-export const AccountSwitcher = () => {
+export const AccountSwitcher = React.memo(() => {
   const [email, setEmail] = useState();
   const session = useContext(SessionContext);
   const navigate = useNavigate();
@@ -140,4 +140,4 @@ export const AccountSwitcher = () => {
       </MenuList>
     </Menu>
   );
-};
+});
