@@ -25,6 +25,7 @@ export const AccountSwitcher = React.memo(() => {
     if (!session) return;
     const { user } = session;
     setEmail(user.email);
+    console.log("Session changed:", session);
   }, [session]);
 
   return (
