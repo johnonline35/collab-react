@@ -1,4 +1,4 @@
-import { UnlockIcon } from "@chakra-ui/icons";
+import { React } from "react";
 import {
   Box,
   Button,
@@ -20,7 +20,7 @@ import {
 
 import { AccountSwitcher } from "../NewDesign/AccountSwitcher";
 
-export default function Navbar(user) {
+const Navbar = React.memo(function Navbar() {
   return (
     <Flex as='nav' pl='20px' pr='20px' alignItems='center' width='100%'>
       <Link href={`/dashboard`}>
@@ -33,7 +33,9 @@ export default function Navbar(user) {
       </HStack>
     </Flex>
   );
-}
+});
+
+export default Navbar;
 
 //   return (
 //     <Flex as='nav' p='0px' mb='20px' alignItems='center'>
