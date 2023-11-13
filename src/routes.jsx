@@ -41,15 +41,14 @@ function Router() {
     }
     setLoading(false);
   }
-
-  const sessionValue = useMemo(() => ({ session }), [session]);
+  const memoizedSession = useMemo(() => session, [session]);
 
   useEffect(() => {
     getSessionCreateCookieStoreToken();
   }, []);
 
   return (
-    <SessionContext.Provider value={session}>
+    <SessionContext.Provider value={memoizedSession}>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/privacy' element={<Privacy />} />
