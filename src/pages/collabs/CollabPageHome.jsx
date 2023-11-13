@@ -59,7 +59,7 @@ export default function CollabPageHome() {
   const [meetingsNotes, setMeetingsNotes] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const [showNotesTab, setShowNotesTab] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isDirectOverviewAccess, setIsDirectOverviewAccess] = useState(true);
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -107,11 +107,10 @@ export default function CollabPageHome() {
   //   }
   // };
 
-  const fetchNextSteps = async (bypassCache = false) => {
+  const fetchNextSteps = async () => {
     setIsNextStepsLoading(true);
 
-    // Load from cache if not bypassing
-    if (!bypassCache) {
+    if (isDirectOverviewAccess) {
       const cachedData = sessionStorage.getItem(
         `nextSteps-${workspace_id}-${userId}`
       );
@@ -120,7 +119,6 @@ export default function CollabPageHome() {
       }
     }
 
-    // Always fetch from the database
     const { data, error } = await supabase
       .from("collab_users_next_steps")
       .select("*")
@@ -145,15 +143,15 @@ export default function CollabPageHome() {
     const tab = searchParams.get("tab");
     const pathSegments = location.pathname.split("/").filter(Boolean);
 
-    // Set the showNotesTab state to true if the URL indicates a specific note is selected
-    setShowNotesTab(pathSegments.length > 2);
-
     if (tab === "settings") {
-      setTabIndex(1); // Index for the Settings tab
+      setTabIndex(1);
+      setIsDirectOverviewAccess(false);
     } else if (pathSegments.length > 2) {
-      setTabIndex(2); // Index for the Notes tab
+      setTabIndex(2);
+      setIsDirectOverviewAccess(false);
     } else {
       setTabIndex(0); // Default to the Overview tab
+      fetchNextSteps(); // Fetch next steps on initial load
     }
   }, [location]);
 
@@ -162,17 +160,16 @@ export default function CollabPageHome() {
     switch (index) {
       case 0:
         navigate(`/collabs/${workspace_id}`);
-        if (!isInitialLoad) {
-          fetchNextSteps(true); // Fetch from database when Overview is clicked after initial load
+        if (!isDirectOverviewAccess) {
+          fetchNextSteps();
         }
-        setIsInitialLoad(false);
+        setIsDirectOverviewAccess(false);
         break;
       case 1:
         navigate(`/collabs/${workspace_id}?tab=settings`);
         break;
       case 2:
         // If the Notes tab requires specific navigation, handle it here
-        // otherwise, if it's handled by clicking on individual notes, you may not need to navigate
         break;
       default:
         break;
