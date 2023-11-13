@@ -67,6 +67,16 @@ const theme = extendTheme(
   proTheme
 );
 
+function preloadImages() {
+  const imagesToPreload = ["/img/collablogo-removebg-white.png"];
+  imagesToPreload.forEach((imageSrc) => {
+    const img = new Image();
+    img.src = imageSrc;
+  });
+}
+
+preloadImages();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <RecoilRoot>
