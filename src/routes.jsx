@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/LazyLoadDashboard";
 
@@ -42,12 +42,14 @@ function Router() {
     setLoading(false);
   }
 
+  const sessionValue = useMemo(() => ({ session }), [session]);
+
   useEffect(() => {
     getSessionCreateCookieStoreToken();
   }, []);
 
   return (
-    <SessionContext.Provider value={session}>
+    <SessionContext.Provider value={sessionValue}>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/privacy' element={<Privacy />} />
