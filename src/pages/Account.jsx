@@ -47,11 +47,11 @@ import {
   companyNameState,
 } from "../atoms/avatarAtom";
 
-export default function Account() {
+export default function Account({ userId }) {
   const [avatar, setAvatar] = useRecoilState(avatarState); // Use Recoil state
   const toast = useToast();
   const navigate = useNavigate();
-  const session = useContext(SessionContext);
+  // const session = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useRecoilState(userNameState);
@@ -62,32 +62,32 @@ export default function Account() {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [bio, setBio] = useState(null);
 
-  useEffect(() => {
-    if (session) {
-      setEmail(session.user?.email);
-      getProfile(); // Only call getProfile if session is not null
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session) {
+  //     setEmail(session.user?.email);
+  //     getProfile(); // Only call getProfile if session is not null
+  //   }
+  // }, [session]);
 
   const getProfile = async () => {
-    console.log("Session user:", session?.user);
-    const userId = session ? session.user.id : null;
+    // console.log("Session user:", session?.user);
+    // const userId = session ? session.user.id : null;
     console.log("avatarrecoil:", avatar);
 
     try {
       setLoading(true);
-      if (!session || !session.user) {
-        throw new Error("Not logged in");
-      }
-      const { user } = session;
-      console.log("user:", user);
+      // if (!session || !session.user) {
+      //   throw new Error("Not logged in");
+      // }
+      // const { user } = session;
+      // console.log("user:", user);
 
       let { data, error } = await supabase
         .from("collab_users")
         .select(
           `id, collab_user_name, collab_user_email, company_name, collab_user_job_title, collab_user_avatar_url, collab_user_socials, phone_number, bio`
         )
-        .eq("collab_user_email", user.email)
+        .eq("id", userId)
         .single();
 
       if (error) {
@@ -112,11 +112,11 @@ export default function Account() {
   };
 
   const updateProfile = async (e) => {
-    const userId = session ? session.user.id : null;
+    // const userId = session ? session.user.id : null;
 
     try {
       setLoading(true);
-      const { user } = session;
+      // const { user } = session;
 
       const updates = {
         collab_user_name: username,
@@ -132,7 +132,7 @@ export default function Account() {
       let { error } = await supabase
         .from("collab_users")
         .update(updates)
-        .eq("collab_user_email", user.email);
+        .eq("id", userId);
 
       if (error) {
         throw error;
