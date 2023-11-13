@@ -67,6 +67,8 @@ function Router() {
   }, [session]);
 
   const memoizedSession = useMemo(() => session, [session]);
+  const userEmail = useMemo(() => session?.user?.email, [session]);
+  const userId = useMemo(() => session?.user?.id, [session]);
 
   return (
     <SessionContext.Provider value={memoizedSession}>
