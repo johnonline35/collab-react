@@ -63,49 +63,6 @@ export default function CollabPageHome() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   // Check the URL and update the tabIndex state accordingly
-  //   if (location.pathname.endsWith("settings")) {
-  //     setTabIndex(1);
-  //   } else if (location.pathname.includes("notes")) {
-  //     setTabIndex(2);
-  //   } else {
-  //     setTabIndex(0);
-  //   }
-  // }, [location]);
-
-  // useEffect(() => {
-  //   // Check the URL and update the tabIndex state accordingly
-  //   const pathSegments = location.pathname.split("/");
-  //   // Assuming the path is like '/collabs/:workspace_id/:collab_user_note_id'
-  //   if (pathSegments[2] && pathSegments[3]) {
-  //     // If there is a collab_user_note_id in the URL, switch to the Notes tab
-  //     setTabIndex(2); // Index of the Notes tab
-  //   } else if (pathSegments[2]) {
-  //     // If there is only a workspace_id in the URL, switch to the Overview tab
-  //     setTabIndex(0); // Index of the Overview tab
-  //   }
-  // }, [location, workspace_id]);
-
-  // const handleTabsChange = (index) => {
-  //   setTabIndex(index);
-  //   switch (index) {
-  //     case 0:
-  //       // Navigate to the Overview tab URL
-  //       navigate(`/collabs/${workspace_id}`);
-  //       break;
-  //     case 1:
-  //       // Navigate to the Settings tab URL (You'll need to define this)
-  //       navigate(`/collabs/${workspace_id}/settings`);
-  //       break;
-  //     case 2:
-  //       // Navigate to the Notes tab URL (This should automatically be handled by the Outlet)
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
   const fetchNextSteps = async (bypassCache = false) => {
     setIsNextStepsLoading(true);
 
@@ -205,16 +162,6 @@ export default function CollabPageHome() {
 
     if (userId) {
       fetchNextSteps();
-      // setIsNextStepsLoading(true);
-      // fetchData(
-      //   `nextSteps-${workspace_id}-${userId}`,
-      //   supabase
-      //     .from("collab_users_next_steps")
-      //     .select("*")
-      //     .match({ workspace_id, collab_user_id: userId })
-      //     .neq("ignore", true),
-      //   setNextSteps
-      // ).finally(() => setIsNextStepsLoading(false));
 
       fetchData(
         `toDos-${workspace_id}-${userId}`,
@@ -243,139 +190,6 @@ export default function CollabPageHome() {
       setMembers
     );
   }, [workspace_id, userId, session]);
-
-  // useEffect(() => {
-  //   console.log("Session state has changed:", session);
-
-  //   if (!workspace_id) {
-  //     console.error("Invalid, or missing workspace_id'");
-  //     return;
-  //   }
-
-  //   if (userId) {
-  //     const fetchNextSteps = async () => {
-  //       setIsNextStepsLoading(true);
-
-  //       // Define a key for sessionStorage
-  //       const nextStepsKey = `nextSteps-${workspace_id}-${userId}`;
-  //       // Attempt to get cached data
-  //       const cachedNextSteps = sessionStorage.getItem(nextStepsKey);
-
-  //       if (cachedNextSteps) {
-  //         setNextSteps(JSON.parse(cachedNextSteps));
-  //       } else {
-  //         const { data, error } = await supabase
-  //           .from("collab_users_next_steps")
-  //           .select("*")
-  //           .match({
-  //             workspace_id: workspace_id,
-  //             collab_user_id: userId,
-  //           })
-  //           .neq("ignore", true);
-
-  //         if (error) {
-  //           console.error(error);
-  //         } else {
-  //           // Cache the data and update state
-  //           sessionStorage.setItem(nextStepsKey, JSON.stringify(data));
-  //           setNextSteps(data);
-  //         }
-  //       }
-
-  //       setIsNextStepsLoading(false);
-  //     };
-
-  //     const fetchToDos = async () => {
-  //       console.log("fetchToDos called");
-
-  //       // Define a key for sessionStorage
-  //       const toDosKey = `toDos-${workspace_id}-${userId}`;
-  //       // Attempt to get cached data
-  //       const cachedToDos = sessionStorage.getItem(toDosKey);
-
-  //       if (cachedToDos) {
-  //         setToDoList(JSON.parse(cachedToDos));
-  //       } else {
-  //         const { data, error } = await supabase
-  //           .from("collab_users_todos")
-  //           .select("*")
-  //           .match({
-  //             workspace_id: workspace_id,
-  //             collab_user_id: userId,
-  //           })
-  //           .neq("ignore", true);
-
-  //         if (error) {
-  //           console.error(error);
-  //         } else {
-  //           // Cache the data and update state
-  //           sessionStorage.setItem(toDosKey, JSON.stringify(data));
-  //           setToDoList(data);
-  //         }
-  //       }
-  //     };
-
-  //     fetchToDos();
-  //     fetchNextSteps();
-  //   }
-
-  //   const fetchMeetings = async () => {
-  //     // Define a key for sessionStorage
-  //     const meetingsKey = `meetings-${workspace_id}`;
-  //     // Attempt to get cached data
-  //     const cachedMeetings = sessionStorage.getItem(meetingsKey);
-
-  //     if (cachedMeetings) {
-  //       setMeetings(JSON.parse(cachedMeetings));
-  //     } else {
-  //       try {
-  //         let { data, error } = await supabase
-  //           .from("meetings")
-  //           .select("*")
-  //           .eq("workspace_id", workspace_id)
-  //           .order('"start_dateTime"', { ascending: false });
-
-  //         if (error) {
-  //           console.error("Error fetching meetings: ", error);
-  //           return;
-  //         }
-
-  //         // Cache the data and update state
-  //         sessionStorage.setItem(meetingsKey, JSON.stringify(data));
-  //         setMeetings(data);
-  //       } catch (error) {
-  //         console.error("Exception caught while fetching meetings: ", error);
-  //       }
-  //     }
-  //   };
-
-  //   fetchMeetings();
-  //   const fetchAttendees = async () => {
-  //     // Define a key for sessionStorage
-  //     const attendeesKey = `attendees-${workspace_id}`;
-  //     // Attempt to get cached data
-  //     const cachedAttendees = sessionStorage.getItem(attendeesKey);
-
-  //     if (cachedAttendees) {
-  //       setMembers(JSON.parse(cachedAttendees));
-  //     } else {
-  //       const { data, error } = await supabase
-  //         .from("attendees")
-  //         .select("*")
-  //         .eq("workspace_id", workspace_id);
-
-  //       if (error) {
-  //         console.error(error);
-  //       } else {
-  //         // Cache the data and update state
-  //         sessionStorage.setItem(attendeesKey, JSON.stringify(data));
-  //         setMembers(data);
-  //       }
-  //     }
-  //   };
-
-  //   fetchAttendees();
-  // }, [workspace_id, userId, session]);
 
   useEffect(() => {
     if (!userId || !workspace_id) {
