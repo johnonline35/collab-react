@@ -45,7 +45,7 @@ import { SessionContext } from "../privateRoute";
 import { fetchWorkspaces, getCompanyTileInfo } from "../utils/database";
 import DescriptionComponent from "../components/DescriptionComponent";
 
-export default function Dashboard() {
+export default function Dashboard({ userId }) {
   const [companyInfo, setCompanyInfo] = useState(null);
   const [loadingCards, setLoadingCards] = useState(false);
   const [loadedImages, setLoadedImages] = useState({});
@@ -54,8 +54,8 @@ export default function Dashboard() {
     loadedImages,
     setLoadedImages
   );
-  const [userId, setUserId] = useState(null);
-  const session = useContext(SessionContext);
+  // const [userId, setUserId] = useState(null);
+  // const session = useContext(SessionContext);
 
   const getGoogleCalEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -63,10 +63,10 @@ export default function Dashboard() {
   const setupGoogleCalendarWatchEndpoint =
     "https://collab-express-production.up.railway.app/setup-google-calendar-watch";
 
-  useEffect(() => {
-    const userId = session?.user.id;
-    setUserId(userId);
-  }, [session]);
+  // useEffect(() => {
+  //   const userId = session?.user.id;
+  //   setUserId(userId);
+  // }, [session]);
   // Fetch user session and set the userId
   const getGoogleCal = async (userId) => {
     if (!userId) return;

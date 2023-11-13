@@ -100,13 +100,16 @@ function Router() {
           </Route>
 
           {/* Child routes for /dashboard */}
-          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='dashboard' element={<Dashboard userId={userId} />} />
           <Route
             path='dashboard/mastertodolist'
             element={<MasterTodoList />}
             action={createAction}
           />
-          <Route path='dashboard/account' element={<Account />} />
+          <Route
+            path='dashboard/account'
+            element={<Account userId={userId} />}
+          />
         </Route>
 
         {/* Define any other routes that do not share the RootLayout outside of this group */}
