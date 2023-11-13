@@ -59,6 +59,7 @@ export default function CollabPageHome() {
   const [meetingsNotes, setMeetingsNotes] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const [showNotesTab, setShowNotesTab] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,6 +110,7 @@ export default function CollabPageHome() {
   const fetchNextSteps = async (bypassCache = false) => {
     setIsNextStepsLoading(true);
 
+    // Load from cache if not bypassing
     if (!bypassCache) {
       const cachedData = sessionStorage.getItem(
         `nextSteps-${workspace_id}-${userId}`
@@ -118,6 +120,7 @@ export default function CollabPageHome() {
       }
     }
 
+    // Always fetch from the database
     const { data, error } = await supabase
       .from("collab_users_next_steps")
       .select("*")
@@ -159,7 +162,10 @@ export default function CollabPageHome() {
     switch (index) {
       case 0:
         navigate(`/collabs/${workspace_id}`);
-        fetchNextSteps(true);
+        if (!isInitialLoad) {
+          fetchNextSteps(true); // Fetch from database when Overview is clicked after initial load
+        }
+        setIsInitialLoad(false);
         break;
       case 1:
         navigate(`/collabs/${workspace_id}?tab=settings`);
