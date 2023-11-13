@@ -22,20 +22,12 @@ import {
 export const AccountSwitcherButton = ({ userId, ...otherProps }) => {
   const buttonProps = useMenuButton(otherProps);
   const [avatar, setAvatar] = useRecoilState(avatarState);
-  // const session = useContext(SessionContext);
   const [userName, setUserName] = useRecoilState(userNameState);
   const [companyName, setCompanyName] = useRecoilState(companyNameState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      // if (!session) {
-      //   setLoading(false);
-      //   return;
-      // }
-
-      // const { user } = session;
-
       try {
         const { data, error } = await supabase
           .from("collab_users")
