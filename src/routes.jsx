@@ -1,3 +1,4 @@
+import isEqual from "lodash.isequal";
 import React, { useEffect, useState, useMemo } from "react";
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/LazyLoadDashboard";
@@ -21,52 +22,35 @@ import CollabPageNotes from "./pages/collabs/CollabPageNotes";
 import { createCookie, PrivateRoute, SessionContext } from "./privateRoute";
 import { supabase } from "./supabase/clientapp";
 import { storeRefreshToken } from "./utils/database";
-import isEqual from "lodash.isequal";
 
 function Router() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // async function getSessionCreateCookieStoreToken() {
-  //   const {
-  //     data: { session },
-  //   } = await supabase.auth.getSession();
-  //   if (session) {
-  //     createCookie("token", session.access_token, session.expires_in);
-  //     setSession(session);
-  //     const userId = session?.user.id;
+  useEffect(() => {
+    async function getSessionCreateCookieStoreToken() {
+      const {
+        data: { session: newSession },
+      } = await supabase.auth.getSession();
 
-  //     const refreshToken = session?.provider_refresh_token;
+      if (newSession) {
+        createCookie("token", newSession.access_token, newSession.expires_in);
+        const userId = newSession?.user.id;
+        const refreshToken = newSession?.provider_refresh_token;
+        await storeRefreshToken(userId, refreshToken);
 
-  //     await storeRefreshToken(userId, refreshToken);
-  //   }
-  //   setLoading(false);
-  // }
-
-  async function getSessionCreateCookieStoreToken() {
-    const {
-      data: { session: newSession },
-    } = await supabase.auth.getSession();
-
-    if (newSession) {
-      createCookie("token", newSession.access_token, newSession.expires_in);
-      const userId = newSession?.user.id;
-      const refreshToken = newSession?.provider_refresh_token;
-      await storeRefreshToken(userId, refreshToken);
-
-      // Only update the session state if it's different from the current state
-      if (!isEqual(newSession, session)) {
-        setSession(newSession);
+        if (!isEqual(newSession, session)) {
+          setSession(newSession);
+        }
       }
+
+      setLoading(false);
     }
 
-    setLoading(false);
-  }
-  const memoizedSession = useMemo(() => session, [session]);
-
-  useEffect(() => {
     getSessionCreateCookieStoreToken();
   }, []);
+
+  const memoizedSession = useMemo(() => session, [session]);
 
   return (
     <SessionContext.Provider value={memoizedSession}>
