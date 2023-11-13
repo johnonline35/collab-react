@@ -106,33 +106,35 @@ export default function CollabPageHome() {
   //   }
   // };
 
-  const fetchNextSteps = async () => {
+  const fetchNextSteps = async (bypassCache = false) => {
     setIsNextStepsLoading(true);
-    const cachedData = sessionStorage.getItem(
-      `nextSteps-${workspace_id}-${userId}`
-    );
 
-    if (cachedData) {
-      setNextSteps(JSON.parse(cachedData));
-      setIsNextStepsLoading(false);
-    } else {
-      const { data, error } = await supabase
-        .from("collab_users_next_steps")
-        .select("*")
-        .match({ workspace_id, collab_user_id: userId })
-        .neq("ignore", true);
-
-      if (error) {
-        console.error(error);
-      } else {
-        sessionStorage.setItem(
-          `nextSteps-${workspace_id}-${userId}`,
-          JSON.stringify(data)
-        );
-        setNextSteps(data);
+    if (!bypassCache) {
+      const cachedData = sessionStorage.getItem(
+        `nextSteps-${workspace_id}-${userId}`
+      );
+      if (cachedData) {
+        setNextSteps(JSON.parse(cachedData));
       }
-      setIsNextStepsLoading(false);
     }
+
+    const { data, error } = await supabase
+      .from("collab_users_next_steps")
+      .select("*")
+      .match({ workspace_id, collab_user_id: userId })
+      .neq("ignore", true);
+
+    if (error) {
+      console.error(error);
+    } else {
+      sessionStorage.setItem(
+        `nextSteps-${workspace_id}-${userId}`,
+        JSON.stringify(data)
+      );
+      setNextSteps(data);
+    }
+
+    setIsNextStepsLoading(false);
   };
 
   useEffect(() => {
@@ -157,7 +159,7 @@ export default function CollabPageHome() {
     switch (index) {
       case 0:
         navigate(`/collabs/${workspace_id}`);
-        fetchNextSteps();
+        fetchNextSteps(true);
         break;
       case 1:
         navigate(`/collabs/${workspace_id}?tab=settings`);
