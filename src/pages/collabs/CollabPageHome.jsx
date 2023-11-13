@@ -41,10 +41,10 @@ import PreviousMeetings from "../../components/CollabPreviousMeetings";
 import CollabPageSettings from "../collabs/CollabPageSettings";
 import { SessionContext } from "../../privateRoute";
 
-export default function CollabPageHome() {
+export default function CollabPageHome({ userId }) {
   const { workspace_id } = useParams();
-  const session = useContext(SessionContext);
-  const userId = session?.user.id;
+  // const session = useContext(SessionContext);
+  // const userId = session?.user.id;
   const [emailLink, setEmailLink] = useState();
   const [loadingToggle, setLoadingToggle] = useState(false);
   const [customerName, setCustomerName] = useState("");
@@ -133,8 +133,6 @@ export default function CollabPageHome() {
   };
 
   useEffect(() => {
-    console.log("Session state has changed:", session);
-
     if (!workspace_id) {
       console.error("Invalid, or missing workspace_id'");
       return;
@@ -189,7 +187,7 @@ export default function CollabPageHome() {
       supabase.from("attendees").select("*").eq("workspace_id", workspace_id),
       setMembers
     );
-  }, [workspace_id, userId, session]);
+  }, [workspace_id, userId]);
 
   useEffect(() => {
     if (!userId || !workspace_id) {

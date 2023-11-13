@@ -20,7 +20,7 @@ import {
 
 import { AccountSwitcher } from "../NewDesign/AccountSwitcher";
 
-export default function Navbar({ userEmail, userId }) {
+export default function Navbar({ userId }) {
   return (
     <Flex as='nav' pl='20px' pr='20px' alignItems='center' width='100%'>
       <Link href={`/dashboard`}>
@@ -29,7 +29,7 @@ export default function Navbar({ userEmail, userId }) {
       <Spacer />
 
       <HStack spacing='20px'>
-        <AccountSwitcher userEmail={userEmail} userId={userId} />
+        <AccountSwitcher userId={userId} />
       </HStack>
     </Flex>
   );
