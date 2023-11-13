@@ -15,21 +15,21 @@ import { useEffect, useState, useContext } from "react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 
-export const AccountSwitcher = () => {
+export const AccountSwitcher = ({ userEmail, userId }) => {
   const [email, setEmail] = useState();
-  const session = useContext(SessionContext);
+  // const session = useContext(SessionContext);
   const navigate = useNavigate();
   const toast = useToast();
 
-  useEffect(() => {
-    if (!session) return;
-    const { user } = session;
-    setEmail(user.email);
-  }, [session]);
+  // useEffect(() => {
+  //   if (!session) return;
+  //   const { user } = session;
+  //   setEmail(user.email);
+  // }, [session]);
 
   return (
     <Menu>
-      <AccountSwitcherButton session={session} />
+      <AccountSwitcherButton userEmail={userEmail} userId={userId} />
       <MenuList
         shadow='lg'
         py='4'
@@ -64,12 +64,12 @@ export const AccountSwitcher = () => {
           closeOnSelect='true'
           rounded='md'
           onClick={() => {
-            if (!session) {
-              console.error("No session found");
-              return;
-            }
+            // if (!session) {
+            //   console.error("No session found");
+            //   return;
+            // }
 
-            const userId = session.user.id;
+            // const userId = session.user.id;
 
             // First, try to stop the Google Calendar watch.
             fetch(

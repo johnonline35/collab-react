@@ -19,28 +19,28 @@ import {
   userNameState,
 } from "../atoms/avatarAtom";
 
-export const AccountSwitcherButton = (props) => {
-  const buttonProps = useMenuButton(props);
+export const AccountSwitcherButton = ({ userEmail, ...otherProps }) => {
+  const buttonProps = useMenuButton(otherProps);
   const [avatar, setAvatar] = useRecoilState(avatarState);
-  const session = useContext(SessionContext);
+  // const session = useContext(SessionContext);
   const [userName, setUserName] = useRecoilState(userNameState);
   const [companyName, setCompanyName] = useRecoilState(companyNameState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!session) {
-        setLoading(false);
-        return;
-      }
+      // if (!session) {
+      //   setLoading(false);
+      //   return;
+      // }
 
-      const { user } = session;
+      // const { user } = session;
 
       try {
         const { data, error } = await supabase
           .from("collab_users")
           .select("collab_user_avatar_url, collab_user_name, company_name")
-          .eq("collab_user_email", user.email)
+          .eq("collab_user_email", userEmail)
           .single();
 
         if (error) {
@@ -61,7 +61,7 @@ export const AccountSwitcherButton = (props) => {
     };
 
     fetchUserData();
-  }, [session, setAvatar, setCompanyName, setUserName]);
+  }, [userEmail, setAvatar, setCompanyName, setUserName]);
 
   return (
     <Flex
