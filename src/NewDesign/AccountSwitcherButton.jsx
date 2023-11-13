@@ -22,35 +22,46 @@ import {
 export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
   const [avatar, setAvatar] = useRecoilState(avatarState);
-
   const session = useContext(SessionContext);
-
   const [userName, setUserName] = useRecoilState(userNameState);
   const [companyName, setCompanyName] = useRecoilState(companyNameState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!session) return;
+      if (!session) {
+        setLoading(false);
+        return;
+      }
 
       const { user } = session;
 
-      const { data, error } = await supabase
-        .from("collab_users")
-        .select("collab_user_avatar_url, collab_user_name, company_name")
-        .eq("collab_user_email", user.email)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from("collab_users")
+          .select("collab_user_avatar_url, collab_user_name, company_name")
+          .eq("collab_user_email", user.email)
+          .single();
 
-      if (data && !error) {
-        setAvatar(data.collab_user_avatar_url); // Update Recoil state
-        setUserName(data.collab_user_name);
-        setCompanyName(data.company_name);
+        if (error) {
+          console.error("Error fetching user data:", error);
+          return;
+        }
+
+        if (data) {
+          setAvatar(data.collab_user_avatar_url); // Update Recoil state
+          setUserName(data.collab_user_name);
+          setCompanyName(data.company_name);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [session, setAvatar]);
+  }, [session, setAvatar, setCompanyName, setUserName]);
 
   return (
     <Flex
