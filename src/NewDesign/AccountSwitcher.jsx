@@ -15,7 +15,7 @@ import { useEffect, useState, useContext } from "react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 
-export const AccountSwitcher = ({ userEmail, userId }) => {
+export const AccountSwitcher = ({ userId }) => {
   const [email, setEmail] = useState();
   // const session = useContext(SessionContext);
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export const AccountSwitcher = ({ userEmail, userId }) => {
 
   return (
     <Menu>
-      <AccountSwitcherButton userEmail={userEmail} userId={userId} />
+      <AccountSwitcherButton userId={userId} />
       <MenuList
         shadow='lg'
         py='4'

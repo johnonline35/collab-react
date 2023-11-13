@@ -19,7 +19,7 @@ import {
   userNameState,
 } from "../atoms/avatarAtom";
 
-export const AccountSwitcherButton = ({ userEmail, ...otherProps }) => {
+export const AccountSwitcherButton = ({ userId, ...otherProps }) => {
   const buttonProps = useMenuButton(otherProps);
   const [avatar, setAvatar] = useRecoilState(avatarState);
   // const session = useContext(SessionContext);
@@ -40,7 +40,7 @@ export const AccountSwitcherButton = ({ userEmail, ...otherProps }) => {
         const { data, error } = await supabase
           .from("collab_users")
           .select("collab_user_avatar_url, collab_user_name, company_name")
-          .eq("collab_user_email", userEmail)
+          .eq("id", userId)
           .single();
 
         if (error) {
@@ -61,7 +61,7 @@ export const AccountSwitcherButton = ({ userEmail, ...otherProps }) => {
     };
 
     fetchUserData();
-  }, [userEmail, setAvatar, setCompanyName, setUserName]);
+  }, [userId, setAvatar, setCompanyName, setUserName]);
 
   return (
     <Flex
