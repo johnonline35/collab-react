@@ -21,9 +21,9 @@ import { $buildRapportNode } from "../../nodes/BuildRapportNode";
 
 export const INSERT_BUILD_RAPPORT_COMMAND = createCommand();
 
-export default function BuildRapportPlugin({ meetingData, session }) {
+export default function BuildRapportPlugin({ meetingData, userId }) {
   const [editor] = useLexicalComposerContext();
-  const userId = session?.user?.id;
+  // const userId = session?.user?.id;
 
   useEffect(() => {
     if (!meetingData || !userId) {

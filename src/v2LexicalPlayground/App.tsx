@@ -115,7 +115,11 @@ function prepopulatedRichText() {
   }
 }
 
-function App(): JSX.Element {
+interface PlaygroundAppProps {
+  userId: string;
+}
+
+function App({ userId }: PlaygroundAppProps): JSX.Element {
   const { workspace_id, collab_user_note_id } = useParams();
   const {
     settings: { isCollab, emptyEditor, measureTypingPerf },
@@ -141,7 +145,7 @@ function App(): JSX.Element {
               <ToolbarPlugin />
             </div>
             <div className='editor-shell'>
-              <Editor />
+              <Editor userId={userId} />
               <LocalStoragePlugin collab_user_note_id={collab_user_note_id} />
             </div>
             {/* <Settings />
@@ -157,10 +161,10 @@ function App(): JSX.Element {
   );
 }
 
-export default function PlaygroundApp(): JSX.Element {
+export default function PlaygroundApp(props: PlaygroundAppProps): JSX.Element {
   return (
     <SettingsContext>
-      <App />
+      <App {...props} />
     </SettingsContext>
   );
 }

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { fetchLexicalMeetingData } from "../../utils/database";
 import { supabase } from "../../supabase/clientapp";
 
-export function useMeetingData(session, workspace_id, collab_user_note_id) {
+export function useMeetingData(userId, workspace_id, collab_user_note_id) {
   const [meetingData, setMeetingData] = useState(null);
 
   useEffect(() => {
-    if (!session) return;
-    const userId = session?.user?.id;
+    // if (!session) return;
+    // const userId = session?.user?.id;
 
     async function fetchData() {
       try {
