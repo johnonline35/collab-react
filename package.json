@@ -41,6 +41,7 @@
     "lexical": "^0.12.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
+    "lodash.isequal": "^4.5.0",
     "peopledatalabs": "^5.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
