@@ -19,7 +19,7 @@ import {
   userNameState,
 } from "../atoms/avatarAtom";
 
-export const AccountSwitcherButton = React.memo((props) => {
+export const AccountSwitcherButton = (props) => {
   const buttonProps = useMenuButton(props);
   const [avatar, setAvatar] = useRecoilState(avatarState);
 
@@ -31,47 +31,26 @@ export const AccountSwitcherButton = React.memo((props) => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!session) {
-        setLoading(false);
-        return;
-      }
+      if (!session) return;
 
       const { user } = session;
 
-      try {
-        const { data, error } = await supabase
-          .from("collab_users")
-          .select("collab_user_avatar_url, collab_user_name, company_name")
-          .eq("collab_user_email", user.email)
-          .single();
+      const { data, error } = await supabase
+        .from("collab_users")
+        .select("collab_user_avatar_url, collab_user_name, company_name")
+        .eq("collab_user_email", user.email)
+        .single();
 
-        if (error) throw error;
-
-        if (data) {
-          if (data.collab_user_avatar_url !== avatar)
-            setAvatar(data.collab_user_avatar_url);
-          if (data.collab_user_name !== userName)
-            setUserName(data.collab_user_name);
-          if (data.company_name !== companyName)
-            setCompanyName(data.company_name);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
+      if (data && !error) {
+        setAvatar(data.collab_user_avatar_url); // Update Recoil state
+        setUserName(data.collab_user_name);
+        setCompanyName(data.company_name);
         setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [
-    session,
-    avatar,
-    userName,
-    companyName,
-    setAvatar,
-    setUserName,
-    setCompanyName,
-  ]);
+  }, [session, setAvatar]);
 
   return (
     <Flex
@@ -129,4 +108,4 @@ export const AccountSwitcherButton = React.memo((props) => {
       </Box>
     </Flex>
   );
-});
+};
