@@ -53,7 +53,7 @@ export default function Account({ userId }) {
   const navigate = useNavigate();
   // const session = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
+  // const [userId, setUserId] = useState(null);
   const [username, setUsername] = useRecoilState(userNameState);
   const [email, setEmail] = useState(null);
   const [companyname, setCompanyname] = useRecoilState(companyNameState);
@@ -96,7 +96,7 @@ export default function Account({ userId }) {
 
       if (data) {
         setUsername(data.collab_user_name);
-        setUserId(data.id);
+        // setUserId(data.id);
         setCompanyname(data.company_name);
         setJobTitle(data.collab_user_job_title);
         setAvatar(data.collab_user_avatar_url);
