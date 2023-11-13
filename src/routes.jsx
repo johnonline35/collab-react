@@ -67,6 +67,7 @@ function Router() {
   }, [session]);
 
   const memoizedSession = useMemo(() => session, [session]);
+  const userEmail = useMemo(() => session?.user?.email, [session]);
   const userId = useMemo(() => session?.user?.id, [session]);
 
   return (
@@ -80,15 +81,12 @@ function Router() {
         <Route
           element={
             <PrivateRoute>
-              <RootLayout userId={userId} />
+              <RootLayout userEmail={userEmail} userId={userId} />
             </PrivateRoute>
           }
         >
           {/* Child routes for /collabs */}
-          <Route
-            path='collabs/:workspace_id'
-            element={<CollabPageHome userId={userId} />}
-          >
+          <Route path='collabs/:workspace_id' element={<CollabPageHome />}>
             <Route path=':collab_user_note_id' element={<CollabPageNotes />} />
             <Route path='team' element={<CollabPageTeam />} />
             <Route path='share' element={<CollabPageShowcase />} />

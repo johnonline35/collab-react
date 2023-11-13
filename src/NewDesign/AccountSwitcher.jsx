@@ -10,22 +10,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
-import { SessionContext } from "../privateRoute";
+
 import { useEffect, useState, useContext } from "react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 
-export const AccountSwitcher = ({ userId }) => {
-  const [email, setEmail] = useState();
-  // const session = useContext(SessionContext);
+export const AccountSwitcher = ({ userEmail, userId }) => {
   const navigate = useNavigate();
   const toast = useToast();
-
-  // useEffect(() => {
-  //   if (!session) return;
-  //   const { user } = session;
-  //   setEmail(user.email);
-  // }, [session]);
 
   return (
     <Menu>
@@ -37,7 +29,7 @@ export const AccountSwitcher = ({ userId }) => {
         px='3'
       >
         <Text fontWeight='medium' mb='2'>
-          {email}
+          {userEmail}
         </Text>
         <MenuOptionGroup defaultValue='chakra-ui'>
           {/* <MenuItemOption value='chakra-ui' fontWeight='semibold' rounded='md'>
