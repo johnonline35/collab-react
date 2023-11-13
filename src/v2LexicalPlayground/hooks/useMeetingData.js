@@ -40,7 +40,7 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
     }
 
     fetchData();
-  }, [session, workspace_id, collab_user_note_id]);
+  }, [userId, workspace_id, collab_user_note_id]);
 
   return meetingData;
 }
