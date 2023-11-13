@@ -31,26 +31,47 @@ export const AccountSwitcherButton = React.memo((props) => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!session) return;
+      if (!session) {
+        setLoading(false);
+        return;
+      }
 
       const { user } = session;
 
-      const { data, error } = await supabase
-        .from("collab_users")
-        .select("collab_user_avatar_url, collab_user_name, company_name")
-        .eq("collab_user_email", user.email)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from("collab_users")
+          .select("collab_user_avatar_url, collab_user_name, company_name")
+          .eq("collab_user_email", user.email)
+          .single();
 
-      if (data && !error) {
-        setAvatar(data.collab_user_avatar_url); // Update Recoil state
-        setUserName(data.collab_user_name);
-        setCompanyName(data.company_name);
+        if (error) throw error;
+
+        if (data) {
+          if (data.collab_user_avatar_url !== avatar)
+            setAvatar(data.collab_user_avatar_url);
+          if (data.collab_user_name !== userName)
+            setUserName(data.collab_user_name);
+          if (data.company_name !== companyName)
+            setCompanyName(data.company_name);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchUserData();
-  }, [session, setAvatar]);
+  }, [
+    session,
+    avatar,
+    userName,
+    companyName,
+    setAvatar,
+    setUserName,
+    setCompanyName,
+  ]);
 
   return (
     <Flex
