@@ -49,7 +49,7 @@ function Router() {
   }, []);
 
   return (
-    <SessionContext.Provider value={sessionValue}>
+    <SessionContext.Provider value={session}>
       <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/privacy' element={<Privacy />} />
