@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { CharacterLimitPlugin } from "@lexical/react/LexicalCharacterLimitPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
@@ -92,14 +84,15 @@ type EditorPluginProps = {
   triggerEffect: boolean;
 };
 
-export default function Editor(): JSX.Element {
+interface EditorProps {
+  userId: string;
+  // Include other props as needed
+}
+
+export default function Editor({ userId }: EditorProps): JSX.Element {
   const { workspace_id, collab_user_note_id } = useParams();
-  const session = useContext(SessionContext);
-  const meetingData = useMeetingData(
-    session,
-    workspace_id,
-    collab_user_note_id
-  );
+  // const session = useContext(SessionContext);
+  const meetingData = useMeetingData(userId, workspace_id, collab_user_note_id);
   const { historyState } = useSharedHistoryContext();
   const {
     settings: {
@@ -193,12 +186,12 @@ export default function Editor(): JSX.Element {
           meetingData={meetingData}
           publicEmailDomains={publicEmailDomains}
         />
-        <BuildRapportPlugin meetingData={meetingData} session={session} />
+        <BuildRapportPlugin meetingData={meetingData} userId={userId} />
         <CreateStructurePlugin />
 
         <FindAndStoreMentionPlugin
           workspace_id={workspace_id}
-          session={session}
+          userId={userId}
         />
         <MentionsPlugin />
         <EmojisPlugin />

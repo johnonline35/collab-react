@@ -17,13 +17,13 @@ import PlaygroundApp from "../../v2LexicalPlayground/App";
 
 import CollabPageHome from "./CollabPageHome";
 
-export default function CollabPageNotes() {
+export default function CollabPageNotes({ userId }) {
   const params = useParams();
   console.log(params);
 
   return (
     <>
-      <PlaygroundApp />
+      <PlaygroundApp userId={userId} />
     </>
   );
 }

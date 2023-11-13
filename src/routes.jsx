@@ -90,7 +90,10 @@ function Router() {
             path='collabs/:workspace_id'
             element={<CollabPageHome userId={userId} />}
           >
-            <Route path=':collab_user_note_id' element={<CollabPageNotes />} />
+            <Route
+              path=':collab_user_note_id'
+              element={<CollabPageNotes userId={userId} />}
+            />
             <Route path='team' element={<CollabPageTeam />} />
             <Route path='share' element={<CollabPageShowcase />} />
             <Route path='files' element={<CollabPageAllAttachments />} />

@@ -9,7 +9,7 @@ import {
   storeTodo,
 } from "../../../utils/database";
 
-export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
+export default function FindAndStoreMentionPlugin({ workspace_id, userId }) {
   const [editor] = useLexicalComposerContext();
   const existingNextStepUuidsSet = useRef(new Set());
   const existingTodoUuidsSet = useRef(new Set());
@@ -17,7 +17,7 @@ export default function FindAndStoreMentionPlugin({ workspace_id, session }) {
   const latestTodoMap = useRef(new Map()).current;
   const handleEnterRef = useRef(null);
   const isProcessing = useRef(false);
-  const userId = session?.user?.id;
+  // const userId = session?.user?.id;
 
   // Fetch existing uuid's and set them for checking
   useEffect(() => {
