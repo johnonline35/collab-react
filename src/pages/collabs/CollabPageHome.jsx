@@ -144,7 +144,9 @@ export default function CollabPageHome() {
 
     // Set the showNotesTab state to true if the URL indicates a specific note is selected
     setShowNotesTab(pathSegments.length > 2);
-
+    if (tab === "overview") {
+      fetchNextSteps(); // Fetch from cache on initial load
+    }
     if (tab === "settings") {
       setTabIndex(1); // Index for the Settings tab
     } else if (pathSegments.length > 2) {
