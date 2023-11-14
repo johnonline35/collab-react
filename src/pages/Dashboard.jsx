@@ -112,8 +112,6 @@ export default function Dashboard({ userId }) {
       console.log("Google Calendar Watch successfully set up");
     } else {
       console.error("Error setting up Google Calendar Watch:", response.status);
-      const errorData = await response.json();
-      console.error("Error data:", errorData);
     }
   };
 
@@ -151,7 +149,7 @@ export default function Dashboard({ userId }) {
           cachedWorkspacesKey,
           JSON.stringify(dataForDashboard)
         );
-        // await setupGoogleCalendarWatch(userId);
+        await setupGoogleCalendarWatch(userId);
       } else if (workspacesToDisplay.length === 0) {
         await getGoogleCal(userId);
       }
