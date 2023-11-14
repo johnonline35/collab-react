@@ -24,13 +24,12 @@ export default function Navbar({
   userEmail,
   userId,
   avatar,
-  setAvatar,
+
   userName,
-  setUserName,
+
   companyName,
-  setCompanyName,
+
   loading,
-  setLoading,
 }) {
   return (
     <Flex as='nav' pl='20px' pr='20px' alignItems='center' width='100%'>

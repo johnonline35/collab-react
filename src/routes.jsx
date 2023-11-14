@@ -23,8 +23,18 @@ import { createCookie, PrivateRoute, SessionContext } from "./privateRoute";
 import { supabase } from "./supabase/clientapp";
 import { storeRefreshToken } from "./utils/database";
 
+import { useRecoilState } from "recoil";
+import {
+  avatarState,
+  companyNameState,
+  userNameState,
+} from "../atoms/avatarAtom";
+
 function Router() {
   const [session, setSession] = useState(null);
+  const [avatar, setAvatar] = useRecoilState(avatarState);
+  const [userName, setUserName] = useRecoilState(userNameState);
+  const [companyName, setCompanyName] = useRecoilState(companyNameState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,8 +53,6 @@ function Router() {
           setSession(newSession);
         }
       }
-
-      setLoading(false);
     }
 
     getSessionCreateCookieStoreToken();
@@ -53,6 +61,35 @@ function Router() {
   const memoizedSession = useMemo(() => session, [session]);
   const userEmail = useMemo(() => session?.user?.email, [session]);
   const userId = useMemo(() => session?.user?.id, [session]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("collab_users")
+          .select("collab_user_avatar_url, collab_user_name, company_name")
+          .eq("id", userId)
+          .single();
+
+        if (error) {
+          console.error("Error fetching user data:", error);
+          return;
+        }
+
+        if (data) {
+          setAvatar(data.collab_user_avatar_url); // Update Recoil state
+          setUserName(data.collab_user_name);
+          setCompanyName(data.company_name);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [userId, setAvatar, setCompanyName, setUserName]);
 
   return (
     <SessionContext.Provider value={memoizedSession}>
@@ -65,7 +102,14 @@ function Router() {
         <Route
           element={
             <PrivateRoute>
-              <RootLayout userEmail={userEmail} userId={userId} />
+              <RootLayout
+                userEmail={userEmail}
+                userId={userId}
+                avatar={avatar}
+                userName={userName}
+                companyName={companyName}
+                loading={loading}
+              />
             </PrivateRoute>
           }
         >
