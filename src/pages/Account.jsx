@@ -1,12 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
 import { supabase } from "../supabase/clientapp";
-import {
-  ChatIcon,
-  CheckCircleIcon,
-  EmailIcon,
-  StarIcon,
-  WarningIcon,
-} from "@chakra-ui/icons";
+
 import {
   List,
   ListIcon,
@@ -37,9 +31,6 @@ import {
 import { Dropzone } from "../components/Dropzone";
 import EditProfile from "../components/EditProfile";
 
-import { SessionContext } from "../privateRoute";
-
-import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import {
   avatarState,
@@ -48,12 +39,11 @@ import {
 } from "../atoms/avatarAtom";
 
 export default function Account({ userId }) {
-  const [avatar, setAvatar] = useRecoilState(avatarState); // Use Recoil state
+  const [avatar, setAvatar] = useRecoilState(avatarState);
   const toast = useToast();
-  const navigate = useNavigate();
-  // const session = useContext(SessionContext);
+
   const [loading, setLoading] = useState(true);
-  // const [userId, setUserId] = useState(null);
+
   const [username, setUsername] = useRecoilState(userNameState);
   const [email, setEmail] = useState(null);
   const [companyname, setCompanyname] = useRecoilState(companyNameState);
@@ -62,16 +52,7 @@ export default function Account({ userId }) {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [bio, setBio] = useState(null);
 
-  // useEffect(() => {
-  //   if (session) {
-  //     setEmail(session.user?.email);
-  //     getProfile(); // Only call getProfile if session is not null
-  //   }
-  // }, [session]);
-
   const getProfile = async () => {
-    // console.log("Session user:", session?.user);
-    // const userId = session ? session.user.id : null;
     console.log("avatarrecoil:", avatar);
 
     try {

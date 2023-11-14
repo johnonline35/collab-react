@@ -11,17 +11,28 @@ import {
 } from "@chakra-ui/react";
 import { AccountSwitcherButton } from "./AccountSwitcherButton";
 
-import { useEffect, useState, useContext } from "react";
 import { signout } from "../supabase/clientapp";
 import { useNavigate } from "react-router-dom";
 
-export const AccountSwitcher = ({ userEmail, userId }) => {
+export const AccountSwitcher = ({
+  userEmail,
+  userId,
+  avatar,
+  userName,
+  companyName,
+  loading,
+}) => {
   const navigate = useNavigate();
   const toast = useToast();
 
   return (
     <Menu>
-      <AccountSwitcherButton userId={userId} />
+      <AccountSwitcherButton
+        avatar={avatar}
+        userName={userName}
+        companyName={companyName}
+        loading={loading}
+      />
       <MenuList
         shadow='lg'
         py='4'

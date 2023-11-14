@@ -20,7 +20,18 @@ import {
 
 import { AccountSwitcher } from "../NewDesign/AccountSwitcher";
 
-export default function Navbar({ userEmail, userId }) {
+export default function Navbar({
+  userEmail,
+  userId,
+  avatar,
+  setAvatar,
+  userName,
+  setUserName,
+  companyName,
+  setCompanyName,
+  loading,
+  setLoading,
+}) {
   return (
     <Flex as='nav' pl='20px' pr='20px' alignItems='center' width='100%'>
       <Link href={`/dashboard`}>
@@ -29,7 +40,14 @@ export default function Navbar({ userEmail, userId }) {
       <Spacer />
 
       <HStack spacing='20px'>
-        <AccountSwitcher userEmail={userEmail} userId={userId} />
+        <AccountSwitcher
+          userEmail={userEmail}
+          userId={userId}
+          avatar={avatar}
+          userName={userName}
+          companyName={companyName}
+          loading={loading}
+        />
       </HStack>
     </Flex>
   );
