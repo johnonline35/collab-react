@@ -43,7 +43,9 @@ export default function RootLayout({ userEmail, userId }) {
     };
 
     fetchUserData();
-  }, [userId, setAvatar, setCompanyName, setUserName]);
+  }, [userId]);
+
+  //, setAvatar, setCompanyName, setUserName
 
   return (
     <Grid templateColumns='repeat(6, 1fr)' bg='gray.50'>

@@ -24,11 +24,8 @@ export default function Navbar({
   userEmail,
   userId,
   avatar,
-
   userName,
-
   companyName,
-
   loading,
 }) {
   return (
