@@ -27,22 +27,6 @@ function Router() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // async function getSessionCreateCookieStoreToken() {
-  //   const {
-  //     data: { session },
-  //   } = await supabase.auth.getSession();
-  //   if (session) {
-  //     createCookie("token", session.access_token, session.expires_in);
-  //     setSession(session);
-  //     const userId = session?.user.id;
-
-  //     const refreshToken = session?.provider_refresh_token;
-
-  //     await storeRefreshToken(userId, refreshToken);
-  //   }
-  //   setLoading(false);
-  // }
-
   useEffect(() => {
     async function getSessionCreateCookieStoreToken() {
       const {
