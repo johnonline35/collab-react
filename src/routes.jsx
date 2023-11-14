@@ -28,7 +28,7 @@ import {
   avatarState,
   companyNameState,
   userNameState,
-} from "../atoms/avatarAtom";
+} from "./atoms/avatarAtom";
 
 function Router() {
   const [session, setSession] = useState(null);
