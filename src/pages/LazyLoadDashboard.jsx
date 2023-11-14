@@ -64,10 +64,10 @@ export function DashboardLoader() {
   );
 }
 
-function Dashboard() {
+function Dashboard({ userId }) {
   return (
     <Suspense fallback={<DashboardLoader />}>
-      <LazyLoadDashboard />
+      <LazyLoadDashboard userId={userId} />
     </Suspense>
   );
 }
