@@ -28,7 +28,7 @@ import {
   Image,
   Icon,
 } from "@chakra-ui/react";
-import { useEffect, useState, useCallback, useContext } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import { DashboardLoader } from "./LazyLoadDashboard";
 import { useImageLoaded } from "../hooks/useImageLoaded";
@@ -39,8 +39,6 @@ import { IoMdPeople } from "react-icons/io";
 // import { AiFillFacebook } from "react-icons/ai";
 import { GrFacebook, GrLinkedin, GrTwitter } from "react-icons/gr";
 import { formatTime } from "../hooks/useFormatTime";
-
-import { SessionContext } from "../privateRoute";
 
 import { fetchWorkspaces, getCompanyTileInfo } from "../utils/database";
 import DescriptionComponent from "../components/DescriptionComponent";
@@ -54,8 +52,6 @@ export default function Dashboard({ userId }) {
     loadedImages,
     setLoadedImages
   );
-  // const [userId, setUserId] = useState(null);
-  // const session = useContext(SessionContext);
 
   const getGoogleCalEndpoint =
     "https://collab-express-production.up.railway.app/";
@@ -157,30 +153,6 @@ export default function Dashboard({ userId }) {
       console.error("Error loading workspaces:", error);
     }
   }, [userId]);
-
-  // const loadWorkspaces = useCallback(async () => {
-  //   if (!userId) return;
-
-  //   try {
-  //     const workspaces = await fetchWorkspaces(userId);
-
-  //     console.log("workspaces before filter:", workspaces);
-
-  //     const workspacesToDisplay = workspaces.filter(
-  //       (workspace) => workspace.enrich_and_display
-  //     );
-
-  //     if (workspacesToDisplay.length >= 1) {
-  //       const dataForDashboard = await getCompanyTileInfo(userId);
-  //       setCompanyInfo(dataForDashboard);
-  //       // await setupGoogleCalendarWatch(userId);
-  //     } else if (workspacesToDisplay.length === 0) {
-  //       await getGoogleCal(userId);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error loading workspaces:", error);
-  //   }
-  // }, [userId]);
 
   useEffect(() => {
     if (userId) {
