@@ -59,16 +59,10 @@ export default function Dashboard({ userId }) {
   const setupGoogleCalendarWatchEndpoint =
     "https://collab-express-production.up.railway.app/setup-google-calendar-watch";
 
-  // useEffect(() => {
-  //   const userId = session?.user.id;
-  //   setUserId(userId);
-  // }, [session]);
-  // Fetch user session and set the userId
   const getGoogleCal = async (userId) => {
     if (!userId) return;
 
-    console.log("NEWuserId:", userId);
-    console.log("Starting getGoogleCal");
+    console.log("Starting getGoogleCal for user:", userId);
 
     const response = await fetch(getGoogleCalEndpoint, {
       method: "POST",
