@@ -25,7 +25,7 @@ export default function MeetingDetailsPlugin({
   return null;
 }
 
-// export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
+export const INSERT_MEETING_DETAILS_COMMAND = createCommand();
 
 // export default function MeetingDetailsPlugin({
 //   meetingData,
