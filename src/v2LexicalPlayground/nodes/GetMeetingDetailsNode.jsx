@@ -52,18 +52,14 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 
   const attendeesContainer = $createQuoteNode();
 
-  // This flag will track if we've processed any valid attendees
-  let hasValidAttendees = false;
-
   meetingDetails.attendees.forEach((attendee) => {
-    if (
+    let shouldDisplayCompanyInfo =
       !publicEmailDomains.includes(attendee.attendee_domain) &&
       (attendee.attendee_domain ||
         attendee.job_company_linkedin_url ||
-        attendee.job_company_twitter_url)
-    ) {
-      hasValidAttendees = true; // We've found a valid attendee, so we'll set our flag to true
+        attendee.job_company_twitter_url);
 
+    if (shouldDisplayCompanyInfo) {
       const companyParagraph = $createParagraphNode();
       companyParagraph.append(
         $createTextNode(
@@ -111,7 +107,8 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
     }
 
     const attendeeParagraph = $createParagraphNode();
-    let attendeeText = "";
+    let attendeeText = attendee.attendee_email || ""; // Default to email if other details are not available
+
     if (attendee.attendee_name) {
       attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
     }
@@ -124,6 +121,7 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
     if (attendeeText) {
       attendeeParagraph.append($createTextNode(attendeeText));
     }
+
     if (attendee.attendee_linkedin) {
       attendeeParagraph.append($createTextNode(" | "));
       const linkedinLinkNode = createLinkNodeWithText(
@@ -145,11 +143,7 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
     attendeesContainer.append(attendeeParagraph);
   });
 
-  // Here we check if we've processed any valid attendees. If we have, we append the attendeesContainer to nodesToAdd.
-  if (hasValidAttendees) {
-    nodesToAdd.push(attendeesContainer);
-  }
-
+  nodesToAdd.push(attendeesContainer);
   nodesToAdd.push($createParagraphNode());
 
   if (root.getFirstChild() !== null) {
