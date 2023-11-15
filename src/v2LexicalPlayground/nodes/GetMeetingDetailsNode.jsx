@@ -158,6 +158,31 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
   }
 }
 
+// const socketStub = (() => {
+//   const callbacks = {};
+
+//   const on = (event, callback) => {
+//     callbacks[event] = callback;
+//   };
+
+//   const emit = (event, data) => {
+//     // noop
+//   };
+
+//   const trigger = async () => {
+//     let count = 0;
+//     while (count < 50) {
+//       await new Promise((resolve) => setTimeout(resolve, 1000));
+//       callbacks["responseChunk"]({
+//         content: "Hello from BUILD_RAPPORT 2",
+//       });
+//       count++;
+//     }
+//   };
+
+//   return { on, emit, trigger };
+// })();
+
 // export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 //   const root = $getRoot();
 
