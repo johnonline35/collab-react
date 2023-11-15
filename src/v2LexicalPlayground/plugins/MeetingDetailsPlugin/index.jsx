@@ -20,7 +20,7 @@ export default function MeetingDetailsPlugin({
         $createMeetingDetailsNode(m, publicEmailDomains);
       });
     });
-  }, [editor]);
+  }, [editor, meetingData]);
 
   return null;
 }
