@@ -59,6 +59,7 @@ export default function CollabPageHome({ userId }) {
   const [meetingsNotes, setMeetingsNotes] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const [showNotesTab, setShowNotesTab] = useState(false);
+  const [workspaceLogo, setWorkspaceLogo] = useState("");
   const toast = useToast();
   const navigate = useNavigate();
   const location = useLocation();
@@ -136,6 +137,32 @@ export default function CollabPageHome({ userId }) {
     if (!workspace_id) {
       console.error("Invalid, or missing workspace_id'");
       return;
+    }
+
+    const fetchWorkspaceLogo = async () => {
+      const key = `workspace-logo-${workspace_id}`;
+      let logoSrc = localStorage.getItem(key);
+
+      if (!logoSrc) {
+        const { data, error } = await supabase.rpc("fetch_workspace_logo", {
+          _workspace_id: workspace_id,
+        });
+
+        if (error) {
+          console.error("Error fetching workspace logo:", error);
+        } else if (data && data.length > 0) {
+          logoSrc = data[0].icon_src; // Assuming the data returned is an array with the logo source
+          localStorage.setItem(key, logoSrc); // Storing in local storage
+        }
+      }
+
+      // Assuming you have a state setter for the logo URL
+      setWorkspaceLogo(logoSrc); // Update the state with the logo URL
+      console.log({ logoSrc: logoSrc });
+    };
+
+    if (workspace_id) {
+      fetchWorkspaceLogo();
     }
 
     const fetchData = async (key, supabaseQuery, setState) => {
