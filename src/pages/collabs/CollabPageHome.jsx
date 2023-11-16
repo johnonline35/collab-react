@@ -623,12 +623,7 @@ export default function CollabPageHome({ userId }) {
       {" "}
       <Flex gap={1}>
         {/* <Box position='relative'> */}
-        <Avatar
-          bg='white'
-          boxSize='10'
-          transform='translateY(50%)'
-          src={workspaceLogo}
-        />
+        <Avatar bg='white' boxSize='5' src={workspaceLogo} />
         {/* </Box> */}
         <Text fontSize='xl' as='b'>
           {customerName}
