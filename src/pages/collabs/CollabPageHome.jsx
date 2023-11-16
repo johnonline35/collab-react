@@ -621,7 +621,7 @@ export default function CollabPageHome({ userId }) {
   return (
     <>
       {" "}
-      <Flex gap={1}>
+      <Flex gap={2}>
         {/* <Box position='relative'> */}
         <Avatar bg='white' boxSize='6' src={workspaceLogo} />
         {/* </Box> */}
