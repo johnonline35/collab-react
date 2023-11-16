@@ -53,6 +53,15 @@ export const TeamMemberStack = ({
     }
   };
 
+  const sortedMembers = members.sort((a, b) => {
+    // Check if any of the members is a workspace lead
+    if (a.attendee_is_workspace_lead) return -1;
+    if (b.attendee_is_workspace_lead) return 1;
+
+    // Sort the rest alphanumerically by UUID
+    return a.attendee_id.localeCompare(b.attendee_id);
+  });
+
   return (
     <Center
       maxW='sm'
@@ -64,7 +73,7 @@ export const TeamMemberStack = ({
     >
       <Box bg='bg-surface' py='4' w='100%'>
         <Stack divider={<StackDivider />} spacing='4'>
-          {members.map((member) => {
+          {sortedMembers.map((member) => {
             const handleNameChange = (value) => {
               dispatch({
                 type: "updateInfo",
