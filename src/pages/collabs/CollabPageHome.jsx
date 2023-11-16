@@ -624,10 +624,8 @@ export default function CollabPageHome({ userId }) {
       <Flex gap={5}>
         <Box position='relative'>
           <Avatar
-            position='absolute'
-            zIndex='10'
-            left='20px'
             bg='white'
+            boxSize='10'
             transform='translateY(50%)'
             src={workspaceLogo}
           />
