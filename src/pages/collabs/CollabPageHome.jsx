@@ -637,7 +637,7 @@ export default function CollabPageHome({ userId }) {
         <Avatar
           // bg='white'
           boxSize='6'
-          bg={!avatarSrc ? "blue.400" : undefined} // Set background color to blue.400 if there's no image
+          bg={avatarSrc ? "white" : "blue.400"} // Set background color to blue.400 if there's no image
           src={avatarSrc}
         />
         <Text fontSize='xl' as='b' style={{ marginTop: "-3px" }}>
