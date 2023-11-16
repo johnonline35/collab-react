@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   SimpleGrid,
   Stack,
@@ -138,30 +139,26 @@ export default function CollabPageHome({ userId }) {
       console.error("Invalid, or missing workspace_id'");
       return;
     }
-
-    const fetchWorkspaceLogo = async () => {
-      const key = `workspace-logo-${workspace_id}`;
-      let logoSrc = localStorage.getItem(key);
-
-      if (!logoSrc) {
-        const { data, error } = await supabase.rpc("fetch_workspace_logo", {
-          _workspace_id: workspace_id,
-        });
-
-        if (error) {
-          console.error("Error fetching workspace logo:", error);
-        } else if (data && data.length > 0) {
-          logoSrc = data[0].icon_src; // Assuming the data returned is an array with the logo source
-          localStorage.setItem(key, logoSrc); // Storing in local storage
-        }
-      }
-
-      // Assuming you have a state setter for the logo URL
-      setWorkspaceLogo(logoSrc); // Update the state with the logo URL
-      console.log({ logoSrc: logoSrc });
-    };
-
     if (workspace_id) {
+      const fetchWorkspaceLogo = async () => {
+        const key = `workspace-logo-${workspace_id}`;
+        let logoSrc = localStorage.getItem(key);
+
+        if (!logoSrc) {
+          const { data, error } = await supabase.rpc("fetch_workspace_logo", {
+            _workspace_id: workspace_id,
+          });
+
+          if (error) {
+            console.error("Error fetching workspace logo:", error);
+          } else if (data && data.length > 0) {
+            logoSrc = data[0].icon_src;
+            localStorage.setItem(key, logoSrc);
+          }
+        }
+
+        setWorkspaceLogo(logoSrc);
+      };
       fetchWorkspaceLogo();
     }
 
@@ -624,9 +621,21 @@ export default function CollabPageHome({ userId }) {
   return (
     <>
       {" "}
-      <Text fontSize='xl' as='b'>
-        {customerName}
-      </Text>
+      <Flex gap={5}>
+        <Box position='relative'>
+          <Avatar
+            position='absolute'
+            zIndex='10'
+            left='20px'
+            bg='white'
+            transform='translateY(50%)'
+            src={workspaceLogo}
+          />
+        </Box>
+        <Text fontSize='xl' as='b'>
+          {customerName}
+        </Text>
+      </Flex>
       <Tabs variant='unstyled' index={tabIndex} onChange={handleTabsChange}>
         <TabList>
           <Tab>Overview</Tab>
