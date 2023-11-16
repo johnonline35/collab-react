@@ -618,13 +618,28 @@ export default function CollabPageHome({ userId }) {
 
   const boxSize = "20px";
   //
+
+  const workspaceLeadAvatar = members.find(
+    (member) => member.attendee_is_workspace_lead
+  )?.attendee_avatar;
+  const avatarSrc =
+    workspaceLogo ||
+    (workspaceLogo === null || workspaceLogo === undefined
+      ? workspaceLeadAvatar
+      : null);
+
   return (
     <>
       {" "}
       <Flex gap={2}>
         {/* <Box position='relative'> */}
-        <Avatar bg='white' boxSize='6' src={workspaceLogo} />
-        {/* </Box> */}
+        {/* <Avatar bg='white' boxSize='6' src={workspaceLogo} /> */}
+        <Avatar
+          // bg='white'
+          boxSize='6'
+          bg={!avatarSrc ? "blue.400" : undefined} // Set background color to blue.400 if there's no image
+          src={avatarSrc}
+        />
         <Text fontSize='xl' as='b' style={{ marginTop: "-3px" }}>
           {customerName}
         </Text>
