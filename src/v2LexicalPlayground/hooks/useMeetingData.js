@@ -20,6 +20,7 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
 
         if (noteData) {
           const insertedMeetingDetails = noteData.inserted_meeting_details;
+          const noteId = noteData.collab_user_note_id;
           const nextMeetingId = noteData.meeting_id;
 
           const meetingInfo = await fetchLexicalMeetingData(
@@ -30,6 +31,7 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
 
           if (meetingInfo) {
             meetingInfo.insertedMeetingDetails = insertedMeetingDetails;
+            meetingInfo.noteId = noteId;
             setMeetingData(meetingInfo);
           }
         }

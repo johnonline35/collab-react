@@ -67,7 +67,7 @@ export const fetchLexicalMeetingData = async (
     nextMeetingDate: nextMeetingDate,
     attendees: detailedAttendees,
     user_timezone: collabUser.data.collab_user_timezone,
-    meetingId: nextMeetingId,
+    nextMeetingId: nextMeetingId,
     collabUserId: userId,
   };
 
