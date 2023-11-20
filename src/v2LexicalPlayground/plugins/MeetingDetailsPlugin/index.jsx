@@ -15,15 +15,14 @@ export default function MeetingDetailsPlugin({
       return;
     }
 
-    if (!meetingData.insertedMeetingDetails) {
-      editor.update(() => {
-        meetingData.forEach((m) => {
+    meetingData.forEach((m) => {
+      // Check if insertedMeetingDetails is null or false for each meeting item
+      if (!m.insertedMeetingDetails) {
+        editor.update(() => {
           $createMeetingDetailsNode(m, publicEmailDomains);
         });
-      });
-
-      //
-    }
+      }
+    });
   }, [editor, meetingData]);
 
   return null;
