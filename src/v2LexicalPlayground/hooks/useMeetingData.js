@@ -22,20 +22,16 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
           const insertedMeetingDetails = noteData.inserted_meeting_details;
           const noteId = noteData.collab_user_note_id;
           const nextMeetingId = noteData.meeting_id;
-          console.log({ insertedMeetingDetails: insertedMeetingDetails });
 
           const meetingInfo = await fetchLexicalMeetingData(
             userId,
             workspace_id,
-            nextMeetingId
+            nextMeetingId,
+            insertedMeetingDetails,
+            noteId
           );
 
-          if (meetingInfo) {
-            meetingInfo.insertedMeetingDetails = insertedMeetingDetails;
-            meetingInfo.noteId = noteId;
-            console.log({ meetingInfo: meetingInfo });
-            setMeetingData(meetingInfo);
-          }
+          setMeetingData(meetingInfo);
         }
       } catch (err) {
         console.error("Error fetching meeting data:", err);

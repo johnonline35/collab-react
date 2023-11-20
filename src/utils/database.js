@@ -3,7 +3,9 @@ import { supabase } from "../supabase/clientapp";
 export const fetchLexicalMeetingData = async (
   userId,
   workspace_id,
-  nextMeetingId
+  nextMeetingId,
+  insertedMeetingDetails,
+  noteId
 ) => {
   // Prepare promises for concurrent fetching
   const collabUserPromise = supabase
@@ -69,6 +71,8 @@ export const fetchLexicalMeetingData = async (
     user_timezone: collabUser.data.collab_user_timezone,
     nextMeetingId: nextMeetingId,
     collabUserId: userId,
+    insertedMeetingBoolean: insertedMeetingDetails,
+    noteId: noteId,
   };
 
   console.log("meetingDetails:", meetingDetails);
