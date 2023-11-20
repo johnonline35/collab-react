@@ -33,6 +33,7 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
           if (meetingInfo) {
             meetingInfo.insertedMeetingDetails = insertedMeetingDetails;
             meetingInfo.noteId = noteId;
+            console.log({ meetingInfo: meetingInfo });
             setMeetingData(meetingInfo);
           }
         }
