@@ -2,6 +2,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { createCommand, COMMAND_PRIORITY_EDITOR } from "lexical";
 import { $createMeetingDetailsNode } from "../../nodes/GetMeetingDetailsNode";
 import { useEffect } from "react";
+import { supabase } from "../../../supabase/clientapp";
 
 export default function MeetingDetailsPlugin({
   meetingData,
@@ -15,15 +16,31 @@ export default function MeetingDetailsPlugin({
       return;
     }
 
-    meetingData.forEach((m) => {
+    meetingData.forEach(async (m) => {
       // Check if insertedMeetingDetails is null or false for each meeting item
       if (!m.insertedMeetingDetails) {
         editor.update(() => {
           $createMeetingDetailsNode(m, publicEmailDomains);
         });
+
+        // Update the Supabase table
+        try {
+          const { error } = await supabase
+            .from("collab_users_notes")
+            .update({ inserted_meeting_details: true })
+            .eq("collab_user_note_id", m.noteId);
+
+          if (error) {
+            throw error;
+          }
+
+          console.log(`Updated insertedMeetingDetails for noteId: ${m.noteId}`);
+        } catch (err) {
+          console.error(`Error updating Supabase for noteId: ${m.noteId}`, err);
+        }
       }
     });
-  }, [editor, meetingData]);
+  }, [editor, meetingData, supabase]);
 
   return null;
 }
