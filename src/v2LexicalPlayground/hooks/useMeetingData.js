@@ -6,12 +6,8 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
   const [meetingData, setMeetingData] = useState(null);
 
   useEffect(() => {
-    // if (!session) return;
-    // const userId = session?.user?.id;
-
     async function fetchData() {
       try {
-        // Fetch the note data asynchronously
         let { data: noteData, error } = await supabase
           .from("collab_users_notes")
           .select("*")
@@ -23,6 +19,7 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
         }
 
         if (noteData) {
+          const insertedMeetingDetails = noteData.inserted_meeting_details;
           const nextMeetingId = noteData.meeting_id;
 
           const meetingInfo = await fetchLexicalMeetingData(
@@ -31,10 +28,12 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
             nextMeetingId
           );
 
-          setMeetingData(meetingInfo);
+          if (meetingInfo) {
+            meetingInfo.insertedMeetingDetails = insertedMeetingDetails;
+            setMeetingData(meetingInfo);
+          }
         }
       } catch (err) {
-        // Handle errors, for example by setting some error state or logging
         console.error("Error fetching meeting data:", err);
       }
     }
