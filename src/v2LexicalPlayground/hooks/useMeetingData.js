@@ -31,7 +31,9 @@ export function useMeetingData(userId, workspace_id, collab_user_note_id) {
             noteId
           );
 
-          setMeetingData(meetingInfo);
+          if (meetingInfo) {
+            setMeetingData(meetingInfo);
+          }
         }
       } catch (err) {
         console.error("Error fetching meeting data:", err);
