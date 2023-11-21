@@ -192,6 +192,7 @@ export default function Editor({ userId }: EditorProps): JSX.Element {
         <FindAndStoreMentionPlugin
           workspace_id={workspace_id}
           userId={userId}
+          collab_user_note_id={collab_user_note_id}
         />
         <MentionsPlugin />
         <EmojisPlugin />
