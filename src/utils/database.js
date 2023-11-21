@@ -155,13 +155,20 @@ export const fetchTodoUuids = async (workspace_id, userId) => {
   return null;
 };
 
-export const storeNextStep = async (workspace_id, userId, uuid, content) => {
+export const storeNextStep = async (
+  workspace_id,
+  userId,
+  uuid,
+  content,
+  collab_user_note_id
+) => {
   const response = await supabase.from("collab_users_next_steps").insert([
     {
       workspace_id: workspace_id,
       collab_user_id: userId,
       collab_user_next_steps_id: uuid,
       nextstep_content: content,
+      collab_user_note_id: collab_user_note_id,
     },
   ]);
 

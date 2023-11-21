@@ -9,7 +9,11 @@ import {
   storeTodo,
 } from "../../../utils/database";
 
-export default function FindAndStoreMentionPlugin({ workspace_id, userId }) {
+export default function FindAndStoreMentionPlugin({
+  workspace_id,
+  userId,
+  collab_user_note_id,
+}) {
   const [editor] = useLexicalComposerContext();
   const existingNextStepUuidsSet = useRef(new Set());
   const existingTodoUuidsSet = useRef(new Set());
@@ -65,7 +69,8 @@ export default function FindAndStoreMentionPlugin({ workspace_id, userId }) {
             workspace_id,
             userId,
             uuid,
-            content
+            content,
+            collab_user_note_id
           );
 
           if (response && response.success) {
