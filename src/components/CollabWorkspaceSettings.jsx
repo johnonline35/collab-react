@@ -23,31 +23,31 @@ export const CollabWorkspaceSettings = ({
   loadingToggle,
   workspace_id,
 }) => {
-  const [name, setName] = useState(customerName);
+  // const [name, setName] = useState(customerName);
 
-  useEffect(() => {
-    setName(customerName);
-  }, [customerName]);
+  // useEffect(() => {
+  //   setName(customerName);
+  // }, [customerName]);
 
-  const handleNameChange = (value) => {
-    setName(value);
-  };
+  // const handleNameChange = (value) => {
+  //   setName(value);
+  // };
 
-  const handleNameSubmit = async (value) => {
-    await updateWorkspaceName(value); // Call updateWorkspaceName function
-    handleCustomerNameChange(value);
-  };
+  // const handleNameSubmit = async (value) => {
+  //   await updateWorkspaceName(value); // Call updateWorkspaceName function
+  //   handleCustomerNameChange(value);
+  // };
 
-  const updateWorkspaceName = async (newName) => {
-    const { data, error } = await supabase
-      .from("workspaces")
-      .update({ workspace_name: newName })
-      .eq("workspace_id", workspace_id);
+  // const updateWorkspaceName = async (newName) => {
+  //   const { data, error } = await supabase
+  //     .from("workspaces")
+  //     .update({ workspace_name: newName })
+  //     .eq("workspace_id", workspace_id);
 
-    if (error) {
-      console.error("Error updating workspace name:", error);
-    }
-  };
+  //   if (error) {
+  //     console.error("Error updating workspace name:", error);
+  //   }
+  // };
 
   return (
     <Box
@@ -67,11 +67,11 @@ export const CollabWorkspaceSettings = ({
           // }}
         >
           <Stack spacing='5' divider={<StackDivider />}>
-            <Stack spacing='1'>
+            {/* <Stack spacing='1'>
               <Text fontSize='md' fontWeight='medium'>
                 Edit Workspace Name:
               </Text>
-              {/* {children} */}
+              
               <Editable
                 fontSize='md'
                 color='muted'
@@ -82,7 +82,7 @@ export const CollabWorkspaceSettings = ({
                 <EditablePreview />
                 <EditableInput />
               </Editable>
-            </Stack>
+            </Stack> */}
             <Stack justify='space-between' direction='row' spacing='4'>
               <Stack spacing='0.5' fontSize='sm'>
                 <Text color='emphasized' fontWeight='medium'>
