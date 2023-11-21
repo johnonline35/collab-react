@@ -676,7 +676,7 @@ export default function CollabPageHome({ userId }) {
           fontSize='xl'
           color='muted'
           as='b'
-          style={{ marginTop: "-3px" }}
+          // style={{ marginTop: "-3px" }}
           onChange={handleNameChange} // handle input changes
           onSubmit={handleNameSubmit} // update parent state when editing is finished
           value={name}
