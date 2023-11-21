@@ -4,6 +4,9 @@ import {
   SimpleGrid,
   Stack,
   ListIcon,
+  Editable,
+  EditableInput,
+  EditablePreview,
   ListItem,
   List,
   IconButton,
@@ -628,6 +631,32 @@ export default function CollabPageHome({ userId }) {
       ? workspaceLeadAvatar
       : null);
 
+  const [name, setName] = useState(customerName);
+
+  useEffect(() => {
+    setName(customerName);
+  }, [customerName]);
+
+  const handleNameChange = (value) => {
+    setName(value);
+  };
+
+  const handleNameSubmit = async (value) => {
+    await updateWorkspaceName(value); // Call updateWorkspaceName function
+    handleCustomerNameChange(value);
+  };
+
+  const updateWorkspaceName = async (newName) => {
+    const { data, error } = await supabase
+      .from("workspaces")
+      .update({ workspace_name: newName })
+      .eq("workspace_id", workspace_id);
+
+    if (error) {
+      console.error("Error updating workspace name:", error);
+    }
+  };
+
   return (
     <>
       {" "}
@@ -640,9 +669,19 @@ export default function CollabPageHome({ userId }) {
           bg={avatarSrc ? "white" : "blue.400"} // Set background color to blue.400 if there's no image
           src={avatarSrc}
         />
-        <Text fontSize='xl' as='b' style={{ marginTop: "-3px" }}>
+        {/* <Text fontSize='xl' as='b' style={{ marginTop: "-3px" }}>
           {customerName}
-        </Text>
+        </Text> */}
+        <Editable
+          fontSize='md'
+          color='muted'
+          onChange={handleNameChange} // handle input changes
+          onSubmit={handleNameSubmit} // update parent state when editing is finished
+          value={name}
+        >
+          <EditablePreview />
+          <EditableInput />
+        </Editable>
       </Flex>
       <Tabs variant='unstyled' index={tabIndex} onChange={handleTabsChange}>
         <TabList>
