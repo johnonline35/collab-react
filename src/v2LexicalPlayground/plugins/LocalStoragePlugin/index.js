@@ -24,8 +24,6 @@ export function LocalStoragePlugin({ collab_user_note_id }) {
           );
 
         if (error) throw error;
-
-        console.log("Saved to database:", data);
       } catch (error) {
         console.error("Error saving to database:", error);
       }
@@ -42,7 +40,7 @@ export function LocalStoragePlugin({ collab_user_note_id }) {
       return;
     }
 
-    console.log("LOCAL STORAGE NOTE ID:", collab_user_note_id);
+    // console.log("LOCAL STORAGE NOTE ID:", collab_user_note_id);
 
     return editor.registerUpdateListener(
       ({ editorState, dirtyElements, dirtyLeaves }) => {
