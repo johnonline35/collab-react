@@ -1,9 +1,6 @@
 import {
   Box,
   Container,
-  Editable,
-  EditableInput,
-  EditablePreview,
   Stack,
   StackDivider,
   Switch,
@@ -11,44 +8,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { useEffect, useState } from "react";
-import { supabase } from "../supabase/clientapp";
-
 export const CollabWorkspaceSettings = ({
-  customerName,
-  handleCustomerNameChange,
   emailLink,
   setEmailLink,
   updateEmailToggle,
   loadingToggle,
   workspace_id,
 }) => {
-  // const [name, setName] = useState(customerName);
-
-  // useEffect(() => {
-  //   setName(customerName);
-  // }, [customerName]);
-
-  // const handleNameChange = (value) => {
-  //   setName(value);
-  // };
-
-  // const handleNameSubmit = async (value) => {
-  //   await updateWorkspaceName(value); // Call updateWorkspaceName function
-  //   handleCustomerNameChange(value);
-  // };
-
-  // const updateWorkspaceName = async (newName) => {
-  //   const { data, error } = await supabase
-  //     .from("workspaces")
-  //     .update({ workspace_name: newName })
-  //     .eq("workspace_id", workspace_id);
-
-  //   if (error) {
-  //     console.error("Error updating workspace name:", error);
-  //   }
-  // };
-
   return (
     <Box
       as='section'
@@ -67,22 +33,6 @@ export const CollabWorkspaceSettings = ({
           // }}
         >
           <Stack spacing='5' divider={<StackDivider />}>
-            {/* <Stack spacing='1'>
-              <Text fontSize='md' fontWeight='medium'>
-                Edit Workspace Name:
-              </Text>
-              
-              <Editable
-                fontSize='md'
-                color='muted'
-                onChange={handleNameChange} // handle input changes
-                onSubmit={handleNameSubmit} // update parent state when editing is finished
-                value={name}
-              >
-                <EditablePreview />
-                <EditableInput />
-              </Editable>
-            </Stack> */}
             <Stack justify='space-between' direction='row' spacing='4'>
               <Stack spacing='0.5' fontSize='sm'>
                 <Text color='emphasized' fontWeight='medium'>
