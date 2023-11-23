@@ -26,7 +26,29 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 
   let nodesToAdd = [];
 
-  // ... [Your existing code for Next Meeting Date] ...
+  // Next Meeting Date
+  const timeZone = meetingDetails.user_timezone;
+  const zonedDate = utcToZonedTime(
+    new Date(meetingDetails.nextMeetingDate),
+    timeZone
+  );
+  let formattedNextMeetingDate = format(zonedDate, "EEEE, MMMM d, h:mma", {
+    timeZone,
+  })
+    .replace("AM", "am")
+    .replace("PM", "pm");
+  if (
+    formattedNextMeetingDate.endsWith(":00am") ||
+    formattedNextMeetingDate.endsWith(":00pm")
+  ) {
+    formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
+  }
+
+  const meetingDateNode = $createHeadingNode("h2").append(
+    $createTextNode(formattedNextMeetingDate)
+  );
+  nodesToAdd.push(meetingDateNode);
+  nodesToAdd.push($createParagraphNode());
 
   const attendeesContainer = $createQuoteNode();
 
