@@ -73,8 +73,6 @@ import { publicEmailDomainsList } from "../utils/database";
 
 import FindAndStoreMentionPlugin from "./plugins/FindAndStoreMentionPlugin";
 
-import { SessionContext } from "../privateRoute";
-
 const skipCollaborationInit =
   // @ts-ignore
   window.parent != null && window.parent.frames.right === window;
@@ -86,7 +84,6 @@ type EditorPluginProps = {
 
 interface EditorProps {
   userId: string;
-  // Include other props as needed
 }
 
 export default function Editor({ userId }: EditorProps): JSX.Element {
