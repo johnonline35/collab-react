@@ -26,91 +26,53 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 
   let nodesToAdd = [];
 
-  // Next Meeting Date
-  const timeZone = meetingDetails.user_timezone;
-  const zonedDate = utcToZonedTime(
-    new Date(meetingDetails.nextMeetingDate),
-    timeZone
-  );
-  let formattedNextMeetingDate = format(zonedDate, "EEEE, MMMM d, h:mma", {
-    timeZone,
-  })
-    .replace("AM", "am")
-    .replace("PM", "pm");
-  if (
-    formattedNextMeetingDate.endsWith(":00am") ||
-    formattedNextMeetingDate.endsWith(":00pm")
-  ) {
-    formattedNextMeetingDate = formattedNextMeetingDate.replace(":00", "");
-  }
-
-  const meetingDateNode = $createHeadingNode("h2").append(
-    $createTextNode(formattedNextMeetingDate)
-  );
-  nodesToAdd.push(meetingDateNode);
-  nodesToAdd.push($createParagraphNode());
+  // ... [Your existing code for Next Meeting Date] ...
 
   const attendeesContainer = $createQuoteNode();
 
+  // Grouping attendees based on the information available
+  const companies = [];
+  const attendeesWithSocialProfiles = [];
+  const attendeesWithNameAndJob = [];
+  const attendeesWithNameOnly = [];
+  const attendeesWithEmailOnly = [];
+
   meetingDetails.attendees.forEach((attendee) => {
-    let shouldDisplayCompanyInfo =
+    let isCompany =
       !publicEmailDomains.includes(attendee.attendee_domain) &&
       (attendee.attendee_domain ||
         attendee.job_company_linkedin_url ||
         attendee.job_company_twitter_url);
 
-    if (shouldDisplayCompanyInfo) {
-      const companyParagraph = $createParagraphNode();
-      companyParagraph.append(
-        $createTextNode(
-          meetingDetails.workspaceName + " Company Information | "
-        )
-      );
+    let hasSocialProfile =
+      attendee.attendee_linkedin || attendee.attendee_twitter;
+    let hasNameAndJob = attendee.attendee_name && attendee.attendee_job_title;
+    let hasNameOnly = attendee.attendee_name && !attendee.attendee_job_title;
 
-      let companyLinks = [];
-      if (attendee.attendee_domain) {
-        companyLinks.push(
-          createLinkNodeWithText(
-            attendee.attendee_domain,
-            "Website",
-            "Company Website"
-          )
-        );
-      }
-      if (attendee.job_company_linkedin_url) {
-        companyLinks.push(
-          createLinkNodeWithText(
-            attendee.job_company_linkedin_url,
-            "LinkedIn",
-            "Company LinkedIn"
-          )
-        );
-      }
-      if (attendee.job_company_twitter_url) {
-        companyLinks.push(
-          createLinkNodeWithText(
-            attendee.job_company_twitter_url,
-            "Twitter",
-            "Company Twitter"
-          )
-        );
-      }
-
-      for (let i = 0; i < companyLinks.length; i++) {
-        companyParagraph.append(companyLinks[i]);
-        if (i !== companyLinks.length - 1) {
-          companyParagraph.append($createTextNode(" | "));
-        }
-      }
-
-      attendeesContainer.append(companyParagraph);
+    if (isCompany) {
+      companies.push(attendee);
+    } else if (hasSocialProfile) {
+      attendeesWithSocialProfiles.push(attendee);
+    } else if (hasNameAndJob) {
+      attendeesWithNameAndJob.push(attendee);
+    } else if (hasNameOnly) {
+      attendeesWithNameOnly.push(attendee);
+    } else {
+      attendeesWithEmailOnly.push(attendee);
     }
+  });
 
+  // Function to create and append attendee paragraph
+  function appendAttendeeParagraph(attendee) {
     const attendeeParagraph = $createParagraphNode();
     let attendeeText = attendee.attendee_email || ""; // Default to email if other details are not available
 
     if (attendee.attendee_name) {
       attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
+      // Append email for attendees with name only
+      if (!attendee.attendee_job_title) {
+        attendeeText += ", " + attendee.attendee_email;
+      }
     }
     if (attendee.attendee_job_title) {
       const attendeeJobTitle = capitalizeFirstLetterOfEachWord(
@@ -140,8 +102,24 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
       );
       attendeeParagraph.append(twitterLinkNode);
     }
+
     attendeesContainer.append(attendeeParagraph);
-  });
+  }
+
+  // Rendering companies first
+  companies.forEach(appendAttendeeParagraph);
+
+  // Rendering attendees with social profiles
+  attendeesWithSocialProfiles.forEach(appendAttendeeParagraph);
+
+  // Rendering attendees with name and job title
+  attendeesWithNameAndJob.forEach(appendAttendeeParagraph);
+
+  // Rendering attendees with name only (including email)
+  attendeesWithNameOnly.forEach(appendAttendeeParagraph);
+
+  // Rendering attendees with email only
+  attendeesWithEmailOnly.forEach(appendAttendeeParagraph);
 
   nodesToAdd.push(attendeesContainer);
   nodesToAdd.push($createParagraphNode());
@@ -158,46 +136,10 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
   }
 }
 
-// const socketStub = (() => {
-//   const callbacks = {};
-
-//   const on = (event, callback) => {
-//     callbacks[event] = callback;
-//   };
-
-//   const emit = (event, data) => {
-//     // noop
-//   };
-
-//   const trigger = async () => {
-//     let count = 0;
-//     while (count < 50) {
-//       await new Promise((resolve) => setTimeout(resolve, 1000));
-//       callbacks["responseChunk"]({
-//         content: "Hello from BUILD_RAPPORT 2",
-//       });
-//       count++;
-//     }
-//   };
-
-//   return { on, emit, trigger };
-// })();
-
 // export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 //   const root = $getRoot();
 
 //   let nodesToAdd = [];
-
-//   // Workspace Name Heading
-//   const workspaceNameNode = $createHeadingNode("h1")
-//     .append(
-//       $createTextNode(meetingDetails.workspaceName).setStyle(
-//         "font-weight: bold"
-//       )
-//     )
-//     .setFormat("center");
-//   nodesToAdd.push(workspaceNameNode);
-//   nodesToAdd.push($createParagraphNode()); // An empty line after heading
 
 //   // Next Meeting Date
 //   const timeZone = meetingDetails.user_timezone;
@@ -225,18 +167,14 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 
 //   const attendeesContainer = $createQuoteNode();
 
-//   // This flag will track if we've processed any valid attendees
-//   let hasValidAttendees = false;
-
 //   meetingDetails.attendees.forEach((attendee) => {
-//     if (
+//     let shouldDisplayCompanyInfo =
 //       !publicEmailDomains.includes(attendee.attendee_domain) &&
 //       (attendee.attendee_domain ||
 //         attendee.job_company_linkedin_url ||
-//         attendee.job_company_twitter_url)
-//     ) {
-//       hasValidAttendees = true; // We've found a valid attendee, so we'll set our flag to true
+//         attendee.job_company_twitter_url);
 
+//     if (shouldDisplayCompanyInfo) {
 //       const companyParagraph = $createParagraphNode();
 //       companyParagraph.append(
 //         $createTextNode(
@@ -284,7 +222,8 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 //     }
 
 //     const attendeeParagraph = $createParagraphNode();
-//     let attendeeText = "";
+//     let attendeeText = attendee.attendee_email || ""; // Default to email if other details are not available
+
 //     if (attendee.attendee_name) {
 //       attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
 //     }
@@ -297,6 +236,7 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 //     if (attendeeText) {
 //       attendeeParagraph.append($createTextNode(attendeeText));
 //     }
+
 //     if (attendee.attendee_linkedin) {
 //       attendeeParagraph.append($createTextNode(" | "));
 //       const linkedinLinkNode = createLinkNodeWithText(
@@ -318,11 +258,7 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 //     attendeesContainer.append(attendeeParagraph);
 //   });
 
-//   // Here we check if we've processed any valid attendees. If we have, we append the attendeesContainer to nodesToAdd.
-//   if (hasValidAttendees) {
-//     nodesToAdd.push(attendeesContainer);
-//   }
-
+//   nodesToAdd.push(attendeesContainer);
 //   nodesToAdd.push($createParagraphNode());
 
 //   if (root.getFirstChild() !== null) {
@@ -336,3 +272,28 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
 //     }
 //   }
 // }
+
+// const socketStub = (() => {
+//   const callbacks = {};
+
+//   const on = (event, callback) => {
+//     callbacks[event] = callback;
+//   };
+
+//   const emit = (event, data) => {
+//     // noop
+//   };
+
+//   const trigger = async () => {
+//     let count = 0;
+//     while (count < 50) {
+//       await new Promise((resolve) => setTimeout(resolve, 1000));
+//       callbacks["responseChunk"]({
+//         content: "Hello from BUILD_RAPPORT 2",
+//       });
+//       count++;
+//     }
+//   };
+
+//   return { on, emit, trigger };
+// })();
