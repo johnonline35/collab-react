@@ -48,6 +48,8 @@ export const fetchLexicalMeetingData = async (
   // Map attendees data to gather required details
   const detailedAttendees = await Promise.all(
     attendees.map(async (attendee) => {
+      if (!attendee) return null;
+
       let { data: detailedInfo } = await supabase
         .from("attendees")
         .select(
@@ -63,11 +65,15 @@ export const fetchLexicalMeetingData = async (
     })
   );
 
+  const validAttendees = detailedAttendees.filter(
+    (attendee) => attendee !== null && attendee !== undefined
+  );
+
   // Construct meeting data object
   const meetingDetails = {
     workspaceName: workspaces.data[0].workspace_name,
     nextMeetingDate: nextMeetingDate,
-    attendees: detailedAttendees,
+    attendees: validAttendees,
     user_timezone: collabUser.data.collab_user_timezone,
     nextMeetingId: nextMeetingId,
     collabUserId: userId,
