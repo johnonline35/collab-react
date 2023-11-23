@@ -220,8 +220,7 @@ export default function Dashboard({ userId }) {
                   })
                   .map((info) => {
                     const displayName = info.attendee_name || null;
-                    const displayTitle =
-                      info.attendee_job_title || info.attendee_email;
+                    const displayTitle = info.attendee_job_title || null;
 
                     return (
                       <Card
