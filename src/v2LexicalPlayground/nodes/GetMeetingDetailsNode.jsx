@@ -66,6 +66,54 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
         attendee.job_company_linkedin_url ||
         attendee.job_company_twitter_url);
 
+    // New functionality: Display company information
+    if (isCompany) {
+      const companyParagraph = $createParagraphNode();
+      companyParagraph.append(
+        $createTextNode(
+          meetingDetails.workspaceName + " Company Information | "
+        )
+      );
+
+      let companyLinks = [];
+      if (attendee.attendee_domain) {
+        companyLinks.push(
+          createLinkNodeWithText(
+            attendee.attendee_domain,
+            "Website",
+            "Company Website"
+          )
+        );
+      }
+      if (attendee.job_company_linkedin_url) {
+        companyLinks.push(
+          createLinkNodeWithText(
+            attendee.job_company_linkedin_url,
+            "LinkedIn",
+            "Company LinkedIn"
+          )
+        );
+      }
+      if (attendee.job_company_twitter_url) {
+        companyLinks.push(
+          createLinkNodeWithText(
+            attendee.job_company_twitter_url,
+            "Twitter",
+            "Company Twitter"
+          )
+        );
+      }
+
+      for (let i = 0; i < companyLinks.length; i++) {
+        companyParagraph.append(companyLinks[i]);
+        if (i !== companyLinks.length - 1) {
+          companyParagraph.append($createTextNode(" | "));
+        }
+      }
+
+      attendeesContainer.append(companyParagraph);
+    }
+
     let hasSocialProfile =
       attendee.attendee_linkedin || attendee.attendee_twitter;
     let hasNameAndJob = attendee.attendee_name && attendee.attendee_job_title;
@@ -92,7 +140,10 @@ export function $createMeetingDetailsNode(meetingDetails, publicEmailDomains) {
     if (attendee.attendee_name) {
       attendeeText = capitalizeFirstLetterOfEachWord(attendee.attendee_name);
       // Append email for attendees with name only
-      if (!attendee.attendee_job_title) {
+      if (
+        !attendee.attendee_job_title &&
+        (!attendee.attendee_linkedin || !attendee.attendee_twitter)
+      ) {
         attendeeText += ", " + attendee.attendee_email;
       }
     }
